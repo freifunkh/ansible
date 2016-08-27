@@ -4,9 +4,10 @@
 
 ### dependency tree
 ```
-─── batman ─┬─ fastd_mesh ─┬─ fastd_mesh_remotes_backbone
-            |              └─ fastd_mesh_remotes_peers_git
-            └─ dummytap
+─┬─ batman ─┬─ fastd_mesh ─┬─ fastd_mesh_remotes_backbone
+ |          |              └─ fastd_mesh_remotes_peers_git
+ |          └─ dummytap
+ └─ cli_tools
 ```
 
 ### overview
@@ -19,3 +20,5 @@
     - host vars: ```fastd_mesh_mac, fastd_mesh_secret```
     - doesn't work without remotes role
 - **fastd_mesh_remotes_\*:** adds remotes to fastd_mesh
+- **cli_tools:**
+  - ```netcat-openbsd```

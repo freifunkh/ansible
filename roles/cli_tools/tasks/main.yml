@@ -1,0 +1,4 @@
+---
+
+- name: Install netcat-openbsd
+  apt: name=netcat-openbsd
