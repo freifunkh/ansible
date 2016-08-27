@@ -1,0 +1,4 @@
+---
+fastd_mesh_iface: fastd_mesh
+fastd_mesh_port: 10000
+fastd_mesh_mtu: 1280

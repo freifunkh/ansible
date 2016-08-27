@@ -1,0 +1,20 @@
+log to stderr level debug2;
+interface "{{ fastd_mesh_iface }}";
+
+method "salsa2012+umac";
+bind 0.0.0.0:{{ fastd_mesh_port }};
+
+hide ip addresses yes;
+hide mac addresses yes;
+
+include "secret.conf";
+mtu {{ fastd_mesh_mtu }};
+
+include "remotes.conf";
+
+status socket "/var/run/fastd.{{ fastd_mesh_iface }}.sock";
+
+on up "
+ chmod o+rw /var/run/fastd.{{ fastd_mesh_iface }}.sock
+ ifup {{ fastd_mesh_iface }}
+";

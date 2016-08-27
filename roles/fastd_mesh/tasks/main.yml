@@ -1,0 +1,40 @@
+---
+
+- name: Install fastd
+  apt: name=fastd
+
+- name: Create fastd_mesh daemon config directories
+  file: path=/etc/fastd/fastd_mesh state=directory
+
+- name: Install fastd_mesh daemon config
+  register: fastdmeshdaemonconfig
+  template:
+    dest: "/etc/fastd/fastd_mesh/fastd.conf"
+    src: "fastd.conf.j2"
+
+- name: Install fastd_mesh daemon secret
+  template:
+    dest: "/etc/fastd/fastd_mesh/secret.conf"
+    src: "secret.conf.j2"
+
+- name: Create fastd_mesh remotes file
+  file:
+    path: "/etc/fastd/fastd_mesh/remotes.conf"
+    state: touch
+
+- name: Start fastd_mesh on boot
+  service: name=fastd@fastd_mesh enabled=yes
+
+- name: Restart fastd_mesh
+  when: fastdmeshdaemonconfig|changed
+  service: name=fastd@fastd_mesh state=restarted
+
+- name: Install fastd_mesh iface config
+  register: fastdmeshifaceconfig
+  template:
+    dest: "/etc/network/interfaces.d/50_fastd_mesh.cfg"
+    src: "fastd_mesh_iface.cfg.j2"
+
+- name: Start fastd_mesh interface
+  when: fastdmeshifaceconfig|changed
+  shell: ifdown {{ fastd_mesh_iface }}; ifup {{ fastd_mesh_iface }}
