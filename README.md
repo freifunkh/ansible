@@ -20,4 +20,4 @@
     - doesn't work without remotes role
 - **fastd_mesh_remotes_\*:** adds remotes to fastd_mesh
 - **cli_tools:**
-  - ```netcat-openbsd```
+    - ```netcat-openbsd```
