@@ -5,6 +5,7 @@
     - batman
     - dummytap
     - fastd_mesh
+    - fastd_mesh_remotes_backbone
   vars:
     - ip4_bat0: "10.2.150.1"
     - ip6_bat0: "fdca:ffee:8::9601"

@@ -1,0 +1,16 @@
+---
+
+- name: Enable backbone remotes
+  lineinfile:
+    dest: /etc/fastd/fastd_mesh/remotes.conf
+    line: "include \"backbone.conf\";"
+
+- name: Install backbone remotes file
+  register: fastdmeshdaemonconfig
+  template:
+    dest: "/etc/fastd/fastd_mesh/backbone.conf"
+    src: "backbone.conf.j2"
+
+- name: Restart fastd_mesh
+  when: fastdmeshdaemonconfig|changed
+  service: name=fastd@fastd_mesh state=restarted

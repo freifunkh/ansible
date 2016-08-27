@@ -4,3 +4,7 @@
 - file permissions?
 
 - fastd debug level
+
+- fastd: code for "Restart fastd_mesh" is doubled!
+
+- fastd: remotes.conf is always touched!
