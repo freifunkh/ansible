@@ -3,12 +3,11 @@
 ## roles
 
 ### dependency tree
-```
-─┬─ batman ─┬─ fastd_mesh ─┬─ fastd_mesh_remotes_backbone
- |          |              └─ fastd_mesh_remotes_peers_git
- |          └─ dummytap
- └─ cli_tools
-```
+
+    ─┬─ batman ─┬─ fastd_mesh ─┬─ fastd_mesh_remotes_backbone
+     |          |              └─ fastd_mesh_remotes_peers_git
+     |          └─ dummytap
+     └─ cli_tools
 
 ### overview
 
