@@ -18,3 +18,7 @@ on up "
  chmod o+rw /var/run/fastd.{{ fastd_mesh_iface }}.sock
  ifup {{ fastd_mesh_iface }}
 ";
+
+on down "
+  ifdown {{ fastd_mesh_iface }}
+";
