@@ -9,7 +9,7 @@
      |          └─ dummytap
      └─ cli_tools
 
-### overview
+### role descriptions
 
 - **batman:** provides bat0 interface, sets ips to it
     - host vars: ```ip4_bat0, ip6_bat0```
