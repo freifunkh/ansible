@@ -1,0 +1,20 @@
+---
+
+- name: Install batctl
+  apt: name=batctl
+
+- name: Install autostart batman_adv on boot
+  lineinfile: dest=/etc/modules line=batman_adv
+
+- name: Load batman_adv module
+  modprobe: name=batman_adv state=present
+
+- name: Install bat0 network config
+  register: bat0config
+  template:
+    dest: "/etc/network/interfaces.d/40_bat0.cfg"
+    src: "bat0.cfg.j2"
+
+- name: Start bat0 interfaces
+  when: bat0config|changed
+  shell: ifdown bat0; ifup bat0

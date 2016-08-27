@@ -1,0 +1,9 @@
+- name: Install dummytap network config
+  register: dummytapconfig
+  template:
+    dest: "/etc/network/interfaces.d/30_dummytap.cfg"
+    src: "dummytap.cfg.j2"
+
+- name: Start dummytap interfaces
+  when: dummytapconfig|changed
+  shell: ifdown dummytap; ifup dummytap

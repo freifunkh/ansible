@@ -1,0 +1,11 @@
+auto bat0
+iface bat0 inet static
+  pre-up batctl if add dummytap
+  up ip link set $IFACE up
+
+  address {{ ip4_bat0 }}
+  netmask 255.255.0.0
+
+iface bat0 inet6 static
+  address {{ ip6_bat0 }}
+  netmask 64
