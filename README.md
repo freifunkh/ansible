@@ -19,5 +19,6 @@
     - host vars: ```fastd_mesh_mac, fastd_mesh_secret```
     - doesn't work without remotes role
 - **fastd\_mesh\_remotes\_\*:** adds remotes to fastd_mesh
-- **cli\_tools:**
+- **cli\_tools:** install some cli tools
     - ```netcat-openbsd```
+    - ```tcpdump```
