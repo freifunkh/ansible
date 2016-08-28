@@ -13,6 +13,9 @@
 - name: Install fastd
   apt: name=fastd
 
+- name: Remove autostart of generic fastd instance on boot
+  service: name=fastd enabled=no
+
 - name: Create fastd_mesh daemon config directories
   file: path=/etc/fastd/fastd_mesh state=directory
 
