@@ -4,7 +4,6 @@
   roles:
     - cli_tools
     - batman
-    - dummytap
     - fastd_mesh
     - fastd_mesh_remotes_backbone
   vars:
