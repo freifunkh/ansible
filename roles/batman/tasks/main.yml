@@ -12,7 +12,7 @@
 - name: Install bat0 network config
   register: bat0config
   template:
-    dest: "/etc/network/interfaces.d/40_bat0.cfg"
+    dest: "/etc/network/interfaces.d/50_bat0.cfg"
     src: "bat0.cfg.j2"
 
 - name: Start bat0 interfaces

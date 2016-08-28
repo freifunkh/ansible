@@ -45,7 +45,7 @@
 - name: Install fastd_mesh iface config
   register: fastdmeshifaceconfig
   template:
-    dest: "/etc/network/interfaces.d/50_fastd_mesh.cfg"
+    dest: "/etc/network/interfaces.d/40_fastd_mesh.cfg"
     src: "fastd_mesh_iface.cfg.j2"
 
 - name: Start fastd_mesh interface
