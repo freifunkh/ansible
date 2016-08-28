@@ -1,5 +1,15 @@
 ---
 
+- name: Add universe-factory repository key
+  apt_key:
+    keyserver: pool.sks-keyservers.net
+    id: CB201D9CCB201D9C
+
+- name: Add universe-factory repositories
+  apt_repository:
+    repo: "deb http://repo.universe-factory.net/debian/ sid main"
+    update_cache: yes
+
 - name: Install fastd
   apt: name=fastd
 
