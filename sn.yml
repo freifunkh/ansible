@@ -1,5 +1,6 @@
 ---
-- hosts: test-sn
+
+- hosts: local-test-sn
   roles:
     - cli_tools
     - batman
@@ -10,4 +11,5 @@
     - ip4_bat0: "10.2.150.1"
     - ip6_bat0: "fdca:ffee:8::9601"
     - fastd_mesh_mac: "88:E6:40:20:96:01"
-    - fastd_mesh_secret: "d8b3aeac7b6a23b7a24e851a3c0be93997b54fb0cce87114dac0b0e74bd26e78"
+  vars_files:
+    - secrets/local-test-sn.yml
