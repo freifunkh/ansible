@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# CONFIGURE THIS TO YOUR PEER DIRECTORY
+FASTD_PEERS=/etc/fastd/fastd_mesh/peers
+
+function getCurrentVersion() {
+ git log --format=format:%H -1
+}
+
+cd $FASTD_PEERS
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# This could fail if we have local changes, so avoid them!
+git pull --quiet
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+ # Version has changed we need to update
+ systemctl reload fastd@ffh_mesh || echo "Reload of fastd_mesh instance failed"
+fi

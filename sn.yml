@@ -7,9 +7,11 @@
     - ssh_known_hosts
     - fastd_mesh
     - fastd_mesh_remotes_backbone
+    - fastd_mesh_remotes_peers_git
   vars:
     - ip4_bat0: "10.2.150.1"
     - ip6_bat0: "fdca:ffee:8::9601"
     - fastd_mesh_mac: "88:E6:40:20:96:01"
+    - git_addr: ssh://git@git.fnorden.net
   vars_files:
     - secrets/local-test-sn.yml

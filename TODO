@@ -8,3 +8,8 @@
 - fastd: code for "Restart fastd_mesh" is doubled!
 
 - fastd: remotes.conf is always touched!
+
+- fastd_mesh_remotes_peers_git: how to deploy the key to the gitolite?
+  - maybe do not use "generate_ssh_key"-feature?
+
+- how to set variables like "git_addr" for all nodes?
