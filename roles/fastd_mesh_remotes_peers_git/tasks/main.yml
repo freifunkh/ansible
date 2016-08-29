@@ -23,3 +23,13 @@
       /etc/fastd/fastd_mesh/peers
       && (systemctl reload fastd@ffh_mesh
       || echo "Reload of fastd_mesh instance failed")
+
+- name: Enable peers-git remotes in fastd
+  blockinfile:
+    dest: /etc/fastd/fastd_mesh/remotes.conf
+    marker: "# {mark} PEERS GIT (ANSIBLE)"
+    content: |
+      peer group "peers-grp" {
+        include peers from "peers";
+        peer limit 180;
+      }
