@@ -1,0 +1,4 @@
+{% for kh in ssh_known_hosts %}
+# {{ kh.name }}
+{{ kh.key }}
+{% endfor %}

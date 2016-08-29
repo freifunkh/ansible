@@ -6,7 +6,9 @@
 
     ─┬─ batman ─── fastd_mesh ─┬─ fastd_mesh_remotes_backbone
      |                         └─ fastd_mesh_remotes_peers_git
-     └─ cli_tools
+     ├─ cli_tools
+     └─ ssh_known_hosts ─── fastd_mesh_remotes_peers_git
+
 
 ### role descriptions
 
@@ -19,3 +21,4 @@
 - **cli\_tools:** install some cli tools
     - ```netcat-openbsd```
     - ```tcpdump```
+- **ssh\_known\_hosts:** install systemwide known_hosts to verify remotes

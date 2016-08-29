@@ -1,0 +1,7 @@
+---
+
+ssh_known_hosts:
+  - name: git (nistp256)
+    key: "|1|+JqcFp79jnqcSom56sn+ctP56Zg=|yxK3uYVrVelrsKz7H4wHBHdcMCg= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDGdHes5aHecN34aPOo4wJymvZBadmwBTbJRB7l+8oVEBe7ca3BfE5W42Kq2Yw4A5/75IxdJzjgCci7DO3f9Vhk="
+  - name: git (rsa)
+    key: "|1|lWmN+sbrBD0fHYsleeMz46Vo6UY=|isG2LebIF5xA32NtSAqSi7RQZ/4= ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCwGhbeLGxqwixe8G0loNaUGoTZACAEpJ+jMhoPpNBPNptBgcJoGxwnD4Ib2g4RqGN4oEmV48zOmzzN3WhaxVB3rLVEIbuaRIeEzdU1GBeEc+5+miZzi/sD+bkv/+15fyQFY7n++YZfHmVMCqF3n+tm9/qPYcu2+j7TdavW5UHtS8oL5lBJh2LjovhT77bzKDrMLD6QlUnqJ16ohlgaX55h3YFV+fNUApOiFGmnYBQRNw0UmMQeXnOCK6RP4kM3iX9Mm3bkyom8vDxS17IDnpf9T1pU8qK5TmU1tDhQNL0x+IcTKqBLVfAJ9JbdbQ83JaiKmbbJ1WL3YEp409UUVhN"
