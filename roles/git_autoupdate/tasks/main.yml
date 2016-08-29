@@ -1,0 +1,21 @@
+---
+
+- name: Install dependencies (git, sudo)
+  apt: name={{ item }}
+  with_items:
+    - git
+    - sudo
+
+- name: Create auto user
+  user:
+    name: auto
+    system: yes
+    generate_ssh_key: yes
+
+- name: Install autoupdate script
+  template:
+    dest: /home/auto/autoupdate.sh
+    src: autoupdate.sh.j2
+    owner: auto
+    group: auto
+    mode: "u=rwx,g=r,o=r"

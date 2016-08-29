@@ -1,17 +1,5 @@
 ---
 
-- name: Install dependencies (git, sudo)
-  apt: name={{ item }}
-  with_items:
-    - git
-    - sudo
-
-- name: Create auto user
-  user:
-    name: auto
-    system: yes
-    generate_ssh_key: yes
-
 - name: Create the peers directory
   file:
     state: directory
@@ -25,17 +13,13 @@
     repo: "{{ git_addr }}:/peers"
     dest: /etc/fastd/fastd_mesh/peers
 
-- name: Install autoupdate script
-  template:
-    dest: /home/auto/autoupdate_peers.sh
-    src: autoupdate_peers.sh.j2
-    owner: auto
-    group: auto
-    mode: "u=rwx,g=r,o=r"
-
 - name: Install crontab for autoupdate
   cron:
     name: "autoupdate peers from git"
     user: auto
     minute: "*/5"
-    job: /home/auto/autoupdate_peers.sh
+    job: >
+      /home/auto/autoupdate.sh
+      /etc/fastd/fastd_mesh/peers
+      && (systemctl reload fastd@ffh_mesh
+      || echo "Reload of fastd_mesh instance failed")

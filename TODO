@@ -13,3 +13,5 @@
   - maybe do not use "generate_ssh_key"-feature?
 
 - how to set variables like "git_addr" for all nodes?
+
+- rethink about dependency tree

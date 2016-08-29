@@ -7,6 +7,7 @@
     ─┬─ batman ─── fastd_mesh ─┬─ fastd_mesh_remotes_backbone
      |                         └─ fastd_mesh_remotes_peers_git
      ├─ cli_tools
+     ├─ git_autoupdate ─── fastd_mesh_remotes_peers_git
      └─ ssh_known_hosts ─── fastd_mesh_remotes_peers_git
 
 
@@ -20,8 +21,12 @@
 - **fastd\_mesh\_remotes\_backbone:** provides access to other supernodes
 - **fastd\_mesh\_remotes\_peers\_git:** provide access to peers repo
     - host vars: ```git_addr```
-    - installs cronjob to autoupdate peers (user: auto)
+    - installs cronjob to autoupdate peers
 - **cli\_tools:** install some cli tools
     - ```netcat-openbsd```
     - ```tcpdump```
 - **ssh\_known\_hosts:** install systemwide known_hosts to verify remotes
+- **git\_autoupdate:** autoupdate git repositorys
+    - provides update generic script for use in cronjobs
+        - exit status is shows whether the repo has changed
+    - cronjobs should run as user: ```auto```
