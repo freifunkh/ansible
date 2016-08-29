@@ -29,6 +29,7 @@
   template:
     dest: "/etc/fastd/fastd_mesh/secret.conf"
     src: "secret.conf.j2"
+    mode: "u=rw,g=,o="
 
 - name: Create fastd_mesh remotes file
   file:
