@@ -27,6 +27,6 @@
     - ```tcpdump```
 - **ssh\_known\_hosts:** install systemwide known_hosts to verify remotes
 - **git\_autoupdate:** autoupdate git repositorys
-    - provides update generic script for use in cronjobs
+    - provides generic update script for use in cronjobs
         - exit status is shows whether the repo has changed
     - cronjobs should run as user: ```auto```
