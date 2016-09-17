@@ -7,12 +7,16 @@
     ─┬─ batman ─── fastd_mesh ─┬─ fastd_mesh_remotes_backbone
      |                         └─ fastd_mesh_remotes_peers_git
      ├─ cli_tools
+     ├─ networkd
      ├─ git_autoupdate ─── fastd_mesh_remotes_peers_git
      └─ ssh_known_hosts ─── fastd_mesh_remotes_peers_git
 
 
 ### role descriptions
 
+- **networkd:** replaces debian networking with systemd-networkd
+    - host_vars: ```networkd_uplink.interface, networkd_uplink.networks, networkd_uplink.dns```
+    - creates a configuration for the uplink interface
 - **batman:** provides bat0 interface, sets ips to it
     - host vars: ```ip4_bat0, ip6_bat0```
 - **fastd\_mesh:** adds fastd_mesh interface to bat0

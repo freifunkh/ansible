@@ -1,0 +1,9 @@
+[Match]
+Name={{ networkd_uplink.interface }}
+
+[Network]
+{% for net in networkd_uplink.networks %}
+Address={{ net.addr }}
+Gateway={{ net.gateway }}
+{% endfor %}
+DNS={{ networkd_uplink.dns }}
