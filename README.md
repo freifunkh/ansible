@@ -7,7 +7,7 @@
     ─┬─ batman ─── fastd_mesh ─┬─ fastd_mesh_remotes_backbone
      |                         └─ fastd_mesh_remotes_peers_git
      ├─ cli_tools
-     ├─ networkd
+     ├─ networkd ─── batman
      ├─ git_autoupdate ─── fastd_mesh_remotes_peers_git
      └─ ssh_known_hosts ─── fastd_mesh_remotes_peers_git
 
