@@ -1,6 +1,0 @@
-
-auto {{ fastd_mesh_iface }}
-iface {{ fastd_mesh_iface }} inet manual
-  pre-up ip tuntap add $IFACE mode tap
-  pre-up ip link set address {{ fastd_mesh_mac }} up dev $IFACE
-  pre-up batctl if add $IFACE

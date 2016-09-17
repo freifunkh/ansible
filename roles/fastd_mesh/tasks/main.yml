@@ -42,10 +42,4 @@
   notify: Restart fastd_mesh
 
 - name: Start fastd_mesh on boot
-  service: name=fastd@fastd_mesh enabled=yes
-
-- name: Install fastd_mesh iface config
-  notify: Reload fastd_mesh iface config
-  template:
-    dest: "/etc/network/interfaces.d/40_fastd_mesh.cfg"
-    src: "fastd_mesh_iface.cfg.j2"
+  service: name=fastd@fastd_mesh enabled=yes state=started

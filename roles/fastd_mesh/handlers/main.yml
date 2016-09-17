@@ -2,6 +2,3 @@
 
 - name: Restart fastd_mesh
   service: name=fastd@fastd_mesh state=restarted
-
-- name: Reload fastd_mesh iface config
-  shell: ifdown {{ fastd_mesh_iface }}; ifup {{ fastd_mesh_iface }}

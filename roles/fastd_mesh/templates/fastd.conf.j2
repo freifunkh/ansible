@@ -17,4 +17,6 @@ status socket "/var/run/fastd.{{ fastd_mesh_iface }}.sock";
 
 on up "
  chmod o+rw /var/run/fastd.{{ fastd_mesh_iface }}.sock
+ batctl if add $INTERFACE
+ ip link set address {{ fastd_mesh_mac }} dev $INTERFACE
 ";
