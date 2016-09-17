@@ -32,10 +32,13 @@
     src: "secret.conf.j2"
     mode: "u=rw,g=,o="
 
-- name: Create fastd_mesh remotes file
-  file:
-    path: "/etc/fastd/fastd_mesh/remotes.conf"
-    state: touch
+- name: Check if fastd_mesh remotes file exists
+  stat: path=/etc/fastd/fastd_mesh/remotes.conf
+  register: remotes
+
+- name: Ensure fastd_mesh remotes file exits
+  when: not remotes.stat.exists
+  file: path=/etc/fastd/fastd_mesh/remotes.conf state=touch
   notify: Restart fastd_mesh
 
 - name: Start fastd_mesh on boot
