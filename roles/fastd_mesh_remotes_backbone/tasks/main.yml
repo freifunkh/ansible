@@ -6,11 +6,7 @@
     line: "include \"backbone.conf\";"
 
 - name: Install backbone remotes file
-  register: fastdmeshdaemonconfig
+  notify: Restart fastd_mesh
   template:
     dest: "/etc/fastd/fastd_mesh/backbone.conf"
     src: "backbone.conf.j2"
-
-- name: Restart fastd_mesh
-  when: fastdmeshdaemonconfig|changed
-  service: name=fastd@fastd_mesh state=restarted

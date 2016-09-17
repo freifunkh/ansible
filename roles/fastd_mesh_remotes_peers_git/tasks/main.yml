@@ -25,6 +25,7 @@
       || echo "Reload of fastd_mesh instance failed")
 
 - name: Enable peers-git remotes in fastd
+  notify: Restart fastd_mesh
   blockinfile:
     dest: /etc/fastd/fastd_mesh/remotes.conf
     marker: "# {mark} PEERS GIT (ANSIBLE)"
