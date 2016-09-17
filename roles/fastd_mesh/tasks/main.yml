@@ -24,7 +24,6 @@
   template:
     dest: "/etc/fastd/fastd_mesh/fastd.conf"
     src: "fastd.conf.j2"
-    validate: "fastd --verify-config %s"
 
 - name: Install fastd_mesh daemon secret
   template:

@@ -12,6 +12,8 @@
 - fastd_mesh_remotes_peers_git: how to deploy the key to the gitolite?
   - maybe do not use "generate_ssh_key"-feature?
 
+- fastd_mesh: reactivate config validation
+
 - how to set variables like "git_addr" for all nodes?
 
 - rethink about dependency tree
