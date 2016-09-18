@@ -1,20 +1,8 @@
 # ffh supernodes
 
-## roles
+## role descriptions
 
-### dependency tree
-
-    ─┬─ batman ─── fastd_mesh ─┬─ fastd_mesh_remotes_backbone
-     |                         └─ fastd_mesh_remotes_peers_git
-     ├─ cli_tools
-     ├─ networkd ─── batman
-     ├─ git_autoupdate ─── fastd_mesh_remotes_peers_git
-     └─ ssh_known_hosts ─── fastd_mesh_remotes_peers_git
-
-
-### role descriptions
-
-#### basic helper roles
+### basic helper roles
 
 - **cli\_tools:** install some cli tools
     - ```netcat-openbsd```
@@ -25,7 +13,7 @@
         - exit status indicates whether the repo has changed
     - cronjobs should run as user: ```auto```
 
-#### networking roles
+### networking roles
 
 We use systemd-networkd instead of debians own network scripts. Systemd provides
 much more reliable way to configure interfaces, even if they are disappearing
@@ -37,19 +25,19 @@ introduced to do this.
     - host_vars: ```networkd_uplink.interface, networkd_uplink.networks, networkd_uplink.dns```
     - creates a configuration for the uplink interface
 
-#### mesh networking roles
+### mesh networking roles
 
 The basic functionality is provided by the batman role. It handles the proper
 configuration of the bat0 interface. But the interface is only created, if
-we have at minimum one "mesh provider".
+we have at least one "mesh provider".
 
 - **batman:** provides bat0 interface, sets ips to it
     - host vars: ```ip4_bat0, ip6_bat0```
     - interface is not created without mesh provider
 
 The only existing provider is fastd_mesh at the moment. This role creates a
-fastd instance and binds it to batman. But it does not accept any peer until
-you add at lease one "remotes provider".
+fastd instance and binds it to batman. But it does not accept a connection
+from any peer until you add at lease one "remotes provider".
 
 - **fastd\_mesh:** adds fastd_mesh interface to bat0
     - host vars: ```fastd_mesh_mac, fastd_mesh_secret```
