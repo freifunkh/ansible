@@ -10,6 +10,7 @@
 - **ssh\_known\_hosts:** install systemwide known_hosts to verify remotes
 - **git\_autoupdate:** autoupdate git repositorys
     - provides generic update script for use in cronjobs
+        - ```/home/auto/autoupdate.sh <repo-path>```
         - exit status indicates whether the repo has changed
     - cronjobs should run as user: ```auto```
 
