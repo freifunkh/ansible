@@ -2,16 +2,23 @@
 
 - name: Enable systemd-networkd
   service: name=systemd-networkd enabled=yes state=started
+  # networkd does not remove any existing network configuration,
+  # so this should be safe.
 
 - name: Enable systemd-resolved
   service: name=systemd-resolved enabled=yes state=started
 
-- name: Disable debian networking
-  service: name=networking enabled=no state=stopped
+- name: Install uplink iface config
+  notify: Restart networkd
+  template: src=10-uplink.network.j2 dest=/etc/systemd/network/10-uplink.network
+
 
 - name: Enable dns resolving with systemd-resolved
   file: src=/run/systemd/resolve/resolv.conf dest=/etc/resolv.conf state=link force=yes
 
-- name: Install uplink iface config
-  notify: Restart networkd
-  template: src=10-uplink.network.j2 dest=/etc/systemd/network/10-uplink.network
+- name: Disable debian networking
+  service: name=networking enabled=no
+  # Do not stop the debian networking scripts immediately, since the scripts
+  # would remove their already applied configuration. networkd does not perceive
+  # the removed configuration and would not apply it's own. This would cause connection
+  # loss. So we wait until the next reboot, to let networkd do the whole networking.
