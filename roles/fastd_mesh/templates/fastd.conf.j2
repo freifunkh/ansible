@@ -13,6 +13,11 @@ mtu {{ fastd_mesh_mtu }};
 
 include "remotes.conf";
 
+# enable fastd to run without another peers configured
+peer "!!!_dummy_!!!" {
+  key "0000000000000000000000000000000000000000000000000000000000000000";
+}
+
 status socket "/var/run/fastd.{{ fastd_mesh_iface }}.sock";
 
 on up "
