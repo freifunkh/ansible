@@ -8,10 +8,9 @@
 - name: Add universe-factory repositories
   apt_repository:
     repo: "deb http://repo.universe-factory.net/debian/ sid main"
-    update_cache: yes
 
 - name: Install fastd
-  apt: name=fastd
+  apt: name=fastd update_cache=yes
 
 - name: Remove autostart of generic fastd instance on boot
   service: name=fastd enabled=no
