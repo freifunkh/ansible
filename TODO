@@ -1,19 +1,37 @@
 - find out how to update and delete old deployed files?
   - is this possible?
 
-- file permissions?
+- improvements to roles:
+    - fastd:
+        - fastd debug level
+        - fastd_mesh: reactivate config validation
+        - fastd user (systemd can give a user to fastd_mesh)
+	    - it has to open tun/tap?
+        - is it okay to have the same mac on different mesh interfaces?
+    - ???
+        - how to set variables like "git_addr" for all nodes?
+    - batman:
+        - build it from source
 
-- fastd debug level
+- networkd:
+    - TODO: fix issues when changing from debian networking to networkd
+        - what issues do we have?
 
-- fastd: code for "Restart fastd_mesh" is doubled!
+    - systemd-networkd does not properly react to new fastd_mesh interface
+        - if this is fixed, mac & batman should be set by systemd-networkd
+	- batman device can't be set yet
 
-- fastd: remotes.conf is always touched!
+- roles:
+    - forwarding
+        - firewall
+    - tunnel to exit
+    - isc-dhcp
+    - dnsmasq
 
-- fastd_mesh_remotes_peers_git: how to deploy the key to the gitolite?
-  - maybe do not use "generate_ssh_key"-feature?
-
-- fastd_mesh: reactivate config validation
-
-- how to set variables like "git_addr" for all nodes?
-
-- rethink about dependency tree
+- longtime roles:
+    - monitoring
+    - mail user
+        - der meckert bei fehlenden updates
+    - update user
+        - für apt-dater
+    
