@@ -7,8 +7,8 @@
     owner: auto
 
 - name: Clone the peers git
-  sudo: yes
-  sudo_user: auto
+  become: yes
+  become_user: auto
   git:
     repo: "{{ git_addr }}:/peers"
     dest: /etc/fastd/fastd_mesh/peers
