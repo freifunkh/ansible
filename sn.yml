@@ -21,3 +21,25 @@
     - ip6_bat0: "fdca:ffee:8::9601"
     - fastd_mesh_mac: "88:E6:40:20:96:01"
     - git_addr: ssh://git@git.fnorden.net
+
+- hosts: gw03
+  roles:
+    - cli_tools
+    - networkd
+    - batman
+    - ssh_known_hosts
+    - fastd_mesh
+    - fastd_mesh_remotes_backbone
+    - fastd_mesh_remotes_peers_git
+  vars:
+    - networkd_uplink:
+        interface: eth0
+        networks:
+          - addr: 138.201.220.61/26
+            gateway: 138.201.220.1
+        dns: 213.133.98.98
+
+    - ip4_bat0: "10.2.30.1"
+    - ip6_bat0: "fdca:ffee:8::1e01"
+    - fastd_mesh_mac: "88:E6:40:20:1e:01"
+    - git_addr: ssh://git@git.fnorden.net
