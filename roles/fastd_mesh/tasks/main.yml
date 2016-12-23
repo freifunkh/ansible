@@ -1,5 +1,10 @@
 ---
 
+- name: Install https for apt
+  apt:
+    update_cache: yes
+    name: apt-transport-https
+
 - name: Add universe-factory repository key
   apt_key:
     keyserver: pool.sks-keyservers.net
