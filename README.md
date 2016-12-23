@@ -61,7 +61,7 @@ fastd instance and binds it to batman. But it does not accept a connection
 from any peer until you add at lease one "remotes provider".
 
 - **fastd\_mesh:** adds fastd_mesh interface to bat0
-    - host vars: ```fastd_mesh_mac, fastd_mesh_secret```
+    - host vars: ```fastd_mesh_mac```
     - doesn't work without remotes role
 
 There are two different remotes providers:
