@@ -29,6 +29,15 @@
     dest: "/etc/fastd/fastd_mesh/fastd.conf"
     src: "fastd.conf.j2"
 
+- name: Check if secret.conf exists
+  register: secretfile
+  stat: path=/etc/fastd/fastd_mesh/secret.conf
+
+- name: Generate secret
+  register: generatedsecret
+  command: fastd --generate-key --machine-readable
+  when: not secretfile.stat.exists
+
 - name: Install fastd_mesh daemon secret
   notify: Restart fastd_mesh
   template:
