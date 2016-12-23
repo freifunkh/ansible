@@ -40,6 +40,7 @@
 
 - name: Install fastd_mesh daemon secret
   notify: Restart fastd_mesh
+  when: not secretfile.stat.exists
   template:
     dest: "/etc/fastd/fastd_mesh/secret.conf"
     src: "secret.conf.j2"
