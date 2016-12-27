@@ -1,25 +1,17 @@
-- find out how to update and delete old deployed files?
-  - is this possible?
-
 - improvements to roles:
     - fastd:
         - fastd debug level
         - fastd_mesh: reactivate config validation
+            - maybe change the order of the config snippets
         - fastd user (systemd can give a user to fastd_mesh)
-	    - it has to open tun/tap?
-        - is it okay to have the same mac on different mesh interfaces?
     - ???
         - how to set variables like "git_addr" for all nodes?
     - batman:
         - build it from source
 
 - networkd:
-    - TODO: fix issues when changing from debian networking to networkd
-        - what issues do we have?
-
     - systemd-networkd does not properly react to new fastd_mesh interface
         - if this is fixed, mac & batman should be set by systemd-networkd
-	- batman device can't be set yet
 
 - roles:
     - forwarding
@@ -34,4 +26,3 @@
         - der meckert bei fehlenden updates
     - update user
         - für apt-dater
-    
