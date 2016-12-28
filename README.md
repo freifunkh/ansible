@@ -46,6 +46,49 @@ introduced to do this.
     - host_vars: ```networkd_uplink.interface, networkd_uplink.networks, networkd_uplink.dns```
     - creates a configuration for the uplink interface
 
+### simple_firewall role
+
+This role offers the common tasks needed in all of our freifunk scenarios. Currently
+this only supports IPv4. By default this role only opens port **22/tcp for ssh**. This
+can be changed using the ```firewall_ssh_port``` variable. Be careful with this
+because you can lock out yourself very easily. The role is very modular and configurable:
+
+**open additional ports:**
+
+    - firewall_open_ports_tcp: [80, 443]
+    - firewall_open_ports_udp: [10000]
+
+
+**allow forwarding for some for some interfaces:**
+
+If you add this to your config, the kernel parameters to activate forwarding will
+be set automatically.
+
+    - firewall_allowed_forwards:
+      - src_if: bat0
+        dest_if: exit-vpn-1
+      - src_if: bat0
+        dest_if: exit-vpn-2
+
+
+**nat:**
+
+    - firewall_nat_on_interfaces: ['exit-vpn-1']
+
+
+**alternative routing tables:**
+
+There is a rather advanced feature of the linux kernel to provide multiple
+routing tables on the same host. This is needed on the gateways since the
+packets in the freifunk net should get another default route than all other
+daemons on the gateway. So we need to manage two routing tables at the same
+time.
+
+    - firewall_alternative_routingtables:
+      - name: freifunk
+        when_packet_from: ["bat0", "internetz-me"]
+
+
 ### mesh networking roles
 
 The basic functionality is provided by the batman role. It handles the proper

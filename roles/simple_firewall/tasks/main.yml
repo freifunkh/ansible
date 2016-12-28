@@ -1,0 +1,40 @@
+---
+
+- name: Install iptables-persistent
+  apt: name=iptables-persistent
+
+- name: Maybe activate forwarding as kernel parameter
+  sysctl:
+    name: net.ipv4.conf.all.forwarding
+    value: "{% if firewall_allowed_forwards|length > 0 %} 1 {% else %} 0 {% endif %}"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
+- name: Generate test config iptables v4 config
+  register: iptables4
+  template:
+    dest: "/etc/iptables/rules.v4"
+    src: "iptables4.j2"
+    validate: "iptables-restore --test %s"
+
+- name: Load and apply the new firewall rules
+  command: iptables-restore /etc/iptables/rules.v4
+  when: iptables4|changed
+
+- name: Ensure alternative routing tables are existing
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    line: "{{ 42 + item.0 }} {{ item.1.name }}"
+    # routing table numbers begin at number 42
+  with_indexed_items: "{{ firewall_alternative_routingtables }}"
+
+- name: Deploy /etc/rc.local
+  register: rclocal
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+    mode: u=rwx,g=rx,o=rx
+
+- name: Apply changes in /etc/rc.local
+  command: /etc/rc.local
+  when: rclocal|changed

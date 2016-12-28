@@ -1,0 +1,21 @@
+#!/bin/sh -e
+#
+# do not change this, since it is created by ansible!
+#
+
+{% for table in firewall_alternative_routingtables %}
+{% set table_id = 42 + loop.index0 %}
+#
+# RULES FOR TABLE {{ table.name }}
+#
+
+# This unreachable route prevents leaking of packets in the other routing tables
+# when we have no other default route in the {{table.name }} table.
+/sbin/ip route replace unreachable default table {{ table.name }} metric 1000
+
+# Use the packet park from iptables to put the packets in table {{ table.name }}
+/sbin/ip rule add from all fwmark 0x{{ "%x" | format(table_id) }} table {{ table.name }} priority {{ 200 + table_id }}
+
+{% endfor%}
+
+exit 0

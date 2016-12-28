@@ -1,0 +1,127 @@
+# ------------------------------------------------------------------------------
+#                                     filter
+# ------------------------------------------------------------------------------
+
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+#########
+# INPUT #
+#########
+
+#
+# DEFAULT FOO
+#
+
+  -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  -A INPUT -i lo -j ACCEPT
+
+
+#
+# ACCEPT ICMP
+#
+
+  -A INPUT -p icmp -j ACCEPT
+
+#
+# ACCEPT SSH
+#
+
+  -A INPUT -m tcp -p tcp --dport {{ firewall_ssh_port }} -j ACCEPT
+
+#
+# OPEN TCP PORTS
+#
+
+{% for tcp_port in firewall_open_ports_tcp %}
+  -A INPUT -m tcp -p tcp --dport {{ tcp_port }} -j ACCEPT
+{% endfor %}
+
+
+#
+# OPEN UDP PORTS
+#
+
+{% for udp_port in firewall_open_ports_udp %}
+  -A INPUT -m udp -p udp --dport {{ udp_port }} -j ACCEPT
+{% endfor %}
+
+#
+# REJECT THE REST
+#
+
+  -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+  -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+  -A INPUT -j REJECT --reject-with icmp-proto-unreachable
+
+
+###########
+# FORWARD #
+###########
+
+{% for allowed_forward in firewall_allowed_forwards %}
+#
+# ALLOW FORWARDING FROM {{ allowed_forward.src_if }} TO {{ allowed_forward.dest_if }}
+#
+
+  -A FORWARD -i {{ allowed_forward.src_if }} -o {{ allowed_forward.dest_if }} -j ACCEPT
+
+
+{% endfor %}
+COMMIT
+
+# ------------------------------------------------------------------------------
+#                                      nat
+# ------------------------------------------------------------------------------
+
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+###############
+# POSTROUTING #
+###############
+
+{% for nat_interface in firewall_nat_on_interfaces %}
+#
+# NAT ON {{ nat_interface }}
+#
+
+  -A POSTROUTING -o {{ nat_interface }} -j MASQUERADE
+
+
+{% endfor %}
+COMMIT
+
+# ------------------------------------------------------------------------------
+#                                     mangle
+# ------------------------------------------------------------------------------
+
+*mangle
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+###############
+# PREROUTING #
+###############
+
+{% for table in firewall_alternative_routingtables %}
+{% set table_id = 42 + loop.index0 %}
+#
+# RULES FOR TABLE {{ table.name }}
+#
+
+{% for src_iface in table.when_packet_from %}
+  -A PREROUTING -i {{ src_iface }} -j MARK --set-xmark 0x{{ "%x" | format(table_id) }}/0xffffffff
+{% endfor %}
+
+
+{% endfor%}
+COMMIT

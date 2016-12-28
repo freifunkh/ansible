@@ -14,8 +14,6 @@
         - if this is fixed, mac & batman should be set by systemd-networkd
 
 - roles:
-    - forwarding
-        - firewall
     - tunnel to exit
     - isc-dhcp
     - dnsmasq
@@ -26,3 +24,7 @@
         - der meckert bei fehlenden updates
     - update user
         - für apt-dater
+
+- firewall:
+    - rules against flooding
+    - ipv6
