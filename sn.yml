@@ -52,8 +52,9 @@
     - fastd_mesh_mac: "88:E6:40:20:1e:01"
     - git_addr: ssh://git@git.fnorden.net
     - firewall_allowed_forwards:
-      - src_if: bat0
-        dest_if: internetz-me
+      - between: bat0
+        and: internetz-me
+
     - firewall_nat_on_interfaces: ["internetz-me"]
     - firewall_alternative_routingtables:
       - name: freifunk

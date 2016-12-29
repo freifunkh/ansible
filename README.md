@@ -76,13 +76,13 @@ because you can lock out yourself very easily. The role is very modular and conf
 **allow forwarding for some for some interfaces:**
 
 If you add this to your config, the kernel parameters to activate forwarding will
-be set automatically.
+be set automatically. This will permit forwarding in both directions.
 
     - firewall_allowed_forwards:
-      - src_if: bat0
-        dest_if: exit-vpn-1
-      - src_if: bat0
-        dest_if: exit-vpn-2
+      - between: bat0
+        and: exit-vpn-1
+      - between: bat0
+        and: exit-vpn-2
 
 
 **nat:**

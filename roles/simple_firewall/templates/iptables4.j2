@@ -75,10 +75,11 @@
 
 {% for allowed_forward in firewall_allowed_forwards %}
 #
-# ALLOW FORWARDING FROM {{ allowed_forward.src_if }} TO {{ allowed_forward.dest_if }}
+# ALLOW FORWARDING BETWEEN {{ allowed_forward.between }} AND {{ allowed_forward.and }}
 #
 
-  -A FORWARD -i {{ allowed_forward.src_if }} -o {{ allowed_forward.dest_if }} -j ACCEPT
+  -A FORWARD -i {{ allowed_forward.between }} -o {{ allowed_forward.and }} -j ACCEPT
+  -A FORWARD -i {{ allowed_forward.and }} -o {{ allowed_forward.between }} -j ACCEPT
 
 
 {% endfor %}
