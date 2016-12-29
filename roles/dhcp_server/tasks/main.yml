@@ -1,0 +1,15 @@
+---
+- name: Install isc-dhcp-server
+  apt: name=isc-dhcp-server
+
+- name: Generate dhcpd config
+  notify: Restart isc-dhcp-server
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+
+- name: Enable isc-dhcp-server
+  service: name=isc-dhcp-server enabled=yes
+
+- name: Start isc-dhcp-server
+  service: name=isc-dhcp-server state=started

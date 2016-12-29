@@ -1,0 +1,17 @@
+ddns-update-style none;
+
+option domain-name "{{ dhcp_domain_name }}";
+option domain-name-servers ns1.example.org, ns2.example.org;
+
+default-lease-time {{ dhcp_default_leasetime }};
+max-lease-time {{ dhcp_max_leasetime}};
+
+log-facility local7;
+
+subnet {{ dhcp_net.net }} netmask {{ dhcp_net.mask }} {
+   authoritative;
+   range {{ dhcp_range.from }} {{ dhcp_range.to }};
+
+   option domain-name-servers {{ dhcp_options.dns_server }};
+   option routers {{ dhcp_options.gateway }};
+}

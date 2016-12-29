@@ -14,8 +14,8 @@
         - if this is fixed, mac & batman should be set by systemd-networkd
 
 - roles:
-    - isc-dhcp
     - dnsmasq
+    - radvd
 
 - longtime roles:
     - monitoring

@@ -132,3 +132,17 @@ There are two different remotes providers:
 - **fastd\_mesh\_remotes\_peers\_git:** provide access to peers repo
     - host vars: ```git_addr```
     - installs cronjob to autoupdate peers
+
+
+## deamons
+
+### dhcp_server
+
+Example:
+
+    - dhcp_range:
+        from: 10.2.30.2
+        to: 10.2.39.254
+    - dhcp_options:
+        gateway: 10.2.30.1
+        dns_server: 10.2.30.1
