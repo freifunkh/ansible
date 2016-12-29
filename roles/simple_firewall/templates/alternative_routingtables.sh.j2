@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#
+# We use this dirty hack to generate the alternative routing tables, since
+# the systemd-networkd version in debian is not yet able to insert routes
+# in other tables than the default one.
+#
+
+{% for table in firewall_alternative_routingtables %}
+
+  {% for route in table.routes %}
+
+      {% if route.via is defined %}
+        ip route replace {{ route.dest_net }} via {{ route.via }} dev {{ route.dest_if }} table {{ table.name }}
+      {% else %}
+        ip route replace {{ route.dest_net }} dev {{ route.dest_if }} table {{ table.name }}
+      {% endif %}
+
+  {% endfor %}
+
+{% endfor%}

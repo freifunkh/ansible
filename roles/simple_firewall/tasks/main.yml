@@ -38,3 +38,16 @@
 - name: Apply changes in /etc/rc.local
   command: /etc/rc.local
   when: rclocal|changed
+
+- name: Generate script for alternative routingtables
+  template:
+    src: alternative_routingtables.sh.j2
+    dest: /usr/bin/alternative_routingtables.sh
+    mode: u=rwx,g=rx,o=rx
+
+- name: Activate cronjob to watch alternative_routingtables
+  cron:
+    name: "watch alternative_routingtables"
+    user: root
+    minute: "*"
+    job: /usr/bin/alternative_routingtables.sh
