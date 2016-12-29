@@ -51,6 +51,7 @@
     - ip6_bat0: "fdca:ffee:8::1e01"
     - fastd_mesh_mac: "88:E6:40:20:1e:01"
     - git_addr: ssh://git@git.fnorden.net
+    - firewall_open_ports_udp: [10000]
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
