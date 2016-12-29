@@ -46,6 +46,20 @@ introduced to do this.
     - host_vars: ```networkd_uplink.interface, networkd_uplink.networks, networkd_uplink.dns```
     - creates a configuration for the uplink interface
 
+**gre tunnel:**
+
+    - networkd_gre_tunnels:
+      - name: internetz-me
+        lower_interface: eth0
+        remote_outer_ip: 178.32.215.75
+        local_outer_ip: 138.201.220.61
+        local_inner_addr: 192.168.43.31/31
+
+Note: It is possible to use multiple gre tunnels.
+Note: If you use the ```simple_firewall``` role, it will automatically configure
+      a rule to allow incomming gre traffic for the ```remote_outer_ip```.
+
+
 ### simple_firewall role
 
 This role offers the common tasks needed in all of our freifunk scenarios. Currently
@@ -87,6 +101,11 @@ time.
     - firewall_alternative_routingtables:
       - name: freifunk
         when_packet_from: ["bat0", "internetz-me"]
+
+**gre tunnels:**
+
+If you use the networkd role to define your gre tunnels, the simple_firewall will
+automatically add a rule to allow incomming gre traffic from the ```remote_outer_ip```.
 
 
 ### mesh networking roles

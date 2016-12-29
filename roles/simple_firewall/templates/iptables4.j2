@@ -48,6 +48,18 @@
   -A INPUT -m udp -p udp --dport {{ udp_port }} -j ACCEPT
 {% endfor %}
 
+
+{% if networkd_gre_tunnels is defined %}
+#
+# AUTOMATICALLY ACCEPT GRE FROM CONFIGURED REMOTE IPs
+#
+
+{% for tunnel in networkd_gre_tunnels %}
+  -A INPUT -p gre -s {{ tunnel.remote_outer_ip }} -j ACCEPT
+{% endfor %}
+
+
+{% endif %}
 #
 # REJECT THE REST
 #

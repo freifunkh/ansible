@@ -1,2 +1,3 @@
 ---
 networkd_uplink.interface: eth0
+networkd_gre_tunnels: []

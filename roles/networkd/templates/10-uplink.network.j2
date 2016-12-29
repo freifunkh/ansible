@@ -7,3 +7,8 @@ Address={{ net.addr }}
 Gateway={{ net.gateway }}
 {% endfor %}
 DNS={{ networkd_uplink.dns }}
+{% for tunnel in networkd_gre_tunnels %}
+{% if tunnel.lower_interface == networkd_uplink.interface %}
+Tunnel={{ tunnel.name }}
+{% endif %}
+{% endfor %}

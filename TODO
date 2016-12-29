@@ -14,7 +14,6 @@
         - if this is fixed, mac & batman should be set by systemd-networkd
 
 - roles:
-    - tunnel to exit
     - isc-dhcp
     - dnsmasq
 

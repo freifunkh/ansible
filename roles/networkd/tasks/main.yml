@@ -12,6 +12,16 @@
   notify: Restart networkd
   template: src=10-uplink.network.j2 dest=/etc/systemd/network/10-uplink.network
 
+- name: Install gre devices
+  notify: Restart networkd
+  template: src=2x-gre.netdev.j2 dest=/etc/systemd/network/2{{ item.0 }}-gre-{{ item.1.name }}.netdev
+  with_indexed_items: "{{ networkd_gre_tunnels }}"
+
+- name: Install gre iface config
+  notify: Restart networkd
+  template: src=2x-gre.network.j2 dest=/etc/systemd/network/2{{ item.0 }}-gre-{{ item.1.name }}.network
+  with_indexed_items: "{{ networkd_gre_tunnels }}"
+
 - name: Enable dns resolving with systemd-resolved
   notify: Restart networkd
   file: src=/run/systemd/resolve/resolv.conf dest=/etc/resolv.conf state=link force=yes
