@@ -1,0 +1,5 @@
+---
+dns_recursive_forwards: []
+dns_recursive_allowed_nets: []
+dns_recursive_allowed_private_adresses: []
+dns_recursive_allowed_private_domains: []

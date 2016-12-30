@@ -1,0 +1,31 @@
+server:
+  use-syslog: yes
+  username: "unbound"
+  directory: "/etc/unbound"
+
+  interface: ::1
+  interface: 0.0.0.0
+
+{% for net in dns_recursive_allowed_nets %}
+  access-control: {{ net }} allow
+{% endfor %}
+
+{% for addr in dns_recursive_allowed_private_adresses %}
+  private-address: {{ addr }}
+{% endfor %}
+{% for domain in dns_recursive_allowed_private_domains %}
+  private-domain: "{{ domain }}"
+{% endfor %}
+
+remote-control:
+  control-enable: yes
+  control-interface: ::1
+
+{% for zone in dns_recursive_forwards %}
+forward-zone:
+  name: "{{ zone.zone }}"
+{% for remote in zone.to %}
+  forward-addr: {{ remote }}
+{% endfor %}
+
+{% endfor %}

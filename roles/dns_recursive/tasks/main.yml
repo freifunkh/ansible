@@ -1,0 +1,13 @@
+---
+
+- name: Install unbound
+  apt: name=unbound
+
+- name: Configure unbound
+  notify: Restart unbound
+  template:
+    src: unbound.conf.j2
+    dest: /etc/unbound/unbound.conf
+
+- name: Enable unbound
+  service: name=unbound enabled=yes

@@ -4,17 +4,18 @@
         - fastd_mesh: reactivate config validation
             - maybe change the order of the config snippets
         - fastd user (systemd can give a user to fastd_mesh)
+        - is the interface brought up automatically?
     - ???
         - how to set variables like "git_addr" for all nodes?
     - batman:
         - build it from source
+    - gateway test script?
 
 - networkd:
     - systemd-networkd does not properly react to new fastd_mesh interface
         - if this is fixed, mac & batman should be set by systemd-networkd
 
 - roles:
-    - dnsmasq
     - radvd
 
 - longtime roles:
@@ -27,3 +28,4 @@
 - firewall:
     - rules against flooding
     - ipv6
+    - allow dns queries from bat0
