@@ -32,5 +32,4 @@
     content: |
       peer group "peers-grp" {
         include peers from "peers";
-        peer limit 180;
       }
