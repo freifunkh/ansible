@@ -163,3 +163,6 @@ Example:
       - fdca:ffee:8::/48
     - dns_recursive_allowed_private_domains:
       - "ffh.zone."
+    - dns_recursive_listen_on:
+      - 10.2.30.1
+      - fdca:ffee:8::1801

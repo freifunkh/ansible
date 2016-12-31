@@ -3,8 +3,9 @@ server:
   username: "unbound"
   directory: "/etc/unbound"
 
-  interface: ::1
-  interface: 0.0.0.0
+{% for ip in dns_recursive_listen_on %}
+  interface: {{ ip }}
+{% endfor %}
 
 {% for net in dns_recursive_allowed_nets %}
   access-control: {{ net }} allow
