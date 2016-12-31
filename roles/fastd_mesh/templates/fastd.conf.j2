@@ -2,8 +2,14 @@ log to stderr level debug2;
 interface "{{ fastd_mesh_iface }}";
 
 method "salsa2012+umac";
-bind 0.0.0.0 port {{ fastd_mesh_port }};
-bind [::] port {{ fastd_mesh_port }};
+{% for ip in fastd_mesh_listen_on %}
+{% if ":" in ip %}
+bind [{{ ip }}] port {{ fastd_mesh_port }};
+{% else %}
+bind {{ ip }} port {{ fastd_mesh_port }};
+{% endif %}
+{% endfor %}
+
 
 hide ip addresses yes;
 hide mac addresses yes;

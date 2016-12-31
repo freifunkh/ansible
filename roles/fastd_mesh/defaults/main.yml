@@ -2,3 +2,4 @@
 fastd_mesh_iface: fastd_mesh
 fastd_mesh_port: 10000
 fastd_mesh_mtu: 1394
+fastd_mesh_listen_on: ["0.0.0.0", "::"]
