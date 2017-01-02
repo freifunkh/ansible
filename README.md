@@ -134,7 +134,7 @@ There are two different remotes providers:
     - installs cronjob to autoupdate peers
 
 
-## deamons
+## daemons
 
 ### dhcp_server
 
