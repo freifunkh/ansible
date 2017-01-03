@@ -3,7 +3,7 @@
 - name: Create the peers directory
   file:
     state: directory
-    dest: /etc/fastd/fastd_mesh/peers
+    dest: /etc/fastd/mesh_fastd/peers
     owner: auto
 
 - name: Clone the peers git
@@ -11,7 +11,7 @@
   become_user: auto
   git:
     repo: "{{ git_addr }}:/peers"
-    dest: /etc/fastd/fastd_mesh/peers
+    dest: /etc/fastd/mesh_fastd/peers
 
 - name: Install crontab for autoupdate
   cron:
@@ -20,14 +20,14 @@
     minute: "*/5"
     job: >
       /home/auto/autoupdate.sh
-      /etc/fastd/fastd_mesh/peers
-      && (systemctl reload fastd@ffh_mesh
-      || echo "Reload of fastd_mesh instance failed")
+      /etc/fastd/mesh_fastd/peers
+      && (systemctl reload fastd@mesh_fastd
+      || echo "Reload of mesh_fastd instance failed")
 
 - name: Enable peers-git remotes in fastd
-  notify: Restart fastd_mesh
+  notify: Restart mesh_fastd
   blockinfile:
-    dest: /etc/fastd/fastd_mesh/remotes.conf
+    dest: /etc/fastd/mesh_fastd/remotes.conf
     marker: "# {mark} PEERS GIT (ANSIBLE)"
     content: |
       peer group "peers-grp" {

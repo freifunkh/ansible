@@ -1,9 +1,9 @@
 - improvements to roles:
     - fastd:
         - fastd debug level
-        - fastd_mesh: reactivate config validation
+        - mesh_fastd: reactivate config validation
             - maybe change the order of the config snippets
-        - fastd user (systemd can give a user to fastd_mesh)
+        - fastd user (systemd can give a user to mesh_fastd)
         - is the interface brought up automatically?
     - ???
         - how to set variables like "git_addr" for all nodes?
@@ -12,7 +12,7 @@
     - gateway test script?
 
 - networkd:
-    - systemd-networkd does not properly react to new fastd_mesh interface
+    - systemd-networkd does not properly react to new mesh_fastd interface
         - if this is fixed, mac & batman should be set by systemd-networkd
 
 

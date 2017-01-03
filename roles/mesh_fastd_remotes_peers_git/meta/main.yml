@@ -1,5 +1,5 @@
 ---
 dependencies:
-  - { role: fastd_mesh }
+  - { role: mesh_fastd }
   - { role: ssh_known_hosts }
   - { role: git_autoupdate }

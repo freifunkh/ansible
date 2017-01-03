@@ -44,12 +44,12 @@ we have at least one "mesh provider".
 - **batman:** ensures the batman kmod is loaded
     - interface is not created without mesh provider
 
-The only existing provider is fastd_mesh at the moment. This role creates a
+The only existing provider is mesh_fastd at the moment. This role creates a
 fastd instance and binds it to batman. But it does not accept a connection
 from any peer until you add at lease one "remotes provider".
 
-- **fastd\_mesh:** adds fastd_mesh interface to bat0
-    - host vars: ```fastd_mesh_mac```
+- **fastd\_mesh:** adds mesh_fastd interface to bat0
+    - host vars: ```mesh_fastd_mac```
     - doesn't work without remotes role
 
 There are two different remotes providers:

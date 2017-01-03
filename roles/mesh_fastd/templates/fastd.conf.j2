@@ -1,12 +1,12 @@
 log to stderr level debug2;
-interface "{{ fastd_mesh_iface }}";
+interface "{{ mesh_fastd_iface }}";
 
 method "salsa2012+umac";
-{% for ip in fastd_mesh_listen_on %}
+{% for ip in mesh_fastd_listen_on %}
 {% if ":" in ip %}
-bind [{{ ip }}] port {{ fastd_mesh_port }};
+bind [{{ ip }}] port {{ mesh_fastd_port }};
 {% else %}
-bind {{ ip }} port {{ fastd_mesh_port }};
+bind {{ ip }} port {{ mesh_fastd_port }};
 {% endif %}
 {% endfor %}
 
@@ -15,7 +15,7 @@ hide ip addresses yes;
 hide mac addresses yes;
 
 include "secret.conf";
-mtu {{ fastd_mesh_mtu }};
+mtu {{ mesh_fastd_mtu }};
 
 include "remotes.conf";
 
@@ -24,11 +24,11 @@ peer "!!!_dummy_!!!" {
   key "0000000000000000000000000000000000000000000000000000000000000000";
 }
 
-status socket "/var/run/fastd.{{ fastd_mesh_iface }}.sock";
+status socket "/var/run/fastd.{{ mesh_fastd_iface }}.sock";
 
 on up "
- chmod o+rw /var/run/fastd.{{ fastd_mesh_iface }}.sock
+ chmod o+rw /var/run/fastd.{{ mesh_fastd_iface }}.sock
  batctl if add $INTERFACE
- ip link set address {{ fastd_mesh_mac }} dev $INTERFACE
+ ip link set address {{ mesh_fastd_mac }} dev $INTERFACE
  ip link set $INTERFACE up
 ";

@@ -1,4 +1,0 @@
----
-
-- name: Restart fastd_mesh
-  service: name=fastd@fastd_mesh state=restarted

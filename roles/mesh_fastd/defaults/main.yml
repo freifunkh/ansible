@@ -1,0 +1,5 @@
+---
+mesh_fastd_iface: mesh_fastd
+mesh_fastd_port: 10000
+mesh_fastd_mtu: 1394
+mesh_fastd_listen_on: ["0.0.0.0", "::"]

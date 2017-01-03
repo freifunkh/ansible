@@ -4,11 +4,11 @@
   roles:
     - cli_tools
     - networkd
-    - batman
     - ssh_known_hosts
-    - fastd_mesh
-    - fastd_mesh_remotes_backbone
-    - fastd_mesh_remotes_peers_git
+    - mesh_batman
+    - mesh_fastd
+    - mesh_fastd_remotes_backbone
+    - mesh_fastd_remotes_peers_git
   vars:
     - networkd_uplink:
         interface: eth*
@@ -19,7 +19,7 @@
 
     - ip4_bat0: "10.2.150.1"
     - ip6_bat0: "fdca:ffee:8::9601"
-    - fastd_mesh_mac: "88:E6:40:20:96:01"
+    - mesh_fastd_mac: "88:E6:40:20:96:01"
     - git_addr: ssh://git@git.fnorden.net
 
 - hosts: gw03
@@ -27,11 +27,11 @@
     - cli_tools
     - networkd
     - simple_firewall
-    - batman
     - ssh_known_hosts
-    - fastd_mesh
-    - fastd_mesh_remotes_backbone
-    - fastd_mesh_remotes_peers_git
+    - mesh_batman
+    - mesh_fastd
+    - mesh_fastd_remotes_backbone
+    - mesh_fastd_remotes_peers_git
     - radv_server
     - dns_recursive
     - dhcp_server
@@ -58,7 +58,7 @@
         remote_outer_ip: 178.32.215.75
         local_outer_ip: 138.201.220.61
 
-    - fastd_mesh_mac: "88:E6:40:20:1e:01"
+    - mesh_fastd_mac: "88:E6:40:20:1e:01"
     - git_addr: ssh://git@git.fnorden.net
     - firewall_open_ports_udp: [10000]
     - firewall_allowed_forwards:

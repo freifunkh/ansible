@@ -20,40 +20,40 @@
 - name: Remove autostart of generic fastd instance on boot
   service: name=fastd enabled=no
 
-- name: Create fastd_mesh daemon config directories
-  file: path=/etc/fastd/fastd_mesh state=directory
+- name: Create mesh_fastd daemon config directories
+  file: path=/etc/fastd/mesh_fastd state=directory
 
-- name: Install fastd_mesh daemon config
-  notify: Restart fastd_mesh
+- name: Install mesh_fastd daemon config
+  notify: Restart mesh_fastd
   template:
-    dest: "/etc/fastd/fastd_mesh/fastd.conf"
+    dest: "/etc/fastd/mesh_fastd/fastd.conf"
     src: "fastd.conf.j2"
 
 - name: Check if secret.conf exists
   register: secretfile
-  stat: path=/etc/fastd/fastd_mesh/secret.conf
+  stat: path=/etc/fastd/mesh_fastd/secret.conf
 
 - name: Generate secret
   register: generatedsecret
   command: fastd --generate-key --machine-readable
   when: not secretfile.stat.exists
 
-- name: Install fastd_mesh daemon secret
-  notify: Restart fastd_mesh
+- name: Install mesh_fastd daemon secret
+  notify: Restart mesh_fastd
   when: not secretfile.stat.exists
   template:
-    dest: "/etc/fastd/fastd_mesh/secret.conf"
+    dest: "/etc/fastd/mesh_fastd/secret.conf"
     src: "secret.conf.j2"
     mode: "u=rw,g=,o="
 
-- name: Check if fastd_mesh remotes file exists
-  stat: path=/etc/fastd/fastd_mesh/remotes.conf
+- name: Check if mesh_fastd remotes file exists
+  stat: path=/etc/fastd/mesh_fastd/remotes.conf
   register: remotes
 
-- name: Ensure fastd_mesh remotes file exits
+- name: Ensure mesh_fastd remotes file exits
   when: not remotes.stat.exists
-  file: path=/etc/fastd/fastd_mesh/remotes.conf state=touch
-  notify: Restart fastd_mesh
+  file: path=/etc/fastd/mesh_fastd/remotes.conf state=touch
+  notify: Restart mesh_fastd
 
-- name: Start fastd_mesh on boot
-  service: name=fastd@fastd_mesh enabled=yes state=started
+- name: Start mesh_fastd on boot
+  service: name=fastd@mesh_fastd enabled=yes state=started
