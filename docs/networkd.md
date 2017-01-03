@@ -36,7 +36,10 @@ introduced to do this.
         local_outer_ip: 138.201.220.61
       - name: ...
 
-Note: It is possible to use multiple gre tunnels.
-Note: This will only configure a raw gre tunnel without any assigned ip adresses.
-Note: If you use the ```simple_firewall``` role, it will automatically configure
-      a rule to allow incomming gre traffic for the ```remote_outer_ip```.
+Note:
+
+- It is possible to use multiple gre tunnels.
+- This will only configure a raw gre tunnel without any assigned ip adresses.
+  You need to configure addresses seperate in ```networkd_configures```.
+- If you use the ```simple_firewall``` role, it will automatically configure
+  a rule to allow incomming gre traffic for the ```remote_outer_ip```.
