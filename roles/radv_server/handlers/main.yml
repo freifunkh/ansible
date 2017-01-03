@@ -1,0 +1,4 @@
+---
+
+- name: Restart radvd
+  service: name=radvd state=restarted

@@ -15,15 +15,14 @@
     - systemd-networkd does not properly react to new fastd_mesh interface
         - if this is fixed, mac & batman should be set by systemd-networkd
 
-- roles:
-    - radvd
 
-- longtime roles:
+- longtime todos:
     - monitoring
     - mail user
         - der meckert bei fehlenden updates
     - update user
         - für apt-dater
+    - look at all radvd parameters
 
 - firewall:
     - rules against flooding

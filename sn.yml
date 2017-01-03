@@ -24,6 +24,7 @@
 
 - hosts: gw03
   roles:
+    - radv_server
     - dns_recursive
     - dhcp_server
     - cli_tools
@@ -87,3 +88,9 @@
       - fdca:ffee:8::/48
     - dns_recursive_allowed_private_domains:
       - "ffh.zone."
+
+    - radv_server_iface: "bat0"
+    - radv_server_adv_prefixes:
+      - fdca:ffee:8::/64
+    - radv_server_adv_dns_servers:
+      - fdca:ffee:8::1e01

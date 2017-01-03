@@ -1,0 +1,21 @@
+---
+- name: Install radvd
+  apt: name=radvd
+
+- name: Generate radvd config
+  notify: Restart radvd
+  template:
+    src: radvd.conf.j2
+    dest: /etc/radvd.conf
+
+- name: Add systemd service file
+  template:
+    src: systemd.service
+    dest: /etc/systemd/system/radvd.service
+    # Remove this when debian gets a real service file
+
+- name: Enable radvd
+  service: name=radvd enabled=yes
+
+- name: Start radvd
+  service: name=radvd state=started

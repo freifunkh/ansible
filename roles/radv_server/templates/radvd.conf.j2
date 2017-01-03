@@ -1,0 +1,19 @@
+interface {{ radv_server_iface }}
+{
+ AdvSendAdvert on;
+
+# AdvDefaultLifetime 0;
+
+ MaxRtrAdvInterval 200;
+
+{% for prefix in radv_server_adv_prefixes %}
+ prefix {{ prefix }} {
+ };
+{% endfor %}
+
+{% for ip in radv_server_adv_dns_servers %}
+ RDNSS {{ ip }} {
+ };
+{% endfor %}
+
+};
