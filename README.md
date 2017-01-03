@@ -53,7 +53,8 @@ introduced to do this.
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
         local_outer_ip: 138.201.220.61
-        local_inner_addr: 192.168.43.31/31
+        local_inner_addr:
+          - 192.168.43.31/31
 
 Note: It is possible to use multiple gre tunnels.
 Note: If you use the ```simple_firewall``` role, it will automatically configure

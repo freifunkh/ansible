@@ -2,4 +2,6 @@
 Name={{ item.1.name }}
 
 [Network]
-Address={{ item.1.local_inner_addr }}
+{% for addr in item.1.local_inner_addr %}
+Address={{ addr }}
+{% endfor %}
