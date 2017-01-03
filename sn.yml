@@ -24,9 +24,6 @@
 
 - hosts: gw03
   roles:
-    - radv_server
-    - dns_recursive
-    - dhcp_server
     - cli_tools
     - networkd
     - simple_firewall
@@ -35,6 +32,9 @@
     - fastd_mesh
     - fastd_mesh_remotes_backbone
     - fastd_mesh_remotes_peers_git
+    - radv_server
+    - dns_recursive
+    - dhcp_server
   vars:
     - networkd_configures:
       - iface: eth0
