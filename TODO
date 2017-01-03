@@ -26,5 +26,6 @@
 
 - firewall:
     - rules against flooding
-    - ipv6
+    - should we allow all icmp types?
     - allow dns queries from bat0
+    - test whether we can build gre tunnels using ipv6

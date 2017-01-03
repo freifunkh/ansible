@@ -63,8 +63,8 @@ Note: If you use the ```simple_firewall``` role, it will automatically configure
 
 ### simple_firewall role
 
-This role offers the common tasks needed in all of our freifunk scenarios. Currently
-this only supports IPv4. By default this role only opens port **22/tcp for ssh**. This
+This role offers the common tasks needed in all of our freifunk scenarios.
+By default this role only opens port **22/tcp for ssh**. This
 can be changed using the ```firewall_ssh_port``` variable. Be careful with this
 because you can lock out yourself very easily. The role is very modular and configurable:
 

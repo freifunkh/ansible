@@ -71,6 +71,8 @@
             via: 192.168.43.30
           - dest_net: 10.2.0.0/16
             dest_if: bat0
+          - dest_net: fdca:ffee:8::/64
+            dest_if: bat0
     - dhcp_range:
         from: 10.2.30.2
         to: 10.2.39.254

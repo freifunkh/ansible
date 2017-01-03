@@ -3,9 +3,16 @@
 - name: Install iptables-persistent
   apt: name=iptables-persistent
 
-- name: Maybe activate forwarding as kernel parameter
+- name: Maybe activate forwarding 4 as kernel parameter
   sysctl:
     name: net.ipv4.conf.all.forwarding
+    value: "{% if firewall_allowed_forwards|length > 0 %} 1 {% else %} 0 {% endif %}"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
+- name: Maybe activate forwarding 6 as kernel parameter
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
     value: "{% if firewall_allowed_forwards|length > 0 %} 1 {% else %} 0 {% endif %}"
     sysctl_file: /etc/sysctl.d/50-forwarding.conf
     reload: yes
@@ -17,9 +24,20 @@
     src: "iptables4.j2"
     validate: "iptables-restore --test %s"
 
-- name: Load and apply the new firewall rules
+- name: Generate test config iptables v6 config
+  register: iptables6
+  template:
+    dest: "/etc/iptables/rules.v6"
+    src: "iptables6.j2"
+    validate: "ip6tables-restore --test %s"
+
+- name: Load and apply the new firewall 4 rules
   command: iptables-restore /etc/iptables/rules.v4
   when: iptables4|changed
+
+- name: Load and apply the new firewall 6 rules
+  command: ip6tables-restore /etc/iptables/rules.v6
+  when: iptables6|changed
 
 - name: Ensure alternative routing tables are existing
   lineinfile:

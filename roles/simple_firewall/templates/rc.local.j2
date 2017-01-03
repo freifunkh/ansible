@@ -11,7 +11,8 @@
 
 # This unreachable route prevents leaking of packets in the other routing tables
 # when we have no other default route in the {{table.name }} table.
-/sbin/ip route replace unreachable default table {{ table.name }} metric 1000
+/sbin/ip -6 route replace unreachable default table {{ table.name }} metric 1000
+/sbin/ip -4 route replace unreachable default table {{ table.name }} metric 1000
 
 # Use the packet park from iptables to put the packets in table {{ table.name }}
 /sbin/ip rule add from all fwmark 0x{{ "%x" | format(table_id) }} table {{ table.name }} priority {{ 200 + table_id }}
