@@ -39,6 +39,14 @@ time.
     - firewall_alternative_routingtables:
       - name: freifunk
         when_packet_from: ["bat0", "internetz-me"]
+        routes:
+          - dest_net: default
+            dest_if: internetz-me
+            via: 192.168.43.30
+          - dest_net: 10.2.0.0/16
+            dest_if: bat0
+          - dest_net: fdca:ffee:8::/64
+            dest_if: bat0
 
 **gre tunnels:**
 
