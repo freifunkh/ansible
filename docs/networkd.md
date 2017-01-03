@@ -6,9 +6,26 @@ now and then. **All further network modules are depending on this.** Since
 networkd also handles the uplink connection of the server, some variables are
 introduced to do this.
 
-- **networkd:** replaces debian networking with systemd-networkd
-    - host_vars: ```networkd_uplink.interface, networkd_uplink.networks, networkd_uplink.dns```
-    - creates a configuration for the uplink interface
+**very simple iface configuration:**
+
+    - networkd_configures
+      - iface: bat0
+        adresses:
+          - 192.168.43.31/31
+          - fdca::1/64
+      - iface: ...
+
+**uplink iface configuration:**
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 138.201.220.61/26
+        gateway4: 138.201.220.1
+        gateway6: fe80::1
+        dns_server: [213.133.98.98]
+      - iface: ...
+
 
 **gre tunnel:**
 
@@ -17,9 +34,9 @@ introduced to do this.
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
         local_outer_ip: 138.201.220.61
-        local_inner_addr:
-          - 192.168.43.31/31
+      - name: ...
 
 Note: It is possible to use multiple gre tunnels.
+Note: This will only configure a raw gre tunnel without any assigned ip adresses.
 Note: If you use the ```simple_firewall``` role, it will automatically configure
       a rule to allow incomming gre traffic for the ```remote_outer_ip```.

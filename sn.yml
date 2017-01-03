@@ -36,24 +36,28 @@
     - fastd_mesh_remotes_backbone
     - fastd_mesh_remotes_peers_git
   vars:
-    - networkd_uplink:
-        interface: eth0
-        networks:
-          - addr: 138.201.220.61/26
-            gateway: 138.201.220.1
-        dns: 213.133.98.98
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 138.201.220.61/26
+        gateway4: 138.201.220.1
+        gateway6: fe80::1
+        dns_server: [213.133.98.98]
+      - iface: internetz-me
+        addresses:
+          - 192.168.43.31/31
+          - fdca::1/64
+      - iface: bat0
+        addresses:
+          - 10.2.30.1/16
+          - fdca:ffee:8::1e01/64
 
     - networkd_gre_tunnels:
       - name: internetz-me
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
         local_outer_ip: 138.201.220.61
-        local_inner_addr:
-          - 192.168.43.31/31
-          - fdca::1/64
 
-    - ip4_bat0: "10.2.30.1"
-    - ip6_bat0: "fdca:ffee:8::1e01"
     - fastd_mesh_mac: "88:E6:40:20:1e:01"
     - git_addr: ssh://git@git.fnorden.net
     - firewall_open_ports_udp: [10000]

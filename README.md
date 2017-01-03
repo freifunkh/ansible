@@ -41,8 +41,7 @@ The basic functionality is provided by the batman role. It handles the proper
 configuration of the bat0 interface. But the interface is only created, if
 we have at least one "mesh provider".
 
-- **batman:** provides bat0 interface, sets ips to it
-    - host vars: ```ip4_bat0, ip6_bat0```
+- **batman:** ensures the batman kmod is loaded
     - interface is not created without mesh provider
 
 The only existing provider is fastd_mesh at the moment. This role creates a

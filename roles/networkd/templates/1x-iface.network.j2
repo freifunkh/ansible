@@ -1,0 +1,23 @@
+[Match]
+Name={{ item.1.iface }}
+
+[Network]
+{% for addr in item.1.addresses %}
+Address={{ addr }}
+{% endfor %}
+{% if item.1.gateway4 is defined %}
+Gateway={{ item.1.gateway4 }}
+{% endif %}
+{% if item.1.gateway6 is defined %}
+Gateway={{ item.1.gateway6 }}
+{% endif %}
+{% if item.1.dns_server is defined %}
+{% for dns_server in item.1.dns_server %}
+DNS={{ dns_server }}
+{% endfor %}
+{% endif %}
+{% for tunnel in networkd_gre_tunnels %}
+{% if tunnel.lower_interface == item.1.iface %}
+Tunnel={{ tunnel.name }}
+{% endif %}
+{% endfor %}
