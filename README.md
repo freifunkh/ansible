@@ -88,7 +88,7 @@ be set automatically. This will permit forwarding in both directions.
 
 **nat:**
 
-    - firewall_nat_on_interfaces: ['exit-vpn-1']
+    - firewall_nat4_on_interfaces: ['exit-vpn-1']
 
 
 **alternative routing tables:**

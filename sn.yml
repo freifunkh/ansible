@@ -61,7 +61,7 @@
       - between: bat0
         and: internetz-me
 
-    - firewall_nat_on_interfaces: ["internetz-me"]
+    - firewall_nat4_on_interfaces: ["internetz-me"]
     - firewall_alternative_routingtables:
       - name: freifunk
         when_packet_from: ["bat0", "internetz-me"]

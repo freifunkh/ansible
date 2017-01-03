@@ -3,5 +3,5 @@ firewall_ssh_port: 22
 firewall_open_ports_tcp: []
 firewall_open_ports_udp: []
 firewall_allowed_forwards: []
-firewall_nat_on_interfaces: []
+firewall_nat4_on_interfaces: []
 firewall_alternative_routingtables: []
