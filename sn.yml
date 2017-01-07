@@ -65,6 +65,12 @@
       - between: bat0
         and: internetz-me
 
+    - firewall_open_ports_udp_by_iface:
+      - port: 53
+        iface: bat0
+      - port: 68
+        iface: bat0
+
     - firewall_nat4_on_interfaces: ["internetz-me"]
     - firewall_alternative_routingtables:
       - name: freifunk

@@ -41,11 +41,29 @@
 
 
 #
+# OPEN TCP PORTS BY IFACE
+#
+
+{% for rule in firewall_open_ports_tcp_by_iface %}
+  -A INPUT -m tcp -p tcp --dport {{ rule.port }} -i {{ rule.iface }} -j ACCEPT
+{% endfor %}
+
+
+#
 # OPEN UDP PORTS
 #
 
 {% for udp_port in firewall_open_ports_udp %}
   -A INPUT -m udp -p udp --dport {{ udp_port }} -j ACCEPT
+{% endfor %}
+
+
+#
+# OPEN UDP PORTS BY IFACE
+#
+
+{% for rule in firewall_open_ports_udp_by_iface %}
+  -A INPUT -m udp -p udp --dport {{ rule.port }} -i {{ rule.iface }} -j ACCEPT
 {% endfor %}
 
 

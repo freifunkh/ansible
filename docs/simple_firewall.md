@@ -11,6 +11,15 @@ because you can lock out yourself very easily. The role is very modular and conf
     - firewall_open_ports_udp: [10000]
 
 
+**open additional ports only for specific interfaces:**
+
+    - firewall_open_ports_udp_by_iface:
+      - port: 53
+        iface: bat0
+      - port: 1337
+        iface: internetz-me
+
+
 **allow forwarding for some for some interfaces:**
 
 If you add this to your config, the kernel parameters to activate forwarding will
