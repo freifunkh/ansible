@@ -21,8 +21,12 @@
   with_indexed_items: "{{ networkd_gre_tunnels }}"
 
 - name: Enable dns resolving with systemd-resolved
-  notify: Restart networkd
+  register: enableresolved
   file: src=/run/systemd/resolve/resolv.conf dest=/etc/resolv.conf state=link force=yes
+
+- name: Directly restart networkd
+  service: name=systemd-networkd state=restarted
+  when: enableresolved|changed
 
 - name: Disable debian networking
   service: name=networking enabled=no
