@@ -7,3 +7,5 @@ firewall_open_ports_udp_by_iface: []
 firewall_allowed_forwards: []
 firewall_nat4_on_interfaces: []
 firewall_alternative_routingtables: []
+# -1 means the default value of "nf_conntrack_buckets value * 4"
+firewall_conntrack_table_size: -1

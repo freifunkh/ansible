@@ -37,6 +37,11 @@ be set automatically. This will permit forwarding in both directions.
     - firewall_nat4_on_interfaces: ['exit-vpn-1']
 
 
+**adjust size of netfilter conntrack table:**
+
+    - firewall_conntrack_table_size: 1048576 # bytes
+
+
 **alternative routing tables:**
 
 There is a rather advanced feature of the linux kernel to provide multiple
