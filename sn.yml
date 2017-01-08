@@ -24,6 +24,7 @@
 
 - hosts: gw03
   roles:
+    - gateway_announcement
     - cli_tools
     - networkd
     - simple_firewall

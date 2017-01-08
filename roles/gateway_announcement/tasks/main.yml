@@ -1,0 +1,13 @@
+---
+- name: Install gateway_announcement.sh
+  template:
+    src: gateway_announcement.sh
+    dest: /usr/bin/gateway_announcement.sh
+    mode: u=rwx,g=rx,o=rx
+
+- name: Activate cronjob to run gateway_announcement.sh
+  cron:
+    name: "check wheter we should announce gateway mode in batman"
+    user: root
+    minute: "*"
+    job: /usr/bin/gateway_announcement.sh
