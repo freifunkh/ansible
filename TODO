@@ -1,6 +1,5 @@
 - improvements to roles:
     - fastd:
-        - fastd debug level
         - mesh_fastd: reactivate config validation
             - maybe change the order of the config snippets
         - fastd user (systemd can give a user to mesh_fastd)

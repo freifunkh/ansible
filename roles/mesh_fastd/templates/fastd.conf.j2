@@ -1,4 +1,4 @@
-log to stderr level debug2;
+log to stderr level {{ mesh_fastd_debug_level }};
 interface "{{ mesh_fastd_iface }}";
 
 method "salsa2012+umac";

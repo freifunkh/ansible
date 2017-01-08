@@ -18,7 +18,7 @@ which can be changed by adding a ```mesh_fastd_remotes_*``` role.
 It listens on port 10000 on all all interfaces (```0.0.0.0``` and ```::```) and has a mtu of 1394. You
 have to set a mac address on the interface!
 
-    mesh_fastd_mac: "11:22:33:44:55:66"
+    - mesh_fastd_mac: "11:22:33:44:55:66"
 
 **change mtu and port:**
 
@@ -30,6 +30,10 @@ have to set a mac address on the interface!
     - mesh_fastd_listen_on:
       - fd::1
       - 192.168.0.1
+
+**change debug level:**
+
+    - mesh_fastd_debug_level: debug2 # default debug level was info
 
 ## mesh_fastd_remotes_backbone
 
