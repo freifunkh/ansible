@@ -36,6 +36,7 @@
     - dns_recursive
     - dhcp_server
     - gateway_announcement
+    - nginx
   vars:
     - networkd_configures:
       - iface: eth0
@@ -65,6 +66,7 @@
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
+    - firewall_open_ports_tcp: [80, 443]
 
     - firewall_open_ports_udp_by_iface:
       - port: 53
@@ -110,3 +112,20 @@
       - fdca:ffee:8::/64
     - radv_server_adv_dns_servers:
       - fdca:ffee:8::1e01
+
+    - nginx_sites:
+      - domain: hannover.freifunk.net
+        root: /var/www
+        tls: true
+        ssl_cert_file: /dev/urandom
+        ssl_key_file: /dev/urandom
+        locations:
+          - location: /karte
+            type: proxy
+            forward_url: http://localhost:8089/
+          - location: /download
+            type: files
+            filesystem_path: /var/www/downloads
+          - location: /forum
+            type: fastcgi
+            fcgi_socket: localhost:9090

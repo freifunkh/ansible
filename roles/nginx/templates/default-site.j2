@@ -1,0 +1,22 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+{% if item.tls == true %}
+        listen 443 ssl;
+        listen [::]:443 ssl;
+        # TODO certs
+{% endif %}
+
+        root {{item.root}};
+
+        index index.php index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location ~ \.php$ {
+                fastcgi_pass unix:/run/php5-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi.conf;
+        }
+}

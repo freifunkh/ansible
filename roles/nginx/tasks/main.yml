@@ -1,0 +1,29 @@
+---
+
+- name: Install nginx
+  apt: name=nginx
+
+- name: Install PHP
+  apt: name={{item}}
+  with_items: [ php5, php5-fpm ]
+
+- name: Configure nginx
+  template:
+    src: default-site.j2
+    dest: /etc/nginx/sites-available/{{item.domain}}
+  with_items: "{{nginx_sites}}"
+  notify: Restart nginx
+
+- name: Delete nginx default site
+  file:
+    state: absent
+    path: /etc/nginx/sites-enabled/default
+  notify: Restart nginx
+
+- name: Enable site
+  file:
+    src: /etc/nginx/sites-available/{{item.domain}}
+    dest: /etc/nginx/sites-enabled/{{item.domain}}
+    state: link
+  with_items: "{{nginx_sites}}"
+  notify: Restart nginx
