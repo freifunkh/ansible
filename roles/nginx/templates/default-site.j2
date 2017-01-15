@@ -2,7 +2,7 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-{% if item.tls == true %}
+{% if item.tls is defined and item.tls == true %}
         listen 443 ssl;
         listen [::]:443 ssl;
         # TODO certs
