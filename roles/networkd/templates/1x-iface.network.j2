@@ -21,3 +21,6 @@ DNS={{ dns_server }}
 Tunnel={{ tunnel.name }}
 {% endif %}
 {% endfor %}
+{% if item.1.dhcp is defined and item.1.dhcp %}
+DHCP=ipv4
+{% endif %}

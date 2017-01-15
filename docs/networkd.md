@@ -6,6 +6,11 @@ now and then. **All further network modules are depending on this.** Since
 networkd also handles the uplink connection of the server, some variables are
 introduced to do this.
 
+**dhcp configuration:**
+    - networkd_configures:
+      - iface: eth0
+        dhcp: true
+
 **very simple iface configuration:**
 
     - networkd_configures
