@@ -1,0 +1,70 @@
+---
+
+- name: Install dependencies (git npm nodejs-legacy ruby-sass)
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - git
+    - npm
+    - nodejs-legacy
+    - ruby-sass
+
+- name: Clone freifunkh / meshflix
+  git:
+    repo: https://github.com/freifunkh/meshflix.git
+    dest: /tmp/meshflix
+
+- name: npm install
+  npm:
+    path: /tmp/meshflix
+
+- name: npm install grunt-cli
+  npm:
+    name: grunt-cli
+    path: /tmp/meshflix
+
+- name: node_modules/.bin/grunt
+  command: node_modules/.bin/grunt
+  args:
+    chdir: /tmp/meshflix
+
+- name: Create webroot
+  file:
+    path: "{{ webroot }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+
+- name: Move meshflix to webroot
+  command: "mv /tmp/meshflix/build {{ webroot }}/karte"
+  args:
+    creates: "{{ webroot }}/karte"
+    removes: /tmp/meshflix/build
+
+- name: Copy config-without-stats.json
+  copy:
+    remote_src: true
+    src: /tmp/meshflix/config/config-without-stats.json
+    dest: "{{ webroot }}/karte/config-without-stats.json"
+    force: no
+
+- name: Copy config-with-stats.json
+  copy:
+    remote_src: true
+    src: /tmp/meshflix/config/config-with-stats.json
+    dest: "{{ webroot }}/karte/config-with-stats.json"
+    force: no
+
+- name: Create symlink config.json ---> config-without-stats.json
+  file:
+    src: "{{ webroot }}/karte/config-without-stats.json"
+    dest: "{{ webroot }}/karte/config.json"
+    state: link
+
+- name: Change directory permissions
+  file:
+    path: "{{ webroot }}/karte"
+    owner: www-data
+    group: www-data
+    mode: u=rwX,g=rwX,o=rX
+    recurse: yes
