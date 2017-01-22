@@ -115,11 +115,12 @@
       - fdca:ffee:8::1e01
 
     - nginx_sites:
-      - domain: hannover.freifunk.net
+      - domain: testfuerraute.ffh.zone
         root: /var/www
         tls: true
-        ssl_cert_file: /dev/urandom
-        ssl_key_file: /dev/urandom
+        cert_country: DE
+        cert_location: Hannover
+        cert_organisation: Freifunk Hannover
         locations:
           - location: /karte
             type: proxy
