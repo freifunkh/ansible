@@ -37,6 +37,7 @@
     - dhcp_server
     - gateway_announcement
     - nginx
+    - prometheus
   vars:
     - networkd_configures:
       - iface: eth0
@@ -129,3 +130,9 @@
           - location: /forum
             type: fastcgi
             fcgi_socket: localhost:9090
+
+    - prometheus_scrapes:
+        - name: prometheus
+          interval: 60
+          timeout: 60
+          targets: ['localhost:9090']

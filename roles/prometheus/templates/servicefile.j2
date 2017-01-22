@@ -1,0 +1,9 @@
+[Unit]
+Description=prometheus ist toll! (macht monitoring dinge unso)
+
+[Service]
+User=prometheus
+ExecStart=/opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus -config.file /etc/prometheus.yml -storage.local.path /var/lib/prometheus
+
+[Install]
+WantedBy=multi-user.target

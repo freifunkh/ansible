@@ -1,0 +1,24 @@
+global:
+  scrape_interval:     60s
+  scrape_timeout:      10s
+  evaluation_interval: 15s
+
+  external_labels:
+    monitor: 'codelab-monitor'
+
+scrape_configs:
+{% for scrape in prometheus_scrapes %}
+  - job_name: '{{ scrape.name }}'
+{% if scrape.interval is defined %}
+    scrape_interval: {{ scrape.interval }}s
+{% endif %}
+{% if scrape.timeout is defined %}
+    scrape_timeout: {{ scrape.timeout }}s
+{% endif %}
+
+    static_configs:
+      - targets:
+{% for target in scrape.targets %}
+        - '{{ target }}'
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,56 @@
+---
+
+- name: Ensure ansible dir
+  file:
+      dest: /var/lib/ansible
+      state: directory
+
+- name: Check installed prometheus version
+  register: prometheusversion
+  template:
+    src: versionfile.j2
+    dest: /var/lib/ansible/prometheus_version
+
+- name: Download prometheus
+  unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz
+    dest: /opt
+    remote_src: True
+  when: prometheusversion|changed
+
+- name: Ensure prometheus user
+  user:
+    name: prometheus
+    system: yes
+
+- name: Permissions on data directory
+  file:
+    state: directory
+    path: "/var/lib/prometheus"
+    owner: "prometheus"
+    recurse: yes
+
+- name: Prometheus systemd service file
+  register: servicefile
+  template:
+    src: servicefile.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Generate config file
+  register: configfile
+  template:
+    src: config.yml.j2
+    dest: /etc/prometheus.yml
+
+- name: Reload services
+  systemd:
+    name: prometheus
+    state: restarted
+    daemon_reload: yes
+  when: servicefile|changed or configfile|changed
+
+- name: Enable service
+  service:
+    name: prometheus
+    enabled: yes
+    state: started
