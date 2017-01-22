@@ -1,10 +1,10 @@
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+        listen 80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
+        listen [::]:80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
 
 {% if item.tls is defined and item.tls == true %}
-        listen 443 ssl;
-        listen [::]:443 ssl;
+        listen 443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
+        listen [::]:443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
         # TODO certs
 {% endif %}
 
