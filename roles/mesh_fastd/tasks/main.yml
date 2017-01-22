@@ -11,11 +11,16 @@
     id: 16EF3F64CB201D9C
 
 - name: Add universe-factory repositories
+  register: fastdrepositoryadded
   apt_repository:
     repo: "deb http://repo.universe-factory.net/debian/ sid main"
 
+- name: Update apt chache to get universe-factory packages
+  apt: update_cache=yes
+  when: fastdrepositoryadded|changed
+
 - name: Install fastd
-  apt: name=fastd update_cache=yes
+  apt: name=fastd
 
 - name: Remove autostart of generic fastd instance on boot
   service: name=fastd enabled=no
