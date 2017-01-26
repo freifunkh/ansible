@@ -8,7 +8,9 @@ server {
         # TODO certs
 {% endif %}
 
+{% if item.root is defined %}
         root {{item.root}};
+{% endif %}
 
         index index.php index.html index.htm index.nginx-debian.html;
 
