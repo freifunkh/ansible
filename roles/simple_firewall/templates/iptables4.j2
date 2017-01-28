@@ -103,6 +103,17 @@
 
 
 {% endfor %}
+
+{% for rule in firewall_dnat4 %}
+#
+# ALLOW FORWARDING TO DNAT HOST {{ rule.dest }}
+#
+
+  -A FORWARD -p {{ rule.proto }} -m {{ rule.proto }} --dport {{ rule.port }} -d {{ rule.dest }} -j ACCEPT -m comment --comment "{{ rule.comment | default('no comment') }}"
+
+
+{% endfor %}
+
 COMMIT
 
 # ------------------------------------------------------------------------------
@@ -128,7 +139,22 @@ COMMIT
 
 
 {% endfor %}
+
+
+##############
+# PREROUTING #
+##############
+
+#
+# DNAT HOSTS
+#
+
+{% for rule in firewall_dnat4 %}
+  -A PREROUTING -p {{ rule.proto }} -m {{ rule.proto }} --dport {{ rule.port }} -j DNAT --to-destination {{ rule.dest}}:{{ rule.port }} -m comment --comment "{{ rule.comment | default('no comment') }}"
+{% endfor %}
+
 COMMIT
+
 
 # ------------------------------------------------------------------------------
 #                                     mangle

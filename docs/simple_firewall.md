@@ -36,6 +36,17 @@ be set automatically. This will permit forwarding in both directions.
 
     - firewall_nat4_on_interfaces: ['exit-vpn-1']
 
+**simple DNATting:**
+
+    - firewall_dnat4:
+      - comment: test vm port 80
+        proto: udp
+        port: 80
+        dest: 192.168.42.13
+
+This will allow netfilter forwarding to the specified ip and port
+since this is necessary for DNAT to work.
+
 
 **adjust size of netfilter conntrack table:**
 

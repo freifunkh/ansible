@@ -23,7 +23,7 @@
 - name: Maybe activate forwarding 4 as kernel parameter
   sysctl:
     name: net.ipv4.conf.all.forwarding
-    value: "{% if firewall_allowed_forwards|length > 0 %} 1 {% else %} 0 {% endif %}"
+    value: "{% if firewall_allowed_forwards|length > 0 or firewall_dnat4|length > 0 %} 1 {% else %} 0 {% endif %}"
     sysctl_file: /etc/sysctl.d/50-forwarding.conf
     reload: yes
 
