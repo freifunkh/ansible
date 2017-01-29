@@ -1,0 +1,54 @@
+---
+
+- name: Install https for apt
+  apt:
+    name: apt-transport-https
+
+- name: Add grafana repository key
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: 418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB
+
+- name: Add grafana repositories
+  register: grafanarepo
+  apt_repository:
+    repo: "deb https://packagecloud.io/grafana/testing/debian/ jessie main"
+
+- name: Update apt chache to get grafana packages
+  apt: update_cache=yes
+  when: grafanarepo|changed
+
+- name: Install grafana
+  apt:
+    name: grafana
+
+- name: Ensure ansible dir
+  file:
+    path: /var/lib/ansible
+    state: directory
+
+- name: Chech if admin password is already generated
+  register: adminpwexists
+  stat:
+    path: /var/lib/ansible/grafana_admin_password
+
+- name: Generate admin password
+  shell: cat /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c 32 > /var/lib/ansible/grafana_admin_password
+  when: not adminpwexists.stat.exists
+
+- name: Get admin password back
+  register: getadminpw
+  command: cat /var/lib/ansible/grafana_admin_password
+  changed_when: False
+
+- name: Generate grafana config
+  notify: Restart grafana
+  template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+
+- name: Enable grafana
+  service:
+    name: grafana-server
+    enabled: yes
+    state: started

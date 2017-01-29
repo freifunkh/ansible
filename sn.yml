@@ -37,6 +37,7 @@
     - dhcp_server
     - gateway_announcement
     - nginx
+    - grafana
     - prometheus
   vars:
     - networkd_configures:
@@ -129,6 +130,9 @@
           - location: /forum
             type: fastcgi
             fcgi_socket: localhost:9090
+          - location: /stats/
+            type: proxy
+            proxy_forward_url: http://localhost:3000/
       - domain: prometheus.ffh.zone
         locations:
           - location: /
@@ -140,3 +144,5 @@
           interval: 60
           timeout: 60
           targets: ['localhost:9090']
+
+    - grafana_root_url: http://testfuerraute.ffh.zone/stats
