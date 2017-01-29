@@ -1,0 +1,2 @@
+---
+sn03 ansible_host=sn03.ffh.zone ansible_user=root
