@@ -122,8 +122,7 @@
         ssl_key_file: /dev/urandom
         locations:
           - location: /karte
-            type: proxy
-            forward_url: http://localhost:8089/
+            type: files
           - location: /download
             type: files
             filesystem_path: /var/www/downloads
