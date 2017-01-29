@@ -1,0 +1,19 @@
+#!/bin/sh
+cd "{{ stats_batch_install_path }}/handler"
+
+sh uptime.sh
+sh load.sh
+sh if_stats.sh
+{% for test in stats_pings %}
+ping -c 5 -i 0.2 {{ test.host }} | sh format_ping.sh "{{ test.name }}"
+{% endfor %}
+
+# fastd
+{% for socket in stats_fastd_sockets %}
+python fastd.py {{ socket.path }} {{ socket.name }}
+{% endfor %}
+
+# bpfcountd
+{% for interface in stats_bpfcountd_interfaces %}
+sh bpfcountd.sh /var/run/bpfcountd.{{ interface }}.sock
+{% endfor %}

@@ -39,6 +39,7 @@
     - nginx
     - grafana
     - prometheus
+    - stats_batches
   vars:
     - networkd_configures:
       - iface: eth0
@@ -154,3 +155,19 @@
     - prometheus_use_pushgateway: true
 
     - grafana_root_url: http://testfuerraute.ffh.zone/stats
+
+    - stats_pings:
+      - host: 8.8.8.8
+        name: google-dns
+      - host: 192.168.43.30
+        name: internetz-me
+
+    - stats_fastd_sockets:
+      - name: mesh_fastd
+        path: /var/run/fastd.mesh_fastd.sock
+
+    - stats_pushgateway:
+        host: "[fdca:ffee:8::108]:9091"
+        job: gw03
+
+    - stats_bpfcountd_interfaces: ['bat0']

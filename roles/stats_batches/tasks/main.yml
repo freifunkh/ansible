@@ -1,0 +1,76 @@
+---
+
+- name: Install dependencies
+  apt: name={{ item }}
+  with_items: ["git", "curl"]
+
+- name: Create auto user
+  register: createuser
+  user:
+    name: auto
+    system: yes
+
+- name: Install the shell scripts
+  git:
+    repo: https://github.com/freifunkh/prometheus-sn
+    dest: "{{ stats_batch_install_path }}"
+
+- name: Generate custom gen_stats.sh script
+  template:
+    src: stats.sh.j2
+    dest: "{{ stats_batch_install_path }}/gen_stats.sh"
+
+- name: Make stats.sh executable
+  file:
+    path: "{{ stats_batch_install_path }}/gen_stats.sh"
+    mode: "0755"
+
+- name: Automatically push stats
+  cron:
+    name: "push stats"
+    user: auto
+    minute: "*"
+    job: >
+      sh {{ stats_batch_install_path }}/gen_stats.sh |
+      curl -s -X POST --data-binary @-
+      {{ stats_pushgateway.host }}/metrics/job/{{ stats_pushgateway.job }}
+
+- name: Install build dependencies
+  apt:
+    name: "{{ item }}"
+  with_items: ['build-essential', 'libpcap-dev']
+  when: stats_bpfcountd_interfaces | length > 0
+
+- name: Download bpfcountd
+  register: updatebpfcountd
+  git:
+    repo: https://github.com/lemoer/bpfcountd
+    dest: /opt/bpfcountd
+  when: stats_bpfcountd_interfaces | length > 0
+
+- name: Build bpfcountd
+  notify: Restart bpfcountd
+  make:
+    chdir: /opt/bpfcountd
+    target: bpfcountd
+  when: stats_bpfcountd_interfaces | length > 0
+
+- name: Install servicefile
+  template:
+    src: bpfcountd@.service.j2
+    dest: /etc/systemd/system/bpfcountd@.service
+  when: stats_bpfcountd_interfaces | length > 0
+
+- name: Generate filter file
+  notify: Restart bpfcountd
+  template:
+    src: filters.j2
+    dest: /etc/bpfcountd-filters
+
+- name: Enable bpfcountd on interfaces
+  service:
+    name: bpfcountd@{{ item }}
+    state: started
+    enabled: yes
+  with_items: "{{ stats_bpfcountd_interfaces }}"
+  when: stats_bpfcountd_interfaces | length > 0

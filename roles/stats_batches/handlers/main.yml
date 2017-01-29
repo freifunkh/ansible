@@ -1,0 +1,6 @@
+---
+
+- name: Restart bpfcountd
+  service:
+    name: bpfcountd@{{ item }}
+  with_items: "{{ stats_bpfcountd_interfaces }}"
