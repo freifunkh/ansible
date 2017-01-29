@@ -54,3 +54,37 @@
     name: prometheus
     enabled: yes
     state: started
+
+- name: Check installed pushgateway version
+  register: pushgatewayversion
+  copy:
+    content: "{{ prometheus_pushgateway_version }}"
+    dest: /var/lib/ansible/prometheus_pushgateway_version
+  when: prometheus_use_pushgateway
+
+- name: Download pushgateway
+  unarchive:
+    src: https://github.com/prometheus/pushgateway/releases/download/v{{ prometheus_pushgateway_version }}/pushgateway-{{ prometheus_pushgateway_version }}.linux-amd64.tar.gz
+    dest: /opt
+    remote_src: True
+  when: pushgatewayversion|changed
+
+- name: Install pushgateway.service
+  register: pushservicefile
+  template:
+    dest: /etc/systemd/system/pushgateway.service
+    src: pushgateway.service.j2
+  when: prometheus_use_pushgateway
+
+- name: Reload services
+  systemd:
+    name: prometheus
+    state: restarted
+    daemon_reload: yes
+  when: pushservicefile|changed
+
+- name: Enable push service
+  service:
+    name: pushgateway
+    enabled: yes
+    state: started

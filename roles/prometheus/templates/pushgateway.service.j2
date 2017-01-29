@@ -1,0 +1,9 @@
+[Unit]
+Description=pushgateway ist toll! (macht mehr monitoring dinge unso)
+
+[Service]
+User=prometheus
+ExecStart=/opt/pushgateway-{{ prometheus_pushgateway_version }}.linux-amd64/pushgateway
+
+[Install]
+WantedBy=multi-user.target

@@ -1,3 +1,5 @@
 ---
 prometheus_version: 1.4.1
 prometheus_scrapes: []
+prometheus_use_pushgateway: false
+prometheus_pushgateway_version: 0.3.1
