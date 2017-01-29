@@ -155,6 +155,8 @@
     - prometheus_use_pushgateway: true
 
     - grafana_root_url: http://testfuerraute.ffh.zone/stats
+    - grafana_allow_signup: true
+    - grafana_anonymous_access: true
 
     - stats_pings:
       - host: 8.8.8.8

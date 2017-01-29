@@ -3,3 +3,5 @@ grafana_root_url: http://localhost:3000
 grafana_listen_on:
   port: 3000
   ip: '' # listens on all ips
+grafana_allow_signup: false
+grafana_anonymous_access: false

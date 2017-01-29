@@ -13,3 +13,8 @@ in ```/var/lib/ansible/grafana_admin_password``` (only accessible for root).
     - grafana_listen_on:
         port: 1337    # default was 3000
         ip: 127.0.0.1 # default was any
+
+**basic settings:**
+
+    - grafana_allow_signup: true      # default: false
+    - grafana_anonymous_access: true  # default: false

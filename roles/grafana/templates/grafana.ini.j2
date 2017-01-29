@@ -159,7 +159,7 @@ admin_password = {{ getadminpw.stdout }}
 #################################### Users ####################################
 [users]
 # disable user signup / registration
-;allow_sign_up = true
+allow_sign_up = {% if grafana_allow_signup %}true{% else %}false{% endif %}
 
 # Allow non admin users to create organizations
 ;allow_org_create = true
@@ -183,7 +183,7 @@ admin_password = {{ getadminpw.stdout }}
 #################################### Anonymous Auth ##########################
 [auth.anonymous]
 # enable anonymous access
-;enabled = false
+enabled = {% if grafana_anonymous_access %}true{% else %}false{% endif %}
 
 # specify organization name that should be used for unauthenticated users
 ;org_name = Main Org.
