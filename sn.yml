@@ -134,14 +134,16 @@
           - location: /forum
             type: fastcgi
             fcgi_socket: localhost:9090
-          - location: /stats/
-            type: proxy
-            proxy_forward_url: http://localhost:3000/
       - domain: prometheus.ffh.zone
         locations:
           - location: /
             type: proxy
             proxy_forward_url: http://[::1]:9090/
+      - domain: stats.ffh.zone
+        locations:
+          - location: /
+            type: proxy
+            proxy_forward_url: http://localhost:3000/
 
     - prometheus_scrapes:
         - name: prometheus
@@ -154,7 +156,6 @@
           targets: ['localhost:9091']
     - prometheus_use_pushgateway: true
 
-    - grafana_root_url: http://testfuerraute.ffh.zone/stats
     - grafana_allow_signup: true
     - grafana_anonymous_access: true
 
