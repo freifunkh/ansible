@@ -36,6 +36,11 @@
   shell: cat /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c 32 > /var/lib/ansible/grafana_admin_password
   when: not adminpwexists.stat.exists
 
+- name: Ensure admin password file rights
+  file:
+    path: /var/lib/ansible/grafana_admin_password
+    mode: 0640
+
 - name: Get admin password back
   register: getadminpw
   command: cat /var/lib/ansible/grafana_admin_password

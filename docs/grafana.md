@@ -1,6 +1,8 @@
 # grafana role
 
 This role installs the [grafana](http://grafana.org/) monitoring panel software.
+This role will generate an **admin password** and put it
+in ```/var/lib/ansible/grafana_admin_password``` (only accessible for root).
 
 **use behind reverse proxy:**
 
