@@ -2,22 +2,22 @@
 
 - hosts: sn03
   roles:
-    - cli_tools
-    - networkd
-    - simple_firewall
-    - ssh_known_hosts
-    - mesh_batman
-    - mesh_fastd
-    - mesh_fastd_remotes_backbone
-    - mesh_fastd_remotes_peers_git
-    - radv_server
-    - dns_recursive
-    - dhcp_server
-    - gateway_announcement
-    - nginx
-    - grafana
-    - prometheus
-    - stats_batches
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: simple_firewall, tags: simple_firewall }
+    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: mesh_batman, tags: mesh_batman }
+    - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: radv_server, tags: radv_server }
+    - { name: dns_recursive, tags: dns_recursive }
+    - { name: dhcp_server, tags: dhcp_server }
+    - { name: gateway_announcement, tags: gateway_announcement }
+    - { name: nginx, tags: nginx }
+    - { name: grafana, tags: grafana }
+    - { name: prometheus, tags: prometheus }
+    - { name: stats_batches, tags: stats_batches }
   vars:
     - networkd_configures:
       - iface: eth0
