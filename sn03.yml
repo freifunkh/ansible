@@ -55,6 +55,7 @@
         iface: bat0
       - port: 68
         iface: bat0
+    - firewall_open_ports_tcp_by_iface:
       - port: 9091
         iface: bat0
 
