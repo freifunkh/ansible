@@ -13,6 +13,7 @@
     - { name: radv_server, tags: radv_server }
     - { name: dns_recursive, tags: dns_recursive }
     - { name: dhcp_server, tags: dhcp_server }
+    - { name: gateway_announcement, tags: gateway_announcement }
 
   vars:
     - networkd_configures:
