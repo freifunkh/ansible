@@ -1,0 +1,86 @@
+---
+
+- hosts: sn09
+  roles:
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: simple_firewall, tags: simple_firewall }
+    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: mesh_batman, tags: mesh_batman }
+    - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: radv_server, tags: radv_server }
+    - { name: dns_recursive, tags: dns_recursive }
+    - { name: dhcp_server, tags: dhcp_server }
+
+  vars:
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 88.198.67.124/27
+          - 2a01:4f8:140:430a::9/64
+        gateway4: 88.198.67.97
+        gateway6: 2a01:4f8:140:430a::1
+        dns_server: [213.133.98.98]
+      - iface: internetz-me
+        addresses:
+          - 192.168.43.91/31
+      - iface: bat0
+        addresses:
+          - 10.2.90.1/16
+          - fdca:ffee:8::5a01/64
+
+    - networkd_gre_tunnels:
+      - name: internetz-me
+        lower_interface: eth0
+        remote_outer_ip: 178.32.215.75
+        local_outer_ip: 88.198.67.124
+
+    - mesh_fastd_mac: "88:E6:40:20:5a:01"
+    - mesh_fastd_listen_on: [ "88.198.67.124", "2a01:4f8:140:430a::9" ]
+    - mesh_fastd_port: 53
+    - git_addr: ssh://git@git.fnorden.net
+    - firewall_open_ports_udp: [53]
+    - firewall_allowed_forwards:
+      - between: bat0
+        and: internetz-me
+
+    - firewall_nat4_on_interfaces: ["internetz-me"]
+    - firewall_alternative_routingtables:
+      - name: freifunk
+        when_packet_from: ["bat0", "internetz-me"]
+        routes:
+          - dest_net: default
+            dest_if: internetz-me
+            via: 192.168.43.90
+          - dest_net: 10.2.0.0/16
+            dest_if: bat0
+          - dest_net: fdca:ffee:8::/64
+            dest_if: bat0
+    - dhcp_range:
+        from: 10.2.90.2
+        to: 10.2.99.254
+    - dhcp_options:
+        gateway: 10.2.90.1
+        dns_server: 10.2.90.1
+
+    - dns_recursive_allowed_nets:
+      - 10.2.0.0/16
+      - fdca:ffee:8::/48
+    - dns_recursive_forwards:
+      - zone: "."
+        to: ["192.168.43.90"]
+      - zone: "ffh.zone."
+        to: ["fdca:ffee:8::5001"]
+    - dns_recursive_allowed_private_adresses:
+      - fdca:ffee:8::/48
+    - dns_recursive_allowed_private_domains:
+      - "ffh.zone."
+    - dns_recursive_listen_on: [ "10.2.90.1", "fdca:ffee:8::5a01" ]
+
+    - radv_server_iface: "bat0"
+    - radv_server_adv_prefixes:
+      - fdca:ffee:8::/64
+    - radv_server_adv_dns_servers:
+      - fdca:ffee:8::5a01
