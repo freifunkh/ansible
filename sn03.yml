@@ -136,7 +136,7 @@
         - name: node-informant
           interval: 300
           timeout: 150
-          targets: ['[fdca:ffee:8::101]']
+          targets: ['[fdca:ffee:8::101]:8079']
     - prometheus_use_pushgateway: true
 
     - grafana_allow_signup: true
