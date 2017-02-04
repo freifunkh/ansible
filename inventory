@@ -1,3 +1,4 @@
 ---
+sn02 ansible_host=sn02.ffh.zone ansible_user=root
 sn03 ansible_host=sn03.ffh.zone ansible_user=root
 sn09 ansible_host=sn09.ffh.zone ansible_user=root

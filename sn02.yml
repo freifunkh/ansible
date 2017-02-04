@@ -1,6 +1,6 @@
 ---
 
-- hosts: sn03
+- hosts: sn02
   roles:
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
