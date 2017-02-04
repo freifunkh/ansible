@@ -11,3 +11,8 @@
     user: root
     minute: "*"
     job: /usr/bin/gateway_announcement.sh
+    state: "{{ 'present' if gateway_announcement_enabled else 'absent' }}"
+
+- name: Stop gateway announcement
+  command: /usr/bin/gateway_announcement.sh --force-off
+  when: not gateway_announcement_enabled
