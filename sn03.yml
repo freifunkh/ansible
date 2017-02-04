@@ -156,6 +156,6 @@
 
     - stats_pushgateway:
         host: "[fdca:ffee:8::108]:9091"
-        job: gw03
+        job: sn03
 
     - stats_bpfcountd_interfaces: ['bat0']
