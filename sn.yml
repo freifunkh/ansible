@@ -176,7 +176,7 @@
     - stats_bpfcountd_interfaces: ['bat0']
 
 
-- hosts: gw02
+- hosts: sn02
   roles:
     - cli_tools
     - networkd
@@ -190,9 +190,6 @@
     - dns_recursive
     - dhcp_server
     - gateway_announcement
-    - nginx
-    - grafana
-    - prometheus
     - stats_batches
   vars:
     - networkd_configures:
@@ -324,6 +321,6 @@
 
     - stats_pushgateway:
         host: "[fdca:ffee:8::108]:9091"
-        job: gw03
+        job: sn02
 
     - stats_bpfcountd_interfaces: ['bat0']
