@@ -98,6 +98,8 @@
     - radv_server_adv_dns_servers:
       - fdca:ffee:8::1e01
 
+    - gateway_announcement_enabled: false
+
     - nginx_sites:
       - domain: testfuerraute.ffh.zone
         root: /var/www
