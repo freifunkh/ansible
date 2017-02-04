@@ -1,35 +1,40 @@
-# ffh supernodes
+# ansible roles used in freifunkh
 
-## deployment
+In this repository we store all our roles we have developed for freifunkh.
+But some of them may also useful for other projects as well.
+To see some examples of our roles in the wild, have a look
+at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 
-Ansible does not need any agent on the remotes. The only requirements
-on the remote machine are ```ssh``` and ```python2```. On your local
-machine you need ansible installed.
+## roles
 
-1. Add the new host to your ansible hosts config ```/etc/ansible/hosts```.
-2. Add the configuration for the new host to ```sn.yml```.
-3. Start deployment: ```ansible-playbook sn.yml```
-4. Since the new host needs to get access to the remote git, the
-   script will pause and wait until you have deployed the generated key
-   ```/home/auto/.ssh/id_rsa.pub``` to the git server. When you have
-   done this, you should verify that you can access the git. Then you can
-   delete the lockfile ```/home/auto/wait_for_access.lock``` and ansible
-   should continue with the deployment. If you fail deploying the key properly,
-   the git clone command will wait an nearly infinite time for an entered
-   password (which will never happen).
-5. You should be ready.
+### general useful roles
 
+#### networking
 
-## role descriptions
+- [dns_recursive](docs/dns_recursive.md) - manage a recursive dns server using unbound
+- [networkd](docs/networkd.md) - manage your network interfaces with networkd
+- [dhcp_server](docs/dhcp_server.md) - very basic dhcp server using isc-dhcp-server
+- [radv_server](docs/radv_server.md) - very basic radv server using radvd
+- [simple_firewall](docs/simple_firewall.md) - configure ip(6)tables for all common cases
 
-### basic helper roles
+#### monitoring
 
-- **cli\_tools:** install some cli tools
-    - ```netcat-openbsd```
-    - ```tcpdump```
-- **ssh\_known\_hosts:** install systemwide known_hosts to verify remotes
-- **git\_autoupdate:** autoupdate git repositorys
-    - provides generic update script for use in cronjobs
-        - ```/home/auto/autoupdate.sh <repo-path>```
-        - exit status indicates whether the repo has changed
-    - cronjobs should run as user: ```auto```
+- [grafana](docs/grafana.md) - deploy a grafana server (a statistics dashboard)
+- [prometheus](docs/prometheus.md) - deploy a prometheus and maybe the corresponding pushgateway (a statistics collecting daemon)
+- [stats_batch](docs/stats_batch.md) - scripts to monitor and push some values to the pushgateway
+
+#### web
+
+- nginx
+
+#### other
+
+- cli_tools - common cli tools which are often needed
+- git_autoupdate - periodically update a git repository and maybe execute a command after updating
+
+### freifunk only roles
+
+- [gateway_announcement](docs/gateway_announcement.md) - set the batman gw announcement flag based on a ping
+- [mesh_*](docs/mesh_*.md) - batman-adv + vpn daemon
+- ssh_known_hosts - ssh keys of our infrastructure
+- meshflix - js/html web map for freifunk networks
