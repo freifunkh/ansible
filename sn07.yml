@@ -1,0 +1,6 @@
+---
+
+- hosts: sn07
+  roles:
+    - { name: gateway_announcement, tags: gateway_announcement }
+  vars:
