@@ -6,3 +6,4 @@
     - netcat-openbsd
     - tcpdump
     - nmap
+    - mtr-tiny
