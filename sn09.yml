@@ -79,7 +79,11 @@
       - fdca:ffee:8::/48
     - dns_recursive_allowed_private_domains:
       - "ffh.zone."
-    - dns_recursive_listen_on: [ "10.2.90.1", "fdca:ffee:8::5a01" ]
+    - dns_recursive_listen_on:
+      - 127.0.0.1
+      - ::1
+      - 10.2.90.1
+      - fdca:ffee:8::5a01
 
     - radv_server_iface: "bat0"
     - radv_server_adv_prefixes:
