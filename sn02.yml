@@ -79,7 +79,9 @@
       - zone: "."
         to: ["192.168.43.20"]
       - zone: "ffh.zone."
-        to: ["fdca:ffee:8::1337"]
+        to: ["fdca:ffee:8::5001"]
+      - zone: "ffh."
+        to: ["fdca:ffee:8::5001"]
     - dns_recursive_allowed_private_adresses:
       - fdca:ffee:8::/48
     - dns_recursive_allowed_private_domains:
