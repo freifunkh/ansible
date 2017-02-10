@@ -5,7 +5,10 @@ server {
 {% if item.tls is defined and item.tls == true %}
         listen 443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
         listen [::]:443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
-        # TODO certs
+        ssl_certificate /etc/nginx/keys/{{ item.domain }}.crt;
+        ssl_certificate_key /etc/nginx/keys/{{ item.domain }}.key;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         HIGH:!aNULL:!MD5;
 {% endif %}
 
         root {{item.root}};

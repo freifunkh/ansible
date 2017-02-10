@@ -34,28 +34,33 @@
     state: directory
     mode: 0700
 
-- name: Generate private TLS key
-  command: openssl genrsa -out /etc/nginx/keys/{{item.domain}}.key 4096
+- name: Generate private TLS account key
+  command: openssl genrsa -out /etc/nginx/keys/account.key 4096
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
-#- name: Generate public key
-#  command: openssl rsa -in /etc/nginx/keys/{{item.domain}}.key -pubout -out /etc/nginx/keys/{{item.domain}}.pub
-#  when: item.tls
-#  with_items: "{{nginx_sites}}"
+- name: Generate private TLS domain keys
+  command: openssl genrsa -out /etc/nginx/keys/{{item.domain}}.key 4096
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
 
 - name: Generate CSR
   command: openssl req -new -sha512 -key /etc/nginx/keys/{{item.domain}}.key -out /etc/nginx/keys/{{item.domain}}.csr -subj "/C={{item.cert_country}}/L={{item.cert_location}}/O={{item.cert_organisation}}/CN={{item.domain}}"
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
+#- name: Debug
+#  debug:
+#    msg: "{% if true | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
+
 - name: Lets encrypt 0
   letsencrypt:
-    account_key: /etc/nginx/keys/{{item.domain}}.key
+    account_key: /etc/nginx/keys/account.key
     csr: /etc/nginx/keys/{{item.domain}}.csr
     dest: /etc/nginx/keys/{{item.domain}}.crt
+    acme_directory: "{% if item.tls_debug | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
   when: "{{ item.tls | default(false) }}"
-  with_items: "{{nginx_sites}}"
+  with_items: "{{ nginx_sites }}"
   register: le_challenge
 
 - name: Prepare http challenge
@@ -66,22 +71,20 @@
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
-#- name: Debug
-#  debug:
-#    msg: "{{item.resource}}"
-#  with_items: "{{nginx_sites}}"
+- name: Solve letsencrypt challenge
+  copy:
+    dest: "{{ item['item']['root'] }}/{{ item['challenge_data'][ item['item']['domain'] ]['http-01']['resource'] }}"
+    content: "{{ item['challenge_data'][ item['item']['domain'] ]['http-01']['resource_value'] }}"
+  when: "{{ ( item['item']['tls'] | default(false) ) and le_challenge|changed }}"
+  with_items: "{{ le_challenge['results'] }}"
 
-#- name: Solve letsencrypt challenge
-#  copy:
-#    dest: "{{item.root}}/{{ item.resource }}"
-#    content: "{{ le_challenge['results']['challenge_data']['testfuerraute.ffh.zone']['http-01']['resource_value'] }}"
-#  when: le_challenge|changed
-#  with_items: "{{nginx_sites}}"
-
-#- name: Lets encrypt 1
-#  letsencrypt:
-#    account_key: /etc/nginx/keys/{{item.domain}}.key
-#    csr: /etc/nginx/keys/{{item.domain}}.csr
-#    dest: /etc/nginx/keys/{{item.domain}}.crt
-#    data: "{{ le_challenge }}"
-#  with_items: "{{nginx_sites}}"
+- name: Lets encrypt 1
+  letsencrypt:
+    account_key: "/etc/nginx/keys/account.key"
+    csr: "/etc/nginx/keys/{{ item['item']['domain'] }}.csr"
+    dest: "/etc/nginx/keys/{{ item['item']['domain'] }}.crt"
+    data: "{{ item }}"
+    acme_directory: "{% if item['item']['tls_debug'] | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
+  when: "{{ item['item']['tls'] | default(false) }}"
+  with_items: "{{ le_challenge['results'] }}"
+  notify: Restart nginx

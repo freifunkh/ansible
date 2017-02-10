@@ -118,6 +118,7 @@
       - domain: testfuerraute.ffh.zone
         root: /var/www
         tls: true
+        tls_debug: true
         cert_country: DE
         cert_location: Hannover
         cert_organisation: Freifunk Hannover
