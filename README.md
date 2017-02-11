@@ -12,6 +12,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 #### networking
 
 - [dns_recursive](docs/dns_recursive.md) - manage a recursive dns server using unbound
+- [dns_authoritative](docs/dns_authoritative.md) - manage an authoritative dns server using unbound
 - [networkd](docs/networkd.md) - manage your network interfaces with networkd
 - [dhcp_server](docs/dhcp_server.md) - very basic dhcp server using isc-dhcp-server
 - [radv_server](docs/radv_server.md) - very basic radv server using radvd

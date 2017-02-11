@@ -14,7 +14,7 @@
   template:
     src: zone.j2
     dest: /etc/nsd/zones/{{item.domain}}zone
-  with_items: dns_authorative_toplevel
+  with_items: dns_authoritative_toplevel
 
 - name: Enable nsd
   service: name=nsd enabled=yes

@@ -10,12 +10,12 @@ $ORIGIN {{ item.domain }}
                 1h      ; minimum (1 hour)
                 )
 
-{% for ns in dns_authorative_nameserver %}
+{% for ns in dns_authoritative_nameserver %}
             IN  NS      {{ns.nameserver}}
 {% endfor %}
 
 ; Statische Hosts (aus der Ansible-Konfiguration)
-{% for zone in dns_authorative_zones %}
+{% for zone in dns_authoritative_zones %}
     {% for remote in zone.to %}
         {% if ':' in remote %}
 {{ zone.zone }}.{{ item.domain }} IN  AAAA {{ remote }}
