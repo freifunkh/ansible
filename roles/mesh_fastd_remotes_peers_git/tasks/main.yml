@@ -13,6 +13,11 @@
     repo: "{{ git_addr }}:/peers"
     dest: /etc/fastd/mesh_fastd/peers
 
+- name: Allow restarting the fastd instance for user auto
+  template:
+    src: user-auto-reload-fastd
+    dest: /etc/sudoers.d/user-auto-reload-fastd
+
 - name: Install crontab for autoupdate
   cron:
     name: "autoupdate peers from git"
@@ -21,7 +26,7 @@
     job: >
       /home/auto/autoupdate.sh
       /etc/fastd/mesh_fastd/peers
-      && (systemctl reload fastd@mesh_fastd
+      && (sudo systemctl reload fastd@mesh_fastd
       || echo "Reload of mesh_fastd instance failed")
 
 - name: Enable peers-git remotes in fastd

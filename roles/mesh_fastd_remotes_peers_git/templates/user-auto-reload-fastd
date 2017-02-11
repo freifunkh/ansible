@@ -1,0 +1,2 @@
+Cmnd_Alias RELOAD_CMD = /bin/systemctl reload fastd@mesh_fastd
+%auto ALL=(ALL) NOPASSWD: RELOAD_CMD
