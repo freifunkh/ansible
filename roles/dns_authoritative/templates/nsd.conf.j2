@@ -6,6 +6,10 @@ server:
     zonesdir: "/etc/nsd/zones"
     logfile: "/var/log/nsd.log"
     pidfile: "/run/nsd/nsd.pid"
+    {% for ip in dns_authoritative_listen_on %}
+  ip-address: {{ ip }}
+{% endfor %}
+
 
 remote-control:
     control-enable: yes

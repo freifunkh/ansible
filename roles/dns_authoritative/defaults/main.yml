@@ -1,4 +1,5 @@
 ---
-dns_authoritative_zones:
-dns_authoritative_nameserver: 
-dns_authoritative_toplevel:
+dns_authoritative_zones: []
+dns_authoritative_nameserver: []
+dns_authoritative_toplevel: []
+dns_authoritative_listen_on: ["127.0.0.1","::1"]
