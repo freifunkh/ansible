@@ -1,0 +1,7 @@
+---
+
+- name: Restart nsd
+  service: name=nsd state=restarted
+
+- name: Reload zones
+  command: /usr/sbin/nsd-control reload

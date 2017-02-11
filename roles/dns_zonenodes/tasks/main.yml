@@ -1,0 +1,29 @@
+---
+
+- name: Install dependencies (perl, libjson-perl)
+  apt: name={{ item }}
+  with_items:
+    - perl
+    - libjson-perl
+    - git 
+    
+- name: Install knoten_compile.pl
+  template:
+    src: knoten_compile.pl.j2
+    dest: /etc/nsd/zones/knoten_compile.pl
+
+- name: Install knoten_compile.sh
+  template:
+    src: knoten_compile.sh.j2
+    dest: /etc/nsd/zones/knoten_compile.sh
+    owner: root
+    group: root
+    mode: "744"
+
+- name: Install crontab for zonefile generation
+  cron:
+    name: "generate zonefile from nodes.json"
+    user: root
+    minute: "*/15"
+    job: >
+      /etc/nsd/zones/knoten_compile.sh
