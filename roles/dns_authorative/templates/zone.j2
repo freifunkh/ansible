@@ -1,0 +1,33 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "true"
+; Warning: File is managed by Ansible
+$TTL 4h
+$ORIGIN {{ item.domain }}
+@           IN  SOA     ns1.{{ item.domain }}    zonemaster.ffh.zone. (
+                2017021001    ; serial
+                4h      ; refresh (4 hours)
+                1h      ; retry (4 hours)
+                2w      ; expire (2 weeks)
+                1h      ; minimum (1 hour)
+                )
+
+{% for ns in dns_authorative_nameserver %}
+            IN  NS      {{ns.nameserver}}
+{% endfor %}
+
+; Statische Hosts (aus der Ansible-Konfiguration)
+{% for zone in dns_authorative_zones %}
+    {% for remote in zone.to %}
+        {% if ':' in remote %}
+{{ zone.zone }}.{{ item.domain }} IN  AAAA {{ remote }}
+            {% else %}
+{{ zone.zone }}.{{ item.domain }} IN  A {{ remote }}
+        {% endif %}
+        {% for alias in zone.aliases %}
+            {% if ':' in remote %}
+{{ alias }}.{{ item.domain }} IN  AAAA {{ remote }}
+            {% else %}
+{{ alias }}.{{ item.domain }} IN  A {{ remote }}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
