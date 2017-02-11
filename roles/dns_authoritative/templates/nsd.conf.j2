@@ -16,7 +16,7 @@ remote-control:
     control-key-file: "/etc/nsd/nsd_control.key"
     control-cert-file: "/etc/nsd/nsd_control.pem"
 
-{% for tld in dns_authorative_toplevel %}
+{% for tld in dns_authoritative_toplevel %}
 zone:
     name: "{{tld.domain}}"
     zonefile: "{{tld.domain}}zone"
