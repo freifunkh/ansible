@@ -1,3 +1,4 @@
 ---
 networkd_configures: []
 networkd_gre_tunnels: []
+networkd_tap_devices: []

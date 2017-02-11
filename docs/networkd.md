@@ -41,6 +41,13 @@ introduced to do this.
         local_outer_ip: 138.201.220.61
       - name: ...
 
+**tap device:**
+
+    - networkd_tap_devices:
+      - mesh_fastd
+      - foobar
+
+
 Note:
 
 - It is possible to use multiple gre tunnels.
