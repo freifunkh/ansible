@@ -3,7 +3,7 @@
 $TTL 4h
 $ORIGIN {{ item.domain }}
 @           IN  SOA     ns1.{{ item.domain }}    zonemaster.ffh.zone. (
-                2017021001    ; serial
+                {{ ansible_date_time.epoch }}    ; serial
                 4h      ; refresh (4 hours)
                 1h      ; retry (4 hours)
                 2w      ; expire (2 weeks)

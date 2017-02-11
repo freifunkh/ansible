@@ -25,3 +25,9 @@ zone:
     name: "{{tld.domain}}"
     zonefile: "{{tld.domain}}zone"
 {% endfor %}
+
+{% for tld in dns_authoritative_external %}
+zone:
+    name: "{{tld.domain}}"
+    zonefile: "{{tld.zonefile}}"
+{% endfor %}
