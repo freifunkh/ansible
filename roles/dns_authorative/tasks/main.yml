@@ -1,0 +1,21 @@
+---
+
+- name: Install nsd
+  apt: name=nsd
+
+- name: Configure nsd
+  notify: Restart nsd
+  template:
+    src: nsd.conf.j2
+    dest: /etc/nsd/nsd.conf
+
+- name: Generate zonefiles
+  notify: Reload zones
+  template:
+    src: zone.j2
+    dest: /etc/nsd/zones/{{item.domain}}zone
+  with_items: dns_authorative_toplevel
+
+- name: Enable nsd
+  service: name=nsd enabled=yes
+

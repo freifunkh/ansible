@@ -1,0 +1,23 @@
+server:
+    do-ip4: yes
+    do-ip6: yes
+    port: 53
+    username: nsd
+    zonesdir: "/etc/nsd/zones"
+    logfile: "/var/log/nsd.log"
+    pidfile: "/run/nsd/nsd.pid"
+
+remote-control:
+    control-enable: yes
+    control-interface: 127.0.0.1
+    control-port: 8952
+    server-key-file: "/etc/nsd/nsd_server.key"
+    server-cert-file: "/etc/nsd/nsd_server.pem"
+    control-key-file: "/etc/nsd/nsd_control.key"
+    control-cert-file: "/etc/nsd/nsd_control.pem"
+
+{% for tld in dns_authorative_toplevel %}
+zone:
+    name: "{{tld.domain}}"
+    zonefile: "{{tld.domain}}zone"
+{% endfor %}
