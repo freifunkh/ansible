@@ -9,6 +9,9 @@
     src: nsd.conf.j2
     dest: /etc/nsd/nsd.conf
 
+- name: Create zone dir
+  file: path=/etc/nsd/zones state=directory
+
 - name: generate zones
   notify: Reload zones
   template:

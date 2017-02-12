@@ -29,3 +29,7 @@ $ORIGIN {{ item.domain }}
             {% endif %}
         {% endfor %}
 {% endfor %}
+
+{% for entry in item.records %}
+{{ entry }}
+{% endfor %}
