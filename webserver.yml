@@ -1,0 +1,53 @@
+---
+
+- hosts: webserver
+  roles:
+    - { name: networkd, tags: networkd }
+    - { role: dns_authoritative, tags: dns_authoritative }
+    - { role: dns_zonenodes, tags: dns_zonenodes }
+  vars:
+    - networkd_configures: 
+      - iface: eth0 
+        addresses:
+          - 37.120.176.252/22
+          - 2a03:4000:6:8277::1/64
+        gateway4: 37.120.176.1
+        gateway6: fe80::1
+        dns_server: [8.8.8.8, 8.8.4.4]
+
+    - dns_authoritative_nameserver: 
+      - nameserver: "ns1.fnorden.net."
+      - nameserver: "ns2.fnorden.net."
+      - nameserver: "ns3.fnorden.net."
+    - dns_authoritative_allowAXFR: 
+      - nameserver: "2001:470:600::2"
+      - nameserver: "216.218.133.2"
+    - dns_authoritative_notify: 
+      - nameserver: "2001:470:100::2"
+    - dns_authoritative_toplevel:
+      - domain: "ffh.zone."
+        records: [
+          "sn03.s.ffh.zone IN A 138.201.220.61",
+          "sn03.s.ffh.zone IN AAAA fdca:ffee:8::1e01"
+        ]
+    - dns_authoritative_listen_on:
+      - "127.0.0.1"
+      - "::1"
+      - "37.120.176.252"
+      - "2a03:4000:6:8277::1"
+    - dns_authoritative_external:
+      - domain: "n.ffh.zone"
+        zonefile: "n.ffh.zone.zone"
+      - domain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
+        zonefile: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa.zone"
+    - dns_authoritative_zones:
+      - zone: "services"
+        aliases: ["updates.services", "opkg.services", "ntp.services"]
+        to: "fdca:ffee:8::104"
+      - zone: "peng"
+        aliases: ["123"]
+        to: "fdca:ffee:8::103"
+
+    - dns_zonenodes_toplevel: "ffh.zone."
+    - dns_zonenodes_nodedomain: "n.ffh.zone"
+    - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
