@@ -23,7 +23,7 @@
       - nameserver: "2001:470:600::2"
       - nameserver: "216.218.133.2"
     - dns_authoritative_notify: 
-      - nameserver: "2001:470:100::2"
+      - nameserver: "216.218.130.2"
     - dns_authoritative_toplevel:
       - domain: "ffh.zone."
         records: [
