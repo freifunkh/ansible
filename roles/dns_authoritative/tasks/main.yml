@@ -9,12 +9,12 @@
     src: nsd.conf.j2
     dest: /etc/nsd/nsd.conf
 
-- name: Generate zonefiles
+- name: generate zones
   notify: Reload zones
   template:
     src: zone.j2
     dest: /etc/nsd/zones/{{item.domain}}zone
-  with_items: dns_authoritative_toplevel
+  with_items: "{{ dns_authoritative_toplevel }}"
 
 - name: Enable nsd
   service: name=nsd enabled=yes

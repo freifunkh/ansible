@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 use JSON;
+use Net::IP;
 
 ## CONFIGURATION ##
 ###################
@@ -23,22 +24,112 @@ sub normalize_nodename {
     
     return $data;
 }
- 
+# Shamelessly stolen from https://prog-snippets.blogspot.de/2008/04/convert-ipv6-address-to-ipv6-ptr-record.html
+sub co_cidr_to_ptr_ipv6
+{
+    # Convert: IPv6 address to IPv6 PTR
+    # 12:34::a8 -> 8.a.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.3.0.0.2.0.0.0.ip6.arpa
+    #
+    my ($pData) = @_;
+    my ($first_part,$last_part) = split "::",$pData;
+
+    my ($sz1,$f_indot) = co_conv2dot($first_part,);
+    my ($sz2,$s_indot) = co_conv2dot($last_part);
+
+    my $tot_sz = $sz1 + $sz2;
+
+    my $ipv6_arpa = $f_indot."."."ip6.arpa";
+
+    my $rem= 8 - $tot_sz;
+
+    for (my $c =0; $c<$rem;$c++)
+    {
+    $ipv6_arpa = "0.0.0.0".".".$ipv6_arpa;
+    }
+
+    my $op_ipv6_format = $s_indot.".".$ipv6_arpa;
+
+    #print "Return Value: $op_ipv6_format\n";
+    return $op_ipv6_format;
+}
+
+sub co_conv2dot
+{
+    # sub routine call for cidr_to_ptr_ipv6
+    # Help covert IPv6 address to PTR IPv6 only
+    #
+    #
+    my $part = shift;
+
+    my @hex_arr = split ":",$part;
+    my @reverse =reverse@hex_arr;
+
+    my $cnt;
+
+    my @ipv6_arr;
+
+    foreach (@reverse)
+    {
+    $_ = reverse $_; ## 43 then 21
+    my @octs = split //,$_;
+    my $ip_for = $octs[0];
+    my $i;
+    for ($i =1;$i<@octs;$i++)
+    {
+    $ip_for = $ip_for.".".$octs[$i];
+    }
+    while($i<4)
+    {
+    $ip_for = $ip_for.".".0;
+    $i++;
+    }
+    push @ipv6_arr, $ip_for;
+    }
+
+    my $ipv6_arpa = $ipv6_arr[0];
+
+    for (my $i =1;$i<@ipv6_arr;$i++)
+    {
+    $ipv6_arpa = $ipv6_arpa.".".$ipv6_arr[$i];
+    }
+
+    $cnt = @ipv6_arr;
+    return ($cnt,$ipv6_arpa);
+}
+
+
 my $ua = LWP::UserAgent->new;
 $ua->timeout(10);
 
+my $mode = $ARGV[0];
+my $domain = $ARGV[1];
+
+if ($mode eq "forward")
+{
 print '$TTL 4h'."\n";
 print '@           IN  SOA     ns1.ffh.    zonemaster.ffh.zone. ('."\n";
 print '                ' . time() . '    ; serial'."\n";
-print '                4h      ; refresh (4 hours)'."\n";
-print '                1h      ; retry (4 hours)'."\n";
-print '                2w      ; expire (2 weeks)'."\n";
-print '                1h      ; minimum (1 hour)'."\n";
+print '                4h      ; slave refresh interval'."\n";
+print '                1h      ; slave retry interval'."\n";
+print '                2w      ; slave copy expire time'."\n";
+print '                1h      ; NXDOMAIN cache time'."\n";
 print '                )'."\n";
 print ''."\n";
-
-my $domain = $ARGV[0];
-
+}
+else
+{
+print '@   IN  SOA ansibletest.tbspace.de. admin.example.com. ('."\n";
+print '    ' . time() . '  ; serial'."\n";
+print '    1h      ; slave refresh interval'."\n";
+print '    15m     ; slave retry interval'."\n";
+print '    1w      ; slave copy expire time'."\n";
+print '    1h      ; NXDOMAIN cache time'."\n";
+print '    )'."\n";
+print ''."\n";
+print '@   IN  NS  ansibletest.tbspace.de.'."\n";
+print '@   IN  NS  ns2.he.net.'."\n";
+print '@   IN  NS  ns3.he.net.'."\n";
+}
 my $response = $ua->get( $url );
 if ($response->is_success) {
 
@@ -59,9 +150,21 @@ if ($response->is_success) {
         next unless $ip;
         my $hostname = normalize_nodename( $data->{nodes}->{$node_id}->{nodeinfo}->{hostname} );
         
-        if ($hostname ne "")
+        if ($mode eq "forward")
         {
-            push( @output, "$hostname.$domain. IN AAAA $ip\n" );
+            if ($hostname ne "")
+            {
+                push( @output, "$hostname.$domain. IN AAAA $ip\n" );
+            }
+        }
+        else
+        {
+            if ($hostname ne "")
+            {
+                my $ip = new Net::IP ($ip) or die (Net::IP::Error());
+                my $ptr = $ip->reverse_ip();
+                push( @output, "$ptr IN PTR $hostname.$domain.\n" );
+            }
         }
     }
 

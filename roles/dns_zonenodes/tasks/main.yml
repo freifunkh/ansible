@@ -1,12 +1,14 @@
 ---
 
-- name: Install dependencies (perl, libjson-perl)
+- name: Install dependencies (perl, libjson-perl, libnet-ip-perl, python-netaddr)
   apt: name={{ item }}
   with_items:
     - perl
     - libjson-perl
     - git 
-    
+    - libnet-ip-perl
+    - python-netaddr
+
 - name: Install knoten_compile.pl
   template:
     src: knoten_compile.pl.j2
@@ -19,6 +21,11 @@
     owner: root
     group: root
     mode: "744"
+
+- name: Generate reverse dns zonefile for static hosts
+  template:
+    src: rdns.zone.j2
+    dest: /etc/nsd/zones/rdns.zone.inc
 
 - name: Install crontab for zonefile generation
   cron:
