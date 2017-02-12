@@ -1,9 +1,10 @@
 #!/bin/bash
 
 cd /etc/nsd/zones
-perl knoten_compile.pl forward n.ffh.zone > n.ffh.zone.zone
-perl knoten_compile.pl reverse n.ffh.zone > 8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa.zone
+perl knoten_compile.pl forward {{ dns_zonenodes_nodedomain }} > {{ dns_zonenodes_nodedomain }}.zone
+perl knoten_compile.pl reverse {{ dns_zonenodes_nodedomain }} > {{ dns_zonenodes_rdnsdomain }}.zone
 
-cat rdns.zone.inc >> 8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa.zone
+cat rdns.zone.inc >> {{ dns_zonenodes_rdnsdomain }}.zone
 
 nsd-control reload
+
