@@ -1,3 +1,4 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "true"
 server:
     do-ip4: yes
     do-ip6: yes
@@ -24,10 +25,22 @@ remote-control:
 zone:
     name: "{{tld.domain}}"
     zonefile: "{{tld.domain}}zone"
+    {% for ns in dns_authoritative_notify %}
+    notify: {{ns.nameserver}} NOKEY
+    {% endfor %}
+    {% for ns in dns_authoritative_allowAXFR %}
+    provide-xfr: {{ns.nameserver}} NOKEY
+    {% endfor %}
 {% endfor %}
 
 {% for tld in dns_authoritative_external %}
 zone:
     name: "{{tld.domain}}"
     zonefile: "{{tld.zonefile}}"
+    {% for ns in dns_authoritative_notify %}
+    notify: {{ns.nameserver}} NOKEY
+    {% endfor %}
+    {% for ns in dns_authoritative_allowAXFR %}
+    provide-xfr: {{ns.nameserver}} NOKEY
+    {% endfor %}
 {% endfor %}

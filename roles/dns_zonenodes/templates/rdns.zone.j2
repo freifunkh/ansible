@@ -1,0 +1,7 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "true"
+
+{% for zone in dns_authoritative_zones %}
+    {% if ':' in zone.to %}
+{{ zone.to|ipaddr("revdns") }} IN  PTR {{ zone.zone }}.{{ dns_zonenodes_toplevel }}
+    {% endif %}
+{% endfor %}
