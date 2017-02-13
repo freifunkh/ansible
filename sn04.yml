@@ -28,6 +28,9 @@
         addresses:
           - 192.168.43.41/31
           - fdca::1/64
+      - iface: netcup
+        addresses:
+          - 192.168.44.41/30
       - iface: bat0
         addresses:
           - 10.2.40.1/16
@@ -37,6 +40,10 @@
       - name: internetz-me
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
+        local_outer_ip: 46.38.253.239
+      - name: netcup
+        lower_interface: eth0
+        remote_outer_ip: 37.120.190.215
         local_outer_ip: 46.38.253.239
 
     - networkd_tap_devices:
@@ -48,6 +55,8 @@
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
+      - between: bat0
+        and: netcup
 
     - firewall_open_ports_udp_by_iface:
       - port: 53
@@ -55,15 +64,15 @@
       - port: 68
         iface: bat0
 
-    - firewall_nat4_on_interfaces: ["internetz-me"]
+    - firewall_nat4_on_interfaces: ["internetz-me", "netcup"]
     - firewall_conntrack_table_size: 1048576
     - firewall_alternative_routingtables:
       - name: freifunk
-        when_packet_from: ["bat0", "internetz-me"]
+        when_packet_from: ["bat0", "netcup"]
         routes:
           - dest_net: default
-            dest_if: internetz-me
-            via: 192.168.43.40
+            dest_if: netcup
+            via: 192.168.44.42
           - dest_net: 10.2.0.0/16
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
@@ -75,12 +84,13 @@
         gateway: 10.2.40.1
         dns_server: 10.2.20.1
 
+    - dns_recursive_listen_on:
+      - 10.2.40.1
+      - fdca:ffee:8::2801
     - dns_recursive_allowed_nets:
       - 10.2.0.0/16
       - fdca:ffee:8::/48
     - dns_recursive_forwards:
-      - zone: "."
-        to: ["192.168.43.40"]
       - zone: "ffh.zone."
         to: ["fdca:ffee:8::5001"]
       - zone: "ffh."
@@ -101,6 +111,8 @@
         name: google-dns
       - host: 192.168.43.40
         name: internetz-me
+      - host: 192.168.44.42
+        name: netcup-gre
 
     - stats_fastd_sockets:
       - name: mesh_fastd
