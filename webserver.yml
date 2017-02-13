@@ -5,6 +5,7 @@
     - { name: networkd, tags: networkd }
     - { role: dns_authoritative, tags: dns_authoritative }
     - { role: dns_zonenodes, tags: dns_zonenodes }
+    - { role: nginx, tags: nginx }
   vars:
     - networkd_configures: 
       - iface: eth0 
@@ -51,3 +52,7 @@
     - dns_zonenodes_toplevel: "ffh.zone."
     - dns_zonenodes_nodedomain: "n.ffh.zone"
     - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
+
+    - nginx_sites:
+      - domain: fnorden.net
+        root: /var/www/fnorden.net
