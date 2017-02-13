@@ -5,3 +5,4 @@ sn04 ansible_host=sn04.ffh.zone ansible_user=root
 sn07 ansible_host=sn07.ffh.zone ansible_user=root
 sn09 ansible_host=sn09.ffh.zone ansible_user=root
 steintor ansible_host=37.120.190.215 ansible_user=root
+webserver ansible_host=37.120.176.252 ansible_user=root
