@@ -85,6 +85,8 @@
         dns_server: 10.2.20.1
 
     - dns_recursive_listen_on:
+      - 127.0.0.1
+      - ::1
       - 10.2.40.1
       - fdca:ffee:8::2801
     - dns_recursive_allowed_nets:
