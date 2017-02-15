@@ -7,3 +7,4 @@
     - tcpdump
     - nmap
     - mtr-tiny
+    - iperf3
