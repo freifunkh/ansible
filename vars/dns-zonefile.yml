@@ -24,4 +24,6 @@
           "steintor.e.ffh.zone. IN A 37.120.190.215",
           "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
           "aegidientor.e.ffh.zone. IN A 178.32.215.75",
+          "testfuerraute.ffh.zone. IN A 138.201.220.61",
+          "prometheus.ffh.zone. IN CNAME testfuerraute.ffh.zone."
         ]

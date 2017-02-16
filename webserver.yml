@@ -35,6 +35,8 @@
         zonefile: "n.ffh.zone.zone"
       - domain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
         zonefile: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa.zone"
+      - domain: "ffh"
+        zonefile: "ffh.zone"
 
     - dns_zonenodes_toplevel: "ffh.zone."
     - dns_zonenodes_nodedomain: "n.ffh.zone"

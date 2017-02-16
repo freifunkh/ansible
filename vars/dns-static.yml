@@ -1,7 +1,6 @@
     - dns_authoritative_zones:
-      - zone: "services"
-        aliases: ["updates.services", "opkg.services", "ntp.services"]
-        to: "fdca:ffee:8::104"
-      - zone: "peng"
-        aliases: ["123"]
-        to: "fdca:ffee:8::103"
+      - zone: "firmware"
+        aliases: ["git", "opkg", "ntp"]
+        to: "fdca:ffee:8::102"
+      - zone: "stats"
+        to: "fdca:ffee:8::108"
