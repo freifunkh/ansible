@@ -25,6 +25,7 @@
         remote_outer_ip: 46.38.253.239
         local_outer_ip: 37.120.190.215
 
+    - firewall_open_ports_tcp: [1337]
     - firewall_allowed_forwards:
       - between: eth0
         and: gre-sn04
