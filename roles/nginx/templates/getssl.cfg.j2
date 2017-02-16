@@ -1,0 +1,10 @@
+# See https://github.com/srvrco/getssl
+
+#CA="https://acme-staging.api.letsencrypt.org"
+CA="https://acme-v01.api.letsencrypt.org"
+PRIVATE_KEY_ALG="rsa"
+ACL=('/var/www/.well-known/acme-challenge')
+DOMAIN_CERT_LOCATION="/etc/nginx/keys/{{ item.domain }}.csr"
+DOMAIN_KEY_LOCATION="/etc/nginx/keys/{{ item.domain }}.key"
+DOMAIN_CHAIN_LOCATION="/etc/nginx/keys/{{ item.domain }}.crt"
+SERVER_TYPE="https"

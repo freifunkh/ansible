@@ -14,7 +14,7 @@
   with_items: "{{nginx_sites}}"
   notify: Restart nginx
 
-- name: Delete nginx default site
+- name: Disable nginx default site
   file:
     state: absent
     path: /etc/nginx/sites-enabled/default
@@ -34,62 +34,35 @@
     state: directory
     mode: 0700
 
-- name: Save account key path
-  stat:
-    path: /etc/nginx/keys/account.key
-  register: account_key
-
-- name: Generate private TLS account key
-  command: openssl genrsa -out /etc/nginx/keys/account.key 4096
-  when: "{{ ( item.tls | default(false) ) and not account_key.stat.exists }}"
-  with_items: "{{nginx_sites}}"
-
-- name: Generate private TLS domain keys
-  command: openssl genrsa -out /etc/nginx/keys/{{item.domain}}.key 4096
-  when: "{{ item.tls | default(false) }}"
-  with_items: "{{nginx_sites}}"
-
-- name: Generate CSR
-  command: openssl req -new -sha512 -key /etc/nginx/keys/{{item.domain}}.key -out /etc/nginx/keys/{{item.domain}}.csr -subj "/C={{item.cert_country}}/L={{item.cert_location}}/O={{item.cert_organisation}}/CN={{item.domain}}"
-  when: "{{ item.tls | default(false) }}"
-  with_items: "{{nginx_sites}}"
-
-#- name: Debug
-#  debug:
-#    msg: "{% if true | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
-
-- name: Lets encrypt 0
-  letsencrypt:
-    account_key: /etc/nginx/keys/account.key
-    csr: /etc/nginx/keys/{{item.domain}}.csr
-    dest: /etc/nginx/keys/{{item.domain}}.crt
-    acme_directory: "{% if item.tls_debug | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
-  when: "{{ item.tls | default(false) }}"
-  with_items: "{{ nginx_sites }}"
-  register: le_challenge
-
-- name: Prepare http challenge
+- name: Create getssl directory
   file:
-    path: "{{item.root}}/.well-known/acme-challenge"
+    path: /root/.getssl/{{ item.domain }}
     state: directory
-    mode: 0755
+    mode: 0700
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
-- name: Solve letsencrypt challenge
-  copy:
-    dest: "{{ item['item']['root'] }}/{{ item['challenge_data'][ item['item']['domain'] ]['http-01']['resource'] }}"
-    content: "{{ item['challenge_data'][ item['item']['domain'] ]['http-01']['resource_value'] }}"
-  when: "{{ ( item['item']['tls'] | default(false) ) and le_challenge|changed }}"
-  with_items: "{{ le_challenge['results'] }}"
+- name: Create getssl configs
+  template:
+    src: getssl.cfg.j2
+    dest: /root/.getssl/{{ item.domain }}/getssl.cfg
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
 
-- name: Lets encrypt 1
-  letsencrypt:
-    account_key: "/etc/nginx/keys/account.key"
-    csr: "/etc/nginx/keys/{{ item['item']['domain'] }}.csr"
-    dest: "/etc/nginx/keys/{{ item['item']['domain'] }}.crt"
-    data: "{{ item }}"
-    acme_directory: "{% if item['item']['tls_debug'] | default(false) %}https://acme-staging.api.letsencrypt.org/directory{% else %}https://acme-v01.api.letsencrypt.org/directory{% endif %}"
-  when: "{{ item['item']['tls'] | default(false) }}"
-  with_items: "{{ le_challenge['results'] }}"
-  notify: Restart nginx
+- name: Download getssl
+  get_url:
+    url: https://raw.githubusercontent.com/srvrco/getssl/cb7779102a96e4802249460255303babaf1d8322/getssl
+    dest: /root/getssl
+    mode: 0700
+    checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
+
+- name: Run getssl
+  command: /root/getssl -U {{ item.domain }}
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Add cron job for getssl
+  template:
+    src: getssl.cron.j2
+    dest: /etc/cron.daily/getssl
+    mode: 0755
