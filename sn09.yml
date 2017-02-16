@@ -77,8 +77,6 @@
       - 10.2.0.0/16
       - fdca:ffee:8::/48
     - dns_recursive_forwards:
-      - zone: "."
-        to: ["192.168.43.90"]
       - zone: "ffh.zone."
         to:
           - 37.120.176.252
