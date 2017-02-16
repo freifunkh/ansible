@@ -93,6 +93,15 @@
 # FORWARD #
 ###########
 
+{% if firewall_mssfix is defined %}
+
+#
+# CLAMP MSS SINCE SOME IDIOTS DROP EVIL ICMP TRAFFIC ON THE INTERNET
+#
+  -A FORWARD -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss {{ firewall_mssfix }}
+
+{% endif %}
+
 {% for allowed_forward in firewall_allowed_forwards %}
 #
 # ALLOW FORWARDING BETWEEN {{ allowed_forward.between }} AND {{ allowed_forward.and }}
