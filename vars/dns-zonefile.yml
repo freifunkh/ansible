@@ -1,0 +1,27 @@
+ - dns_authoritative_toplevel:
+      - domain: "ffh.zone."
+        records: [
+          "sn01.ffh.zone. IN CNAME sn01.s.ffh.zone.",
+          "sn02.ffh.zone. IN CNAME sn02.s.ffh.zone.",
+          "sn03.ffh.zone. IN CNAME sn03.s.ffh.zone.",
+          "sn04.ffh.zone. IN CNAME sn04.s.ffh.zone.",
+          "sn05.ffh.zone. IN CNAME sn05.s.ffh.zone.",
+          "sn07.ffh.zone. IN CNAME sn07.s.ffh.zone.",
+          "sn08.ffh.zone. IN CNAME sn08.s.ffh.zone.",
+          "sn09.ffh.zone. IN CNAME sn09.s.ffh.zone.",
+          "sn01.s.ffh.zone. IN A 148.251.165.99",
+          "sn02.s.ffh.zone. IN CNAME gw02.ffh-netz.de.",
+          "sn03.s.ffh.zone. IN A 138.201.220.61",
+          "sn04.s.ffh.zone. IN A 46.38.253.239",
+          "sn04.s.ffh.zone. IN AAAA 2a03:4000:1:3e3::2801",
+          "sn05.s.ffh.zone. IN A 83.246.103.37",
+          "sn05.s.ffh.zone. IN AAAA 2a02:790:1:2:83:246:103:37",
+          "sn07.s.ffh.zone. IN AAAA 2a02:790:4:5::ff:7",
+          "sn07.s.ffh.zone. IN A 81.3.6.92",
+          "sn08.s.ffh.zone. IN A 81.3.6.93",
+          "sn08.s.ffh.zone. IN AAAA 2a02:790:4:5::ff:8",
+          "sn09.s.ffh.zone. IN CNAME freifunk.oliverkrueger.de.",
+          "steintor.e.ffh.zone. IN A 37.120.190.215",
+          "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
+          "aegidientor.e.ffh.zone. IN A 178.32.215.75",
+        ]
