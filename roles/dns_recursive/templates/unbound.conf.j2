@@ -18,6 +18,10 @@ server:
   private-domain: "{{ domain }}"
 {% endfor %}
 
+{% for zone in dns_recursive_allowed_private_rdns_zones %}
+    local-zone: "{{ zone }}" transparent
+{% endfor %}
+
 remote-control:
   control-enable: yes
   control-interface: ::1
