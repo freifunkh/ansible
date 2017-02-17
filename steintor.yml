@@ -19,6 +19,10 @@
         addresses:
           - 192.168.44.42/30
 
+      - iface: gre-sn04
+        addresses:
+          - 192.168.44.49/30
+
     - networkd_gre_tunnels:
       - name: gre-sn04
         lower_interface: eth0
