@@ -6,6 +6,8 @@
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
+  vars_files:
+    - vars/all_hosts.yml
   vars:
     - networkd_configures:
       - iface: eth0
