@@ -27,5 +27,6 @@
           "leintor.e.ffh.zone. IN A 81.3.6.94",
           "aegidientor.e.ffh.zone. IN A 178.32.215.75",
           "testfuerraute.ffh.zone. IN A 138.201.220.61",
-          "prometheus.ffh.zone. IN CNAME testfuerraute.ffh.zone."
+          "prometheus.ffh.zone. IN CNAME testfuerraute.ffh.zone.",
+          "stats.ffh.zone. IN A 138.201.220.61"
         ]
