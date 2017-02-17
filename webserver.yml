@@ -46,6 +46,6 @@
       - domain: fnorden.net
         root: /var/www/fnorden.net
   vars_files:
-      - vars/dns-zonefile.yml
-      - vars/dns-static.yml
+      - vars/dns-external.yml
+      - vars/dns-internal.yml
       - vars/all_hosts.yml
