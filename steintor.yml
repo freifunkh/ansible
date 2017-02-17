@@ -25,11 +25,19 @@
         remote_outer_ip: 46.38.253.239
         local_outer_ip: 37.120.190.215
 
+      - name: gre-sn05
+        lower_interface: eth0
+        remote_outer_ip: 5.45.103.36
+        local_outer_ip: 37.120.190.215
+
     - firewall_mssfix: 1330
     - firewall_open_ports_tcp: [1337]
     - firewall_allowed_forwards:
       - between: eth0
         and: gre-sn04
+
+      - between: eth0
+        and: gre-sn05
 
     - firewall_nat4_on_interfaces: ["eth0"]
     - firewall_conntrack_table_size: 1048576
