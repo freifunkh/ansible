@@ -19,7 +19,7 @@
         addresses:
           - 192.168.44.42/30
 
-      - iface: gre-sn04
+      - iface: gre-sn05
         addresses:
           - 192.168.44.49/30
 
