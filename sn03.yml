@@ -18,6 +18,8 @@
     - { name: grafana, tags: grafana }
     - { name: prometheus, tags: prometheus }
     - { name: stats_batches, tags: stats_batches }
+  vars_files:
+    - vars/all_hosts.yml
   vars:
     - networkd_configures:
       - iface: eth0

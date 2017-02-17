@@ -48,3 +48,4 @@
   vars_files:
       - vars/dns-zonefile.yml
       - vars/dns-static.yml
+      - vars/all_hosts.yml

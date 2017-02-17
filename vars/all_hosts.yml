@@ -1,0 +1,5 @@
+- firewall_ssh_ports:
+  # Since we use both ports for now depending on the host. We open both ports
+  # on all machines to not lock out ourself.
+  - 22
+  - 1337
