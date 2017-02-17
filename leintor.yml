@@ -1,0 +1,29 @@
+---
+
+- hosts: leintor
+  roles:
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: simple_firewall, tags: simple_firewall }
+    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+  vars:
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 81.3.6.94/29
+          - 2a02:790:4:5::1/64
+        gateway4: 81.3.6.89
+        gateway6: fe80::1
+        dns_server: [8.8.8.8]
+      - iface: eth1
+        addresses:
+          - 192.168.54.70/30
+
+    - firewall_open_ports_tcp: [1337]
+
+    - firewall_allowed_forwards:
+      - between: eth0
+        and: eth1
+
+    - firewall_nat4_on_interfaces: ["eth0"]
+    - firewall_conntrack_table_size: 1048576
