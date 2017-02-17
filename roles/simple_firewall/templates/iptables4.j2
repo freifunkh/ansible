@@ -29,7 +29,13 @@
 # ACCEPT SSH
 #
 
+{% for port in firewall_ssh_ports %}
+  -A INPUT -m tcp -p tcp --dport {{ port }} -j ACCEPT
+{% endfor %}
+{# legacy variable #}
+{% if firewall_ssh_port is defined %}
   -A INPUT -m tcp -p tcp --dport {{ firewall_ssh_port }} -j ACCEPT
+{% endif %}
 
 #
 # OPEN TCP PORTS

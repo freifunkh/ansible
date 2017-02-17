@@ -2,7 +2,7 @@
 
 This role offers the common tasks needed in all of our freifunk scenarios.
 By default this role only opens port **22/tcp for ssh**. This
-can be changed using the ```firewall_ssh_port``` variable. Be careful with this
+can be changed using the ```firewall_ssh_ports``` variable. Be careful with this
 because you can lock out yourself very easily. The role is very modular and configurable:
 
 **open additional ports:**

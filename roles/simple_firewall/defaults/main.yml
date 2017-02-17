@@ -1,5 +1,5 @@
 ---
-firewall_ssh_port: 22
+firewall_ssh_ports: [22]
 firewall_open_ports_tcp: []
 firewall_open_ports_tcp_by_iface: []
 firewall_open_ports_udp: []
