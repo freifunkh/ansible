@@ -26,11 +26,11 @@
         dns_server: [8.8.8.8]
       - iface: internetz-me
         addresses:
-          - 192.168.43.51/31
+          - 192.168.43.50/30
           - fdca::1/64
       - iface: netcup
         addresses:
-          - 192.168.44.51/30
+          - 192.168.44.50/30
       - iface: bat0
         addresses:
           - 10.2.50.1/16
