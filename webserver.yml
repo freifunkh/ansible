@@ -6,9 +6,10 @@
     - { role: dns_authoritative, tags: dns_authoritative }
     - { role: dns_zonenodes, tags: dns_zonenodes }
     - { role: nginx, tags: nginx }
+    - { name: simple_mail, tags: simple_mail }
   vars:
-    - networkd_configures: 
-      - iface: eth0 
+    - networkd_configures:
+      - iface: eth0
         addresses:
           - 37.120.176.252/22
           - 2a03:4000:6:8277::1/64
@@ -16,14 +17,14 @@
         gateway6: fe80::1
         dns_server: [8.8.8.8, 8.8.4.4]
 
-    - dns_authoritative_nameserver: 
+    - dns_authoritative_nameserver:
       - nameserver: "ns1.fnorden.net."
       - nameserver: "ns2.fnorden.net."
       - nameserver: "ns3.fnorden.net."
-    - dns_authoritative_allowAXFR: 
+    - dns_authoritative_allowAXFR:
       - nameserver: "2001:470:600::2"
       - nameserver: "216.218.133.2"
-    - dns_authoritative_notify: 
+    - dns_authoritative_notify:
       - nameserver: "216.218.130.2"
     - dns_authoritative_listen_on:
       - "127.0.0.1"

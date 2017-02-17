@@ -6,6 +6,7 @@
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: simple_mail, tags: simple_mail }
   vars_files:
     - vars/all_hosts.yml
   vars:

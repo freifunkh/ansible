@@ -3,3 +3,6 @@
   # on all machines to not lock out ourself.
   - 22
   - 1337
+- simple_mail:
+    root_email: monitoring@hannover.freifunk.net
+    mail_server: hannover.freifunk.net

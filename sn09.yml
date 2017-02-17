@@ -15,6 +15,7 @@
     - { name: dhcp_server, tags: dhcp_server }
     - { name: gateway_announcement, tags: gateway_announcement }
     - { name: stats_batches, tags: stats_batches }
+    - { name: simple_mail, tags: simple_mail }
   vars_files:
     - vars/all_hosts.yml
   vars:
