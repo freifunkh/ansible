@@ -48,6 +48,12 @@
     src: "iptables6.j2"
     validate: "ip6tables-restore --test %s"
 
+- name: Load nf_conntrack_ipv6 kmod
+  modprobe: name=nf_conntrack_ipv6 state=present
+
+- name: Load nf_conntrack_ipv4 kmod
+  modprobe: name=nf_conntrack_ipv4 state=present
+
 - name: Load and apply the new firewall 4 rules
   command: iptables-restore /etc/iptables/rules.v4
   when: iptables4|changed
