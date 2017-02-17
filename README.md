@@ -9,6 +9,10 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 
 ### general useful roles
 
+#### common stuff
+
+- [simple_mail](docs/simple_mail.md) - forwards mails to root into your inbox
+
 #### networking
 
 - [dns_recursive](docs/dns_recursive.md) - manage a recursive dns server using unbound
