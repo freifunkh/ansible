@@ -13,6 +13,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 
 - [simple_mail](docs/simple_mail.md) - forwards mails to root into your inbox
 - [journald](docs/journald.md) - sends mails to the root account based on the journal
+- [admin](docs/admin.md) - authorize people for root access
 
 #### networking
 

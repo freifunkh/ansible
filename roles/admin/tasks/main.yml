@@ -1,0 +1,8 @@
+---
+
+- name: Install ssh keys
+  authorized_key:
+    user: root
+    state: "{{ 'present' if item.name in admin_authorized else 'absent' }}"
+    key: "{{ item.key }}"
+  with_items: "{{ admin_pubkeys }}"
