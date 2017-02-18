@@ -5,15 +5,17 @@ help() {
   echo  >&2
   echo " -p     priortiy (default is err)" >&2
   echo " -s     saves the cursor" >&2
-  echo " -m     send as mail to root and saves the cursor" >&2
+  echo " -m     send as mail and saves the cursor" >&2
+  echo " -t     specify another mail destination than \"root\"" >&2
   echo " -h     help" >&2
 }
 
+mailto=root
 mail=0
 save=0
 prio=err
 
-while getopts ":mp:hs" opt; do
+while getopts ":mp:hst:" opt; do
   case $opt in
     m)
       mail=1
@@ -28,6 +30,9 @@ while getopts ":mp:hs" opt; do
     h)
       help
       exit 0;
+      ;;
+    t)
+      mailto="$OPTARG"
       ;;
     \?)
       help
@@ -62,5 +67,5 @@ fi
 if [ "$mail" -eq 0 ]; then
   echo "$result"
 else
-  echo "$result" | mail -s "[{{ ansible_fqdn }}]: $prio - $lines log messages" root
+  echo "$result" | mail -s "[{{ ansible_fqdn }}]: $prio - $lines log messages" "$mailto"
 fi

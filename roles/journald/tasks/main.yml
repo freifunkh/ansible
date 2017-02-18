@@ -37,5 +37,5 @@
     name: watch_journal
     minute: "*/{{ journald_watch_interval }}"
     hour: "*"
-    job: /usr/sbin/watch_journald.sh -p {{ journald_watch_priority }} -m
+    job: /usr/sbin/watch_journald.sh -p {{ journald_watch_priority }} -m -t "{{ journald_watch_mailto }}"
     state: "{{ 'present' if journald_watch_enabled else 'absent' }}"

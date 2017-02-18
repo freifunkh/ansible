@@ -9,6 +9,7 @@ There is no mail sent, when no log message over the specified priority
 was happening.
 
     - journald_watch_enabled: true
+    - journald_watch_mailto: monitoring@hannover.freifunk.net
 
 The mails are delivered locally using the ```mail``` command. You may
 want to consider using the [simple_mail](./simple_mail.md) role.
