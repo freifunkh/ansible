@@ -7,3 +7,4 @@
     root_email: monitoring@hannover.freifunk.net
     mail_server: hannover.freifunk.net
 - journald_watch_enabled: true
+- journald_watch_mailto: "monitoring@hannover.freifunk.net"
