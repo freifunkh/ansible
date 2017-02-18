@@ -1,0 +1,4 @@
+---
+journald_watch_enabled: false
+journald_watch_interval: 10
+journald_watch_priority: err

@@ -1,0 +1,41 @@
+---
+- name: Add backports repositories
+  register: backportsrepositoryadded
+  apt_repository:
+    repo: "deb http://ftp.debian.org/debian jessie-backports main"
+
+- name: Update apt chache to get jessie-backports packages
+  apt: update_cache=yes
+  when: backportsrepositoryadded|changed
+
+- name: Install systemd from backports repo
+  register: systemdinstall
+  apt:
+    name: systemd
+    default_release: jessie-backports
+    state: latest
+
+- name: Reboot after upgrading systemd
+  command: /usr/bin/systemd-run --on-active=2 /bin/systemctl reboot
+  async: 1
+  poll: 0
+  when: systemdinstall|changed
+  changed_when: true
+
+- name: Waiting for server to come back after upgrading systemd
+  local_action: command sleep 60
+  when: systemdinstall|changed
+
+- name: Install watch_journald.sh
+  template:
+    src: watch_journald.sh.j2
+    dest: /usr/sbin/watch_journald.sh
+    mode: 0755
+
+- name: Install cronjob to watch journal
+  cron:
+    name: watch_journal
+    minute: "*/{{ journald_watch_interval }}"
+    hour: "*"
+    job: /usr/sbin/watch_journald.sh -p {{ journald_watch_priority }} -m
+    state: "{{ 'present' if journald_watch_enabled else 'absent' }}"

@@ -1,0 +1,64 @@
+#!/bin/sh
+
+help() {
+  echo "$0 [-p PRIO][-m] [-s]" >&2
+  echo  >&2
+  echo " -p     priortiy (default is err)" >&2
+  echo " -s     saves the cursor" >&2
+  echo " -m     send as mail to root and saves the cursor" >&2
+  echo " -h     help" >&2
+}
+
+mail=0
+save=0
+prio=err
+
+while getopts ":mp:hs" opt; do
+  case $opt in
+    m)
+      mail=1
+      save=1
+      ;;
+    p)
+      prio="$OPTARG"
+      ;;
+    s)
+      save=1
+      ;;
+    h)
+      help
+      ;;
+    \?)
+      help
+      echo >&2
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+
+CURSOR_FILE=/tmp/watch_journald_cursor.$prio.csr
+args="-p $prio -b 0 --show-cursor"
+
+if ls $CURSOR_FILE 1> /dev/null 2> /dev/null; then
+  loaded_cursor="$(cat $CURSOR_FILE)"
+  args="$args --after-cursor ${loaded_cursor}"
+fi
+
+result="$(journalctl $args)"
+lines=$(echo "$result" | grep -v '\-\-' | wc -l)
+
+if [ "$lines" -le 1 ]; then
+  exit 0
+fi
+
+
+if [ "$save" -eq 1 ]; then
+  cursor=$(echo "$result" | egrep '^.. cursor' | cut -d' ' -f 3)
+  echo "$cursor" > $CURSOR_FILE
+fi
+
+if [ "$mail" -eq 0 ]; then
+  echo "$result"
+else
+  echo "$result" | mail -s "[{{ ansible_fqdn }}]: $prio - $lines log messages" root
+fi
