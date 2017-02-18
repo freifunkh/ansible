@@ -53,6 +53,8 @@ fi
 
 result="$(journalctl $args)"
 lines=$(echo "$result" | grep -v '\-\-' | wc -l)
+boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
+hostname="{{ ansible_fqdn }}"
 
 if [ "$lines" -le 1 ]; then
   exit 0
@@ -67,5 +69,15 @@ fi
 if [ "$mail" -eq 0 ]; then
   echo "$result"
 else
-  echo "$result" | mail -s "[{{ ansible_fqdn }}]: $prio - $lines log messages" "$mailto"
+# generate an id that looks like uuid
+mid=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
+# send the mail
+sendmail "$mailto" <<EOF
+To: $mailto
+Subject: [$hostname]: $prio - $lines log messages
+Message-ID: <$mid-journald_watch@$hostname>
+References: <$boot_id-journal_watchd@$hostname>
+
+$result
+EOF
 fi
