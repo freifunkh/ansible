@@ -47,7 +47,7 @@
     - networkd_tap_devices:
       - mesh_fastd
 
-    - mesh_fastd_mac: "88:E6:40:20:5a:01"
+    - mesh_fastd_mac: "88:E6:40:20:90:01"
     - mesh_fastd_listen_on: [ "88.198.67.124", "2a01:4f8:140:430a::9" ]
     - mesh_fastd_port: 123
     - git_addr: ssh://git@git.fnorden.net

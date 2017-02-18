@@ -55,7 +55,7 @@
     - networkd_tap_devices:
       - mesh_fastd
 
-    - mesh_fastd_mac: "88:E6:40:20:28:01"
+    - mesh_fastd_mac: "88:E6:40:20:40:01"
     - git_addr: ssh://git@git.fnorden.net
     - firewall_open_ports_udp: [10000]
     - firewall_allowed_forwards:
