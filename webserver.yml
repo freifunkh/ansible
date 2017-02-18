@@ -7,6 +7,10 @@
     - { role: dns_zonenodes, tags: dns_zonenodes }
     - { role: nginx, tags: nginx }
     - { name: simple_mail, tags: simple_mail }
+  vars_files:
+      - vars/dns-external.yml
+      - vars/dns-internal.yml
+      - vars/all_hosts.yml
   vars:
     - networkd_configures:
       - iface: eth0
@@ -46,7 +50,3 @@
     - nginx_sites:
       - domain: fnorden.net
         root: /var/www/fnorden.net
-  vars_files:
-      - vars/dns-external.yml
-      - vars/dns-internal.yml
-      - vars/all_hosts.yml
