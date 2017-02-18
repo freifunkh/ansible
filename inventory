@@ -1,5 +1,5 @@
 ---
-sn02 ansible_host=sn02.ffh.zone ansible_user=root
+sn02 ansible_host=sn02.ffh.zone ansible_user=root ansible_port=1337
 sn03 ansible_host=sn03.ffh.zone ansible_user=root
 sn04 ansible_host=sn04.ffh.zone ansible_user=root ansible_port=1337
 sn05 ansible_host=sn05.ffh.zone ansible_user=root
