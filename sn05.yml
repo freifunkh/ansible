@@ -17,9 +17,11 @@
     - { name: stats_batches, tags: stats_batches }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
   vars_files:
     - vars/all_hosts.yml
   vars:
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger]
     - networkd_configures:
       - iface: eth0
         addresses:
