@@ -6,3 +6,4 @@
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: hannover.freifunk.net
+- journald_watch_enabled: true

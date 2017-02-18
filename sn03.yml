@@ -19,6 +19,7 @@
     - { name: prometheus, tags: prometheus }
     - { name: stats_batches, tags: stats_batches }
     - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
   vars_files:
     - vars/all_hosts.yml
   vars:
