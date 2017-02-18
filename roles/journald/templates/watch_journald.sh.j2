@@ -1,7 +1,7 @@
 #!/bin/sh
 
 help() {
-  echo "$0 [-p PRIO][-m] [-s]" >&2
+  echo "$0 [-p PRIO] [-m] [-s] [-t MAIL-ADDR]" >&2
   echo  >&2
   echo " -p     priortiy (default is err)" >&2
   echo " -s     saves the cursor" >&2
@@ -72,7 +72,7 @@ else
 # generate an id that looks like uuid
 mid=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
 # send the mail
-sendmail "$mailto" <<EOF
+/usr/sbin/sendmail "$mailto" <<EOF
 To: $mailto
 Subject: [$hostname]: $prio - $lines log messages
 Message-ID: <$mid-journald_watch@$hostname>

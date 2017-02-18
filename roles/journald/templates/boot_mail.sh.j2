@@ -1,0 +1,43 @@
+#!/bin/sh
+
+help() {
+  echo "$0 [-t MAIL-ADDR]" >&2
+  echo  >&2
+  echo " -t     specify another mail destination than \"root\"" >&2
+  echo " -h     help" >&2
+}
+
+mailto=root
+
+while getopts ":ht:" opt; do
+  case $opt in
+    h)
+      help
+      exit 0;
+      ;;
+    t)
+      mailto="$OPTARG"
+      ;;
+    \?)
+      help
+      echo >&2
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1;
+      ;;
+  esac
+done
+
+boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
+hostname="{{ ansible_fqdn }}"
+
+# generate an id that looks like uuid
+mid=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')
+# send the mail
+/usr/sbin/sendmail "$mailto" <<EOF
+To: $mailto
+Subject: [$hostname]: booted
+Message-ID: <$mid-journald_watch@$hostname>
+References: <$boot_id-journal_watchd@$hostname>
+
+Hey there! I'm up.
+EOF

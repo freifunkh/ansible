@@ -32,10 +32,23 @@
     dest: /usr/sbin/watch_journald.sh
     mode: 0755
 
+- name: Install boot_mail.sh
+  template:
+    src: boot_mail.sh.j2
+    dest: /usr/sbin/boot_mail.sh
+    mode: 0755
+
 - name: Install cronjob to watch journal
   cron:
     name: watch_journal
     minute: "*/{{ journald_watch_interval }}"
     hour: "*"
     job: /usr/sbin/watch_journald.sh -p {{ journald_watch_priority }} -m -t "{{ journald_watch_mailto }}"
+    state: "{{ 'present' if journald_watch_enabled else 'absent' }}"
+
+- name: Install cronjob on boot
+  cron:
+    name: boot_mail
+    special_time: reboot
+    job: /usr/sbin/boot_mail.sh -t "{{ journald_watch_mailto }}"
     state: "{{ 'present' if journald_watch_enabled else 'absent' }}"
