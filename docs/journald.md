@@ -20,3 +20,10 @@ want to consider using the [simple_mail](./simple_mail.md) role.
                                        err (default), warning, notice, info, debug
 
     - journald_watch_interval: 5     # check for messages every */5 minutes
+
+**watch: filter spamming log messages out**
+
+    - journald_watch_filter_regexes:
+      - '/client [0-9a-f:]{17} has duplicate leases on 10.2.0.0\/16$/'
+      - '/Abandoning IP address 10.2.[0-9.]*: pinged before offer$/'
+      - '/uid lease 10.2.[0-9.]* for client [0-9a-f:]{17} is duplicate on 10.2.0.0\/16$/'

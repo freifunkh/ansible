@@ -1,0 +1,9 @@
+#!/usr/bin/awk -f
+
+# filter all those expressions and jump to the next line
+{% for expr in journald_watch_filter_regexes %}
+{{expr}} { next }
+{% endfor %}
+
+# match the rest
+/.*/

@@ -44,6 +44,7 @@ while getopts ":mp:hst:" opt; do
 done
 
 CURSOR_FILE=/tmp/watch_journald_cursor.$prio.csr
+FILTER_FILE=/etc/watch_journald_filter.awk
 args="-p $prio -b 0 --show-cursor"
 
 if ls $CURSOR_FILE 1> /dev/null 2> /dev/null; then
@@ -52,6 +53,12 @@ if ls $CURSOR_FILE 1> /dev/null 2> /dev/null; then
 fi
 
 result="$(journalctl $args)"
+
+# eventually apply the filter file if existing
+if ls $FILTER_FILE 1> /dev/null 2> /dev/null; then
+  result=$(echo "$result" | awk -f $FILTER_FILE)
+fi
+
 lines=$(echo "$result" | grep -v '\-\-' | wc -l)
 boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
 hostname="{{ ansible_fqdn }}"

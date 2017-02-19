@@ -38,6 +38,12 @@
     dest: /usr/sbin/boot_mail.sh
     mode: 0755
 
+- name: Install filters
+  template:
+    src: filter.awk.j2
+    dest: /etc/watch_journald_filter.awk
+    mode: 0775
+
 - name: Install cronjob to watch journal
   cron:
     name: watch_journal
