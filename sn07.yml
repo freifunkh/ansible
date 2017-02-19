@@ -54,6 +54,8 @@
       - port: 68
         iface: bat0
 
+    - gateway_announcement_enabled: false
+
     - firewall_nat4_on_interfaces: ["eth1"]
     - firewall_conntrack_table_size: 1048576
     - firewall_alternative_routingtables:
