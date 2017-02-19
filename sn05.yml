@@ -128,8 +128,6 @@
     - stats_pings:
       - host: 8.8.8.8
         name: google-dns
-      - host: 192.168.43.49
-        name: internetz-me
       - host: 192.168.44.49
         name: netcup-gre
 
