@@ -1,10 +1,10 @@
 ---
 sn02 ansible_host=sn02.ffh.zone ansible_user=root ansible_port=1337
-sn03 ansible_host=sn03.ffh.zone ansible_user=root
+sn03 ansible_host=sn03.ffh.zone ansible_user=root ansible_port=1337
 sn04 ansible_host=sn04.ffh.zone ansible_user=root ansible_port=1337
 sn05 ansible_host=sn05.ffh.zone ansible_user=root
 sn07 ansible_host=sn07.ffh.zone ansible_user=root ansible_port=1337
 sn09 ansible_host=sn09.ffh.zone ansible_user=root ansible_port=1337
 steintor ansible_host=37.120.190.215 ansible_user=root ansible_port=1337
-webserver ansible_host=37.120.176.252 ansible_user=root
+webserver ansible_host=37.120.176.252 ansible_user=root ansible_port=1337
 leintor ansible_host=81.3.6.94 ansible_user=root ansible_port=1337
