@@ -59,11 +59,12 @@ if ls $FILTER_FILE 1> /dev/null 2> /dev/null; then
   result=$(echo "$result" | awk -f $FILTER_FILE)
 fi
 
-lines=$(echo "$result" | grep -v '\-\-' | wc -l)
+lines=$(echo "$result" | grep -ve '^\-\-' | wc -l)
 boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
 hostname="{{ ansible_fqdn }}"
 
-if [ "$lines" -le 1 ]; then
+if [ "$lines" -eq 0 ]; then
+  # nothing to do \o/
   exit 0
 fi
 
