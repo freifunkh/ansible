@@ -2,6 +2,7 @@
 
 Example:
 
+    - dhcp_interfaces: [bat0]
     - dhcp_range:
         from: 10.2.30.2
         to: 10.2.39.254

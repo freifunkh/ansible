@@ -8,6 +8,12 @@
     src: dhcpd.conf.j2
     dest: /etc/dhcp/dhcpd.conf
 
+- name: Generate debian defaults
+  notify: Restart isc-dhcp-server
+  template:
+    src: debian_defaults.j2
+    dest: /etc/default/isc-dhcp-server
+
 - name: Enable isc-dhcp-server
   service: name=isc-dhcp-server enabled=yes
 
