@@ -11,7 +11,11 @@ if [ "$1" = '--force-off' ]; then
 	exit 0
 fi
 
-if ping -q -I internetz-me 8.8.8.8 -c 4 -W 5 >/dev/null; then
+# we assume that the mark and the routing table number are the same
+mark=$(cat /etc/iproute2/rt_tables | grep freifunk | cut -d" " -f 1)
+interface=$(ip route get 8.8.8.8 mark ${mark} | head -n 1 | cut -d " " -f 5)
+
+if ping -q -I ${interface} 8.8.8.8 -c 4 -W 5 >/dev/null; then
 	echo server > $GW_MODE || logger "batman gw mode failed: server"
 	systemctl start isc-dhcp-server
 else
