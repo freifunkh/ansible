@@ -83,6 +83,8 @@
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
             dest_if: bat0
+
+    - dhcp_interfaces: [bat0]
     - dhcp_range:
         from: 10.2.40.2
         to: 10.2.49.254
