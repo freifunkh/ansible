@@ -40,7 +40,7 @@
       - iface: bat0
         addresses:
           - 10.2.50.1/16
-          - fdca:ffee:8::3201/64
+          - fdca:ffee:8::5001/64
 
     - networkd_gre_tunnels:
       - name: internetz-me
@@ -96,7 +96,7 @@
       - 127.0.0.1
       - ::1
       - 10.2.50.1
-      - fdca:ffee:8::3201
+      - fdca:ffee:8::5001
     - dns_recursive_allowed_nets:
       - 10.2.0.0/16
       - fdca:ffee:8::/48

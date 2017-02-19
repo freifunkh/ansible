@@ -36,7 +36,7 @@
       - iface: bat0
         addresses:
           - 10.2.90.1/16
-          - fdca:ffee:8::5a01/64
+          - fdca:ffee:8::9001/64
 
     - networkd_gre_tunnels:
       - name: internetz-me
@@ -106,13 +106,13 @@
       - 127.0.0.1
       - ::1
       - 10.2.90.1
-      - fdca:ffee:8::5a01
+      - fdca:ffee:8::9001
 
     - radv_server_iface: "bat0"
     - radv_server_adv_prefixes:
       - fdca:ffee:8::/64
     - radv_server_adv_dns_servers:
-      - fdca:ffee:8::5a01
+      - fdca:ffee:8::9001
 
     - stats_pings:
       - host: 8.8.8.8

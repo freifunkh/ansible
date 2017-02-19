@@ -40,7 +40,7 @@
       - iface: bat0
         addresses:
           - 10.2.30.1/16
-          - fdca:ffee:8::1e01/64
+          - fdca:ffee:8::3001/64
           - fdca:ffee:8::108/64
 
     - networkd_gre_tunnels:
@@ -95,7 +95,7 @@
       - 127.0.0.1
       - ::1
       - 10.2.30.1
-      - fdca:ffee:8::1e01
+      - fdca:ffee:8::3001
     - dns_recursive_allowed_nets:
       - 10.2.0.0/16
       - fdca:ffee:8::/48
@@ -122,7 +122,7 @@
     - radv_server_adv_prefixes:
       - fdca:ffee:8::/64
     - radv_server_adv_dns_servers:
-      - fdca:ffee:8::1e01
+      - fdca:ffee:8::3001
 
     - gateway_announcement_enabled: false
 
