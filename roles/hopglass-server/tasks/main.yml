@@ -1,0 +1,95 @@
+---
+
+- name: Install apt-transport-https
+  apt:
+    update_cache: yes
+    name: apt-transport-https
+
+- name: Add NodeSource repository key
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+
+- name: Add NodeSource repository
+  register: noderepositoryadded
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_6.x jessie main"
+
+- name: Update apt cache to get NodeSource packages
+  apt: update_cache=yes
+  when: noderepositoryadded|changed
+
+- name: Remove old NodeJS packages (nodejs nodejs-legacy npm)
+  apt: name={{ item }} state=absent
+  with_items:
+    - nodejs=0*
+    - nodejs-legacy
+    - npm
+
+- name: Install new NodeJS package (nodejs)
+  apt:
+    name: nodejs
+
+- name: Create hopglass group
+  user:
+    name: hopglass
+    system: yes
+
+- name: Create hopglass user
+  user:
+    name: hopglass
+    group: hopglass
+    home: "{{ hopglass_server_install_dir }}"
+    system: yes
+
+- name: Install git
+  apt:
+    name: git
+
+- name: Clone hopglass-server
+  register: repositorycloned
+  git:
+    repo: https://github.com/hopglass/hopglass-server.git
+    dest: "{{ hopglass_server_install_dir }}/server"
+    version: "v0.1.3"
+
+- name: npm install hopglass-server
+  npm:
+    path: "{{ hopglass_server_install_dir }}/server"
+  when: repositorycloned|changed
+
+- name: Change directory permissions
+  file:
+    path: "{{ hopglass_server_install_dir }}"
+    owner: hopglass
+    group: hopglass
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
+  when: repositorycloned|changed
+
+- name: Create config directory
+  file:
+    path: "/etc/hopglass-server/default"
+    state: directory
+    owner: hopglass
+    group: hopglass
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
+
+- name: Copy config
+  template:
+    src: "config.json.j2"
+    dest: "/etc/hopglass-server/default/config.json"
+    owner: hopglass
+    group: hopglass
+    mode: 0644
+
+- name: Copy systemd config
+  template:
+    src: "hopglass-server@.service.j2"
+    dest: "/lib/systemd/system/hopglass-server@.service"
+
+- name: Enable hopglass-server
+  service:
+    name: hopglass-server@default
+    enabled: yes
+    state: started

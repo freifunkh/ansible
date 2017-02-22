@@ -1,0 +1,44 @@
+{
+  "receiver": {
+    "receivers": [
+      { "module": "announced",
+        "config": {
+          "target": {
+            "ip": "ff02::1",
+            "port": 1001
+          },
+          "port": 45123,
+          "interval": {
+            "statistics": 60,
+            "nodeinfo": 500
+          }
+        },
+        "overlay": false
+      },
+      { "module": "aliases",
+        "config": {
+          "file": "./aliases.json"
+        },
+        "overlay": true
+      }
+    ],
+    "ifaces": [
+      "{{ hopglass_server_iface }}"
+    ],
+    "storage": {
+      "interval": 300,
+      "file": "./raw.json"
+    },
+    "purge": {
+      "maxAge": 14,
+      "interval": 86400
+    }
+  },
+  "provider": {
+    "offlineTime": 900
+  },
+  "webserver": {
+    "ip": "{{ hopglass_server_webserver_ip }}",
+    "port": {{ hopglass_server_port }}
+  }
+}

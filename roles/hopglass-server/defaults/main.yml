@@ -1,0 +1,6 @@
+---
+
+hopglass_server_install_dir: /opt/hopglass
+hopglass_server_iface: bat0
+hopglass_server_webserver_ip: 127.0.0.1
+hopglass_server_port: 4000
