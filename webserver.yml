@@ -48,6 +48,7 @@
     - dns_zonenodes_toplevel: "ffh.zone."
     - dns_zonenodes_nodedomain: "n.ffh.zone"
     - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
+    - dns_zonenodes_nodeurl: "http://hannover.freifunk.net:8079/nodes.json"
 
     - nginx_sites:
       - domain: fnorden.net
