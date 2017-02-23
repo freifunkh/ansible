@@ -10,7 +10,9 @@ bind [{{ ip }}] port {{ mesh_fastd_port }};
 bind {{ ip }} port {{ mesh_fastd_port }};
 {% endif %}
 {% endfor %}
-
+{% if mesh_fastd_peer_limit is defined %}
+peer limit {{ mesh_fastd_peer_limit }};
+{% endif %}
 
 hide ip addresses yes;
 hide mac addresses yes;
