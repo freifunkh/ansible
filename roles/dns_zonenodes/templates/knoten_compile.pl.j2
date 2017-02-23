@@ -9,7 +9,7 @@ use Net::IP;
 ## CONFIGURATION ##
 ###################
 
-my $url         = "http://hannover.freifunk.net:8079/nodes.json";
+my $url         = "{{ dns_zonenodes_nodeurl }}";
 
 ## END OF CONFIGURATION ##
 ##########################
@@ -34,7 +34,7 @@ my $domain = $ARGV[1];
 if ($mode eq "forward")
 {
 print '$TTL 4h'."\n";
-print '@           IN  SOA     ns1.ffh.    zonemaster.ffh.zone. ('."\n";
+print '@           IN  SOA     {{ dns_authoritative_nameserver[0].nameserver }}    zonemaster.ffh.zone. ('."\n";
 print '                ' . time() . '    ; serial'."\n";
 print '                4h      ; slave refresh interval'."\n";
 print '                1h      ; slave retry interval'."\n";
@@ -45,7 +45,7 @@ print ''."\n";
 }
 else
 {
-print '@   IN  SOA ansibletest.tbspace.de. admin.example.com. ('."\n";
+print '@   IN  SOA {{ dns_authoritative_nameserver[0].nameserver }} zonemaster.ffh.zone. ('."\n";
 print '    ' . time() . '  ; serial'."\n";
 print '    1h      ; slave refresh interval'."\n";
 print '    15m     ; slave retry interval'."\n";
@@ -53,9 +53,10 @@ print '    1w      ; slave copy expire time'."\n";
 print '    1h      ; NXDOMAIN cache time'."\n";
 print '    )'."\n";
 print ''."\n";
-print '@   IN  NS  ansibletest.tbspace.de.'."\n";
-print '@   IN  NS  ns2.he.net.'."\n";
-print '@   IN  NS  ns3.he.net.'."\n";
+{% for ns in dns_authoritative_nameserver %}
+print '@   IN  NS  {{ns.nameserver}}'."\n";
+{% endfor %}
+
 }
 my $response = $ua->get( $url );
 if ($response->is_success) {
