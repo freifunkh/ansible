@@ -34,7 +34,7 @@ my $domain = $ARGV[1];
 if ($mode eq "forward")
 {
 print '$TTL 4h'."\n";
-print '@           IN  SOA     {{ dns_authoritative_nameserver[0].nameserver }}    zonemaster.ffh.zone. ('."\n";
+print '@           IN  SOA     {{ dns_authoritative_nameserver[0].nameserver }} {{ dns_authoritative_SOAmail }}. ('."\n";
 print '                ' . time() . '    ; serial'."\n";
 print '                4h      ; slave refresh interval'."\n";
 print '                1h      ; slave retry interval'."\n";
@@ -45,7 +45,7 @@ print ''."\n";
 }
 else
 {
-print '@   IN  SOA {{ dns_authoritative_nameserver[0].nameserver }} zonemaster.ffh.zone. ('."\n";
+print '@   IN  SOA {{ dns_authoritative_nameserver[0].nameserver }} {{ dns_authoritative_SOAmail }}. ('."\n";
 print '    ' . time() . '  ; serial'."\n";
 print '    1h      ; slave refresh interval'."\n";
 print '    15m     ; slave retry interval'."\n";
