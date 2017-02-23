@@ -32,7 +32,7 @@
         dns_server: [8.8.8.8]
       - iface: internetz-me
         addresses:
-          - 192.168.43.50/30
+          - 100.101.5.2/24
           - fdca::1/64
       - iface: netcup
         addresses:
@@ -74,11 +74,11 @@
     - firewall_conntrack_table_size: 1048576
     - firewall_alternative_routingtables:
       - name: freifunk
-        when_packet_from: ["bat0", "netcup"]
+        when_packet_from: ["bat0", "internetz-me", "netcup"]
         routes:
           - dest_net: default
-            dest_if: netcup
-            via: 192.168.44.49
+            dest_if: internetz-me
+            via: 100.101.5.1
           - dest_net: 10.2.0.0/16
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
@@ -138,6 +138,8 @@
         name: google-dns
       - host: 192.168.44.49
         name: netcup-gre
+      - host: 100.101.5.1
+        name: internetz-me
 
     - stats_fastd_sockets:
       - name: mesh_fastd
