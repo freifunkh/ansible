@@ -1,0 +1,11 @@
+---
+
+- name: set MAILTO in crontab
+  cron:
+    name: MAILTO
+    minute: MAILTO="{{ monitoring_email_address }}"
+    hour: ""
+    day: ""
+    month: ""
+    weekday: ""
+    job: ""

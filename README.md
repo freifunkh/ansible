@@ -29,6 +29,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [grafana](docs/grafana.md) - deploy a grafana server (a statistics dashboard)
 - [prometheus](docs/prometheus.md) - deploy a prometheus and maybe the corresponding pushgateway (a statistics collecting daemon)
 - [stats_batch](docs/stats_batch.md) - scripts to monitor and push some values to the pushgateway
+- [crontab_email](docs/crontab_email.md) - manage crontabs MAILTO header 
 
 #### web
 
