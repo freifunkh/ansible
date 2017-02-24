@@ -49,15 +49,20 @@
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
+- name: Create directory to install getssl in /opt
+  file:
+    path: /opt/getssl
+    state: directory
+
 - name: Download getssl
   get_url:
     url: https://raw.githubusercontent.com/srvrco/getssl/cb7779102a96e4802249460255303babaf1d8322/getssl
-    dest: /root/getssl
+    dest: /opt/getssl/getssl
     mode: 0700
     checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
 
 - name: Run getssl
-  command: /root/getssl -U {{ item.domain }}
+  command: /opt/getssl/getssl -U {{ item.domain }}
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
