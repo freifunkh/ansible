@@ -3,6 +3,7 @@
 - name: set MAILTO in crontab
   cron:
     name: MAILTO
+    user: "{{ user }}"
     minute: MAILTO="{{ monitoring_email_address }}"
     hour: ""
     day: ""
