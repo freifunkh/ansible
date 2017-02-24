@@ -21,6 +21,9 @@
         gateway4: 81.3.6.89
         gateway6: fe80::1
         dns_server: [8.8.8.8]
+      - iface: lo
+        addresses:
+          - 100.100.0.1/32 # anycast for ping tests
       - iface: eth1
         addresses:
           - 100.103.7.1/24

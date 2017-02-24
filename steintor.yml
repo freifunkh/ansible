@@ -21,10 +21,12 @@
         gateway4: 37.120.188.1
         gateway6: fe80::1
         dns_server: [8.8.8.8]
+      - iface: lo
+        addresses:
+          - 100.100.0.1/32 # anycast for ping tests
       - iface: gre-sn04
         addresses:
           - 192.168.44.42/30
-
       - iface: gre-sn05
         addresses:
           - 192.168.44.49/30
