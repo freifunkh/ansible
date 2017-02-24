@@ -8,3 +8,11 @@
     - nmap
     - mtr-tiny
     - iperf3
+    - iftop
+    - htop
+    - dstat
+    - iotop
+    - vim
+    - screen
+    - tmux
+    - byobu
