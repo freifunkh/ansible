@@ -34,9 +34,14 @@
     state: directory
     mode: 0700
 
+- name: Create directory to install getssl in /opt
+  file:
+    path: /opt/getssl
+    state: directory
+
 - name: Create getssl directory
   file:
-    path: /root/.getssl/{{ item.domain }}
+    path: /opt/getssl/{{ item.domain }}
     state: directory
     mode: 0700
   when: "{{ item.tls | default(false) }}"
@@ -45,14 +50,9 @@
 - name: Create getssl configs
   template:
     src: getssl.cfg.j2
-    dest: /root/.getssl/{{ item.domain }}/getssl.cfg
+    dest: /opt/getssl/{{ item.domain }}/getssl.cfg
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
-
-- name: Create directory to install getssl in /opt
-  file:
-    path: /opt/getssl
-    state: directory
 
 - name: Download getssl
   get_url:
@@ -62,7 +62,7 @@
     checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
 
 - name: Run getssl
-  command: /opt/getssl/getssl -U {{ item.domain }}
+  command: /opt/getssl/getssl -w /opt/getssl -U {{ item.domain }}
   when: "{{ item.tls | default(false) }}"
   with_items: "{{nginx_sites}}"
 
