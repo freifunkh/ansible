@@ -46,11 +46,13 @@ server {
 {% endif %}
 
 
+{% if item.php | default(false) %}
         location ~ \.php$ {
                 fastcgi_pass unix:/run/php5-fpm.sock;
                 fastcgi_index index.php;
                 include fastcgi.conf;
         }
+{% endif %}
 
 {# it's okay that all sites share the same folder #}
 {% if item.tls is defined and item.tls %}
