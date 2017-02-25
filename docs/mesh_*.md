@@ -44,3 +44,7 @@ This role provides the **hardcoded** public keys of the other supernodes.
 This role clones and pulls the public keys of the freifunk routers out of
 the peers git from ```git_addr```. It also installs a cronjob that
 updates the repository automatically every 5 minutes.
+
+**peer limit:**
+
+    - mesh_fastd_peer_limit: 42    # default is no limit
