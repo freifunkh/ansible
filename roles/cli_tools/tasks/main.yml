@@ -18,3 +18,4 @@
     - byobu
     - conntrack
     - bash-completion
+    - pstree
