@@ -7,6 +7,13 @@
   apt: name={{item}}
   with_items: [ php5, php5-fpm ]
 
+- name: Check if certs are already generated
+  stat:
+    path: /etc/nginx/keys/{{ item.domain }}.crt
+  register: certexisting
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
 - name: Configure nginx
   template:
     src: default-site.j2
@@ -14,7 +21,7 @@
   with_items: "{{nginx_sites}}"
   notify: Restart nginx
 
-- name: Delete nginx default site
+- name: Disable nginx default site
   file:
     state: absent
     path: /etc/nginx/sites-enabled/default
@@ -27,3 +34,85 @@
     state: link
   with_items: "{{nginx_sites}}"
   notify: Restart nginx
+
+- name: Trigger all handlers, because we need it running to get tls
+  # threre seems no more elegant way for now. The only way would be
+  # using a lot of "register:" and "when:" statements
+  # (flushing single handlers is not possible yet)
+  meta: flush_handlers
+
+- name: Create keys directory
+  file:
+    path: /etc/nginx/keys
+    state: directory
+    mode: 0700
+
+- name: Create directory to install getssl in /opt
+  file:
+    path: /opt/getssl
+    state: directory
+
+- name: Create getssl directory
+  file:
+    path: /opt/getssl/{{ item.domain }}
+    state: directory
+    mode: 0700
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Create getssl configs
+  template:
+    src: getssl.cfg.j2
+    dest: /opt/getssl/{{ item.domain }}/getssl.cfg
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Download getssl
+  get_url:
+    url: https://raw.githubusercontent.com/srvrco/getssl/cb7779102a96e4802249460255303babaf1d8322/getssl
+    dest: /opt/getssl/getssl
+    mode: 0700
+    checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
+
+- name: Run getssl
+  command: /opt/getssl/getssl -w /opt/getssl -U {{ item.domain }}
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Check again if certs are now generated
+  stat:
+    path: /etc/nginx/keys/{{ item.domain }}.crt
+  register: certexisting
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Update getssl configs (CHECK_REMOTE)
+  # When the certificates are updated, we want to restart nginx to reload
+  # the certificates. But in the first run, this won't start tls, since
+  # nginx is not configured to serve via tls yet.
+  #
+  # Furthermore getssl has a mechanism called CHECK_REMOTE, where a remote
+  # server checks, whether we are serving the correct certificate. This is
+  # generally desirable, but on the first run, we disable this, because
+  # getssl would fail otherwise.
+  #
+  # In this task we enable it back again.
+  template:
+    src: getssl.cfg.j2
+    dest: /opt/getssl/{{ item.domain }}/getssl.cfg
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+
+- name: Configure nginx (with ssl)
+  template:
+    src: default-site.j2
+    dest: /etc/nginx/sites-available/{{item.domain}}
+  when: "{{ item.tls | default(false) }}"
+  with_items: "{{nginx_sites}}"
+  notify: Restart nginx
+
+- name: Add cron job for getssl
+  template:
+    src: getssl.cron.j2
+    dest: /etc/cron.daily/getssl
+    mode: 0755

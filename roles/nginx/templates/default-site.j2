@@ -3,9 +3,17 @@ server {
         listen [::]:80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
 
 {% if item.tls is defined and item.tls == true %}
+{% for chk in certexisting.results %}
+{% if chk.item == item and chk.stat.exists %}
+{# on the first run, there are no certificates yet #}
         listen 443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
         listen [::]:443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
-        # TODO certs
+        ssl_certificate /etc/nginx/keys/{{ item.domain }}.crt;
+        ssl_certificate_key /etc/nginx/keys/{{ item.domain }}.key;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         HIGH:!aNULL:!MD5;
+{% endif %}
+{% endfor %}
 {% endif %}
 
 {% if item.root is defined %}
@@ -43,4 +51,12 @@ server {
                 fastcgi_index index.php;
                 include fastcgi.conf;
         }
+
+{# it's okay that all sites share the same folder #}
+{% if item.tls is defined and item.tls %}
+	location /.well-known/acme-challenge {
+		alias /var/www/.well-known/acme-challenge;
+	}
+{% endif %}
+
 }
