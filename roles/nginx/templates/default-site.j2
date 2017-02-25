@@ -61,4 +61,8 @@ server {
 	}
 {% endif %}
 
+{% if item.custom_config is defined %}
+{{ item.custom_config }}
+{% endif %}
+
 }
