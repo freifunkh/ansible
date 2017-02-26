@@ -150,11 +150,13 @@
             type: fastcgi
             fcgi_socket: localhost:9090
       - domain: prometheus.ffh.zone
+        tls: true
         locations:
           - location: /
             type: proxy
             proxy_forward_url: http://[::1]:9090/
       - domain: stats.ffh.zone
+        tls: true
         locations:
           - location: /
             type: proxy
