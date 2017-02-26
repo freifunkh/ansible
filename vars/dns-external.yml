@@ -30,5 +30,6 @@
           "aegidientor.e.ffh.zone. IN A 178.32.215.75",
           "testfuerraute.ffh.zone. IN A 138.201.220.61",
           "prometheus.ffh.zone. IN CNAME testfuerraute.ffh.zone.",
-          "stats.ffh.zone. IN A 138.201.220.61"
+          "stats.ffh.zone. IN A 138.201.220.61",
+          "babelnetz.ffh.zone. IN NS nsbabel.fnorden.net."
         ]
