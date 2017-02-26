@@ -8,10 +8,19 @@ server {
 {# on the first run, there are no certificates yet #}
         listen 443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
         listen [::]:443 ssl{% if item.default_site is defined and item.default_site %} default_server{% endif %};
-        ssl_certificate /etc/nginx/keys/{{ item.domain }}.crt;
-        ssl_certificate_key /etc/nginx/keys/{{ item.domain }}.key;
-        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-        ssl_ciphers         HIGH:!aNULL:!MD5;
+        ssl_certificate             /etc/nginx/keys/{{ item.domain }}.crt;
+        ssl_certificate_key         /etc/nginx/keys/{{ item.domain }}.key;
+        ssl_session_timeout         1d;
+        ssl_session_cache           shared:SSL:50m;
+        ssl_session_tickets         off;
+        ssl_dhparam                 /etc/nginx/keys/dhparams-4096.pem;
+        ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers                 HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers   on;
+        add_header                  Strict-Transport-Security "max-age=15768000";
+        ssl_stapling                on;
+        ssl_stapling_verify         on;
+        ssl_trusted_certificate     /etc/nginx/keys/{{ item.domain }}.crt;
 {% endif %}
 {% endfor %}
 {% endif %}

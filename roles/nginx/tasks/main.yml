@@ -47,6 +47,11 @@
     state: directory
     mode: 0700
 
+- name: Generate Diffie-Hellman group
+  command: openssl dhparam -out /etc/nginx/keys/dhparams-4096.pem 4096
+  args:
+    creates: /etc/nginx/keys/dhparams-4096.pem
+
 - name: Create directory to install getssl in /opt
   file:
     path: /opt/getssl
