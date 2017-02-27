@@ -17,3 +17,5 @@ python fastd.py {{ socket.path }} {{ socket.name }}
 {% for interface in stats_bpfcountd_interfaces %}
 sh bpfcountd.sh /var/run/bpfcountd.{{ interface }}.sock
 {% endfor %}
+
+sh simple_file.sh curr_bandwidth /tmp/curr_bandwidth
