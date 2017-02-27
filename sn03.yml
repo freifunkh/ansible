@@ -126,6 +126,8 @@
       - "ffh.zone."
       - "ffh."
 
+    - mesh_fastd_deny_connections_over_mbit_integer: 40
+
     - radv_server_iface: "bat0"
     - radv_server_adv_prefixes:
       - fdca:ffee:8::/64
