@@ -1,0 +1,20 @@
+#!/bin/sh
+
+grep -r "$PEER_KEY" /etc/fastd/mesh_fastd/peers > /dev/null || exit 1
+
+if [ ! -f /tmp/curr_bandwidth ]; then
+	exit 2
+fi
+
+if grep -ve '^[0-9]*$' /tmp/curr_bandwidth > /dev/null; then
+	# format error in /tmp/curr_bandwidth
+	exit 3
+fi
+
+# attention: "-ge" only accepts integers
+if [ "$(cat /tmp/curr_bandwidth)" -ge "{{ mesh_fastd_deny_connections_over_mbit_integer }}" ]; then
+	# bandwidth limit exceeded
+	exit 4
+fi
+
+exit 0

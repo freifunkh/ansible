@@ -48,3 +48,12 @@ updates the repository automatically every 5 minutes.
 **peer limit:**
 
     - mesh_fastd_peer_limit: 42    # default is no limit
+
+**soft traffic limit:**
+    - mesh_fastd_deny_connections_over_mbit_integer: 40 # this will not let any more connections
+                                                        # in, if the outgoing (TX) traffic on eth0
+                                                        # is greater than 40 Mbit.
+
+**Warning:** If this option is set, the ```mesh_fastd_peer_limit``` will be ignored because
+fastd v17 (which we are currently using) can't use the [```on verify "...";``` option](http://fastd.readthedocs.io/en/v18/releases/v18.html?highlight=on%20verify#more-powerful-peer-groups)
+in peer groups. This is first possible in fastd v18.

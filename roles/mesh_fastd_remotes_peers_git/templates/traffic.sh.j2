@@ -1,0 +1,13 @@
+#!/bin/sh
+
+bytes() {
+	/sbin/ifconfig eth0 | grep "TX bytes"| cut -d: -f 3 | cut -d" " -f 1
+}
+
+seconds=$1
+
+before=`bytes`
+sleep $seconds
+after=`bytes`
+
+echo $(((8*($after-$before)/$seconds)/1024/1024)) > /tmp/curr_bandwidth

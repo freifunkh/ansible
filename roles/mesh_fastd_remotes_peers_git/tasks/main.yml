@@ -35,9 +35,34 @@
     dest: /etc/fastd/mesh_fastd/remotes.conf
     marker: "# {mark} PEERS GIT (ANSIBLE)"
     content: |
+      {% if mesh_fastd_deny_connections_over_mbit_integer is defined %}
+      on verify "/etc/fastd/on_verify.sh";
+      {% endif %}
       peer group "peers-grp" {
         {% if mesh_fastd_peer_limit is defined %}
         peer limit {{ mesh_fastd_peer_limit }};
         {% endif %}
+        {% if mesh_fastd_deny_connections_over_mbit_integer is not defined %}
         include peers from "peers";
+        {% endif %}
       }
+
+- name: Install on verfiy_script
+  template:
+    src: on_verify.sh.j2
+    dest: /etc/fastd/mesh_fastd/on_verify.sh
+    mode: 755
+  when: mesh_fastd_deny_connections_over_mbit_integer is defined
+
+- name: Install bandwidth test script
+  template:
+    src: traffic.sh.j2
+    dest: /etc/fastd/mesh_fastd/traffic.sh
+    mode: 755
+
+- name: Install cronjob for bandwidth test scripts
+  cron:
+    name: "generate traffic statistic for fastd foobar"
+    minute: "*/5"
+    user: root
+    job: /etc/fastd/mesh_fastd/traffic.sh 300
