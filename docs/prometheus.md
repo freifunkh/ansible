@@ -11,12 +11,13 @@ Simple config:
         - name: ha_cluster
           ...
 
-With non default intervals:
+With non default config values:
 
     - prometheus_scrapes:
         - name: special
           interval: 120 # default was 60 seconds
           timeout: 15   # default was 10 seconds
+	  metrics_path: '/hopglass-server/metrics' # default is '/metrics'
           targets: ['example.com:1337']
 
 Another version:

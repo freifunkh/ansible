@@ -12,6 +12,9 @@ scrape_configs:
 {% if scrape.interval is defined %}
     scrape_interval: {{ scrape.interval }}s
 {% endif %}
+{% if scrape.metrics_path is defined %}
+    metrics_path: '{{ scrape.metrics_path }}'
+{% endif %}
 {% if scrape.timeout is defined %}
     scrape_timeout: {{ scrape.timeout }}s
 {% endif %}
