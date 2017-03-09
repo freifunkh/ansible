@@ -36,7 +36,7 @@
     marker: "# {mark} PEERS GIT (ANSIBLE)"
     content: |
       {% if mesh_fastd_deny_connections_over_mbit_integer is defined %}
-      on verify "/etc/fastd/on_verify.sh";
+      on verify "/etc/fastd/mesh_fastd/on_verify.sh";
       {% endif %}
       peer group "peers-grp" {
         {% if mesh_fastd_peer_limit is defined %}
