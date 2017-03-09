@@ -52,9 +52,11 @@
     - mesh_fastd_listen_on: [ "88.198.67.124", "2a01:4f8:140:430a::9", "2a01:4f8:140:430a::9001" ]
     - mesh_fastd_port: 123
     - git_addr: ssh://git@git.fnorden.net
-    - firewall_open_ports_tcp: [5201]
     - firewall_open_ports_tcp: [1337]
     - firewall_open_ports_udp: [123]
+    - firewall_open_ports_tcp_by_iface:
+      - port: 5201
+        iface: bat0
     - firewall_open_ports_udp_by_iface:
       - port: 53
         iface: bat0
