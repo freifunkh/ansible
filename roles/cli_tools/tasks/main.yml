@@ -7,7 +7,6 @@
     - tcpdump
     - nmap
     - mtr-tiny
-    - iperf3
     - iftop
     - htop
     - dstat
