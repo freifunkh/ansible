@@ -11,7 +11,7 @@ This role installs the [nginx](http://nginx.org/) HTTP server.
         root: /var/www/another-site.tld
       - domain: ...
         root: ...
-        
+
 http://www.site.tld and http://another-site.tld
 
 **Site with SSL (includes without SSL):**
@@ -20,21 +20,21 @@ http://www.site.tld and http://another-site.tld
       - domain: www.site-with-ssl.tld
         root: /var/www/site-with-ssl.tld
         tls: true
-        
+
 https://www.site-with-ssl.tld
 (and http://www.site-with-ssl.tld)
-    
+
 **Reverse proxy:**
-  
-    - nginx_sites:    
+
+    - nginx_sites:
       - domain: www.reverse-proxy.tld
         locations:
           - location: /
             type: proxy
             proxy_forward_url: http://localhost:1234/
-            
+
 http://www.reverse-proxy.tld request is passed to localhost:1234
-            
+
 **Site with multiple locations and SSL:**
 
     - nginx_sites:
@@ -52,7 +52,7 @@ http://www.reverse-proxy.tld request is passed to localhost:1234
             root: /var/www/another-root
           - location: /download/
             directory_index: true
-            
+
 https://www.multiple-locations.tld using root directory for requests
 
 https://www.multiple-locations.tld/stats/ request is passed to [grafana](grafana.md) (localhost:3000)
