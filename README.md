@@ -32,7 +32,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 
 #### web
 
-- nginx
+- [nginx](docs/nginx.md) - deploy a web server and configure sites
 
 #### other
 
@@ -44,4 +44,4 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [gateway_announcement](docs/gateway_announcement.md) - set the batman gw announcement flag based on a ping
 - [mesh_*](docs/mesh_*.md) - batman-adv + vpn daemon
 - ssh_known_hosts - ssh keys of our infrastructure
-- meshflix - js/html web map for freifunk networks
+- [hopglass-server](docs/hopglass-server.md) - collect data from Freifunk networks
