@@ -9,7 +9,7 @@
 - name: Generate systemd unit file for iperf
   template:
     src: iperf3.service.j2
-    dest: /etc/systemd/system/iperf.service
+    dest: /etc/systemd/system/iperf3.service
 
 - name: Install iperf3
   apt: name=iperf3
