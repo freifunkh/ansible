@@ -18,6 +18,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+    - { name: iperf3, tags: iperf3 }
   vars_files:
     - vars/all_hosts.yml
   vars:
