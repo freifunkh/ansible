@@ -1,0 +1,9 @@
+---
+
+- hosts: sn01
+  roles:
+    - { name: admin, tags: admin }
+  vars_files:
+    - vars/all_hosts.yml
+  vars:
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby]
