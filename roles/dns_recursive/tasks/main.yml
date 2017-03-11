@@ -9,5 +9,15 @@
     src: unbound.conf.j2
     dest: /etc/unbound/unbound.conf
 
+- name: Install unbound service file
+  template:
+    src: unbound.service.j2
+    dest: /etc/systemd/system/unbound.service
+
+- name: Remove legacy init.d file
+  file:
+    path: /etc/init.d/unbound
+    state: absent
+
 - name: Enable unbound
   service: name=unbound enabled=yes
