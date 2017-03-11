@@ -12,6 +12,12 @@
 - name: Install nf_conntrack_ipv6 kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_ipv6
 
+- name: Load nf_conntrack_ipv6 kmod
+  modprobe: name=nf_conntrack_ipv6 state=present
+
+- name: Load nf_conntrack_ipv4 kmod
+  modprobe: name=nf_conntrack_ipv4 state=present
+
 - name: Adjust netfilter conntrack table size
   sysctl:
     name: net.netfilter.nf_conntrack_max
@@ -47,12 +53,6 @@
     dest: "/etc/iptables/rules.v6"
     src: "iptables6.j2"
     validate: "ip6tables-restore --test %s"
-
-- name: Load nf_conntrack_ipv6 kmod
-  modprobe: name=nf_conntrack_ipv6 state=present
-
-- name: Load nf_conntrack_ipv4 kmod
-  modprobe: name=nf_conntrack_ipv4 state=present
 
 - name: Load and apply the new firewall 4 rules
   command: iptables-restore /etc/iptables/rules.v4
