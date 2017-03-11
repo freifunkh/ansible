@@ -38,6 +38,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 
 - cli_tools - common cli tools which are often needed
 - git_autoupdate - periodically update a git repository and maybe execute a command after updating
+- iperf3 - iperf3 server
 
 ### freifunk only roles
 
