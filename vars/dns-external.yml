@@ -21,7 +21,7 @@
           "sn07.s.ffh.zone. IN AAAA 2a02:790:4:5::7001",
           "sn07.s.ffh.zone. IN A 81.3.6.92",
           "sn08.s.ffh.zone. IN A 81.3.6.93",
-          "sn08.s.ffh.zone. IN AAAA 2a02:790:4:5::ff:8",
+          "sn08.s.ffh.zone. IN AAAA 2a02:790:4:5::8001",
           "sn09.s.ffh.zone. IN CNAME freifunk.oliverkrueger.de.",
           "steintor.e.ffh.zone. IN A 37.120.190.215",
           "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
