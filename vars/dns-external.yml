@@ -31,5 +31,6 @@
           "testfuerraute.ffh.zone. IN A 138.201.220.61",
           "prometheus.ffh.zone. IN CNAME testfuerraute.ffh.zone.",
           "stats.ffh.zone. IN A 138.201.220.61",
-          "babelnetz.ffh.zone. IN NS nsbabel.fnorden.net."
+          "babelnetz.ffh.zone. IN NS nsbabel.fnorden.net.",
+          "web.ffh.zone IN A 88.198.66.29"
         ]
