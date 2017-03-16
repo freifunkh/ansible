@@ -38,7 +38,11 @@ dns_zonenodes can be configured as follows:
     - dns_zonenodes_toplevel: "ffh.zone."
     - dns_zonenodes_nodedomain: "n.ffh.zone"
     - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
+    - dns_zonenodes_matchIP: "/^fdca/"
     - dns_zonenodes_nodeurl: "http://hannover.freifunk.net:8079/nodes.json"
 ```
 the _toplevel variable sets the domain, which is automatically suffixed to every hostname in the 
 dns_authoritative_zones variable to create a correct PTR/rDNS-record.
+
+_matchIP configures a regex which is used to determine which IPv6-address of these found in the router 
+is used for forward resolution of the nodedomain (in this case n.ffh.zone) address. 

@@ -74,7 +74,7 @@ if ($response->is_success) {
         my $ip;
         my $names;
         foreach my $node_ip ( @{ $data->{nodes}->{$node_id}->{nodeinfo}->{network}->{addresses} } ) {
-            next if $node_ip !~ m/^fdca/;
+            next if $node_ip !~ m{{ dns_zonenodes_matchIP }};
             $ip = $node_ip; 
         }
         next unless $ip;
