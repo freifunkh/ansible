@@ -4,7 +4,6 @@
   roles:
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
-    - { role: nginx, tags: nginx }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
@@ -20,7 +19,3 @@
         dns_server: [213.133.99.99, 213.133.98.98, 213.133.100.100]
 
     - firewall_open_ports_tcp: [1337]
-
-   - nginx_sites:
-      - domain: hannover.freifunk.net
-        root: /var/www/hannover.freifunk.net
