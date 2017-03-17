@@ -1,6 +1,6 @@
 ---
 
-- hosts: web
+- hosts: harvester
   roles:
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
