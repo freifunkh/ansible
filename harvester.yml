@@ -7,6 +7,8 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+  vars_files:
+      - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby]
     - networkd_configures:
