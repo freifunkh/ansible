@@ -19,8 +19,8 @@
     - bash-completion
     - psmisc
 
-- name: Deploy fastd_connect
+- name: Deploy fastd_connected
   template:
-    src: fastd_connect.j2
-    dest: /usr/local/bin/fastd_connect
+    src: fastd_connected.j2
+    dest: /usr/local/bin/fastd_connected
     mode: 0755
