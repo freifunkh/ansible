@@ -131,7 +131,7 @@
     - radv_server_adv_prefixes:
       - fdca:ffee:8::/64
     - radv_server_adv_dns_servers:
-      - fdca:ffee:8::2801
+      - fdca:ffee:8::5001
 
     - stats_pings:
       - host: 8.8.8.8
