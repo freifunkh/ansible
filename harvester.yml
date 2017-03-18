@@ -7,6 +7,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+    - { name: nginx, tags: nginx }
   vars_files:
       - vars/all_hosts.yml
   vars:
@@ -20,4 +21,9 @@
         gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.99.99, 213.133.98.98, 213.133.100.100]
 
-    - firewall_open_ports_tcp: [1337]
+    - firewall_open_ports_tcp: [80, 443]
+    - nginx_sites:
+      - domain: status.ffh.zone
+        root: /var/www/status.ffh.zone
+        php: true
+        tls: true
