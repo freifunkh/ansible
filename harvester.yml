@@ -9,6 +9,7 @@
     - { name: admin, tags: admin }
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+    - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: cli_tools, tags: cli_tools }
   vars_files:
@@ -30,6 +31,13 @@
     - mesh_fastd_mac: 66:8a:dc:de:fe:19
 
     - firewall_open_ports_tcp: [80, 443]
+    - firewall_open_ports_udp: [10000, 10002]
+
+    - yanic_influx_database: yanic_harvester
+    - yanic_influx_hostname: http://sn03.s.ffh.zone:8086/
+    - yanic_interface: bat0
+    - yanic_port: 10002
+
     - nginx_sites:
       - domain: status.ffh.zone
         root: /var/www/status.ffh.zone
