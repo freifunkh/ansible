@@ -1,0 +1,4 @@
+---
+
+- name: Restart yanic
+  service: name=yanic state=restarted

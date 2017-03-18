@@ -1,0 +1,83 @@
+---
+
+- name: Ensure git
+  apt:
+    name: git
+
+- name: Ensure ansible dir
+  file:
+      dest: /var/lib/ansible
+      state: directory
+
+- name: Check installed go version
+  register: goversion
+  copy:
+    content: "{{ go_version }}"
+    dest: /var/lib/ansible/go_version
+
+- name: Download and install go
+  unarchive:
+    src: https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
+    dest: /usr/local
+    remote_src: True
+  when: goversion|changed
+
+- name: Install path to go stuff
+  copy:
+    content: |
+      export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+      export GOPATH=/opt/go
+    dest: /etc/profile.d/go.sh
+    mode: 755
+
+# TODO: install yanic
+# TODO: create yanic system user
+
+- name: Check if yanic_influx_password password is already generated
+  register: yanicpassw
+  stat:
+    path: /var/lib/ansible/yanic_influx_password
+
+- name: Generate admin password
+  shell: cat /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c 32 > /var/lib/ansible/yanic_influx_password
+  when: not yanicpassw.stat.exists
+
+- name: Ensure yanic_influx_password file rights
+  file:
+    path: /var/lib/ansible/yanic_influx_password
+    mode: 0640
+
+- name: Get yanic_influx_password back
+  register: yanic_influx_password
+  command: cat /var/lib/ansible/yanic_influx_password
+  changed_when: False
+
+- name: Print yanic_influx_password when new password was created
+  pause:
+    prompt: |
+      To add the new user yanic_{{ ansible_hostname }} to influxdb, call:
+
+      influx> create user yanic_{{ ansible_hostname }} with password '{{ yanic_influx_password.stdout }}';
+      influx> create database {{ yanic_influx_database }};
+      influx> grant all on {{ yanic_influx_database }} to yanic_{{ ansible_hostname }};
+
+      After doing this, press ENTER.
+  when: not yanicpassw.stat.exists
+
+- name: Configure yanic
+  notify: Restart yanic
+  template:
+    src: config.yml.j2
+    dest: /etc/yanic.conf
+
+- name: Copy systemd service
+  copy:
+    remote_src: True
+    src: /opt/go/src/github.com/FreifunkBremen/yanic/init/linux-systemd/yanic.service
+    dest: /etc/systemd/system
+
+- name: Enable yanic
+  systemd:
+    name: yanic
+    state: started
+    enabled: yes

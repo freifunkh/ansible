@@ -1,0 +1,26 @@
+# Send respondd request to update information
+[respondd]
+enable           = true
+# how oftern request per multicast
+collect_interval = "1m"
+# on which interface
+interface        = "{{ yanic_interface }}"
+port             = {{ yanic_port }}
+
+# Save collected data to InfluxDB
+# there would be the following measurments:
+#  node: store node spezific data i.e. clients memory, airtime
+#  global: store global data, i.e. count of clients and nodes
+#  firmware: store count of nodes tagged with firmware
+#  model: store count of nodes tagged with hardware model
+[influxdb]
+enable   = true
+address  = "{{ yanic_influx_hostname }}"
+database = "{{ yanic_influx_database }}"
+username = "yanic_{{ ansible_hostname }}"
+password = "{{ yanic_influx_password.stdout }}"
+# cleaning data of measurement node,
+#   which are older than 7d
+delete_after = "7d"
+#   how often run the cleaning
+delete_interval = "1h"
