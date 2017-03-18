@@ -10,6 +10,7 @@
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     - { name: nginx, tags: nginx }
+    - { name: cli_tools, tags: cli_tools }
   vars_files:
       - vars/all_hosts.yml
   vars:
