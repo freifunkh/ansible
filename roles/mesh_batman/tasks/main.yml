@@ -40,6 +40,11 @@
   command: "dkms install -m batman-adv -v {{ batman_build_version }}"
   when: batman_build_from_source and 'installed' not in batman_version_status
 
+- name: Save loaded interfaces
+  shell: "batctl if | cut -d ':' -f 1"
+  register: loadedinterfaces
+  when: batman_build_from_source and installedversion|changed
+
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
   modprobe: name=batman_adv state=absent
@@ -53,3 +58,8 @@
 
 - name: Load batman_adv module
   modprobe: name=batman_adv state=present
+
+- name: Readd interfaces to bat0
+  command: "batctl if add {{ item }}"
+  with_items: "{{ loadedinterfaces.stdout_lines }}"
+  when: batman_build_from_source and installedversion|changed
