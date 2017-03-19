@@ -1,2 +1,3 @@
 ---
 go_version: "1.8"
+yanic_nodes_enabled: false

@@ -64,6 +64,20 @@
       After doing this, press ENTER.
   when: not yanicpassw.stat.exists
 
+- name: Ensure persist directory, if needed
+  file:
+    path: "/var/lib/yanic/"
+    state: directory
+    owner: yanic
+  when: yanic_nodes_enabled
+
+- name: Ensure nodes path, if needed
+  file:
+    path: "{{ yanic_nodes_path }}"
+    state: directory
+    owner: yanic
+  when: yanic_nodes_enabled
+
 - name: Configure yanic
   notify: Restart yanic
   template:

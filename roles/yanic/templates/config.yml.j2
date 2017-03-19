@@ -7,6 +7,35 @@ collect_interval = "1m"
 interface        = "{{ yanic_interface }}"
 port             = {{ yanic_port }}
 
+{% if yanic_nodes_enabled %}
+[nodes]
+enable         = true
+# structur of nodes.json, which to support
+# version 1 is to support legacy meshviewer (which are in master branch)
+#    i.e. https://github.com/ffnord/meshviewer/tree/master
+# version 2 is to support new version of meshviewer (which are in legacy develop branch or newer)
+#    i.e. https://github.com/ffnord/meshviewer/tree/dev
+#         https://github.com/ffrgb/meshviewer/tree/develop
+nodes_version  = {{ yanic_nodes_version }}
+# path where to store nodes.json
+nodes_path     = "{{ yanic_nodes_path }}/nodes.json"
+# path where to store graph.json
+graph_path     = "{{ yanic_nodes_path }}/graph.json"
+
+# state-version of nodes.json to store cached data,
+#  these is the directly collected respondd data
+state_path     = "/var/lib/yanic/state.json"
+
+# Export nodes and graph periodically
+save_interval = "5s"
+
+# Set node to offline if not seen within this period
+offline_after = "10m"
+
+# Prune offline nodes after a time of inactivity
+prune_after = "30d"
+
+{% endif %}
 # Save collected data to InfluxDB
 # there would be the following measurments:
 #  node: store node spezific data i.e. clients memory, airtime

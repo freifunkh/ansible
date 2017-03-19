@@ -15,3 +15,9 @@ the roles are procesed. The process will stop and ask you to
 create the influx database and user, when the password was
 generated.
 
+
+**Generate nodes.json, graph.json, ...:**
+
+    - yanic_nodes_enabled: true
+    - yanic_nodes_version: 1
+    - yanic_nodes_path: /var/www/harvester.ffh.zone/
