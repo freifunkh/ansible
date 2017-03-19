@@ -51,7 +51,7 @@
     - firewall_open_ports_udp_by_iface:
       - port: 53
         iface: bat0
-      - port: 68
+      - port: 67
         iface: bat0
 
     - gateway_announcement_enabled: true

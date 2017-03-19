@@ -61,6 +61,8 @@
     - firewall_open_ports_udp_by_iface:
       - port: 53
         iface: bat0
+      - port: 67
+        iface: bat0
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
