@@ -35,6 +35,14 @@ https://www.site-with-ssl.tld
 
 http://www.reverse-proxy.tld request is passed to localhost:1234
 
+**Allow directory listing:**
+
+    - nginx_sites:
+      - domain: foo.bar.tld
+        locations:
+          - location: /
+            directory_index: true
+
 **Site with multiple locations and SSL:**
 
     - nginx_sites:
