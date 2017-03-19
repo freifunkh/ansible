@@ -30,7 +30,7 @@
 
     - mesh_fastd_mac: 66:8a:dc:de:fe:19
 
-    - firewall_open_ports_tcp: [80, 443]
+    - firewall_open_ports_tcp: [443]
     - firewall_open_ports_udp: [10000, 10002]
 
     - yanic_influx_database: yanic_harvester
@@ -46,6 +46,7 @@
         root: /var/www/status.ffh.zone
         php: true
         tls: true
+        enable_legacy_http: false
       - domain: harvester.ffh.zone
         root: /var/www/harvester.ffh.zone
         locations:
@@ -53,3 +54,4 @@
             allow_cors: true
             directory_index: true
         tls: true
+        enable_legacy_http: false
