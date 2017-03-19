@@ -58,7 +58,7 @@
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
-    - firewall_open_ports_tcp: [80, 443, 8086]
+    - firewall_open_ports_tcp: [80, 443, 2003, 8086]
 
     - firewall_open_ports_udp_by_iface:
       - port: 53
