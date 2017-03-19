@@ -1,5 +1,50 @@
 ---
 
+- name: Add build dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - dkms
+    - git
+  when: batman_build_from_source
+
+- name: Clone batman sources
+  git:
+    repo: https://git.open-mesh.org/batman-adv.git
+    dest: /usr/src/batman-adv-{{ batman_build_version }}/
+    version: "{{ batman_build_version }}"
+  when: batman_build_from_source
+
+- name: Add the dkms info to the source
+  template:
+    src: dkms.conf.j2
+    dest: /usr/src/batman-adv-{{ batman_build_version }}/dkms.conf
+  when: batman_build_from_source
+
+- name: Get dkms status
+  register: dkmsstatus
+  command: "dkms status"
+  changed_when: false
+  when: batman_build_from_source
+
+- name: Get dkms status for version {{ batman_build_version }}
+  set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("uninstalled") }}"
+  when: batman_build_from_source
+
+- name: Add version {{ batman_build_version }} to dkms
+  command: "dkms add -m batman-adv -v {{ batman_build_version }}"
+  when: batman_build_from_source and 'uninstalled' in batman_version_status
+
+- name: Install version {{ batman_build_version }} using dkms
+  register: installedversion
+  command: "dkms install -m batman-adv -v {{ batman_build_version }}"
+  when: batman_build_from_source and 'installed' not in batman_version_status
+
+- name: Unload batman_adv module when installed version has changed
+  # The module will be loaded by "Load batman_adv module" again
+  modprobe: name=batman_adv state=absent
+  when: batman_build_from_source and installedversion|changed
+
 - name: Install batctl
   apt: name=batctl
 
