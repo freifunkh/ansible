@@ -1,6 +1,8 @@
 server {
+{% if item.enable_legacy_http | default(True) %}
         listen 80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
         listen [::]:80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
+{% endif %}
 
 {% if item.tls is defined and item.tls == true %}
 {% for chk in certexisting.results %}
