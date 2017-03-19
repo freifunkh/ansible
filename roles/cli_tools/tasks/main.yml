@@ -18,6 +18,7 @@
     - conntrack
     - bash-completion
     - psmisc
+    - curl
 
 - name: Deploy fastd_connected
   template:
