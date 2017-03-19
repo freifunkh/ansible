@@ -47,6 +47,10 @@ server {
 
 {% endif %}
 
+{% if location.allow_cors | default(False) %}
+                add_header Access-Control-Allow-Origin *;
+{% endif %}
+
 {% if location.directory_index | default(False) %}
                 autoindex on;
 {% endif %}

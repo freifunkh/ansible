@@ -43,6 +43,14 @@ http://www.reverse-proxy.tld request is passed to localhost:1234
           - location: /
             directory_index: true
 
+**Allow cross origin requests:**
+
+    - nginx_sites:
+      - domain: foo.bar.tld
+        locations:
+          - location: /
+            allow_cors: true
+
 **Site with multiple locations and SSL:**
 
     - nginx_sites:
