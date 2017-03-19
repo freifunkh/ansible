@@ -37,9 +37,19 @@
     - yanic_influx_hostname: http://sn03.s.ffh.zone:8086/
     - yanic_interface: bat0
     - yanic_port: 10002
+    - yanic_nodes_enabled: true
+    - yanic_nodes_version: 1
+    - yanic_nodes_path: /var/www/harvester.ffh.zone
 
     - nginx_sites:
       - domain: status.ffh.zone
         root: /var/www/status.ffh.zone
         php: true
+        tls: true
+      - domain: harvester.ffh.zone
+        root: /var/www/harvester.ffh.zone
+        locations:
+          - location: /
+            allow_cors: true
+            directory_index: true
         tls: true
