@@ -37,7 +37,7 @@
 
 - name: Install version {{ batman_build_version }} using dkms
   register: installedversion
-  command: "dkms install -m batman-adv -v {{ batman_build_version }}"
+  command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
   when: batman_build_from_source and 'installed' not in batman_version_status
 
 - name: Save loaded interfaces
