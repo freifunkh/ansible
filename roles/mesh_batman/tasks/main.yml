@@ -28,12 +28,12 @@
   when: batman_build_from_source
 
 - name: Get dkms status for version {{ batman_build_version }}
-  set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("uninstalled") }}"
+  set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("noversion") }}"
   when: batman_build_from_source
 
 - name: Add version {{ batman_build_version }} to dkms
   command: "dkms add -m batman-adv -v {{ batman_build_version }}"
-  when: batman_build_from_source and 'uninstalled' in batman_version_status
+  when: batman_build_from_source and 'noversion' in batman_version_status
 
 - name: Install version {{ batman_build_version }} using dkms
   register: installedversion
