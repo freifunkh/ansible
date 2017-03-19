@@ -10,6 +10,15 @@ The bat0 device will be created, if the first lower interface is added to
 bat0. When exisiting, the bat0 interface also has no ip address configured
 by default.
 
+**build batman from source using dkms:**
+
+    - batman_build_from_source: true
+
+**build a custom version of batman:**
+
+    - batman_build_from_source: true
+    - batman_build_version: v2016.4   # use a git tag of the batman repo
+
 ## mesh_fastd role
 
 This role adds a fastd vpn tunnel interface as lower interface into the
