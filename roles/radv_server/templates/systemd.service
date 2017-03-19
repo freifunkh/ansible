@@ -1,6 +1,7 @@
 [Unit]
 Description=IPv6 Router Advertisement Daemon
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/usr/sbin/radvd --nodaemon --logmethod=stderr
