@@ -33,10 +33,11 @@ server {
 
         server_name {{ item.domain }};
 
+        charset utf-8;
+
 {% if item.locations is defined %}
 {% for location in item.locations %}
         location {{ location.location }} {
-		charset utf-8;
 {% if location.type == 'proxy' %}
                 proxy_pass {{ location.proxy_forward_url }};
                 proxy_set_header HOST $host;
