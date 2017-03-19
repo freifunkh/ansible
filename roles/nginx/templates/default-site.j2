@@ -38,7 +38,7 @@ server {
 {% if item.locations is defined %}
 {% for location in item.locations %}
         location {{ location.location }} {
-{% if location.type == 'proxy' %}
+{% if location.type | default('default') == 'proxy' %}
                 proxy_pass {{ location.proxy_forward_url }};
                 proxy_set_header HOST $host;
                 proxy_set_header X-Real-IP $remote_addr;
