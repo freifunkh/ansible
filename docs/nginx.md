@@ -59,6 +59,14 @@ http://www.reverse-proxy.tld request is passed to localhost:1234
           - location: /
             allow_cors: true
 
+**Enable gzipping of responses:**
+
+    - nginx_sites:
+      - domain: foo.bar.tld
+        locations:
+          - location: /
+            gzip: true
+
 **Site with multiple locations and SSL:**
 
     - nginx_sites:

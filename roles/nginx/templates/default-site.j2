@@ -56,6 +56,12 @@ server {
 {% if location.directory_index | default(False) %}
                 autoindex on;
 {% endif %}
+
+{% if location.gzip | default(False) %}
+                gzip on;
+                gzip_disable "msie6";
+                gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+{% endif %}
         }
 
 {% endfor %}
