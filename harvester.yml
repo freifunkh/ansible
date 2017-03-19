@@ -53,5 +53,6 @@
           - location: /
             allow_cors: true
             directory_index: true
+            gzip: true
         tls: true
         enable_legacy_http: false
