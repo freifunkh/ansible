@@ -1,0 +1,5 @@
+---
+
+gatemon_device: bat0
+gatemon_fetchhost: meineip.moritzrudert.de
+gatemon_api_url: https://status.ffh.zone/put.php

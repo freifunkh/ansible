@@ -1,0 +1,78 @@
+---
+
+- name: Install gatemon dependencies
+  apt: name={{ item }}
+  with_items:
+    - monitoring-plugins-basic
+    - monitoring-plugins-standard
+    - nagios-plugins-contrib
+    - ndisc6
+    - dnsutils
+    - git
+    - build-essential
+    - curl
+
+- name: Check gatemon checkout
+  stat:
+    path: /usr/lib/gatemon
+  register: gatemon_path
+
+
+- name: Clone gatemon sources
+  git:
+    repo: https://github.com/freifunkh/gatemon.git
+    dest: /usr/lib/gatemon
+  when: gatemon_path is defined and gatemon_path.stat.exists==false
+
+- name: Check check_dhcp executable
+  stat:
+    path: /usr/lib/gatemon/check_dhcp
+  register: check_dhcp_executable
+
+- name: Build check_dhcp
+  command: make check_dhcp
+  args:
+    chdir: /usr/lib/gatemon
+  when: check_dhcp_executable is defined and check_dhcp_executable.stat.exists==false
+
+- name: Apply configuration DEVICE
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*device\s*=.*$'
+    replace: 'device={{ gatemon_device }}'
+
+- name: Apply configuration FETCH_HOST
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*fetch_host\s*=.*$'
+    replace: 'fetch_host="{{ gatemon_fetchhost }}"'
+
+- name: Apply configuration NAME
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*name\s*=.*$'
+    replace: 'name="{{ gatemon_name }}"'
+
+- name: Apply configuration PROVIDER
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*provider\s*=.*$'
+    replace: 'provider="{{ gatemon_provider }}"'
+
+- name: Apply configuration TOKEN
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*token\s*=.*$'
+    replace: 'token={{ gatemon_token }}'
+
+- name: Apply configuration API_URL
+  replace:
+    dest: /usr/lib/gatemon/config.sh
+    regexp: '^[\t\s]*api_url\s*=.*$'
+    replace: 'api_url={{ gatemon_api_url}}'
+
+- name: Install cron job
+  copy:
+    src: /usr/lib/gatemon/cron
+    dest: /etc/cron.d/gatemon_check_all
+    remote_src: true

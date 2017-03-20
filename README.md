@@ -30,6 +30,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [prometheus](docs/prometheus.md) - deploy a prometheus and maybe the corresponding pushgateway (a statistics collecting daemon)
 - [stats_batch](docs/stats_batch.md) - scripts to monitor and push some values to the pushgateway
 - [yanic](docs/yanic.md) - [Yanic](https://github.com/FreifunkBremen/yanic) queries the freifunk routers using the respondd multicast protocol for information
+- [gatemon](docs/gatemon.md) - deploy a [gatemon](https://github.com/freifunkh/gatemon) probe
 
 #### web
 
