@@ -12,7 +12,7 @@
   vars_files:
     - vars/all_hosts.yml
   vars:
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby]
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow]
     - networkd_configures:
       - iface: eth0
         addresses:
