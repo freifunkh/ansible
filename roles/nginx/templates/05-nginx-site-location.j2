@@ -1,0 +1,25 @@
+{% if item.locations is defined %}
+{% for location in item.locations %}
+
+    location {{ location.location }} {
+{% if location.type|default('default') == 'proxy' %}
+        proxy_pass          {{ location.proxy_forward_url }};
+        proxy_set_header    HOST $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto $scheme;
+{% endif %}
+{% if location.allow_cors|default(False) %}
+        add_header          Access-Control-Allow-Origin *;
+{% endif %}
+{% if location.directory_index|default(False) %}
+        autoindex           on;
+{% endif %}
+{% if location.gzip|default(False) %}
+        gzip                on;
+        gzip_disable        "msie6";
+        gzip_types          text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+{% endif %}
+    }
+{% endfor %}
+{% endif %}

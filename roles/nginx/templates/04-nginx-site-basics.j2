@@ -1,0 +1,14 @@
+{% if item.root is defined %}
+    root                        {{ item.root }};
+{% endif %}
+    index                       index.html index.htm{% if item.php|default(False) %} index.php{% endif %};
+
+    charset                     utf-8;
+
+    access_log                  off;
+    error_log                   /var/log/nginx/error-{{ item.domain }}.log;
+
+    location /.well-known/acme-challenge {
+        alias   {{ nginx_webroot }}/.well-known/acme-challenge;
+    }
+

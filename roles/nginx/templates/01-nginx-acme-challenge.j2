@@ -1,0 +1,13 @@
+server {
+    listen          80;
+    server_name     {{ item['item']['domain'] }};
+
+    charset         utf-8;
+
+    access_log      off;
+    error_log       off;
+
+    location /.well-known/acme-challenge {
+        alias   {{ nginx_webroot }}/.well-known/acme-challenge;
+    }
+}

@@ -3,17 +3,17 @@
 #CA="https://acme-staging.api.letsencrypt.org"
 CA="https://acme-v01.api.letsencrypt.org"
 PRIVATE_KEY_ALG="rsa"
-ACL=('/var/www/.well-known/acme-challenge')
-DOMAIN_CERT_LOCATION="/etc/nginx/keys/{{ item.domain }}.csr"
-DOMAIN_KEY_LOCATION="/etc/nginx/keys/{{ item.domain }}.key"
-DOMAIN_CHAIN_LOCATION="/etc/nginx/keys/{{ item.domain }}.crt"
+ACL=('{{ nginx_webroot }}/.well-known/acme-challenge')
+DOMAIN_CERT_LOCATION="{{ nginx_keys_dir }}/{{ item.domain }}.csr"
+DOMAIN_KEY_LOCATION="{{ nginx_keys_dir }}/{{ item.domain }}.key"
+DOMAIN_CHAIN_LOCATION="{{ nginx_keys_dir }}/{{ item.domain }}.crt"
 SERVER_TYPE="https"
 
 # we use legacy "service" here, since this script is used on
 # some hosts with sys5 init
 RELOAD_CMD="service nginx restart"
 
-{% for chk in certexisting.results %}
+{% for chk in certsexisting.results %}
 {% if chk.item == item and not chk.stat.exists %}
 # When the certificates are updated, we want to restart nginx to reload
 # the certificates. But in the first run, this won't start tls, since

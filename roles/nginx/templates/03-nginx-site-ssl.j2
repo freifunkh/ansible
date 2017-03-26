@@ -1,0 +1,15 @@
+    ssl_certificate             {{ nginx_keys_dir }}/{{ item.domain }}.crt;
+    ssl_certificate_key         {{ nginx_keys_dir }}/{{ item.domain }}.key;
+    ssl_session_timeout         1d;
+    ssl_session_cache           shared:SSL:50m;
+    ssl_session_tickets         off;
+    ssl_dhparam                 {{ nginx_keys_dir }}/dhparams-4096.pem;
+    ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
+                                # From: 2.4 Cipher - https://www.sherbers.de/howto/nginx/
+    ssl_ciphers                 EECDH+AESGCM:EDH+AESGCM:EECDH:EDH:!MD5:!RC4:!LOW:!MEDIUM:!CAMELLIA:!ECDSA:!DES:!DSS:!3DES:!NULL;
+    ssl_prefer_server_ciphers   on;
+    ssl_stapling                on;
+    ssl_stapling_verify         on;
+    ssl_trusted_certificate     {{ nginx_keys_dir }}/{{ item.domain }}.crt;
+    resolver                    [2001:4860:4860::8888] [2001:4860:4860::8844];
+
