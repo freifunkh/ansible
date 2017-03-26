@@ -46,7 +46,7 @@
         root: /var/www/status.ffh.zone
         php: true
         tls: true
-        enable_legacy_http: false
+        tls_redirect_to_https: true
       - domain: harvester.ffh.zone
         root: /var/www/harvester.ffh.zone
         locations:
@@ -55,4 +55,4 @@
             directory_index: true
             gzip: true
         tls: true
-        enable_legacy_http: false
+        tls_redirect_to_https: true
