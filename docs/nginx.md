@@ -21,16 +21,21 @@ http://www.site.tld and http://another-site.tld
         root: /var/www/site-with-ssl.tld
         tls: true
 
-https://www.site-with-ssl.tld
-(and http://www.site-with-ssl.tld)
+**Disable a site:**
 
-**Disable http and only do SSL:**
+    - nginx_sites:
+      - domain: www.disabled-site.tld
+        root: /var/www/disabled-site.tld
+        ...
+        disabled: true
+
+**Redirect http to https:**
 
     - nginx_sites:
       - domain: www.site-with-ssl.tld
         root: /var/www/site-with-ssl.tld
         tls: true
-        enable_legacy_http: false
+        tls_redirect_to_https: true
 
 **Reverse proxy:**
 
