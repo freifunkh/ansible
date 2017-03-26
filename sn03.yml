@@ -137,20 +137,6 @@
     - gateway_announcement_enabled: false
 
     - nginx_sites:
-      - domain: testfuerraute.ffh.zone
-        root: /var/www
-        tls: true
-        ssl_cert_file: /dev/urandom
-        ssl_key_file: /dev/urandom
-        locations:
-          - location: /karte
-            type: files
-          - location: /download
-            type: files
-            filesystem_path: /var/www/downloads
-          - location: /forum
-            type: fastcgi
-            fcgi_socket: localhost:9090
       - domain: prometheus.ffh.zone
         tls: true
         locations:
@@ -159,6 +145,7 @@
             proxy_forward_url: http://[::1]:9090/
       - domain: stats.ffh.zone
         tls: true
+        tls_redirect_to_https: true
         locations:
           - location: /
             type: proxy
