@@ -1,0 +1,20 @@
+---
+
+- name: Install git
+  apt:
+    name: git
+
+- name: Clone fnorden.net
+  register: repositorycloned
+  git:
+    repo: "{{ fnorden_git_repo }}"
+    dest: "{{ fnorden_webroot }}"
+
+- name: Change directory permissions
+  file:
+    path: "{{ fnorden_webroot }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
+    mode: u=rwX,g=rwX,o=rX
+    recurse: yes
+  when: repositorycloned|changed
