@@ -38,7 +38,7 @@
     - yanic_interface: bat0
     - yanic_port: 10002
     - yanic_nodes_enabled: true
-    - yanic_nodes_version: 1
+    - yanic_nodes_version: 2
     - yanic_nodes_path: /var/www/harvester.ffh.zone
 
     - nginx_sites:
