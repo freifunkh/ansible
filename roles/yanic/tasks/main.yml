@@ -90,10 +90,9 @@
     dest: /etc/yanic.conf
 
 - name: Copy systemd service
-  copy:
-    remote_src: True
-    src: /opt/go/src/github.com/FreifunkBremen/yanic/init/linux-systemd/yanic.service
-    dest: /etc/systemd/system
+  template:
+    src: yanic.service.j2
+    dest: /lib/systemd/system/yanic.service
 
 - name: Enable yanic
   systemd:

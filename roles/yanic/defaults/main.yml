@@ -3,4 +3,10 @@
 go_version: "1.8"
 yanic_user: yanic
 yanic_group: www-data
+yanic_interface: eth0
+yanic_port: 10001
 yanic_nodes_enabled: false
+yanic_nodes_version: 2
+yanic_nodes_path: /var/www/html/meshviewer/data
+yanic_state_path: /var/lib/yanic/state.json
+yanic_influxdb_enabled: false

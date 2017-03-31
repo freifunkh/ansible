@@ -24,7 +24,7 @@ graph_path     = "{{ yanic_nodes_path }}/graph.json"
 
 # state-version of nodes.json to store cached data,
 #  these is the directly collected respondd data
-state_path     = "/var/lib/yanic/state.json"
+state_path     = "{{ yanic_state_path }}"
 
 # Export nodes and graph periodically
 save_interval = "5s"
@@ -36,6 +36,7 @@ offline_after = "10m"
 prune_after = "30d"
 
 {% endif %}
+{% if yanic_influxdb_enabled %}
 # Save collected data to InfluxDB
 # there would be the following measurments:
 #  node: store node spezific data i.e. clients memory, airtime
@@ -53,3 +54,4 @@ password = "{{ yanic_influx_password.stdout }}"
 delete_after = "7d"
 #   how often run the cleaning
 delete_interval = "1h"
+{% endif %}
