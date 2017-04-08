@@ -12,6 +12,7 @@
   git:
     repo: "{{ git_addr }}:/peers"
     dest: /etc/fastd/mesh_fastd/peers
+    accept_hostkey: true
 
 - name: Allow restarting the fastd instance for user auto
   template:
