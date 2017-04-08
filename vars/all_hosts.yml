@@ -13,6 +13,7 @@
   - '/Abandoning IP address 10.2.[0-9.]*: pinged before offer$/'
   - '/Abandoning IP address 10.2.[0-9.]*: declined.$/'
   - '/uid lease 10.2.[0-9.]* for client [^ ]* is duplicate on 10.2.0.0\/16$/'
+  - '/sshd.*fatal: no matching cipher found/'
 - admin_pubkeys:
   - name: lemoer
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qBzYhG0oXJCAVr5Bgh9dJ2ZqgzsB9oTGZlBn5ZIjO lemoer@orange
