@@ -58,7 +58,7 @@
     - mesh_fastd_mac: "88:E6:40:20:40:01"
     - mesh_fastd_deny_connections_over_mbit_integer: 40
     - mesh_fastd_peer_limit: 64
-    - git_addr: ssh://git@git.fnorden.net
+    - git_addr: ssh://git@git.ffh.zone
     - firewall_open_ports_udp: [10000]
     - firewall_allowed_forwards:
       - between: bat0

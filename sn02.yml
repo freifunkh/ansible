@@ -49,7 +49,7 @@
       - mesh_fastd
 
     - mesh_fastd_mac: "88:E6:40:20:20:01"
-    - git_addr: ssh://git@git.fnorden.net
+    - git_addr: ssh://git@git.ffh.zone
     - firewall_open_ports_udp: [10000]
     - firewall_allowed_forwards:
       - between: bat0
