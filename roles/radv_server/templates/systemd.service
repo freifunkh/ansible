@@ -1,10 +1,12 @@
 [Unit]
 Description=IPv6 Router Advertisement Daemon
+Requires=network-online.target
 After=network-online.target
-Wants=network-online.target
 
 [Service]
 ExecStart=/usr/sbin/radvd --nodaemon --logmethod=stderr
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
