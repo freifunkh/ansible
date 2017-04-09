@@ -15,7 +15,7 @@
       - vars/dns-internal.yml
       - vars/all_hosts.yml
   vars:
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby]
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
     - networkd_configures:
       - iface: eth0
         addresses:
