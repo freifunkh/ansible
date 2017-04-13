@@ -70,15 +70,15 @@ if ($response->is_success) {
 
     # Get hostname and IPv6 address from nodes.json
     # normalize hostname
-    foreach my $node_id ( keys %{ $data->{nodes} } ) {
+    foreach my $node ( @{ $data->{nodes} } ) {
         my $ip;
         my $names;
-        foreach my $node_ip ( @{ $data->{nodes}->{$node_id}->{nodeinfo}->{network}->{addresses} } ) {
+        foreach my $node_ip ( @{ $node->{nodeinfo}->{network}->{addresses} } ) {
             next if $node_ip !~ m{{ dns_zonenodes_matchIP }};
             $ip = $node_ip; 
         }
         next unless $ip;
-        my $hostname = normalize_nodename( $data->{nodes}->{$node_id}->{nodeinfo}->{hostname} );
+        my $hostname = normalize_nodename( $node->{nodeinfo}->{hostname} );
         
         if ($mode eq "forward")
         {
