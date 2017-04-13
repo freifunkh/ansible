@@ -51,7 +51,7 @@
     - dns_zonenodes_nodedomain: "n.ffh.zone"
     - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
     - dns_zonenodes_matchIP: "/^fdca/"
-    - dns_zonenodes_nodeurl: "http://hannover.freifunk.net:8079/nodes.json"
+    - dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
 
     - nginx_sites:
       - domain: fnorden.net
