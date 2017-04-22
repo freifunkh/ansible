@@ -1,0 +1,19 @@
+---
+
+- hosts: observer
+  roles:
+    - { name: simple_mail, tags: simple_mail }
+    - { name: admin, tags: admin }
+    - { name: nginx, tags: nginx }
+    - { name: cli_tools, tags: cli_tools }
+  vars_files:
+      - vars/all_hosts.yml
+  vars:
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+
+    - nginx_sites:
+      - domain: observer.ffh.zone
+        root: /var/www/observer.ffh.zone
+        php: true
+        tls: true
+        tls_redirect_to_https: true
