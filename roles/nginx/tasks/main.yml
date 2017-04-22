@@ -196,6 +196,7 @@
     src: 02-nginx-site.j2
     dest: "{{ nginx_sites_available_dir }}/{{ item.domain }}"
   with_items: "{{ nginx_sites }}"
+  when: item.untouchable is not defined or item.untouchable != True
   notify: Reload nginx
 
 - name: Enable site configs

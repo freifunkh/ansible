@@ -72,6 +72,12 @@ http://www.reverse-proxy.tld request is passed to localhost:1234
           - location: /
             gzip: true
 
+**Leave site configuration untouched:**
+
+    - nginx_sites:
+      - domain: foo.bar.tld
+        untouchable: true
+
 **Site with multiple locations and SSL:**
 
     - nginx_sites:
