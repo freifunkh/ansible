@@ -48,10 +48,16 @@
     - /etc/nginx/conf.d/default.conf
   notify: Reload nginx
 
-- name: Install PHP
+- name: Install PHP (Debian)
   apt:
     name: php5-fpm
-  when: "{{ item.php|default(False) }}"
+  when: "{{ item.php|default(False) }} and ansible_distribution == 'Debian'"
+  with_items: "{{ nginx_sites }}"
+
+- name: Install PHP (Ubuntu)
+  apt:
+    name: php-fpm
+  when: "{{ item.php|default(False) }} and ansible_distribution == 'Ubuntu'"
   with_items: "{{ nginx_sites }}"
 
 - name: Create webroot for nginx
@@ -128,6 +134,10 @@
     dest: "{{ nginx_getssl_dir }}/{{ item.domain }}/getssl.cfg"
   when: "{{ item.tls|default(False) }}"
   with_items: "{{ nginx_sites }}"
+
+- name: Install dependencies for getssl
+  apt:
+    name: curl
 
 - name: Download getssl
   get_url:
