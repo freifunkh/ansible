@@ -51,13 +51,13 @@
 - name: Install PHP (Debian)
   apt:
     name: php5-fpm
-  when: "{{ item.php|default(False) }} and ansible_distribution == 'Debian'"
+  when: item.php|default(False) and ansible_distribution == 'Debian'
   with_items: "{{ nginx_sites }}"
 
 - name: Install PHP (Ubuntu)
   apt:
     name: php-fpm
-  when: "{{ item.php|default(False) }} and ansible_distribution == 'Ubuntu'"
+  when: item.php|default(False) and ansible_distribution == 'Ubuntu'
   with_items: "{{ nginx_sites }}"
 
 - name: Create webroot for nginx
@@ -96,28 +96,28 @@
     owner: www-data
     group: www-data
     mode: 0775
-  when: "{{ item.root is defined }}"
+  when: item.root is defined
   with_items: "{{ nginx_sites }}"
 
 - name: Generate Diffie-Hellman group
   command: openssl dhparam -out /etc/nginx/keys/dhparams-4096.pem 4096
   args:
     creates: /etc/nginx/keys/dhparams-4096.pem
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Check if certs are already generated
   stat:
     path: "{{ nginx_keys_dir }}/{{ item.domain }}.crt"
   register: certsexisting
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Create directory for getssl
   file:
     path: "{{ nginx_getssl_dir }}"
     state: directory
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Create directory for getssl (Domain)
@@ -125,17 +125,17 @@
     path: "{{ nginx_getssl_dir }}/{{ item.domain }}"
     state: directory
     mode: 0700
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Create getssl config
   template:
     src: 07-getssl.cfg.j2
     dest: "{{ nginx_getssl_dir }}/{{ item.domain }}/getssl.cfg"
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
-- name: Install dependencies for getssl
+- name: Install dependency for getssl (curl)
   apt:
     name: curl
 
@@ -145,14 +145,14 @@
     dest: "{{ nginx_getssl_dir }}/getssl"
     mode: 0700
     checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Create site configs for acme challenge
   template:
     src: 01-nginx-acme-challenge.j2
     dest: "{{ nginx_sites_enabled_dir }}/{{ item['item']['domain'] }}"
-  when: "{{ item['stat'] is defined and item['stat']['exists'] == False }}"
+  when: item['stat'] is defined and item['stat']['exists'] == False
   with_items: "{{ certsexisting.results }}"
   notify: Reload nginx
 
@@ -164,14 +164,14 @@
 
 - name: Run getssl
   command: "{{ nginx_getssl_dir }}/getssl -w {{ nginx_getssl_dir }} -U {{ item['item']['domain'] }}"
-  when: "{{ item['stat'] is defined and item['stat']['exists'] == False }}"
+  when: item['stat'] is defined and item['stat']['exists'] == False
   with_items: "{{ certsexisting.results }}"
 
 - name: Check again if certs are now generated
   stat:
     path: "{{ nginx_keys_dir }}/{{ item.domain }}.crt"
   register: certsexisting
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Update getssl configs (CHECK_REMOTE)
@@ -188,7 +188,7 @@
   template:
     src: 07-getssl.cfg.j2
     dest: "{{ nginx_getssl_dir }}/{{ item.domain }}/getssl.cfg"
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
 - name: Create site configs
@@ -212,7 +212,7 @@
   file:
     path: "{{ nginx_sites_enabled_dir }}/{{ item.domain }}"
     state: absent
-  when: "{{ item.disabled|default(False) }}"
+  when: item.disabled|default(False)
   with_items: "{{ nginx_sites }}"
   notify: Reload nginx
 
@@ -221,5 +221,5 @@
     src: 08-getssl.cron.j2
     dest: /etc/cron.daily/getssl
     mode: 0755
-  when: "{{ item.tls|default(False) }}"
+  when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
