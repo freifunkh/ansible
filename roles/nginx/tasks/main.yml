@@ -29,6 +29,7 @@
   systemd:
     name: nginx
     masked: no
+  when: ansible_service_mgr == 'systemd'
 
 - name: Install new nginx
   apt:
