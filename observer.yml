@@ -2,10 +2,10 @@
 
 - hosts: observer
   roles:
+    - { name: cli_tools, tags: cli_tools }
+    - { name: nginx, tags: nginx }
     - { name: simple_mail, tags: simple_mail }
     - { name: admin, tags: admin }
-    - { name: nginx, tags: nginx }
-    - { name: cli_tools, tags: cli_tools }
   vars_files:
       - vars/all_hosts.yml
   vars:
