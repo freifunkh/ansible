@@ -34,7 +34,7 @@
     mode: 0755
 
 - name: Deploy resolve.py
-  template:
-    src: files/resolve.py
+  copy:
+    src: resolve.py
     dest: /usr/local/bin/resolve.py
     mode: 0755
