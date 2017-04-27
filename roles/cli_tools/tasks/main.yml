@@ -26,3 +26,9 @@
     src: fastd_connected.j2
     dest: /usr/local/bin/fastd_connected
     mode: 0755
+
+- name: Deploy bogus_gw
+  template:
+    src: bogus_gw.j2
+    dest: /usr/local/bin/bogus_gw
+    mode: 0755
