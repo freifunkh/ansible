@@ -32,9 +32,3 @@
     src: bogus_gw.j2
     dest: /usr/local/bin/bogus_gw
     mode: 0755
-
-- name: Deploy resolve.py
-  copy:
-    src: resolve.py
-    dest: /usr/local/bin/resolve.py
-    mode: 0755
