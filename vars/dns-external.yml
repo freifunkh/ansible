@@ -36,7 +36,10 @@
           "harvester.ffh.zone. IN AAAA 2a01:4f8:140:430a::101",
           "status.ffh.zone. IN A 88.198.66.29",
           "status.ffh.zone. IN AAAA 2a01:4f8:140:430a::101",
-          "observer.ffh.zone. IN AAAA 2a01:4f8:140:430a::9002",
+          "observer.ffh.zone. IN A 89.36.219.106",
+          "observer.ffh.zone. IN AAAA 2a03:a140:10:f6a::1",
+          "observer.ffh.zone. IN MX 1 observer.ffh.zone.",
+          "observer.ffh.zone. IN TXT \"v=spf1 a mx ~all\"",
           "git.ffh.zone. IN A 37.120.176.252",
           "git.ffh.zone. IN AAAA 2a03:4000:6:8277::1"
         ]
