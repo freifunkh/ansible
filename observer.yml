@@ -4,7 +4,6 @@
   roles:
     - { name: cli_tools, tags: cli_tools }
     - { name: nginx, tags: nginx }
-    - { name: simple_mail, tags: simple_mail }
     - { name: admin, tags: admin }
   vars_files:
       - vars/all_hosts.yml
@@ -14,7 +13,6 @@
     - nginx_sites:
       - domain: observer.ffh.zone
         root: /var/www/observer.ffh.zone
-        php: true
         tls: true
         tls_redirect_to_https: true
         untouchable: true
