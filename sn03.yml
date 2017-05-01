@@ -191,3 +191,5 @@
     - gatemon_provider: 'Hetzner'
     - gatemon_token: 'Oag8F6phfvcRjOfMw2rYzqDJK1MNzJlz3ZiTkQLY'
 
+    - reboot_on_kernelpanic: true
+

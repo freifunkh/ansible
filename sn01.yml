@@ -7,3 +7,5 @@
     - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
+
+    - reboot_on_kernelpanic: true

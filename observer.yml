@@ -16,3 +16,5 @@
         tls: true
         tls_redirect_to_https: true
         untouchable: true
+
+    - reboot_on_kernelpanic: true

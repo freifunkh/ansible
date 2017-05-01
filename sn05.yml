@@ -150,3 +150,5 @@
         job: sn05
 
     - stats_bpfcountd_interfaces: ['bat0']
+
+    - reboot_on_kernelpanic: true

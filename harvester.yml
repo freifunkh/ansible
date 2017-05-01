@@ -28,6 +28,8 @@
         addresses:
           - fdca:ffee:8::1231/64
 
+    - reboot_on_kernelpanic: true
+
     - mesh_fastd_mac: 66:8a:dc:de:fe:19
 
     - firewall_open_ports_tcp: [443]
