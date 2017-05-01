@@ -6,3 +6,11 @@
     state: "{{ 'present' if item.name in admin_authorized else 'absent' }}"
     key: "{{ item.key }}"
   with_items: "{{ admin_pubkeys }}"
+
+- name: sysctl - Reboot on kernel panic
+  sysctl:
+    name: kernel.panic
+    value: 10
+    state: present
+    reload: yes
+  when: reboot_on_kernelpanic == true

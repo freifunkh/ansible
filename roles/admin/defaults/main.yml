@@ -1,2 +1,3 @@
 ---
 admin_pubkeys: []
+reboot_on_kernelpanic: false
