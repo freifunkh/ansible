@@ -2,10 +2,13 @@ interface {{ radv_server_iface }}
 {
  AdvSendAdvert on;
 
-# AdvDefaultLifetime 0;
+ # AdvDefaultLifetime 0;
 
  MaxRtrAdvInterval 200;
+ UnicastOnly on;        # deprecated, works until radvd 1.9
+ MinDelayBetweenRAs 15; # replacement for unicastonly
 
+ 
 {% for prefix in radv_server_adv_prefixes %}
  prefix {{ prefix }} {
  };
@@ -13,6 +16,7 @@ interface {{ radv_server_iface }}
 
 {% for ip in radv_server_adv_dns_servers %}
  RDNSS {{ ip }} {
+  FlushRDNSS off;
  };
 {% endfor %}
 
