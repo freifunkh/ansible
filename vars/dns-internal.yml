@@ -1,6 +1,8 @@
     - dns_authoritative_zones:
       - zone: "firmware"
-        aliases: ["opkg", "ntp"]
+        aliases: ["ntp"]
         to: "fdca:ffee:8::102"
       - zone: "stats"
         to: "fdca:ffee:8::108"
+      - zone: "opkg"
+        to: "fdca:ffee:8::1832"

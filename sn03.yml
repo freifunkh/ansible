@@ -43,6 +43,7 @@
           - 10.2.30.1/16
           - fdca:ffee:8::3001/64
           - fdca:ffee:8::108/64
+          - fdca:ffee:8::1832/64
 
     - networkd_gre_tunnels:
       - name: internetz-me
@@ -152,6 +153,14 @@
             type: proxy
             proxy_forward_url: http://localhost:3000/
 
+      - domain: opkg.ffh.zone
+        tls: false
+        locations:
+          - location: /openwrt/
+            type: proxy
+            proxy_pass_host: false
+            proxy_forward_url: https://downloads.openwrt.org/
+
     - prometheus_scrapes:
         - name: prometheus
           interval: 60
@@ -192,4 +201,3 @@
     - gatemon_token: 'Oag8F6phfvcRjOfMw2rYzqDJK1MNzJlz3ZiTkQLY'
 
     - reboot_on_kernelpanic: true
-
