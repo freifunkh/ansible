@@ -14,7 +14,7 @@
   - '/Abandoning IP address 10.2.[0-9.]*: declined.$/'
   - '/uid lease 10.2.[0-9.]* for client [^ ]* is duplicate on 10.2.0.0\/16$/'
   - '/sshd.*fatal: no matching cipher found/'
-  - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]$/'
+  - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: Auth fail \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*Handshake failed \[preauth\]/'
