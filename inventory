@@ -4,6 +4,7 @@ sn02 ansible_host=sn02.ffh.zone ansible_user=root ansible_port=1337
 sn03 ansible_host=sn03.ffh.zone ansible_user=root ansible_port=1337
 sn04 ansible_host=sn04.ffh.zone ansible_user=root ansible_port=1337
 sn05 ansible_host=sn05.ffh.zone ansible_user=root ansible_port=1337
+sn06 ansible_host=sn06.ffh.zone ansible_user=root ansible_port=22
 sn07 ansible_host=sn07.ffh.zone ansible_user=root ansible_port=1337
 sn08 ansible_host=sn08.ffh.zone ansible_user=root ansible_port=1337
 sn09 ansible_host=sn09.ffh.zone ansible_user=root ansible_port=1337
