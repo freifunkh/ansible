@@ -1,0 +1,18 @@
+---
+
+- hosts: sn06
+  roles:
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: admin, tags: admin }
+  vars_files:
+    - vars/all_hosts.yml
+  vars:
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 138.201.220.55/26
+        gateway4: 138.201.220.1
+        dns_server: [213.133.98.98]
+    - reboot_on_kernelpanic: true
