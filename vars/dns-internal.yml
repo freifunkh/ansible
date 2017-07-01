@@ -6,3 +6,5 @@
         to: "fdca:ffee:8::108"
       - zone: "opkg"
         to: "fdca:ffee:8::1832"
+      - zone: "web"
+        to: "fdca:ffee:8::101"
