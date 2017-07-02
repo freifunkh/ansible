@@ -10,7 +10,7 @@
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - networkd_configures:
-      - iface: eth0
+      - iface: ens18
         addresses:
           - 138.201.220.55/26
         gateway4: 138.201.220.1
