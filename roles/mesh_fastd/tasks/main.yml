@@ -62,3 +62,32 @@
 
 - name: Start mesh_fastd on boot
   service: name=fastd@mesh_fastd enabled=yes state=started
+
+- name: Increase network buffers net.core.rmem_max
+  notify: Restart mesh_fastd
+  sysctl:
+    name: net.core.rmem_max
+    value: 33554432
+    sysctl_set: yes
+
+- name: Increase network buffers net.core.rmem_default
+  notify: Restart mesh_fastd
+  sysctl:
+    name: net.core.rmem_default
+    value: 33554432
+    sysctl_set: yes
+
+- name: Increase network buffers net.core.wmem_max
+  notify: Restart mesh_fastd
+  sysctl:
+    name: net.core.wmem_max
+    value: 33554432
+    sysctl_set: yes
+
+- name: Increase network buffers net.core.wmem_default
+  notify: Restart mesh_fastd
+  sysctl:
+    name: net.core.wmem_default
+    value: 33554432
+    sysctl_set: yes
+
