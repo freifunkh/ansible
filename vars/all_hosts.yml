@@ -20,6 +20,7 @@
   - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: Auth fail \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*Handshake failed \[preauth\]/'
+  - '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
 - admin_pubkeys:
   - name: lemoer
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qBzYhG0oXJCAVr5Bgh9dJ2ZqgzsB9oTGZlBn5ZIjO lemoer@orange
