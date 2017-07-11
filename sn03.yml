@@ -21,6 +21,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: gatemon, tags: gatemon }
+    - { name: moinmoin, tags: moinmoin }
     - { name: admin, tags: admin }
   vars_files:
     - vars/all_hosts.yml
@@ -161,6 +162,14 @@
             proxy_pass_host: false
             proxy_forward_url: https://downloads.openwrt.org/
 
+      - domain: moin.ffh.zone
+        tls: true
+        tls_redirect_to_https: true
+        locations:
+          - location: /
+            type: uwsgi
+            uwsgi_path: /run/uwsgi/moin.sock
+
     - prometheus_scrapes:
         - name: prometheus
           interval: 60
@@ -201,3 +210,5 @@
     - gatemon_token: 'Oag8F6phfvcRjOfMw2rYzqDJK1MNzJlz3ZiTkQLY'
 
     - reboot_on_kernelpanic: true
+
+    - moinmoin_sitename: "Freifunk Hannover"
