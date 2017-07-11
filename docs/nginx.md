@@ -95,6 +95,9 @@ http://www.reverse-proxy.tld request is passed to localhost:1234
             root: /var/www/another-root
           - location: /download/
             directory_index: true
+          - location: /moin
+            type: uwsgi
+            uwsgi_path: /run/uwsgi/moin.sock
 
 https://www.multiple-locations.tld using root directory for requests
 

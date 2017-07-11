@@ -1,0 +1,51 @@
+---
+
+- name: Install moinmoin
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python-moinmoin
+    - uwsgi-plugin-python
+
+- name: Add user moin
+  user:
+    name: moin
+    system: yes
+
+- name: Install systemd service
+  template:
+    src: moinmoin.service
+    dest: /etc/systemd/system/moinmoin.service
+
+- name: Install uwsgi config
+  template:
+    src: uwsgi.ini
+    dest: /usr/share/moin/server/uwsgi.ini
+
+- name: Install uwsgi config
+  template:
+    src: moin.wsgi
+    dest: /usr/share/moin/server/moin.wsgi
+
+- name: Install wiki config
+  template:
+    src: wikiconfig.py
+    dest: /usr/share/moin/wikiconfig.py
+  notify: restartmoinmoin
+
+- name: Change permissions of data dir to moin user
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: moin
+    recurse: yes
+  with_items:
+    - /usr/share/moin/data
+    - /usr/share/moin/underlay
+
+- name: Enable and start service
+  systemd:
+    name: moinmoin
+    enabled: yes
+    daemon_reload: yes
+    state: started

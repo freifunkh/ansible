@@ -1,0 +1,6 @@
+---
+
+- name: restartmoinmoin
+  systemd:
+    name: moinmoin
+    state: restarted

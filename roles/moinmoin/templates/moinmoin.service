@@ -1,0 +1,12 @@
+[Unit]
+Description=Start uwsgi for moinmoin wiki
+After=network.target fs.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sh -c 'mkdir /run/uwsgi; chown moin /run/uwsgi'
+ExecStart=/usr/bin/sudo -u moin /usr/bin/uwsgi --ini /usr/share/moin/server/uwsgi.ini
+ExecStartPost=/bin/sh -c 'sleep 2; chown www-data /run/uwsgi/moin.sock'
+
+[Install]
+WantedBy=multi-user.target

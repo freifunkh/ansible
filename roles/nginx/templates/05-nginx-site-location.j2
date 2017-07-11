@@ -11,6 +11,10 @@
         proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header    X-Forwarded-Proto $scheme;
 {% endif %}
+{% if location.type|default('default') == 'uwsgi' %}
+        uwsgi_pass unix:{{ location.uwsgi_path }};
+        include /etc/nginx/uwsgi_params;
+{% endif %}
 {% if location.allow_cors|default(False) %}
         add_header          Access-Control-Allow-Origin *;
 {% endif %}
