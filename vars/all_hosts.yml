@@ -21,6 +21,7 @@
   - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*Handshake failed \[preauth\]/'
   - '/sshd.*error: Received disconnect from.*no authentication methods available \[preauth\]/'
+  - '/sshd.*error: Received disconnect from.*No supported authentication methods available \[preauth\]/'
   - '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
   - '/dhcpd.*Failed to send.*byte long packet over fallback interface./'  
 - admin_pubkeys:
