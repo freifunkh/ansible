@@ -1,0 +1,24 @@
+{
+        "global" : {
+                "mcast_group" : "ff02::2:1001",
+                "port" : 1001,
+                "cache_time_s" : 59,
+                "interface_type_regex_patterns" : {
+                        "l2tp" : "br.+",
+                        "gretap" : "t.+"
+                },
+                "additional_static_nodeinfo" : {
+                        "owner" : {
+                                "contact" : "hackathon17_5@aiyionpri.me"
+                        },
+                        "VPN": true
+                }
+        },
+        "domains" : [
+                {
+                        "bat_iface": "bat0",
+                        "site_code": "ffh"
+                }
+        ]
+}
+

@@ -1,0 +1,56 @@
+---
+
+- name: update cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install python3-pip
+  apt:
+    name: python3-pip
+    state: present
+
+- name: install git
+  apt:
+    name: git
+
+- name: install pip3 packages
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - psutil
+    - netifaces
+
+- name: create py_respondd directory
+  become: true
+  file:
+    state: directory
+    dest: /opt/py-respondd
+    owner: auto
+
+- name: clone py-respondd
+  become: yes
+  become_user: auto
+  git: >
+    repo=git@git.ffh.zone:py-respondd
+    dest=/opt/py-respondd
+    accept_hostkey=true
+
+- name: copy config-files
+  template:
+    src: config.json.j2
+    dest: "/opt/py-respondd/config.json"
+
+- name: copy systemd service
+  become: true
+  template:
+    src: "py-respondd.service.j2"
+    dest: "/lib/systemd/system/py-respondd.service"
+
+- name: enable py-respondd by service
+  become: true
+  service:
+    name: py-respondd.service
+    enabled: yes
+    state: started

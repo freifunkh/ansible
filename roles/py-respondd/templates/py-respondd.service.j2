@@ -1,0 +1,12 @@
+[Unit]
+Description=py-respondd
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/py-respondd/main.py /opt/py-respondd/config.json
+Restart=on-failure
+
+
+[Install]
+WantedBy=multi-user.target
+
