@@ -3,6 +3,7 @@
 - hosts: sn01
   roles:
     - { name: admin, tags: admin }
+    - { name: py-respondd, tags: py-respondd }
   vars_files:
     - vars/all_hosts.yml
   vars:

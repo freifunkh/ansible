@@ -23,6 +23,7 @@
     - { name: gatemon, tags: gatemon }
     - { name: moinmoin, tags: moinmoin }
     - { name: admin, tags: admin }
+    - { name: py-respondd, tags: py-respondd }
   vars_files:
     - vars/all_hosts.yml
   vars:
@@ -67,6 +68,8 @@
       - port: 53
         iface: bat0
       - port: 68
+        iface: bat0
+      - port: 1001
         iface: bat0
     - firewall_open_ports_tcp_by_iface:
       - port: 9091
