@@ -2,11 +2,150 @@
 
 - hosts: sn01
   roles:
+#    - { name: cli_tools, tags: cli_tools }
+#    - { name: networkd, tags: networkd }
+#    - { name: simple_firewall, tags: simple_firewall }
+#    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+#    - { name: mesh_batman, tags: mesh_batman }
+#    - { name: mesh_fastd, tags: mesh_fastd }
+#    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+#    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+#    - { name: radv_server, tags: radv_server }
+#    - { name: dns_recursive, tags: dns_recursive }
+#    - { name: dhcp_server, tags: dhcp_server }
+#    - { name: gateway_announcement, tags: gateway_announcement }
+#    - { name: stats_batches, tags: stats_batches }
+#    - { name: simple_mail, tags: simple_mail }
+#    - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+#    - { name: iperf3, tags: iperf3 }
     - { name: py-respondd, tags: py-respondd }
   vars_files:
     - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 148.251.126.250/24
+        #  - 2a01:4f8:210:2230::1001/64
+        gateway4: 148.251.127.45
+        # gateway6: 2a01:4f8:140:430a::1
+        dns_server: [213.133.98.98]
+      - iface: internetz-me
+        addresses:
+          - 192.168.42.11/31
+      - iface: bat0
+        addresses:
+          - 10.2.10.1/16
+          - fdca:ffee:8::1001/64
+
+    - networkd_gre_tunnels:
+      - name: internetz-me
+        lower_interface: eth0
+        remote_outer_ip: 178.32.215.75
+        local_outer_ip: 148.251.126.250
+
+    - networkd_tap_devices:
+      - mesh_fastd
+
+    - mesh_fastd_mac: "88:E6:40:20:10:01"
+    # - mesh_fastd_listen_on: [ "88.198.67.124", "2a01:4f8:140:430a::9", "2a01:4f8:140:430a::9001" ]
+    - mesh_fastd_listen_on: [ "148.251.126.250" ]
+    - mesh_fastd_port: 10000
+    - git_addr: ssh://git@git.ffh.zone
+    - firewall_open_ports_tcp: [1337]
+    - firewall_open_ports_udp: [123]
+    - firewall_open_ports_tcp_by_iface:
+      - port: 5201
+        iface: bat0
+    - firewall_open_ports_udp_by_iface:
+      - port: 53
+        iface: bat0
+      - port: 67
+        iface: bat0
+      - port: 1001
+        iface: bat0
+    - firewall_allowed_forwards:
+      - between: bat0
+        and: internetz-me
+
+    - firewall_nat4_on_interfaces: ["internetz-me"]
+    - firewall_alternative_routingtables:
+      - name: freifunk
+        when_packet_from: ["bat0", "internetz-me"]
+        routes:
+          - dest_net: default
+            dest_if: internetz-me
+            via: 192.168.42.11
+          - dest_net: 10.2.0.0/16
+            dest_if: bat0
+          - dest_net: fdca:ffee:8::/64
+            dest_if: bat0
+
+    - dhcp_interfaces: [bat0]
+    - dhcp_range:
+        from: 10.2.10.2
+        to: 10.2.19.254
+    - dhcp_options:
+        gateway: 10.2.10.1
+        dns_server: 10.2.10.1
+
+    - dns_recursive_allowed_nets:
+      - 10.2.0.0/16
+      - fdca:ffee:8::/48
+    - dns_recursive_forwards:
+      - zone: "ffh.zone."
+        to:
+          - 37.120.176.252
+          # - 2a03:4000:6:8277::1
+          - 216.218.131.2
+          # - 2001:470:200::2
+          - 216.218.132.2
+          # - 2001:470:300::2
+      - zone: "ffh."
+        to:
+          - 37.120.176.252
+          # - 2a03:4000:6:8277::1
+      - zone: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
+        to:
+          - 37.120.176.252
+          # - 2a03:4000:6:8277::1
+          - 216.218.131.2
+          # - 2001:470:200::2
+          - 216.218.132.2
+          # - 2001:470:300::2
+    - dns_recursive_allowed_private_adresses:
+      - fdca:ffee:8::/48
+    - dns_recursive_allowed_private_domains:
+      - "ffh.zone."
+      - "ffh."
+    - dns_recursive_listen_on:
+      - 127.0.0.1
+      - ::1
+      - 10.2.10.1
+      - fdca:ffee:8::1001
+
+    - radv_server_iface: "bat0"
+    - radv_server_adv_prefixes:
+      - fdca:ffee:8::/64
+    - radv_server_adv_dns_servers:
+      - fdca:ffee:8::1001
+
+    - stats_pings:
+      - host: 8.8.8.8
+        name: google-dns
+      - host: 192.168.42.10
+        name: internetz-me
+
+    - stats_fastd_sockets:
+      - name: mesh_fastd
+        path: /var/run/fastd.mesh_fastd.sock
+
+    - stats_pushgateway:
+        host: "[fdca:ffee:8::108]:9091"
+        job: sn01
+
+    - stats_bpfcountd_interfaces: ['bat0']
 
     - reboot_on_kernelpanic: true
