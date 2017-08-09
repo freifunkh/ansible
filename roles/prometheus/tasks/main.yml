@@ -88,3 +88,4 @@
     name: pushgateway
     enabled: yes
     state: started
+  when: prometheus_use_pushgateway
