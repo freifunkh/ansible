@@ -21,7 +21,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: gatemon, tags: gatemon }
-    - { name: moinmoin, tags: moinmoin }
+    # - { name: moinmoin, tags: moinmoin }
     - { name: admin, tags: admin }
     - { name: py-respondd, tags: py-respondd }
   vars_files:
