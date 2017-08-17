@@ -47,5 +47,4 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [gateway_announcement](docs/gateway_announcement.md) - set the batman gw announcement flag based on a ping
 - [mesh_*](docs/mesh_*.md) - batman-adv + vpn daemon
 - ssh_known_hosts - ssh keys of our infrastructure
-- [hopglass-server](docs/hopglass-server.md) - collect data from Freifunk networks
 - [py-respondd](docs/py-respondd.md) - very basic respondd server (results in gateways beeing shown in the map)
