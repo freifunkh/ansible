@@ -49,7 +49,7 @@
           - 2a02:790:ff:100::8/64   # transport ip
         static_routes:
           - dest: ::/0
-            src: 2a02:790:ff:8::1/64
+            src: 2a02:790:ff:8::/64
             gw: 2a02:790:ff:100::1
             metric: 123
 
