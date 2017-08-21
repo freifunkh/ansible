@@ -10,12 +10,15 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
+    - { name: cron-apt, tags: cron-apt }     
   vars_files:
       - vars/dns-external.yml
       - vars/dns-internal.yml
       - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
+
     - networkd_configures:
       - iface: eth0
         addresses:

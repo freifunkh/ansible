@@ -19,10 +19,13 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: py-respondd, tags: py-respondd }
+    - { name: cron-apt, tags: cron-apt }      
   vars_files:
     - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
+
     - networkd_configures:
       - iface: eth0
         addresses:

@@ -12,10 +12,13 @@
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: cli_tools, tags: cli_tools }
+    - { name: cron-apt, tags: cron-apt }      
   vars_files:
       - vars/all_hosts.yml
   vars:
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
+
     - networkd_configures:
       - iface: eth0
         addresses:
