@@ -1,0 +1,5 @@
+---
+
+- lineinfile:
+    path: /etc/default/grub
+    line: 'GRUB_DISABLE_OS_PROBER="true"'
