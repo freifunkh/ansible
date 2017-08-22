@@ -6,6 +6,7 @@
     - { name: networkd, tags: networkd }
     - { name: admin, tags: admin }
 #     - { name: cron-apt, tags: cron-apt }      # jessie only for now
+    - { name: misc, tags: misc }
   vars_files:
     - vars/all_hosts.yml
   vars:

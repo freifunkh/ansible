@@ -10,7 +10,8 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
-    - { name: cron-apt, tags: cron-apt }     
+    - { name: cron-apt, tags: cron-apt }
+    - { name: misc, tags: misc }
   vars_files:
       - vars/dns-external.yml
       - vars/dns-internal.yml

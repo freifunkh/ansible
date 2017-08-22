@@ -20,7 +20,8 @@
     - { name: admin, tags: admin }
     - { name: iperf3, tags: iperf3 }
     - { name: py-respondd, tags: py-respondd }
-    - { name: cron-apt, tags: cron-apt }      
+    - { name: cron-apt, tags: cron-apt }
+    - { name: misc, tags: misc }
   vars_files:
     - vars/all_hosts.yml
   vars:
