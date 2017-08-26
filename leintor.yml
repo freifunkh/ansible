@@ -37,6 +37,9 @@
         static_routes:
           - dest: 2a02:790:ff:8::/64
             gw: 2a02:790:ff:100::8
+          - dest: 2a02:790:ff:7::/64
+            gw: 2a02:790:ff:100::7
+
 
     - reboot_on_kernelpanic: true
 

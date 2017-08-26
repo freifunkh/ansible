@@ -35,13 +35,27 @@
         gateway4: 81.3.6.89
         gateway6: fe80::1
         dns_server: [81.3.3.81, 8.8.8.8]
+        # static_routes:
+        # TODO: add an unreachble route here, to prevent throwing out traffic directly without going though exit
+        #        -> possible after https://github.com/systemd/systemd/issues/797 is accepted (+3 years, because we are on debian)
+        # - dest: ::/0 
+        #   src: 2a02:790:ff:8::1/64
+        #   gw: unreachable
+        #   metric: 400 
       - iface: bat0
         addresses:
           - 10.2.70.1/16
           - fdca:ffee:8::7001/64
+          - 2a02:790:ff:7::1/64
       - iface: eth1
         addresses:
           - 100.103.7.2/24
+          - 2a02:790:ff:100::7/64   # transport ip
+        static_routes:
+          - dest: ::/0
+            src: 2a02:790:ff:7::/64
+            gw: 2a02:790:ff:100::1
+            metric: 123
 
     - networkd_tap_devices:
       - mesh_fastd
