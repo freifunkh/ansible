@@ -2,6 +2,7 @@
 
 - name: Add backports repositories
   register: backportsrepositoryadded
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie'
   apt_repository:
     repo: "deb http://ftp.debian.org/debian jessie-backports main"
 
@@ -11,6 +12,7 @@
 
 - name: Install systemd from backports repo
   register: systemdinstall
+  when: ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie'
   apt:
     name: systemd
     default_release: jessie-backports
