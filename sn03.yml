@@ -37,7 +37,6 @@
         addresses:
           - 138.201.220.61/26
         gateway4: 138.201.220.1
-        gateway6: fe80::1
         dns_server: [213.133.98.98]
       - iface: internetz-me
         addresses:
