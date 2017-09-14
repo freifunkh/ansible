@@ -58,7 +58,7 @@
     - mesh_fastd_port: 10000
     - git_addr: ssh://git@git.ffh.zone
     - firewall_open_ports_tcp: [1337]
-    - firewall_open_ports_udp: [123]
+    - firewall_open_ports_udp: [10000]
     - firewall_open_ports_tcp_by_iface:
       - port: 5201
         iface: bat0
