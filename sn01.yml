@@ -31,14 +31,14 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 148.251.126.250/24
+          - 148.251.126.250/23
           - 2a01:4f8:210:2230::1001/64
         gateway4: 148.251.127.45
-        gateway6: 2a01:4f8:140:430a::1
+        gateway6: fe80::1
         dns_server: [213.133.98.98]
       - iface: internetz-me
         addresses:
-          - 192.168.42.11/31
+          - 100.101.1.2/24
       - iface: bat0
         addresses:
           - 10.2.10.1/16
@@ -80,7 +80,7 @@
         routes:
           - dest_net: default
             dest_if: internetz-me
-            via: 192.168.42.11
+            via: 100.101.1.1
           - dest_net: 10.2.0.0/16
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
@@ -138,7 +138,7 @@
     - stats_pings:
       - host: 8.8.8.8
         name: google-dns
-      - host: 192.168.42.10
+      - host: 100.101.1.1
         name: internetz-me
 
     - stats_fastd_sockets:
