@@ -2,25 +2,25 @@
 
 - hosts: sn01
   roles:
-#    - { name: cli_tools, tags: cli_tools }
-#    - { name: networkd, tags: networkd }
-#    - { name: simple_firewall, tags: simple_firewall }
-#    - { name: ssh_known_hosts, tags: ssh_known_hosts }
-#    - { name: mesh_batman, tags: mesh_batman }
-#    - { name: mesh_fastd, tags: mesh_fastd }
-#    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
-#    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
-#    - { name: radv_server, tags: radv_server }
-#    - { name: dns_recursive, tags: dns_recursive }
-#    - { name: dhcp_server, tags: dhcp_server }
-#    - { name: gateway_announcement, tags: gateway_announcement }
-#    - { name: stats_batches, tags: stats_batches }
-#    - { name: simple_mail, tags: simple_mail }
-#    - { name: journald, tags: journald }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: simple_firewall, tags: simple_firewall }
+    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: mesh_batman, tags: mesh_batman }
+    - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: radv_server, tags: radv_server }
+    - { name: dns_recursive, tags: dns_recursive }
+    - { name: dhcp_server, tags: dhcp_server }
+    - { name: gateway_announcement, tags: gateway_announcement }
+    - { name: stats_batches, tags: stats_batches }
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
     - { name: admin, tags: admin }
-#    - { name: iperf3, tags: iperf3 }
+    - { name: iperf3, tags: iperf3 }
     - { name: py-respondd, tags: py-respondd }
-#    - { name: cron-apt, tags: cron-apt }
+    - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
   vars_files:
     - vars/all_hosts.yml
@@ -32,9 +32,9 @@
       - iface: eth0
         addresses:
           - 148.251.126.250/24
-        #  - 2a01:4f8:210:2230::1001/64
+          - 2a01:4f8:210:2230::1001/64
         gateway4: 148.251.127.45
-        # gateway6: 2a01:4f8:140:430a::1
+        gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.98.98]
       - iface: internetz-me
         addresses:
@@ -54,8 +54,7 @@
       - mesh_fastd
 
     - mesh_fastd_mac: "88:E6:40:20:10:01"
-    # - mesh_fastd_listen_on: [ "88.198.67.124", "2a01:4f8:140:430a::9", "2a01:4f8:140:430a::9001" ]
-    - mesh_fastd_listen_on: [ "148.251.126.250" ]
+    - mesh_fastd_listen_on: [ "148.251.126.250", "2a01:4f8:210:2230::1001" ]
     - mesh_fastd_port: 10000
     - git_addr: ssh://git@git.ffh.zone
     - firewall_open_ports_tcp: [1337]
@@ -102,23 +101,23 @@
       - zone: "ffh.zone."
         to:
           - 37.120.176.252
-          # - 2a03:4000:6:8277::1
+          - 2a03:4000:6:8277::1
           - 216.218.131.2
-          # - 2001:470:200::2
+          - 2001:470:200::2
           - 216.218.132.2
-          # - 2001:470:300::2
+          - 2001:470:300::2
       - zone: "ffh."
         to:
           - 37.120.176.252
-          # - 2a03:4000:6:8277::1
+          - 2a03:4000:6:8277::1
       - zone: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
         to:
           - 37.120.176.252
-          # - 2a03:4000:6:8277::1
+          - 2a03:4000:6:8277::1
           - 216.218.131.2
-          # - 2001:470:200::2
+          - 2001:470:200::2
           - 216.218.132.2
-          # - 2001:470:300::2
+          - 2001:470:300::2
     - dns_recursive_allowed_private_adresses:
       - fdca:ffee:8::/48
     - dns_recursive_allowed_private_domains:
