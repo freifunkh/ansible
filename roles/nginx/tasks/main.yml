@@ -11,7 +11,7 @@
 - name: Add nginx repository
   register: nginxrepositoryadded
   apt_repository:
-    repo: "deb https://nginx.org/packages/debian/ jessie nginx"
+    repo: "deb https://nginx.org/packages/debian/ {{ansible_distribution_release}} nginx"
 
 - name: Update apt cache to get nginx packages
   apt: update_cache=yes
