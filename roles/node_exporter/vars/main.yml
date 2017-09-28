@@ -1,0 +1,15 @@
+prometheus_install_path: /opt/
+
+prometheus_user:   prometheus
+prometheus_group:  prometheus
+
+prometheus_node_exporter_version:   0.13.0
+
+prometheus_platform_suffix: linux-amd64
+
+prometheus_node_exporter_use_systemd: true
+
+prometheus_db_path: /var/lib/node_exporter
+
+prometheus_pid_path: /var/run/node_exporter.pid
+prometheus_log_path: /var/log/node_exporter.log
