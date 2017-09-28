@@ -193,8 +193,8 @@
           timeout: 150
           targets: ['[fdca:ffee:8::101]:8079']
         - name: node_exporter
-          interval: 300
-          timeout: 150
+          interval: 60
+          timeout: 30
           targets:
             - sn01.s.ffh.zone:9100
             - sn02.s.ffh.zone:9100
