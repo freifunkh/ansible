@@ -9,6 +9,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+    - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
   vars_files:
@@ -52,3 +53,7 @@
 
     - firewall_nat4_on_interfaces: ["eth0"]
     - firewall_conntrack_table_size: 1048576
+
+    - firewall_open_ports_tcp_by_ip:
+      - port: 9100
+        ip4: "{{ stats_address }}"

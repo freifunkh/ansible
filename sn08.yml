@@ -18,6 +18,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
+    - { name: node_exporter, tags: node_exporter }
     - { name: py-respondd, tags: py-respondd }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
@@ -90,6 +91,10 @@
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
             dest_if: bat0
+
+    - firewall_open_ports_tcp_by_ip:
+      - port: 9100
+        ip4: "{{ stats_address }}"
 
     - dhcp_interfaces: [bat0]
     - dhcp_range:

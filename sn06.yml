@@ -7,6 +7,7 @@
     - { name: admin, tags: admin }
 #     - { name: cron-apt, tags: cron-apt }      # jessie only for now
     - { name: misc, tags: misc }
+    - { name: node_exporter, tags: node_exporter }
   vars_files:
     - vars/all_hosts.yml
   vars:
