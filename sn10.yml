@@ -50,7 +50,7 @@
       - name: internetz-me
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
-        local_outer_ip: 148.251.126.250
+        local_outer_ip: 173.212.248.190
 
     - networkd_tap_devices:
       - mesh_fastd
