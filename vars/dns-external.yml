@@ -47,5 +47,6 @@
           "observer.ffh.zone. IN TXT \"v=spf1 a mx ~all\"",
           "git.ffh.zone. IN A 37.120.176.252",
           "git.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-          "moin.ffh.zone. IN A 138.201.220.61"
+          "moin.ffh.zone. IN A 138.201.220.61",
+          "firmware.ffh.zone. IN A 217.14.119.158",
         ]
