@@ -45,11 +45,27 @@
         addresses:
           - 10.2.100.1/16
           - fdca:ffee:8::a001/64
+      - iface: hostway
+        addresses:
+          - 100.103.10.2/24
+          - 2a02:790:ff:110::10/64   # transport ip
+        static_routes:
+          - dest: ::/0
+            src: 2a02:790:ff:10::/64
+            gw: 2a02:790:ff:110::1
+            metric: 123
+
 
     - networkd_gre_tunnels:
       - name: internetz-me
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
+        local_outer_ip: 173.212.248.190
+
+    - networkd_gre_tunnels:
+      - name: hostway
+        lower_interface: eth0
+        remote_outer_ip: 81.3.6.94
         local_outer_ip: 173.212.248.190
 
     - networkd_tap_devices:
@@ -74,15 +90,17 @@
     - firewall_allowed_forwards:
       - between: bat0
         and: internetz-me
+      - between: bat0
+        and: hostway
 
-    - firewall_nat4_on_interfaces: ["internetz-me"]
+    - firewall_nat4_on_interfaces: ["internetz-me", "hostway"]
     - firewall_alternative_routingtables:
       - name: freifunk
-        when_packet_from: ["bat0", "internetz-me"]
+        when_packet_from: ["bat0", "internetz-me","hostway"]
         routes:
           - dest_net: default
-            dest_if: internetz-me
-            via: 100.101.10.1
+            dest_if: hostway
+            via: 100.103.10.1
           - dest_net: 10.2.0.0/16
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
@@ -153,7 +171,7 @@
 
     - stats_pushgateway:
         host: "[fdca:ffee:8::108]:9091"
-        job: sn01
+        job: sn10
 
     - stats_bpfcountd_interfaces: ['bat0']
 
