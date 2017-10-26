@@ -10,3 +10,5 @@ firewall_alternative_routingtables: []
 # -1 means the default value of "nf_conntrack_buckets value * 4"
 firewall_conntrack_table_size: -1
 firewall_dnat4: []
+firewall_open_ports_udp_by_ip: []
+firewall_open_ports_tcp_by_ip: []

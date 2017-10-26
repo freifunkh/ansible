@@ -56,6 +56,17 @@
 
 
 #
+# OPEN TCP PORTS BY IP
+#
+
+{% for rule in firewall_open_ports_tcp_by_ip %}
+{% if rule.ip6 is defined %}
+  -A INPUT -m tcp -p tcp --dport {{ rule.port }} -s {{ rule.ip6 }} -j ACCEPT
+{% endif %}
+{% endfor %}
+
+
+#
 # OPEN UDP PORTS
 #
 
@@ -70,6 +81,17 @@
 
 {% for rule in firewall_open_ports_udp_by_iface %}
   -A INPUT -m udp -p udp --dport {{ rule.port }} -i {{ rule.iface }} -j ACCEPT
+{% endfor %}
+
+
+#
+# OPEN UDP PORTS BY IP
+#
+
+{% for rule in firewall_open_ports_udp_by_ip %}
+{% if rule.ip6 is defined %}
+  -A INPUT -m udp -p udp --dport {{ rule.port }} -s {{ rule.ip6 }} -j ACCEPT
+{% endif %}
 {% endfor %}
 
 
