@@ -6,6 +6,10 @@
 # @see http://prometheus.io/docs/introduction/getting_started/
 #
 
+- name: ensure ca-certificates package
+  apt:
+    name: ca-certificates
+
 - name: Ensure prometheus user
   user:
     name: "{{ prometheus_user }}"
