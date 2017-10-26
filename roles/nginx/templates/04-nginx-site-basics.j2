@@ -3,6 +3,10 @@
 {% endif %}
     index                       index.html index.htm{% if item.php|default(False) %} index.php{% endif %};
 
+{% if item.custom_config is defined %}
+{{ item.custom_config }}
+{% endif %}
+
     charset                     utf-8;
 
     access_log                  off;
