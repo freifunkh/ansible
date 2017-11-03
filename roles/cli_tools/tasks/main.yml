@@ -20,6 +20,8 @@
     - psmisc
     - curl
     - mosh
+    - iputils-tracepath
+    - jq
 
 - name: Deploy fastd_connected
   template:
