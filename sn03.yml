@@ -35,9 +35,9 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 138.201.220.61/26
-        gateway4: 138.201.220.1
-        dns_server: [213.133.98.98]
+          - 88.198.66.22/28
+        gateway4: 88.198.66.1
+        dns_server: [213.133.99.99]
       - iface: internetz-me
         addresses:
           - 192.168.43.31/31
