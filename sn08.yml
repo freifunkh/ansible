@@ -40,7 +40,7 @@
         # static_routes:
         # TODO: add an unreachble route here, to prevent throwing out traffic directly without going though exit
         #       -> possible after https://github.com/systemd/systemd/issues/797 is accepted (+3 years, because we are on debian)
-        #- dest: ::/0 
+        #- dest: ::/0
         #  src: 2a02:790:ff:8::1/64
         #  gw: unreachable
         #  metric: 400

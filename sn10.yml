@@ -28,7 +28,7 @@
   vars:
     - servername: sn09
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
-    - cron_apt_mailto: monitoring@hannover.freifunk.net 
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
 
     - networkd_configures:
       - iface: eth0
