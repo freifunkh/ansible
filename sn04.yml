@@ -24,6 +24,11 @@
     - { name: misc, tags: misc }
   vars_files:
     - vars/all_hosts.yml
+  pre_tasks:
+    - include: sn_snippets/add_gre.yml
+      vars:
+        peer: leintor
+      tags: always
   vars:
     - servername: sn04
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]

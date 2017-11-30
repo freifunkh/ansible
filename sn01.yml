@@ -25,6 +25,15 @@
     - { name: node_exporter, tags: node_exporter }
   vars_files:
     - vars/all_hosts.yml
+  pre_tasks:
+    - include: sn_snippets/add_gre.yml
+      vars:
+        peer: leintor
+      tags: always
+    - include: sn_snippets/add_gre.yml
+      vars:
+        peer: steintor
+      tags: always
   vars:
     - servername: sn01
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
