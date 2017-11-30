@@ -71,6 +71,7 @@
       - between: bat0
         and: hostway
 
+    - firewall_open_ports_tcp: [1337]
     - firewall_open_ports_udp_by_iface:
       - port: 53
         iface: bat0
