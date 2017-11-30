@@ -3,6 +3,20 @@
   # on all machines to not lock out ourself.
   - 22
   - 1337
+- gre_peers:
+    aegidientor: { id: 1, ip4: 178.32.215.75, exit: True }
+    steintor: { id: 2, ip4: 37.120.190.215, exit: True }
+    leintor: { id: 3, ip4: 81.3.6.94, exit: True }
+    sn01: { id: 1, ip4: 148.251.126.250 }
+    sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone.') }}" }
+    sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone.') }}" }
+    sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone.') }}" }
+    sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone.') }}" }
+    sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone.') }}" }
+    sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone.') }}" }
+    sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone.') }}" }
+    sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone.') }}" }
+    sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone.') }}" }
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: hannover.freifunk.net
