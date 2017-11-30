@@ -84,7 +84,7 @@
     - firewall_conntrack_table_size: 1048576
     - firewall_alternative_routingtables:
       - name: freifunk
-        when_packet_from: ["bat0", "netcup"]
+        when_packet_from: ["bat0", "internetz-me", "netcup"]
         routes:
           - dest_net: default
             dest_if: internetz-me
