@@ -87,8 +87,8 @@
         when_packet_from: ["bat0", "netcup"]
         routes:
           - dest_net: default
-            dest_if: netcup
-            via: 192.168.44.42
+            dest_if: internetz-me
+            via: 192.168.43.40
           - dest_net: 10.2.0.0/16
             dest_if: bat0
           - dest_net: fdca:ffee:8::/64
