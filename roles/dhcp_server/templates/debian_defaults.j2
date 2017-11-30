@@ -18,4 +18,7 @@
 
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
-INTERFACES="{{ " ".join(dhcp_interfaces) }}"
+# INTERFACES="{{ " ".join(dhcp_interfaces) }}"
+#
+# not actually needed, because we use interface statements in each subnet stanza
+INTERFACESv4="{{ dhcp_interfaces | join(',') }}"
