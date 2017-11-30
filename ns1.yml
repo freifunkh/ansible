@@ -17,6 +17,7 @@
       - vars/dns-internal.yml
       - vars/all_hosts.yml
   vars:
+    - servername: ns1
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
