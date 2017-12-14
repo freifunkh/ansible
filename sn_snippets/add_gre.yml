@@ -17,7 +17,7 @@
     _networkd_conf:
        iface: "{{ _iface }}"
        addresses:
-         - 100.10{{ gre_peers[peer].id }}.{{ gre_peers[servername].id }}.2/24
+         - 100.{{ 100 + gre_peers[peer].id }}.{{ gre_peers[servername].id }}.2/24
   when: "{{ (gre_peers[peer].exit | default(False)) }}"
 
 - name: gre network to tunnel to {{ peer }}
@@ -25,7 +25,7 @@
     _networkd_conf:
        iface: "{{ _iface }}"
        addresses:
-         - 100.10{{ gre_peers[servername].id }}.{{ gre_peers[peer].id }}.1/24
+         - 100.{{ 100 + gre_peers[servername].id }}.{{ gre_peers[peer].id }}.1/24
   when: "{{ not (gre_peers[peer].exit | default(False)) }}"
 
 - name: add gre tunnel {{ peer }}
