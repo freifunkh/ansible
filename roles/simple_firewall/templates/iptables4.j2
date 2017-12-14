@@ -82,6 +82,7 @@
   -A INPUT -m udp -p udp --dport {{ rule.port }} -i {{ rule.iface }} -j ACCEPT
 {% endfor %}
 
+
 #
 # OPEN UDP PORTS BY IP
 #
@@ -128,6 +129,9 @@
 
 {% endif %}
 
+{% if firewall_allowed_forwards is string and firewall_allowed_forwards == 'all' %}
+  -A FORWARD -j ACCEPT
+{% else %}
 {% for allowed_forward in firewall_allowed_forwards %}
 #
 # ALLOW FORWARDING BETWEEN {{ allowed_forward.between }} AND {{ allowed_forward.and }}
@@ -138,6 +142,7 @@
 
 
 {% endfor %}
+{% endif %}
 
 {% for rule in firewall_dnat4 %}
 #

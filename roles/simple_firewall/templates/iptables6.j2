@@ -121,6 +121,9 @@
 # FORWARD #
 ###########
 
+{% if firewall_allowed_forwards is string and firewall_allowed_forwards == 'all' %}
+  -A FORWARD -j ACCEPT
+{% else %}
 {% for allowed_forward in firewall_allowed_forwards %}
 #
 # ALLOW FORWARDING BETWEEN {{ allowed_forward.between }} AND {{ allowed_forward.and }}
@@ -131,6 +134,8 @@
 
 
 {% endfor %}
+{% endif %}
+
 COMMIT
 
 

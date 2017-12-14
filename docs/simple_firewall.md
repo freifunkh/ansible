@@ -20,7 +20,7 @@ because you can lock out yourself very easily. The role is very modular and conf
         iface: internetz-me
 
 
-**allow forwarding for some for some interfaces:**
+**allow forwarding for some interfaces:**
 
 If you add this to your config, the kernel parameters to activate forwarding will
 be set automatically. This will permit forwarding in both directions.
@@ -31,6 +31,12 @@ be set automatically. This will permit forwarding in both directions.
       - between: bat0
         and: exit-vpn-2
 
+**allow forwarding for all interfaces:**
+
+If you add this to your config, the kernel parameters to activate forwarding will
+be set automatically.
+
+    - firewall_allowed_forwards: "all"
 
 **nat:**
 
