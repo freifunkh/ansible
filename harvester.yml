@@ -37,7 +37,7 @@
 
     - mesh_fastd_mac: 66:8a:dc:de:fe:19
 
-    - firewall_open_ports_tcp: [443]
+    - firewall_open_ports_tcp: [80, 443]
     - firewall_open_ports_udp: [10000, 10002]
 
     - yanic_interface: bat0
