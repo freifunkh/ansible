@@ -7,9 +7,7 @@ server {
     access_log                  off;
     error_log                   /var/log/nginx/error-{{ item.domain }}.log;
 
-    if ($uri !~* /.well-known/acme-challenge) {
-        return                      301 https://{{ item.domain }}$request_uri;
-    }
+    return                      301 https://{{ item.domain }}$request_uri;
 {% else %}
 {% include '04-nginx-site-basics.j2' %}
 {% include '05-nginx-site-location.j2' %}
