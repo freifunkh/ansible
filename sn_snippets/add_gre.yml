@@ -12,21 +12,45 @@
        remote_outer_ip: "{{ gre_peers[peer].ip4 }}"
        local_outer_ip:  "{{ ansible_default_ipv4.address }}"
 
+# we are supernode
 - name: gre network to tunnel to {{ peer }}
   set_fact:
     _networkd_conf:
        iface: "{{ _iface }}"
        addresses:
          - 100.{{ 100 + gre_peers[peer].id }}.{{ gre_peers[servername].id }}.2/24
-  when: "{{ (gre_peers[peer].exit | default(False)) }}"
+  when: "(gre_peers[peer].exit | default(False)) and peer != 'leintor'"
 
+# we are supernode
+- name: gre network to tunnel to leintor
+  set_fact:
+    _networkd_conf:
+       iface: "{{ _iface }}"
+       addresses:
+         - 100.{{ 100 + gre_peers[peer].id }}.{{ gre_peers[servername].id }}.2/24
+         - 2a02:790:ff:{{ "%x" % gre_peers[servername].id }}::2/64 # transport ip on the superuser
+  when: "(gre_peers[peer].exit | default(False)) and peer == 'leintor'"
+
+# we are exitnode
 - name: gre network to tunnel to {{ peer }}
   set_fact:
     _networkd_conf:
        iface: "{{ _iface }}"
        addresses:
          - 100.{{ 100 + gre_peers[servername].id }}.{{ gre_peers[peer].id }}.1/24
-  when: "{{ not (gre_peers[peer].exit | default(False)) }}"
+
+  when: "not (gre_peers[peer].exit | default(False)) and servername != 'leintor'"
+
+# we are exitnode "leintor"
+- name: gre network to tunnel to {{ peer }} on leintor
+  set_fact:
+    _networkd_conf:
+       iface: "{{ _iface }}"
+       addresses:
+         - 100.{{ 100 + gre_peers[servername].id }}.{{ gre_peers[peer].id }}.1/24
+         - 2a02:790:ff:{{ "%x" % gre_peers[peer].id }}::1/64 # transport ip on the exitnode
+
+  when: "not (gre_peers[peer].exit | default(False)) and servername == 'leintor'"
 
 - name: add gre tunnel {{ peer }}
   set_fact:
@@ -35,5 +59,3 @@
 - name: add gre config to {{ peer }}
   set_fact:
     networkd_configures: "{{ networkd_configures + [_networkd_conf] }}"
-
-- debug: var=networkd_configures
