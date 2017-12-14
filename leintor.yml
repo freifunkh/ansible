@@ -17,19 +17,19 @@
   pre_tasks:
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn01.s.ffh.zone
+        peer: sn01
       tags: always
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn02.s.ffh.zone
+        peer: sn02
       tags: always
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn04.s.ffh.zone
+        peer: sn04
       tags: always
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn09.s.ffh.zone
+        peer: sn09
       tags: always
   vars:
     - servername: leintor
