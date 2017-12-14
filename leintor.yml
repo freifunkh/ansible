@@ -83,23 +83,12 @@
         remote_outer_ip: 173.212.248.190
         local_outer_ip: 81.3.6.94
 
-
     - reboot_on_kernelpanic: true
 
     - firewall_mssfix: 1330
     - firewall_open_ports_tcp: [1337]
 
-    - firewall_allowed_forwards:
-      - between: eth0
-        and: eth1
-      - between: eth0
-        and: gre-sn06
-      - between: eth1
-        and: gre-sn06
-      - between: eth0
-        and: gre-sn10
-      - between: eth1
-        and: gre-sn10
+    - firewall_allowed_forwards: "all"
 
     - firewall_nat4_on_interfaces: ["eth0"]
     - firewall_conntrack_table_size: 1048576
