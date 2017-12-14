@@ -1,7 +1,7 @@
 ---
 
 nginx_user: www-data
-nginx_worker_processes: 1
+nginx_worker_processes: auto
 nginx_webroot: /var/www
 nginx_sites_available_dir: /etc/nginx/sites-available
 nginx_sites_enabled_dir: /etc/nginx/sites-enabled
