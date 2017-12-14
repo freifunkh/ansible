@@ -4,10 +4,10 @@
   - 22
   - 1337
 - gre_peers:
-    aegidientor: { id: 1, ip4: 178.32.215.75, exit: True }
-    steintor: { id: 2, ip4: 37.120.190.215, exit: True }
-    leintor: { id: 3, ip4: 81.3.6.94, exit: True }
-    sn01: { id: 1, ip4: 148.251.126.250 }
+    aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone.') }}", exit: True }
+    steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone.') }}", exit: True }
+    leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone.') }}", exit: True }
+    sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone.') }}" }
     sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone.') }}" }
     sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone.') }}" }
     sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone.') }}" }
@@ -67,4 +67,4 @@
     key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5D6EhJy78IVtoFEK1+bPUi20jP5IiP5ivCaZt1i8Mx4gDT4lgRYHoWvxvghUlh0eHsGb8qEGfp9t9iFhiKaDkA+0OMZf5znLmUPZi5uwfbastj6NjkmP/kd9oXa356U7BY35gTm6P8s6FcKErGXiBihdhEygu/7ehP88jBgsJPQM71Y/YJsyeyXXwne/O1TQrwszHRDnK6G+wW0mQloFY1n4N35o/1PpjPd6l/zZfQmXoLWtv4eCgX15cssuHqB1KhXbenvVzrHWuhmPUBqXYZQB5CPyos1RyXFuT7uAn7+L0QGY69StJ4oDAlU1t8PCF1fpbCYyC7yL+U5UPHmk6cLQZZyRHrKnWpzrr7FNdtnch1XEPt300qY0lG8pk+3+Zde0LZVbevCpgReUxmcwbqQPaNcGWaQEpk9rtbtuH94aio7MCpqfQy9QU+qWAv0YihRZ9mZG1QqmZIY3wFrKJun4AtSylxrB2GWTl0sAS6yCFZku6oSFfo6nL9rNmPbjFYo0a25leDmd9dV2rFr8Qc24J4Ij6OhX1MxYIdroSOX+DiwaFw2xSTmcQKZFqFiPOsY2GBDGakXpLAgvmWEyYbpsmAd3mbRpk+zxC0dC+powehOT7NlVOryjHOBb3LsMiRHCbQ0C5n4KZPxi+XfcOVxmvJgxfJFOmKCVXWZE5bw== mrplow
 - dns_recursive_allowed_private_rdns_zones:
   - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
-- stats_address: "88.198.66.22"
+- stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
