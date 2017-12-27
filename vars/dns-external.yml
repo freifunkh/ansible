@@ -35,6 +35,8 @@
           "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
           "leintor.e.ffh.zone. IN AAAA 2a02:790:4:5::1",
           "leintor.e.ffh.zone. IN A 81.3.6.94",
+          "clevertor.e.ffh.zone. IN AAAA 2a02:c207:3002:4406::1",
+          "clevertor.e.ffh.zone. IN A 173.249.22.70",
           "aegidientor.e.ffh.zone. IN A 178.32.215.75",
           "stats.ffh.zone. IN A 88.198.66.22",
           "stats.ffh.zone. IN AAAA 2a01:4f8:140:430a::3001",
