@@ -7,6 +7,7 @@
     aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone.') }}", exit: True }
     steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone.') }}", exit: True }
     leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone.') }}", exit: True }
+    clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone.') }}", exit: True }
     sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone.') }}" }
     sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone.') }}" }
     sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone.') }}" }
