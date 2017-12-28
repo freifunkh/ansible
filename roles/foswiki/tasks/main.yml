@@ -1,0 +1,36 @@
+---
+
+- name: Install Foswiki dependencies
+  apt: name={{ item }}
+  with_items:
+    - perl
+    - libalgorithm-diff-perl
+    - libarchive-tar-perl
+    - libauthen-sasl-perl
+    - libcgi-pm-perl
+    - libcgi-session-perl
+    - libcrypt-passwdmd5-perl
+    - libdigest-sha-perl
+    - libemail-mime-perl
+    - libencode-perl
+    - liberror-perl
+    - libfile-copy-recursive-perl
+    - libhtml-parser-perl
+    - libhtml-tree-perl
+    - libio-socket-ip-perl
+    - libio-socket-ssl-perl
+    - libjson-perl
+    - liblocale-maketext-perl
+    - liblocale-maketext-lexicon-perl
+    - liblocale-msgfmt-perl
+    - libwww-perl
+    - liblwp-protocol-https-perl
+    - liburi-perl
+    - libversion-perl
+
+- name: Install Foswiki package
+  unarchive:
+    src: https://github.com/foswiki/distro/releases/download/FoswikiRelease02x01x04/Foswiki-2.1.4.tgz
+    dest: /var/www/foswiki
+    remote_src: True
+    extra_opts: ['--strip 1']
