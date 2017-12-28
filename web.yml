@@ -1,0 +1,33 @@
+---
+
+- hosts: web
+  roles:
+    - { name: networkd, tags: networkd }
+    # admin stuff
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: cron-apt, tags: cron-apt }
+    # special
+    - { role: nginx, tags: nginx }
+  vars_files:
+    - vars/all_hosts.yml
+  vars:
+    - servername: web
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 88.198.66.3/27
+          - 2a01:4f8:140:430a:ff::443/64
+        gateway4: 88.198.66.1
+        dns_server: [213.133.98.98, 213.133.99.99]
+
+    - nginx_sites:
+      - domain: web.ffh.zone
+        root: /var/www/web
+        tls: true
