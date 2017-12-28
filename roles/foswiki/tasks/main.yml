@@ -3,9 +3,10 @@
 - name: Install Foswiki dependencies
   apt: name={{ item }}
   with_items:
+    - tar
+    - unzip
     - perl
     - libalgorithm-diff-perl
-    - libarchive-tar-perl
     - libauthen-sasl-perl
     - libcgi-pm-perl
     - libcgi-session-perl
@@ -20,7 +21,6 @@
     - libio-socket-ip-perl
     - libio-socket-ssl-perl
     - libjson-perl
-    - liblocale-maketext-perl
     - liblocale-maketext-lexicon-perl
     - liblocale-msgfmt-perl
     - libwww-perl
@@ -28,9 +28,27 @@
     - liburi-perl
     - libversion-perl
 
+- name: Prepare Foswiki directory
+  file:
+    path: /var/www/foswiki
+    state: directory
+    mode: 0755
+
+- name: Check if Foswiki is already there
+  stat:
+    path: /var/www/foswiki/readme.txt
+  register: foswiki_st
+
 - name: Install Foswiki package
   unarchive:
     src: https://github.com/foswiki/distro/releases/download/FoswikiRelease02x01x04/Foswiki-2.1.4.tgz
     dest: /var/www/foswiki
     remote_src: True
-    extra_opts: ['--strip 1']
+    extra_opts: ['--strip-components=1']
+  when: not foswiki_st.stat.exists
+
+- name: Install SystemD unit file
+  copy:
+    src: /var/www/foswiki/tools/systemd/foswiki.service
+    dest: /etc/systemd/system/
+    remote_src: yes
