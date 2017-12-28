@@ -11,6 +11,7 @@
     - { name: cron-apt, tags: cron-apt }
     # special
     - { role: nginx, tags: nginx }
+    - { role: foswiki, tags: foswiki }
   vars_files:
     - vars/all_hosts.yml
   vars:
