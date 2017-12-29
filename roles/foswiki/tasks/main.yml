@@ -27,6 +27,13 @@
     - liblwp-protocol-https-perl
     - liburi-perl
     - libversion-perl
+    - libarchive-zip-perl
+    - libcrypt-eksblowfish-perl
+    - libcrypt-smime-perl
+    - libconvert-pem-perl
+    - libcrypt-x509-perl
+    - libfcgi-perl
+    - libfcgi-procmanager-perl
 
 - name: Prepare Foswiki directory
   file:
@@ -52,3 +59,4 @@
     src: /var/www/foswiki/tools/systemd/foswiki.service
     dest: /etc/systemd/system/
     remote_src: yes
+
