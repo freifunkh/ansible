@@ -1,0 +1,7 @@
+---
+
+- name: Restart FCGI
+  systemd:
+    name: foswiki 
+    state: restarted
+    daemon-reload: true
