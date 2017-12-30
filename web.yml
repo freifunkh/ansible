@@ -32,3 +32,45 @@
       - domain: web.ffh.zone
         root: /var/www/web
         tls: true
+        custom_config: |
+          set $foswiki_root "/var/www/web/wiki";
+
+          client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
+
+          location = /wiki/ {
+            root $foswiki_root;
+            rewrite .* /Main/WebHome;
+          }
+
+          location ~ ^/wiki/pub/(.*) {
+            alias $foswiki_root/pub/$1;
+            allow all;
+          }
+
+          location ~ ^/wiki/bin/ {
+            root $foswiki_root;
+            gzip off;
+            #fastcgi_pass             unix:/var/run/nginx/foswiki.sock;
+            fastcgi_pass             127.0.0.1:9000;
+            fastcgi_split_path_info  ^(/wiki/bin/\w+)(.*);
+            #  Captures two variables   ($fastcgi_script_name) and ($fastcgi_path_info)
+            fastcgi_param            SCRIPT_FILENAME $foswiki_root/bin/$fastcgi_script_name;
+            fastcgi_param            SCRIPT_NAME     $fastcgi_script_name;
+            fastcgi_param            PATH_INFO       $fastcgi_path_info;
+            include fastcgi_params;
+          }
+
+          location ~ (^/wiki/lib|^/wiki/data|^/wiki/locale|^/wiki/templates|^/wiki/tools|^/wiki/working) {
+            root $foswiki_root;
+            deny all;
+          }
+
+          if ($http_user_agent ~ ^SiteSucker|^iGetter|^larbin|^LeechGet|^RealDownload|^Teleport|^Webwhacker|^WebDevil|^Webzip|^Attache|^SiteSnagger|^WX_mail|^EmailCollector|^WhoWhere|^Roverbot|^ActiveAgent|^EmailSiphon|^CrownPeak-HttpAgent|^$) {
+            rewrite .* /404.html break;
+          }
+
+          location ~ ^/wiki/(.*)$ {
+            root $foswiki_root;
+            rewrite ^/wiki/(.*)$ /wiki/bin/view/$1;
+          }
+
