@@ -1,0 +1,76 @@
+---
+- hosts: all
+  tasks:
+    - name: update apt
+      become: true
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: install vim
+      become: true
+      apt:
+        name: vim
+        state: present
+
+    - name: install debconf
+      become: true
+      apt:
+        name: debconf
+        state: present
+
+    - name: Set Postfix option type as internet site
+      become: true
+      debconf:
+        name: postfix
+        question: "postfix/mailertype"
+        value: "'Internet Site'"
+        vtype: "string"
+
+    - name: Set Postfix option hostname (virtually indifferent as overwritten later on)
+      become: true
+      debconf:
+        name: postfix
+        question: "postfix/mailname"
+        value: "{{ansible_fqdn}}"
+        vtype: "string"
+        
+    - name: install postfix
+      become: true
+      apt:
+        name: postfix
+        state: present
+
+    - name: set mailname
+      become: true
+      template:
+        src: etc/mailname.j2
+        dest: /etc/mailname
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart postfix
+
+    - name: look out for virtual-aliases file
+      stat:
+        path: /etc/postfix/virtual
+      register: p
+    - debug:
+        msg: "/etc/postfix/virtual does not yet exist. Remember to fill it manually."
+      when: p.stat.exists == False
+
+    - name: update main configuration
+      become: true
+      template:
+        src: etc/postfix/main.cf.j2
+        dest: /etc/postfix/main.cf
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart postfix
+
+    - name: start and enable service
+      service:
+        name: postfix
+        state: started
+        enabled: true
