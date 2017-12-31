@@ -32,6 +32,7 @@
       - domain: web.ffh.zone
         root: /var/www/web
         tls: true
+        tls_redirect_to_https: true
         php: true
         locations:
           - location: /download
