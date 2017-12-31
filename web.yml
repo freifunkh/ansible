@@ -33,6 +33,9 @@
         root: /var/www/web
         tls: true
         php: true
+        locations:
+          - location: /download
+            directory_index: true
         custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
