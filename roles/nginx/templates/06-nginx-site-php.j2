@@ -4,6 +4,10 @@
         include         fastcgi_params;
         fastcgi_index   index.php;
         fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+{% if nginx_use_php70|default(False) %}
+        fastcgi_pass    unix:/run/php/php7.0-fpm.sock;
+{% else %}
         fastcgi_pass    unix:/run/php5-fpm.sock;
+{% endif %}
     }
 {% endif %}
