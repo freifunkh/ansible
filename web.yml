@@ -32,6 +32,7 @@
       - domain: web.ffh.zone
         root: /var/www/web
         tls: true
+        php: true
         custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
