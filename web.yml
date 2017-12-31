@@ -44,7 +44,7 @@
 
           location = /wiki/ {
             root $foswiki_root;
-            rewrite .* /Main/WebHome;
+            rewrite .* /wiki/Main/WebHome;
           }
 
           location ~ ^/wiki/pub/(.*) {
