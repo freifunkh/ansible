@@ -15,6 +15,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [journald](docs/journald.md) - sends mails to the root account based on the journal
 - [admin](docs/admin.md) - authorize people for root access
 - [misc](docs/misc.md) - misc system stuff
+- [postfix] - minimal Postfix setup
 
 #### networking
 
