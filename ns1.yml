@@ -12,6 +12,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
+    - { name: postfix, tags: postfix }
   vars_files:
       - vars/dns-external.yml
       - vars/dns-internal.yml
@@ -63,3 +64,6 @@
     - nginx_sites:
       - domain: fnorden.net
         root: /var/www/fnorden.net
+
+    - postfix_myhostname: "mail.ffh.zone"
+    - postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"
