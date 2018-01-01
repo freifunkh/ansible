@@ -14,6 +14,8 @@ $ORIGIN {{ item.domain }}
             IN  NS      {{ns.nameserver}}
 {% endfor %}
 
+@           IN  MX 10 mail 
+
 ; Statische Hosts (aus der Ansible-Konfiguration)
 {% for zone in dns_authoritative_zones %}
         {% if ':' in zone.to %}
