@@ -53,6 +53,8 @@
         zonefile: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa.zone"
       - domain: "ffh"
         zonefile: "ffh.zone"
+      - domain: "hannover.freifunk.net"
+        zonefile: "hannover.freifunk.net.zone"
     - dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
     - dns_zonenodes_toplevel: "ffh.zone."
