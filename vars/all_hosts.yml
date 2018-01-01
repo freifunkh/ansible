@@ -39,6 +39,8 @@
   - '/sshd.*error: Received disconnect from.*No supported authentication methods available \[preauth\]/'
   - '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
   - '/dhcpd.*Failed to send.*byte long packet over fallback interface./'
+  - '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
+  - '/systemd[.*]: Failed to start Clean php session files./'
 - admin_pubkeys:
   - name: lemoer
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qBzYhG0oXJCAVr5Bgh9dJ2ZqgzsB9oTGZlBn5ZIjO lemoer@orange
