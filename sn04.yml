@@ -110,7 +110,7 @@
         to: 10.2.49.254
     - dhcp_options:
         gateway: 10.2.40.1
-        dns_server: 10.2.20.1
+        dns_server: 10.2.40.1
 
     - dns_recursive_listen_on:
       - 127.0.0.1
