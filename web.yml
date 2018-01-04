@@ -29,7 +29,7 @@
         dns_server: [213.133.98.98, 213.133.99.99]
 
     - nginx_sites:
-      - domain: web.ffh.zone
+      - domain: hannover.freifunk.net
         root: /var/www/web
         tls: true
         tls_redirect_to_https: true
