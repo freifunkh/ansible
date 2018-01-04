@@ -79,3 +79,4 @@
             rewrite ^/wiki/(.*)$ /wiki/bin/view/$1;
           }
 
+          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
