@@ -17,7 +17,7 @@
   pre_tasks:
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn01.s.ffh.zone
+        peer: sn01
       tags: always
   vars:
     - servername: steintor
