@@ -29,6 +29,14 @@
         dns_server: [213.133.98.98, 213.133.99.99]
 
     - nginx_sites:
+      - domain: buildproxy4.ffh.zone
+        root: /var/www/buildproxy4
+        tls: true
+        tls_redirect_to_https: true
+        custom_config: |
+          location / {
+            proxy_pass https://build.ffh.zone;
+          }
       - domain: hannover.freifunk.net
         root: /var/www/web
         tls: true
