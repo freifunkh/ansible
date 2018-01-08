@@ -58,6 +58,6 @@
           "lounge.ffh.zone. IN A 130.75.178.6",
           "mail.ffh.zone. IN A 37.120.176.252",
           "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-          "buildproxy.ffh.zone. IN A 88.98.66.3",
+          "buildproxy4.ffh.zone. IN A 88.198.66.3",
           "build.ffh.zone. IN AAAA 2001:470:775a:42:1000::115"
         ]
