@@ -74,6 +74,7 @@
       - "[::ffff:127.0.0.0]/104"
       - "[::1]/128"
       - "{{ lookup('dig', 'web.ffh.zone./A') }}/32"
+      - "[{{ lookup('dig', 'web.ffh.zone./AAAA') }}]/128"
       - "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}/32"
       - "{{ lookup('dig', 'sn03.s.ffh.zone./A') }}/32"
       - "[{{ lookup('dig', 'sn03.s.ffh.zone./AAAA') }}]/128"
