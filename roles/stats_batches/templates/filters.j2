@@ -14,3 +14,5 @@ type="dhcp",subtype="request";udp and src port 68
 type="dhcp",subtype="offer"; udp and src port 67
 type="dns",subtype="query";udp and port 53 and ((udp[11]&0x80) != 0x80 or (ip6[51]&0x80) != 0x80)
 type="dns",subtype="response";udp and port 53 and ((udp[11]&0x80) == 0x80 or (ip6[51]&0x80) == 0x80)
+type="ip6";ip6
+type="ipL";ip
