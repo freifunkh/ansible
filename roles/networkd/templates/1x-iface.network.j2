@@ -26,6 +26,9 @@ Tunnel={{ tunnel.name }}
 {% if item.1.dhcp is defined and item.1.dhcp %}
 DHCP=ipv4
 {% endif %}
+{% if item.1.no_radv_accept is defined and item.1.no_radv_accept %}
+IPv6AcceptRouterAdvertisements=false
+{% endif %}
 
 {% for route in item.1.static_routes | default([]) %}
 [Route]
