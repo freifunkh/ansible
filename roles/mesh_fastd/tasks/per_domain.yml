@@ -8,7 +8,7 @@
 - name: Ensure mesh_fastd remotes file exits
   when: not remotes.stat.exists
   file: path=/etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf state=touch
-  notify: Restart mesh_fastd
+  notify: Restart domain fastds
 
 - name: Generate secret.conf link
   file:
@@ -21,6 +21,7 @@
     mesh_fastd_iface: "mesh_fastd_{{ domain.id }}"
     mesh_fastd_port: "{{ 10000 + domain.id }}"
     mesh_fastd_batdev: "{{ domain.id }}"
+    mesh_fastd_mac: "{{ ':'.join(mesh_fastd_mac.split(':')[0:5] + ['%02d' % domain.id]) }}"
 
 - name: Generate fastd config
   template:
