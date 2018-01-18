@@ -1,0 +1,94 @@
+---
+- domains: 
+  - "10": 
+    districts: 
+    - "hameln"
+    - "alfeld"
+  - "11": 
+    districts: 
+    - "lenthe"
+  - "12": 
+    districts: 
+    - "steinhude"
+  - "13": 
+    districts: 
+    - "springe"
+  - "14": 
+    districts: 
+    - "nordstadt"
+  - "15": 
+    districts: 
+    - "wunstorf"
+    - "neustadt"
+  - "16": 
+    districts: 
+    - "wettbergen"
+    - "oberricklingen"
+    - "muehlenberg"
+    - "bornum"
+    - "ricklingen"
+    - "barsinghausen"
+    - "davenstedt"
+    - "ahlem"
+    - "badenstedt"
+  - "17": 
+    districts: 
+    - "lindenmitte"
+    - "lindennord"
+    - "lindensued"
+    - "limmer"
+    - "calenbergerneustadt"
+  - "18": 
+    district: 
+    - "garbsen"
+    - "stoecken"
+    - "marienwerder"
+    - "ledeburg"
+    - "nordhafen"
+    - "burg"
+    - "hainholz"
+    - "vahrenwald"
+    - "herrenhausen"
+    - "leinhausen"
+    - "langenhagen"
+    - "vinnhorst"
+    - "brinkhafen"
+  - "19": 
+    district:
+    - "mitte"
+    - "suedstadt"
+    - "bult"
+    - "zoo"
+  - "20": 
+    district:
+    - "wuelfel"
+    - "doehren"
+    - "waldhausen"
+    - "waldheim"
+    - "seelhorst"
+    - "mittelfeld"
+    - "bemerode"
+    - "kirchrode"
+    - "anderten"
+    - "wuelferode"
+    - "anderten"
+    - "laatzen"
+    - "pattensen"
+  - "21":
+    district:
+    - "heideviertel"
+    - "misburgnord"
+    - "misburgsued"
+    - "kleefeld"
+    - "grossbuchholz"
+    - "lahe"
+    - "bothfeld"
+    - "sahlkamp"
+    - "vahrenheide"
+    - "list"
+    - "oststadt"
+    - "lehrte"
+    - "isernhagensued"
+  - "99": 
+    districts: 
+    - "leetfeld"
