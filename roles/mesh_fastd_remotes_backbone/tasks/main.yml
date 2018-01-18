@@ -10,3 +10,10 @@
   template:
     dest: "/etc/fastd/mesh_fastd/backbone.conf"
     src: "backbone.conf.j2"
+
+- name: Domain configs
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined

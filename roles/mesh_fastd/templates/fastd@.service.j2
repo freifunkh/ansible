@@ -1,0 +1,11 @@
+[Unit]
+Description=Fast and Secure Tunnelling Daemon (connection %I)
+After=network.target sys-subsystem-net-devices-mesh_fastd.device
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/fastd --syslog-level info --syslog-ident fastd@%I -c /etc/fastd/%I/fastd.conf
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

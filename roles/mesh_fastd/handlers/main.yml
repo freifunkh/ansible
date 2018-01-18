@@ -2,3 +2,10 @@
 
 - name: Restart mesh_fastd
   service: name=fastd@mesh_fastd state=restarted
+
+- name: Restart domain fastds
+  service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes state=started
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined

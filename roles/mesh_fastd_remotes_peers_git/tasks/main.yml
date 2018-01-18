@@ -67,3 +67,10 @@
     minute: "*/5"
     user: root
     job: /etc/fastd/mesh_fastd/traffic.sh 300
+
+- name: Domain configs
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined

@@ -1,0 +1,31 @@
+- name: Create mesh_fastd daemon config directories
+  file: path=/etc/fastd/mesh_fastd_{{ domain.id }} state=directory
+
+- name: Check if mesh_fastd remotes file exists
+  stat: path=/etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf
+  register: remotes
+
+- name: Ensure mesh_fastd remotes file exits
+  when: not remotes.stat.exists
+  file: path=/etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf state=touch
+  notify: Restart mesh_fastd
+
+- name: Generate secret.conf link
+  file:
+    src: "/etc/fastd/mesh_fastd/secret.conf"
+    dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/secret.conf"
+    state: link
+
+- name: set variables
+  set_fact:
+    mesh_fastd_iface: "mesh_fastd_{{ domain.id }}"
+    mesh_fastd_port: "{{ 10000 + domain.id }}"
+    mesh_fastd_batdev: "{{ domain.id }}"
+
+- name: Generate fastd config
+  template:
+    src: fastd.conf.j2
+    dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/fastd.conf"
+
+- name: Start mesh_fastd on boot
+  service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes state=started

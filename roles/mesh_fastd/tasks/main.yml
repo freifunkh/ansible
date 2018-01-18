@@ -91,3 +91,9 @@
     value: 33554432
     sysctl_set: yes
 
+- name: Domain configs
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined

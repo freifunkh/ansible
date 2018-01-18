@@ -1,0 +1,11 @@
+
+- name: Enable backbone remotes
+  lineinfile:
+    dest: /etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf
+    line: "include \"backbone.conf\";"
+
+- name: Install backbone remotes file
+  notify: Restart mesh_fastd
+  template:
+    dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/backbone.conf"
+    src: "backbone.conf.j2"
