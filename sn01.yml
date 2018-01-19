@@ -54,7 +54,6 @@
         addresses:
           - 10.2.10.1/16
           - fdca:ffee:8::1001/64
-        no_radv_accept: true
 
     - networkd_gre_tunnels:
       - name: internetz-me
