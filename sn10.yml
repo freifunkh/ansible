@@ -122,6 +122,7 @@
     - dns_recursive_allowed_nets:
       - 10.2.0.0/16
       - fdca:ffee:8::/48
+      - 2a02:790:ff::/48
     - dns_recursive_forwards:
       - zone: "ffh.zone."
         to:

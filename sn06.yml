@@ -49,6 +49,7 @@
         addresses:
           - 10.2.60.1/16
           - fdca:ffee:8::6001/64
+        no_radv_accept: true
 
     - networkd_gre_tunnels:
       - name: internetz-me
@@ -115,6 +116,7 @@
     - dns_recursive_allowed_nets:
       - 10.2.0.0/16
       - fdca:ffee:8::/48
+      - 2a02:790:ff::/48
     - dns_recursive_forwards:
       - zone: "ffh.zone."
         to:
