@@ -34,6 +34,14 @@
     - libcrypt-x509-perl
     - libfcgi-perl
     - libfcgi-procmanager-perl
+    - libberkeleydb-perl
+    - libsereal-perl
+    - libtime-parsedate-perl
+    - libxml-parser-perl
+    - libtext-unidecode-perl
+    - libimage-magick-perl
+    - libcache-cache-perl
+    - libxml-feed-perl
 
 - name: Prepare Foswiki directory
   file:
@@ -43,7 +51,7 @@
 
 - name: Check if Foswiki is already there
   stat:
-    path: /var/www/web/wiki/readme.txt
+    path: /var/www/web/wiki/lib/LocalSite.cfg
   register: foswiki_st
 
 - name: Install Foswiki package
