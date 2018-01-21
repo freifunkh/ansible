@@ -26,6 +26,7 @@
     - vars/all_hosts.yml
   vars:
     - servername: sn06
+    - sn: 6
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

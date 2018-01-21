@@ -36,6 +36,7 @@
       tags: always
   vars:
     - servername: sn01
+    - sn: 1
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
