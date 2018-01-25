@@ -34,3 +34,8 @@
     src: bogus_gw.j2
     dest: /usr/local/bin/bogus_gw
     mode: 0755
+
+- name: Set prompt (PS1)
+  lineinfile:
+    path: /root/.bashrc
+    line: 'export PS1="\[\e[37m\][\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[31m\]{{ servername or "\h" }}\[\e[m\]\[\e[37m\]]\[\e[m\]\[\e[37m\]:\[\e[m\]\[\e[34m\]\w\[\e[m\] \[\e[37m\]\\$\[\e[m\] "'
