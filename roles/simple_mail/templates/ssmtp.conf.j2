@@ -13,7 +13,7 @@ mailhub={{ simple_mail.mail_server }}
 #rewriteDomain=
 
 # The full hostname
-hostname={{ ansible_fqdn }}
+hostname={{ mail_fqdn or ansible_fqdn }}
 
 # Are users allowed to set their own From: address?
 # YES - Allow the user to specify their own From: address
