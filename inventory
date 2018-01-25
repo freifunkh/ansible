@@ -1,6 +1,5 @@
 ---
 sn01 ansible_host=sn01.s.ffh.zone ansible_user=root ansible_port=1337
-sn02 ansible_host=sn02.s.ffh.zone ansible_user=root ansible_port=1337
 sn03 ansible_host=sn03.s.ffh.zone ansible_user=root ansible_port=1337
 sn04 ansible_host=sn04.s.ffh.zone ansible_user=root ansible_port=1337
 sn05 ansible_host=sn05.s.ffh.zone ansible_user=root ansible_port=1337
@@ -13,7 +12,6 @@ web ansible_host=web.ffh.zone ansible_user=root ansible_port=1337
 steintor ansible_host=steintor.e.ffh.zone ansible_user=root ansible_port=1337
 aegidientor ansible_host=aegidientor.e.ffh.zone ansible_user=root ansible_port=22
 leintor ansible_host=leintor.e.ffh.zone ansible_user=root ansible_port=1337
-clevertor ansible_host=clevertor.e.ffh.zone ansible_user=root ansible_port=1337
 ns1 ansible_host=ns1.fnorden.net ansible_user=root ansible_port=1337
 harvester ansible_host=harvester.ffh.zone ansible_user=root ansible_port=1337
 observer ansible_host=observer.ffh.zone ansible_user=root ansible_port=1337
