@@ -1,0 +1,22 @@
+- name: set variables
+  set_fact:
+    networkd_domain_bat:
+      - iface: "bat{{ domain.id }}"
+        addresses:
+          - "10.{{ domain.id }}.{{ sn }}0.1/16"
+          - "fdca:ffee:8:{{ sn }}{{ domain.id }}::/64"
+          - "2a02:790:ff:{{ sn }}{{ domain.id }}::/64"
+    networkd_domain_mesh:
+      - "mesh_fastd_{{ domain.id }}"
+
+- name: Install iface config for batX device (per domain)
+  template:
+    src: 1x-iface.network.j2
+    dest: /etc/systemd/network/10-{{ item.1.iface }}.network
+  with_indexed_items: "{{ networkd_domain_bat }}"
+
+- name: Install tap device for mesh_fastd (per domain)
+  template: 
+    src: 2x-tap.netdev.j2
+    dest: /etc/systemd/network/2{{ domain.id }}-tap-{{ item.1 }}.netdev
+  with_indexed_items: "{{ networkd_domain_mesh }}"
