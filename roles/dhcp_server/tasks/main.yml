@@ -2,11 +2,17 @@
 - name: Install isc-dhcp-server
   apt: name=isc-dhcp-server
 
-- name: Generate dhcpd config
+- name: Generate dhcpd master config
   notify: Restart isc-dhcp-server
   template:
     src: dhcpd.conf.j2
     dest: /etc/dhcp/dhcpd.conf
+
+- name: Generate dhcpd bat0 config
+  notify: Restart isc-dhcp-server
+  template:
+    src: batX.conf.j2
+    dest: /etc/dhcp/bat0.conf
 
 - name: Generate debian defaults
   notify: Restart isc-dhcp-server
@@ -19,3 +25,11 @@
 
 - name: Start isc-dhcp-server
   service: name=isc-dhcp-server state=started
+
+- name: Domain configs
+  notify: Restart isc-dhcp-server
+  include_tasks: per_domain.yml
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined

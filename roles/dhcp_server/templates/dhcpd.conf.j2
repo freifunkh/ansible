@@ -8,10 +8,4 @@ max-lease-time {{ dhcp_max_leasetime}};
 
 log-facility local7;
 
-subnet {{ dhcp_net.net }} netmask {{ dhcp_net.mask }} {
-   authoritative;
-   range {{ dhcp_range.from }} {{ dhcp_range.to }};
-
-   option domain-name-servers {{ dhcp_options.dns_server }};
-   option routers {{ dhcp_options.gateway }};
-}
+include "/etc/dhcp/bat0.conf";
