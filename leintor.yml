@@ -33,6 +33,7 @@
       tags: always
   vars:
     - servername: leintor
+    - mail_fqdn: "leintor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

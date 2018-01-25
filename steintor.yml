@@ -21,6 +21,7 @@
       tags: always
   vars:
     - servername: steintor
+    - mail_fqdn: "steintor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

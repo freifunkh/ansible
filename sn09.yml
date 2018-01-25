@@ -33,6 +33,7 @@
   vars:
     - servername: sn09
     - sn: 9
+    - mail_fqdn: "sn09.s.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

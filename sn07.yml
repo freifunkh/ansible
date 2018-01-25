@@ -27,6 +27,7 @@
   vars:
     - servername: sn07
     - sn: 7
+    - mail_fqdn: "sn07.s.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

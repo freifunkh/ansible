@@ -29,6 +29,7 @@
   vars:
     - servername: sn10
     - sn: 10
+    - mail_fqdn: "sn10.s.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

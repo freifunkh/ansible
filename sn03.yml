@@ -30,6 +30,7 @@
   vars:
     - servername: sn03
     - sn: 3
+    - mail_fqdn: "sn03.s.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, sush, bschelm, tobby]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 

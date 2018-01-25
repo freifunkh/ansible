@@ -11,6 +11,7 @@
       - vars/all_hosts.yml
   vars:
     - servername: observer
+    - mail_fqdn: "observer.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
