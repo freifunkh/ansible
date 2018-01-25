@@ -25,6 +25,7 @@
     - { name: node_exporter, tags: node_exporter }
   vars_files:
     - vars/all_hosts.yml
+    - vars/domains.yml
   vars:
     - servername: sn10
     - sn: 10
