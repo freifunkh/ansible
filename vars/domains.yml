@@ -1,26 +1,26 @@
 ---
 - domains: 
-  - "10": 
+  - id: "10" 
     districts: 
     - "hameln"
     - "alfeld"
-  - "11": 
+  - id: "11" 
     districts: 
     - "lenthe"
-  - "12": 
+  - id: "12" 
     districts: 
     - "steinhude"
-  - "13": 
+  - id: "13" 
     districts: 
     - "springe"
-  - "14": 
+  - id: "14" 
     districts: 
     - "nordstadt"
-  - "15": 
+  - id: "15" 
     districts: 
     - "wunstorf"
     - "neustadt"
-  - "16": 
+  - id: "16" 
     districts: 
     - "wettbergen"
     - "oberricklingen"
@@ -31,14 +31,14 @@
     - "davenstedt"
     - "ahlem"
     - "badenstedt"
-  - "17": 
+  - id: "17" 
     districts: 
     - "lindenmitte"
     - "lindennord"
     - "lindensued"
     - "limmer"
     - "calenbergerneustadt"
-  - "18": 
+  - id: "18" 
     district: 
     - "garbsen"
     - "stoecken"
@@ -53,13 +53,13 @@
     - "langenhagen"
     - "vinnhorst"
     - "brinkhafen"
-  - "19": 
+  - id: "19" 
     district:
     - "mitte"
     - "suedstadt"
     - "bult"
     - "zoo"
-  - "20": 
+  - id: "20" 
     district:
     - "wuelfel"
     - "doehren"
@@ -74,7 +74,7 @@
     - "anderten"
     - "laatzen"
     - "pattensen"
-  - "21":
+  - id: "21" 
     district:
     - "heideviertel"
     - "misburgnord"
@@ -89,6 +89,6 @@
     - "oststadt"
     - "lehrte"
     - "isernhagensued"
-  - "99": 
+  - id: "99" 
     districts: 
     - "leetfeld"
