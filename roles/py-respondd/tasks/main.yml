@@ -33,14 +33,16 @@
   become: yes
   become_user: auto
   git: >
-    repo=git@git.ffh.zone:py-respondd
+    repo=ssh://git@git.ffh.zone:1337/py-respondd
     dest=/opt/py-respondd
     accept_hostkey=true
+  register: code
 
 - name: copy config-files
   template:
     src: config.json.j2
     dest: "/opt/py-respondd/config.json"
+  register: code
 
 - name: copy systemd service
   become: true
@@ -54,3 +56,11 @@
     name: py-respondd.service
     enabled: yes
     state: started
+
+- name: restart py-respondd if something changed
+  when: code.changed
+  become: true
+  service:
+    name: py-respondd.service
+    state: restarted
+
