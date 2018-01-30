@@ -22,6 +22,7 @@
     - mosh
     - iputils-tracepath
     - jq
+    - net-tools
 
 - name: Deploy fastd_connected
   template:
