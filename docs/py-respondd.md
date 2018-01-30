@@ -7,3 +7,9 @@ py-respondd is mainly written by [descilla](https://github.com/descilla/py-respo
 It provides a respondd-server meant to run on our gateways in order to make them visible on the map.
 
 We will use the new information to determine the hop distance between a node and his currently chosen gateway.
+
+## dependants
+
+In order for nodesTk to work properly, the nodes.json files must contain the gateways.
+As the proposed updater of raute and aiyion relies heavily on nodesTk, updates can not be delivered in correct order unless py-respondd ran at least for a few days in the last three weeks or so.
+It's important to run on all supernodes in order not to miss any nodes in the update.
