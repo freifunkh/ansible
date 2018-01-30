@@ -22,7 +22,6 @@
     - { name: journald, tags: journald }
     - { name: gatemon, tags: gatemon }
     - { name: admin, tags: admin }
-    - { name: py-respondd, tags: py-respondd }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
   vars_files:
@@ -72,8 +71,6 @@
       - port: 53
         iface: bat0
       - port: 68
-        iface: bat0
-      - port: 1001
         iface: bat0
     - firewall_open_ports_tcp_by_iface:
       - port: 9091
