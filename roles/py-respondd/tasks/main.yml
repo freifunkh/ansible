@@ -58,8 +58,7 @@
     state: started
 
 - name: restart py-respondd if something changed
-  when: code.changed
-  when: config.changed
+  when: code.changed or config.changed
   become: true
   service:
     name: py-respondd.service
