@@ -1,23 +1,29 @@
 #!/bin/sh
 
-GW_MODE=/sys/class/net/bat0/mesh/gw_mode
-GW_BANDWIDTH=/sys/class/net/bat0/mesh/gw_bandwidth
+GW_MODE=/sys/class/net/bat%/mesh/gw_mode
+GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
-	echo off > $GW_MODE || logger -p local3.error "batman gw mode failed: off"
+	for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+		echo off > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: off"
+	done
 	systemctl stop isc-dhcp-server
 }
 
 on() {
-	echo server > $GW_MODE || logger -p local3.error "batman gw mode failed: server"
+	for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+		echo server > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: server"
+	done
 	systemctl start isc-dhcp-server
 }
 
 # ensure that we announce the highest bandwidth
-echo "96MBit/96MBit" > $GW_BANDWIDTH
+for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+	echo "96MBit/96MBit" > $(echo $GW_BANDWIDTH | sed "s_%_${i}_")
+done
 
 if [ "$1" = '--force-off' ]; then
-	echo off > $GW_MODE || (echo "batman gw mode failed: off"; exit 1)
+	off
 	exit 0
 fi
 
