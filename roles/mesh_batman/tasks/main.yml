@@ -40,10 +40,10 @@
   command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
   when: batman_build_from_source and 'installed' not in batman_version_status
 
-- name: Save loaded interfaces
-  shell: "batctl if | cut -d ':' -f 1"
-  register: loadedinterfaces
-  when: batman_build_from_source and installedversion|changed
+- name: Check if bat0 exists
+  register: bat0_exists
+  stat:
+    path: /sys/class/net/bat0
 
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
@@ -59,7 +59,13 @@
 - name: Load batman_adv module
   modprobe: name=batman_adv state=present
 
-- name: Readd interfaces to bat0
-  command: "batctl if add {{ item }}"
-  with_items: "{{ loadedinterfaces.stdout_lines }}"
-  when: batman_build_from_source and installedversion|changed
+- name: Restart mesh_fastd
+  service: name=fastd@mesh_fastd state=restarted
+  when: installedversion|changed and bat0_exists.stat.exists
+
+- name: Restart domain fastds
+  service: name=fastd@mesh_fastd_{{ domain.id }} state=restarted
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined and installedversion|changed and bat0_exists.stat.exists
