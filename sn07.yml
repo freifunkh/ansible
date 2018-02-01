@@ -18,7 +18,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
-    - { name: py-respondd, tags: py-respondd }
+    - { name: mesh_announce, tags: mesh_announce }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }

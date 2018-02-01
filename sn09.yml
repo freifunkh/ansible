@@ -20,7 +20,7 @@
     - { name: admin, tags: admin }
     - { name: iperf3, tags: iperf3 }
     - { name: node_exporter, tags: node_exporter }
-    - { name: py-respondd, tags: py-respondd }
+    - { name: mesh_announce, tags: mesh_announce }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
   vars_files:
