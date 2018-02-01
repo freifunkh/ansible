@@ -1,0 +1,62 @@
+---
+
+- name: update cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install python3
+  apt:
+    name: python3
+    state: present
+
+- name: install lsb-release
+  apt:
+    name: lsb-release
+    state: present
+
+- name: install ethtool
+  apt:
+    name: ethtool
+    state: present
+
+- name: install git
+  apt:
+    name: git
+
+- name: create mesh_announce directory
+  become: true
+  file:
+    state: directory
+    dest: /opt/mesh-announce
+    owner: auto
+
+- name: clone mesh_announce
+  become: yes
+  become_user: auto
+  git: >
+    repo=https://github.com/ffnord/mesh-announce.git
+    dest=/opt/mesh-announce
+    accept_hostkey=true
+  register: code
+
+- name: copy systemd service
+  become: true
+  template:
+    src: "respondd.service.j2"
+    dest: "/lib/systemd/system/respondd.service"
+
+- name: enable respondd by service
+  become: true
+  service:
+    name: respondd.service
+    enabled: yes
+    state: started
+
+- name: restart respondd if something changed
+  when: code.changed or config.changed
+  become: true
+  service:
+    name: respondd.service
+    state: restarted
+

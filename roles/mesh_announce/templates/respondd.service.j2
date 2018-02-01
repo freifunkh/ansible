@@ -1,0 +1,11 @@
+[Unit]
+Description=Respondd
+
+[Service]
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce -i bat0 -i mesh_fastd -b bat0
+Restart=always
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+[Install]
+WantedBy=multi-user.target
+
