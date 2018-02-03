@@ -5,10 +5,10 @@ peer group "backbone" {
     remote "sn01.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
   }
 
-  peer "sn02" {
-    key "f17feb4e71d11038edb1d4f50b3edc2a2ee856deb5f9fe022ef004f877dc8653";
-    remote "sn02.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
-  }
+  # peer "sn02" {
+  #   key "f17feb4e71d11038edb1d4f50b3edc2a2ee856deb5f9fe022ef004f877dc8653";
+  #   remote "sn02.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+  # }
 
   peer "sn03" {
     key "1322e6626f785c2eeb10b6e130e3583376d70533eeca23f0f5f02ff3f5fcffba";
@@ -20,10 +20,10 @@ peer group "backbone" {
     remote "sn04.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
   }
 
-  peer "sn05" {
-    key "2909c134477bed6556dd7577a751a303f5a5aec7e43de576987de175c23fd840";
-    remote "sn05.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
-  }
+  # peer "sn05" {
+  #   key "2909c134477bed6556dd7577a751a303f5a5aec7e43de576987de175c23fd840";
+  #   remote "sn05.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+  # }
 
   peer "sn06" {
     key "52b6a37bf738610736863577a663da10c195dfd79e4fc0f75a6e1b4b3454d66c";
@@ -45,8 +45,9 @@ peer group "backbone" {
     remote "sn09.ffh.zone" port {{ 123 if domain is not defined else 10000 + domain.id }};
   }
 
-  peer "hannover.freifunk.net" {
-    key "5a5fdce2a15d1341cbf3a27741071c565a3412128698950ac234b977219fd729";
+  peer "sn10" {
+    key "01cc6efc8c1d204dd809e85e9b5f44ce9046b4936cc7bebfac8c580a00bd1081";
+    remote "sn10.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
   }
 
   peer "harvester" {
