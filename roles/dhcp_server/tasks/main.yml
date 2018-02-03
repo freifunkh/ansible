@@ -1,6 +1,10 @@
 ---
 - name: Install isc-dhcp-server
   apt: name=isc-dhcp-server
+  
+- name: Ramdisk in fstab eintragen
+  notify: Restart isc-dhcp-server
+  mount: name=/var/lib/dhcp src=tmpfs fstype=tmpfs opts='defaults,size=100M' state=mounted
 
 - name: Generate dhcpd master config
   notify: Restart isc-dhcp-server
