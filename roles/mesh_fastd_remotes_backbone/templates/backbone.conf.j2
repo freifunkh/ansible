@@ -2,52 +2,52 @@ peer group "backbone" {
 
   peer "sn01" {
     key "80f9d001c1409b1ff538dc353203e17fd40ddf02f0bc24ac8d00909db75584d5";
-    remote "sn01.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn01.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   # peer "sn02" {
   #   key "f17feb4e71d11038edb1d4f50b3edc2a2ee856deb5f9fe022ef004f877dc8653";
-  #   remote "sn02.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+  #   remote "sn02.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   # }
 
   peer "sn03" {
     key "1322e6626f785c2eeb10b6e130e3583376d70533eeca23f0f5f02ff3f5fcffba";
-    remote "sn03.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn03.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn04" {
     key "88c16554cc3adbc871e6dd79e237139586b1933b07b71409280677b92d888d44";
-    remote "sn04.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn04.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   # peer "sn05" {
   #   key "2909c134477bed6556dd7577a751a303f5a5aec7e43de576987de175c23fd840";
-  #   remote "sn05.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+  #   remote "sn05.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   # }
 
   peer "sn06" {
     key "52b6a37bf738610736863577a663da10c195dfd79e4fc0f75a6e1b4b3454d66c";
-    remote "sn06.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn06.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn07" {
     key "d85cb4f5a0711a97e10dbba206bea5e4a16034126b1cea920673beb7744fcd6f";
-    remote "sn07.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn07.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn08" {
     key "30b128461084e45c4f8ee9bc50d93cf4a93b12652e31487492c05f764057567d";
-    remote "sn08.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn08.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn09" {
     key "993f94b586f91a0a678db904fc26a3e60c23c513a0bfd4451954408e89d00dda";
-    remote "sn09.ffh.zone" port {{ 123 if domain is not defined else 10000 + domain.id }};
+    remote "sn09.ffh.zone" port {{ 123 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn10" {
     key "01cc6efc8c1d204dd809e85e9b5f44ce9046b4936cc7bebfac8c580a00bd1081";
-    remote "sn10.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id }};
+    remote "sn10.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "harvester" {
