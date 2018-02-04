@@ -6,6 +6,7 @@
           - "10.{{ domain.id }}.{{ sn }}0.1/16"
           - "fdca:ffee:8:{{ sn }}{{ domain.id }}::/64"
           - "2a02:790:ff:{{ sn }}{{ domain.id }}::/64"
+        no_radv_accept: true
     networkd_domain_mesh:
       - "mesh_fastd_{{ domain.id }}"
 
