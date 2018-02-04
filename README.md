@@ -15,7 +15,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [journald](docs/journald.md) - sends mails to the root account based on the journal
 - [admin](docs/admin.md) - authorize people for root access
 - [misc](docs/misc.md) - misc system stuff
-- [postfix] - minimal Postfix setup
+- postfix - minimal Postfix setup
 
 #### networking
 
@@ -25,6 +25,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [dhcp_server](docs/dhcp_server.md) - very basic dhcp server using isc-dhcp-server
 - [radv_server](docs/radv_server.md) - very basic radv server using radvd
 - [simple_firewall](docs/simple_firewall.md) - configure ip(6)tables for all common cases
+- ntp - simple ntp daemon
 
 #### monitoring
 

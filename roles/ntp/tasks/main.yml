@@ -1,0 +1,7 @@
+---
+
+- name: Install ntp
+  apt: name=ntp
+
+- name: Start ntp daemon on boot
+  service: name=ntp enabled=yes state=started
