@@ -5,7 +5,6 @@
     - { name: networkd, tags: networkd }
     - { role: dns_authoritative, tags: dns_authoritative }
     - { role: dns_zonenodes, tags: dns_zonenodes }
-    - { role: nginx, tags: nginx }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
@@ -63,10 +62,6 @@
     - dns_zonenodes_rdnsdomain: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa"
     - dns_zonenodes_matchIP: "/^fdca/"
     - dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
-
-    - nginx_sites:
-      - domain: fnorden.net
-        root: /var/www/fnorden.net
 
     - postfix_myhostname: "mail.ffh.zone"
     - postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"
