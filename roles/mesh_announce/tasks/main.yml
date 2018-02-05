@@ -54,7 +54,7 @@
     state: started
 
 - name: restart respondd if something changed
-  when: code.changed or config.changed
+  when: code.changed
   become: true
   service:
     name: respondd.service
