@@ -31,7 +31,7 @@
         dns_server: [213.133.98.98, 213.133.99.99]
 
     - nginx_sites:
-      - domain: fnorden.net
+      - domain: www.fnorden.net
         root: /var/www/fnorden.net
         tls: true
         tls_redirect_to_https: true
