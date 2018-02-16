@@ -2,10 +2,31 @@
 - name: Install radvd
   apt: name=radvd
 
+- name: Create radvd directory
+  file:
+    path: /etc/radvd.d/
+    state: directory
+
 - name: Generate radvd config
-  notify: Restart radvd
   template:
     src: radvd.conf.j2
+    dest: /etc/radvd.d/radvd.conf
+
+- name: Domain configs
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined
+
+- name: Concatinate complete config
+  shell: cat /etc/radvd.d/*.conf
+  register: completeconf
+
+- name: Generate complete config
+  notify: Restart radvd
+  copy:
+    content: "{{ completeconf.stdout }}"
     dest: /etc/radvd.conf
 
 - name: Add systemd service file
