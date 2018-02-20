@@ -17,6 +17,13 @@
 # Use the packet park from iptables to put the packets in table {{ table.name }}
 /sbin/ip rule add from all fwmark 0x{{ "%x" | format(table_id) }} table {{ table.name }} priority {{ 200 + table_id }}
 
-{% endfor%}
+{% endfor %}
+
+{% if sn is defined and sn == 7 %}
+
+/sbin/ip route add 2a02:790:ff:7::/64 dev bat0  proto kernel  metric 256 table 42
+/sbin/ip -6 route add default via 2a02:790:ff:100::1 dev eth1 table freifunk metric 100
+
+{% endif %}
 
 exit 0
