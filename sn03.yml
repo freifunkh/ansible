@@ -167,7 +167,7 @@
           - location: /openwrt/
             type: proxy
             proxy_pass_host: false
-            proxy_forward_url: https://downloads.openwrt.org/
+            proxy_forward_url: https://archive.openwrt.org/
           - location: /lede/
             type: proxy
             proxy_pass_host: false
