@@ -1,3 +1,4 @@
 ---
 
 prometheus_node_exporter_use_systemd: true
+prometheus_node_exporter_opts: --collector.textfile.directory /var/run/node_txtfile

@@ -121,6 +121,21 @@
   template: src="node_exporter.service.j2"  dest="/lib/systemd/system/node_exporter.service"
   when: prometheus_node_exporter_use_systemd|bool
 
-
 - name: set INIT status and start
   service: name=node_exporter enabled=yes state=started
+
+- name: install exporter dir
+  file: path=/opt/node_exporter/ state=directory
+
+- name: install export_babeld.sh
+  template: src=export_babeld.sh dest=/opt/node_exporter/export_babeld.sh mode="775"
+
+- name: install run_exporters.sh
+  template: src=run_exporters.sh dest=/opt/run_exporters.sh mode="775"
+
+- name: Activate cronjob to run run_exporters.sh
+  cron:
+    name: "run scripts in /opt/node_exporter/"
+    user: prometheus
+    minute: "*"
+    job: /opt/run_exporters.sh
