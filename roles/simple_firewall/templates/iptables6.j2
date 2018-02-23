@@ -54,7 +54,6 @@
   -A INPUT -m tcp -p tcp --dport {{ rule.port }} -i {{ rule.iface }} -j ACCEPT
 {% endfor %}
 
-
 #
 # OPEN TCP PORTS BY IP
 #
@@ -108,6 +107,15 @@
 
 
 {% endif %}
+
+#
+# HARDCODED RULES
+#
+
+# allow (link local) babeld routing
+  -A INPUT -m udp -p udp --dport 6696 -s fe80::/64 -j ACCEPT
+
+
 #
 # REJECT THE REST
 #
@@ -115,6 +123,7 @@
   -A INPUT -p tcp -j REJECT --reject-with tcp-reset
   -A INPUT -p udp -j REJECT --reject-with icmp6-port-unreachable
   -A INPUT -j REJECT
+
 
 
 ###########
