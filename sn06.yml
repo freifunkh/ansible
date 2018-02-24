@@ -17,6 +17,7 @@
     - { name: stats_batches, tags: stats_batches }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
+    - { name: iperf3, tags: iperf3 }
     - { name: admin, tags: admin }
     - { name: node_exporter, tags: node_exporter }
     - { name: mesh_announce, tags: mesh_announce }

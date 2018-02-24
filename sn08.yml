@@ -22,6 +22,7 @@
     - { name: mesh_announce, tags: mesh_announce }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
+    - { name: iperf3, tags: iperf3 }
   vars_files:
     - vars/all_hosts.yml
   vars:

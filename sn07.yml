@@ -22,6 +22,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }
+    - { name: iperf3, tags: iperf3 }
   vars_files:
     - vars/all_hosts.yml
   vars:
