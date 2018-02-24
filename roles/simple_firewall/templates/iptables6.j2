@@ -114,6 +114,9 @@
 
 # allow (link local) babeld routing
   -A INPUT -m udp -p udp --dport 6696 -s fe80::/64 -j ACCEPT
+# allow iperf3
+  -A INPUT -m udp -p udp --dport 5201 -j ACCEPT
+  -A INPUT -m tcp -p tcp --dport 5201 -j ACCEPT
 
 
 #
