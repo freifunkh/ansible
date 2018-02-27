@@ -11,7 +11,7 @@
 # INPUT #
 #########
 
-{% if sn=="9" %}
+{% if sn==9 %}
   -A INPUT -s 2a02:560::/32 -m udp -p udp --dport 123 -J REJECT --reject-with icmp6-port-unreachable
   -A INPUT -s 2a0a:6a80::/29 -m udp -p udp --dport 123 -J REJECT --reject-with icmp6-port-unreachable
 {% endif %}

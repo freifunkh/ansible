@@ -11,7 +11,7 @@
 # INPUT #
 #########
 
-{% if sn=="9" %}
+{% if sn==9 %}
   -A INPUT -s 185.178.212.0/22 -m udp -p udp --dport 123 -J REJECT --reject-with icmp-port-unreachable
   -A INPUT -s 193.254.18.0/24 -m udp -p udp --dport 123 -J REJECT --reject-with icmp-port-unreachable
   -A INPUT -s 194.15.244.0/22 -m udp -p udp --dport 123 -J REJECT --reject-with icmp-port-unreachable
