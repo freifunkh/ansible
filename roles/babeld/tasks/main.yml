@@ -10,6 +10,13 @@
     dest: /etc/babeld.conf
   when: babeld_supernode | default(False)
 
+- name: Install babeld exitnode config
+  notify: Restart babeld
+  template:
+    src: exitnode.conf.j2
+    dest: /etc/babeld.conf
+  when: babeld_exitnode | default(False)
+
 - name: Install babeld systemd service
   template:
     src: systemd.service.j2
