@@ -12,6 +12,7 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:
@@ -89,3 +90,6 @@
     - firewall_open_ports_tcp_by_ip:
       - port: 9100
         ip4: "{{ stats_address }}"
+
+    - babeld_interfaces: ["gre-sn01", "gre-sn10"]
+    - babeld_exitnode: true
