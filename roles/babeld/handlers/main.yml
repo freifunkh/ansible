@@ -1,0 +1,5 @@
+---
+
+- name: Restart babeld 
+  service: name=babeld state=restarted
+

@@ -1,0 +1,9 @@
+[Unit]
+Description=Babeld
+
+[Service]
+ExecStart=/usr/sbin/babeld -c /etc/babeld.conf {{ " ".join(babeld_interfaces) }}
+
+[Install]
+WantedBy=multi-user.target
+
