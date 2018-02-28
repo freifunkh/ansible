@@ -4,9 +4,16 @@
       - iface: "bat{{ domain.id }}"
         addresses:
           - "10.{{ domain.id }}.{{ sn }}0.1/16"
-          - "fdca:ffee:8:{{ sn }}{{ domain.id }}::/64"
-          - "2a02:790:ff:{{ sn }}{{ domain.id }}::/64"
+          - "fdca:ffee:8:{{ sn }}{{ domain.id }}::1/64"
+          - "2a02:790:ff:{{ sn }}{{ domain.id }}::1/64"
         no_radv_accept: true
+        static_routes:
+          - dest: "10.{{ domain.id }}.0.0/16"
+            table: 42
+          - dest: "fdca:ffee:8:{{ sn }}{{ domain.id }}::/64"
+            table: 42
+          - dest:  "2a02:790:ff:{{ sn }}{{ domain.id }}::/64"
+            table: 42
     networkd_domain_mesh:
       - "mesh_fastd_{{ domain.id }}"
 

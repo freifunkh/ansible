@@ -32,12 +32,17 @@ IPv6AcceptRouterAdvertisements=false
 
 {% for route in item.1.static_routes | default([]) %}
 [Route]
+{% if route.gw is defined %}
 Gateway={{ route.gw }}
+{% endif %}
 Destination={{ route.dest }}
 {% if route.src is defined %}
 Source={{ route.src }}
 {% endif %}
 {% if route.metric is defined %}
 Metric={{ route.metric }}
+{% endif %}
+{% if route.table is defined %}
+Table={{ route.table }}
 {% endif %}
 {% endfor %}
