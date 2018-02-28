@@ -23,6 +23,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
@@ -187,3 +188,6 @@
     - stats_bpfcountd_interfaces: ['bat0']
 
     - reboot_on_kernelpanic: true
+
+    - babeld_interfaces: [hostway]
+    - babeld_supernode: true
