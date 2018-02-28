@@ -21,14 +21,6 @@
       tags: always
     - include: sn_snippets/add_gre.yml
       vars:
-        peer: sn02
-      tags: always
-    - include: sn_snippets/add_gre.yml
-      vars:
-        peer: sn04
-      tags: always
-    - include: sn_snippets/add_gre.yml
-      vars:
         peer: sn09
       tags: always
   vars:
