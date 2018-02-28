@@ -1,0 +1,29 @@
+---
+
+- name: Install ferm
+  apt: name={{ item }}
+  with_items:
+    - ferm
+
+- name: Prepare ferm conf.d directory
+  file:
+    path: /etc/ferm/conf.d
+    state: directory
+    mode: 0755
+
+- name: Set /etc/default/ferm
+  copy:
+    src: files/default
+    dest: /etc/default/ferm
+
+- name: Install main configuration file
+  copy:
+    src: files/ferm.conf
+    dest: /etc/ferm/ferm.conf
+
+- name: Enable ferm service
+  service:
+    name: ferm
+    enabled: yes
+    state: started
+

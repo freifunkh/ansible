@@ -25,6 +25,7 @@ at our [ansible-configs](https://github.com/freifunkh/ansible-configs).
 - [dhcp_server](docs/dhcp_server.md) - very basic dhcp server using isc-dhcp-server
 - [radv_server](docs/radv_server.md) - very basic radv server using radvd
 - [simple_firewall](docs/simple_firewall.md) - configure ip(6)tables for all common cases
+- ferm - Firewalling
 - ntp - simple ntp daemon
 
 #### monitoring
