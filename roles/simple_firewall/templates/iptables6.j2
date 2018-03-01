@@ -138,6 +138,10 @@
 # FORWARD #
 ###########
 
+{% if firewall_ip6_clamp_mss_to_pmtu | default(False) %}
+  -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS  --clamp-mss-to-pmtu
+{% endif %}
+
 {% if firewall_allowed_forwards is string and firewall_allowed_forwards == 'all' %}
   -A FORWARD -j ACCEPT
 {% else %}
