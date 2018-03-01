@@ -133,6 +133,7 @@
   with_items:
     - export_babeld.sh
     - export_batman.sh
+    - export_fastd.py
 
 - name: install run_exporters.sh
   template: src=run_exporters.sh dest=/opt/run_exporters.sh mode="775"
