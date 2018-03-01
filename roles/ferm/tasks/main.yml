@@ -21,6 +21,11 @@
     src: files/ferm.conf
     dest: /etc/ferm/ferm.conf
 
+- name: ferm config for final REJECTs
+  copy:
+    src: files/99-REJECT.conf
+    dest: /etc/ferm/conf.d/99-REJECT.conf
+
 - name: Enable ferm service
   service:
     name: ferm
