@@ -11,23 +11,23 @@
     mode: 0755
 
 - name: Set /etc/default/ferm
-  copy:
-    src: files/default
+  template:
+    src: default
     dest: /etc/default/ferm
 
 - name: Install main configuration file
-  copy:
-    src: files/ferm.conf
+  template:
+    src: ferm.conf
     dest: /etc/ferm/ferm.conf
 
 - name: ferm config for final REJECTs
-  copy:
-    src: files/99-REJECT.conf
+  template:
+    src: 99-REJECT.conf
     dest: /etc/ferm/conf.d/99-REJECT.conf
 
 - name: Enable ferm service
   service:
     name: ferm
     enabled: no
-    state: stopped
+    state: started
 

@@ -18,8 +18,14 @@
   service: name=iperf3 enabled=yes state=started
 
 - name: Generate firewall config stanza (ferm)
+  register: ferm_changed
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-iperf3.conf
+
+- name: Restart ferm
+  service: name=ferm state=restarted
+  when: ferm_changed | changed
+
 
 
