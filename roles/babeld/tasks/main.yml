@@ -18,6 +18,7 @@
   when: babeld_exitnode | default(False)
 
 - name: Install babeld systemd service
+  notify: Restart babeld
   template:
     src: systemd.service.j2
     dest: /etc/systemd/system/babeld.service
