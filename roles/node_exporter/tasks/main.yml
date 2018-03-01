@@ -140,6 +140,6 @@
 - name: Activate cronjob to run run_exporters.sh
   cron:
     name: "run scripts in /opt/node_exporter/"
-    user: prometheus
+    user: root
     minute: "*"
     job: /opt/run_exporters.sh
