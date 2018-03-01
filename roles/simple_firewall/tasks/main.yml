@@ -40,6 +40,22 @@
     sysctl_file: /etc/sysctl.d/50-forwarding.conf
     reload: yes
 
+# icmp unreachable/... are correctly marked by this
+- name: fwmark reflect IPv4
+  sysctl:
+    name: net.ipv4.fwmark_reflect
+    value: 1
+    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
+    reload: yes
+
+# icmp unreachable/... are correctly marked by this
+- name: fwmark reflect IPv6
+  sysctl:
+    name: net.ipv6.fwmark_reflect
+    value: 1
+    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
+    reload: yes
+
 - name: Generate test config iptables v4 config
   register: iptables4
   template:
