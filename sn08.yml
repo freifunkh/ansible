@@ -23,6 +23,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
     - { name: iperf3, tags: iperf3 }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
   vars:
@@ -167,3 +168,6 @@
     - stats_bpfcountd_interfaces: ['bat0']
 
     - reboot_on_kernelpanic: true
+
+    - babeld_interfaces: ['eth1']
+    - babeld_supernode: true
