@@ -53,6 +53,14 @@
           - 10.2.80.1/16
           - fdca:ffee:8::8001/64
           - 2a02:790:ff:8::1/64
+        static_routes:
+          - dest: 10.2.0.0/16
+            table: 42
+          - dest: fdca:ffee:8::/64
+            table: 42
+          - dest: 2a02:790:ff:8::/64
+            table: 42
+
       - iface: eth1
         addresses:
           - 100.103.8.2/24
@@ -171,3 +179,5 @@
 
     - babeld_interfaces: ['eth1']
     - babeld_supernode: true
+
+    - firewall_alternate_routingtables_sh_disabled: true
