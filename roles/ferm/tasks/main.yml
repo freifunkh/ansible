@@ -1,9 +1,8 @@
 ---
 
 - name: Install ferm
-  apt: name={{ item }}
-  with_items:
-    - ferm
+  apt: 
+    name: ferm
 
 - name: Prepare ferm conf.d directory
   file:
@@ -29,6 +28,6 @@
 - name: Enable ferm service
   service:
     name: ferm
-    enabled: yes
-    state: started
+    enabled: no
+    state: stopped
 
