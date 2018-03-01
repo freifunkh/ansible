@@ -80,6 +80,7 @@
     - reboot_on_kernelpanic: true
 
     - firewall_mssfix: 1330
+    - firewall_ip6_clamp_mss_to_pmtu: true
     - firewall_open_ports_tcp: [1337]
 
     - firewall_allowed_forwards: "all"
