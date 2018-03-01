@@ -53,6 +53,11 @@
         addresses:
           - 10.2.60.1/16
           - fdca:ffee:8::6001/64
+        static_routes:
+          - dest: 10.2.0.0/16
+            table: 42
+          - dest: fdca:ffee:8::/64
+            table: 42
         no_radv_accept: true
 
     - networkd_gre_tunnels:
