@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      interface (bat0 {% for d in domains %}bat{{d.id}} {% endfor %}) proto tcp dport (5201) ACCEPT;
+    }
+  }
+}
