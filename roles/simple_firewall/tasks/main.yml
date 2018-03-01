@@ -92,3 +92,4 @@
     user: root
     minute: "*"
     job: /usr/bin/alternative_routingtables.sh
+    disabled: "{{ firewall_alternate_routingtables_sh_disabled | default(False) }}"
