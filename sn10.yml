@@ -2,6 +2,7 @@
 
 - hosts: sn10
   roles:
+    - { name: ferm, tags: ferm }
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
