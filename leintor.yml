@@ -91,5 +91,5 @@
       - port: 9100
         ip4: "{{ stats_address }}"
 
-    - babeld_interfaces: ["gre-sn01", "gre-sn10", "eth1"]
+    - babeld_interfaces: ["gre-sn01", "gre-sn10", "gre-sn06", "eth1"]
     - babeld_exitnode: true
