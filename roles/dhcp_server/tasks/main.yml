@@ -24,6 +24,12 @@
     src: debian_defaults.j2
     dest: /etc/default/isc-dhcp-server
 
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-dhcpd.conf
+
 - name: Enable isc-dhcp-server
   service: name=isc-dhcp-server enabled=yes
 
