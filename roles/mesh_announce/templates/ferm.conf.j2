@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain MESH_INPUT {
+      proto udp dport (1001) ACCEPT;
+    }
+  }
+}
