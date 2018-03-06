@@ -1,0 +1,7 @@
+---
+
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/10-gre-exitnodes.conf
