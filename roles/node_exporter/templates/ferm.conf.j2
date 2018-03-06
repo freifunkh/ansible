@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      saddr {{ lookup('dig', 'sn03.s.ffh.zone.') }}/32 proto tcp dport (9100) ACCEPT;
+    }
+  }
+}

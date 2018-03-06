@@ -122,6 +122,12 @@
   notify: Restart node_exporter
   when: prometheus_node_exporter_use_systemd|bool
 
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-node_exporter.conf
+
 - name: set INIT status and start
   service: name=node_exporter enabled=yes state=started
 
