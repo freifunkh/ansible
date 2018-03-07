@@ -2,6 +2,7 @@
 
 - hosts: sn03
   roles:
+    - { name: supernode, tags: supernode }
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
