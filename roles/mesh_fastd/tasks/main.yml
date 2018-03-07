@@ -34,6 +34,12 @@
     dest: "/etc/fastd/mesh_fastd/fastd.conf"
     src: "fastd.conf.j2"
 
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-mesh_fastd_0.conf
+
 - name: Check if secret.conf exists
   register: secretfile
   stat: path=/etc/fastd/mesh_fastd/secret.conf

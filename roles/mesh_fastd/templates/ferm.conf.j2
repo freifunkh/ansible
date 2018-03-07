@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      proto udp dport ({{ mesh_fastd_port }}) ACCEPT;
+    }
+  }
+}
