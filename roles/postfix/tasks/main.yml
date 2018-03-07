@@ -67,6 +67,12 @@
         mode: 0644
       notify: restart postfix
 
+		- name: Generate firewall config stanza (ferm)
+			register: ferm_changed
+			template:
+				src: ferm.conf.j2
+				dest: /etc/ferm/conf.d/50-postfix.conf
+
     - name: start and enable service
       service:
         name: postfix
