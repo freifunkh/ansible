@@ -236,3 +236,10 @@
     mode: 0755
   when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
+
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-nginx.conf
+
