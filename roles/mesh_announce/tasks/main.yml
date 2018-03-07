@@ -50,7 +50,7 @@
   register: ferm_changed
   template:
     src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-mesh_annouce.conf
+    dest: /etc/ferm/conf.d/50-mesh_announce.conf
 
 - name: enable respondd by service
   become: true
