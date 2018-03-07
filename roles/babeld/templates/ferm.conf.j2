@@ -1,0 +1,7 @@
+domain (ip6) {
+  table filter {
+    chain INPUT {
+      saddr fe80::/64 proto udp dport (6696) ACCEPT;
+    }
+  }
+}
