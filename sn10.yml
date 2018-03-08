@@ -91,7 +91,7 @@
         when_packet_from: ["bat0", "internetz-me","hostway"]
         routes:
           - dest_net: default
-            dest_if: hostway
+            dest_if: gre-hostway
             via: 100.103.10.1
           - dest_net: 10.2.0.0/16
             dest_if: bat0
@@ -170,5 +170,5 @@
 
     - reboot_on_kernelpanic: true
 
-    - babeld_interfaces: [leintor]
+    - babeld_interfaces: [gre-leintor]
     - babeld_supernode: true
