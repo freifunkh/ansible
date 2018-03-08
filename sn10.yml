@@ -29,6 +29,15 @@
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
+  pre_tasks:
+    - include: sn_snippets/add_gre.yml
+      vars:
+        peer: aegidientor
+      tags: always    
+    - include: sn_snippets/add_gre.yml
+      vars:
+        peer: leintor
+      tags: always          
   vars:
     - servername: sn10
     - sn: 10
@@ -45,9 +54,6 @@
         gateway4: 173.212.248.1
         gateway6: fe80::1
         dns_server: [213.136.95.10, 79.143.183.251]
-      - iface: internetz-me
-        addresses:
-          - 100.101.10.2/24
       - iface: bat0
         addresses:
           - 10.2.100.1/16
@@ -58,29 +64,7 @@
           - dest: fdca:ffee:8::/64
             table: 42
         no_radv_accept: true
-      - iface: hostway
-        addresses:
-          - 100.103.10.2/24
-          - 2a02:790:ff:110::10/64   # transport ip
-        static_routes:
-          - dest: ::/0
-            src: 2a02:790:ff:10::/64
-            gw: 2a02:790:ff:110::1
-            metric: 123
-
-
-    - networkd_gre_tunnels:
-      - name: internetz-me
-        lower_interface: eth0
-        remote_outer_ip: 178.32.215.75
-        local_outer_ip: 173.212.248.190
-
-    - networkd_gre_tunnels:
-      - name: hostway
-        lower_interface: eth0
-        remote_outer_ip: 81.3.6.94
-        local_outer_ip: 173.212.248.190
-
+ 
     - networkd_tap_devices:
       - mesh_fastd
 
@@ -100,11 +84,6 @@
         iface: bat0
       - port: 1001
         iface: bat0
-    - firewall_allowed_forwards:
-      - between: bat0
-        and: internetz-me
-      - between: bat0
-        and: hostway
 
     - firewall_nat4_on_interfaces: ["internetz-me", "hostway"]
     - firewall_alternative_routingtables:
@@ -191,5 +170,5 @@
 
     - reboot_on_kernelpanic: true
 
-    - babeld_interfaces: [hostway]
+    - babeld_interfaces: [leintor]
     - babeld_supernode: true
