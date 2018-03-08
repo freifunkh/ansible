@@ -31,10 +31,6 @@
       vars:
         peer: leintor
       tags: always
-    - include: sn_snippets/add_gre.yml
-      vars:
-        peer: steintor
-      tags: always
   vars:
     - servername: sn01
     - sn: 1
