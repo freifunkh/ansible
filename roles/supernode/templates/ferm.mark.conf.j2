@@ -1,0 +1,20 @@
+domain (ip ip6) {
+  table nat {
+    chain PREROUTING {
+
+{% for peer in gre_peers %}
+{% if gre_peers[peer].exit is defined and gre_peers[peer].exit %}
+       interface gre-{{ peer }} MARK set-xmark 0x2a/0xffffffff;
+{% else %}{% endif %}
+{% endfor %}
+
+       ## Hack for Hostway VMs #
+       interface eth1 MARK set-xmark 0x2a/0xffffffff;
+
+{% for domain in domains %}
+       interface bat{{ domain.id }} MARK set-xmark 0x2a/0xffffffff;
+{% endfor %}
+
+    }
+  }
+}

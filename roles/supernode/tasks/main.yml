@@ -1,7 +1,21 @@
 ---
 
-- name: Generate firewall config stanza (ferm)
+- name: Generate firewall config stanza for GRE tunnel (ferm)
   register: ferm_changed
   template:
-    src: ferm.conf.j2
+    src: ferm.gre.conf.j2
     dest: /etc/ferm/conf.d/10-gre-exitnodes.conf
+
+- name: Generate firewall config stanza for MARK 42 (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.mark.conf.j2
+    dest: /etc/ferm/conf.d/02-mark.conf
+
+- name: Generate firewall config stanza for FORWARD (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.forward.conf.j2
+    dest: /etc/ferm/conf.d/50-forward.conf
+
+
