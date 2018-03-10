@@ -47,7 +47,7 @@
         locations:
           - location: /
             type: proxy
-            proxy_forward_url: https://build.ffh.zone/;
+            proxy_forward_url: https://build.ffh.zone/
       - domain: hannover.freifunk.net
         root: /var/www/web
         tls: true
