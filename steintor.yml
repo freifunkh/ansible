@@ -15,7 +15,7 @@
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:
-    - include: sn_snippets/add_gre.yml
+    - include_tasks: sn_snippets/add_gre.yml
       vars:
         peer: sn01
       tags: always
