@@ -31,18 +31,23 @@
         dns_server: [213.133.98.98, 213.133.99.99]
 
     - nginx_sites:
+      - domain: firmware.ffh.zone
+        root: /var/www/firmware
+        tls: true
+        locations:
+          - location: /
+            directory_index: true
       - domain: www.fnorden.net
         root: /var/www/fnorden.net
         tls: true
         tls_redirect_to_https: true
       - domain: buildproxy4.ffh.zone
-        root: /var/www/buildproxy4
         tls: true
         tls_redirect_to_https: true
-        custom_config: |
-          location / {
-            proxy_pass https://build.ffh.zone;
-          }
+        locations:
+          - location: /
+            type: proxy
+            proxy_forward_url: https://build.ffh.zone/;
       - domain: hannover.freifunk.net
         root: /var/www/web
         tls: true
@@ -51,6 +56,7 @@
         locations:
           - location: /download
             directory_index: true
+            disable_symlinks: true
         custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
