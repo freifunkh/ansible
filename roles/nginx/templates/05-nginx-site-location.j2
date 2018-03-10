@@ -22,6 +22,9 @@
         gzip_disable        "msie6";
         gzip_types          text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 {% endif %}
+{% if location.disable_symlinks|default(False) %}
+        disable_symlinks    off;
+{% endif %}
     }
 {% endfor %}
 {% endif %}
