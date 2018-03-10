@@ -27,7 +27,7 @@
     job: >
       /home/auto/autoupdate.sh
       /etc/fastd/mesh_fastd/peers
-      && (sudo systemctl reload fastd@mesh_fastd
+      && (sudo /usr/bin/killall -HUP fastd
       || echo "Reload of mesh_fastd instance failed")
 
 - name: Enable peers-git remotes in fastd

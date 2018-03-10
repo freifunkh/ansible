@@ -1,2 +1,2 @@
-Cmnd_Alias RELOAD_CMD = /bin/systemctl reload fastd@mesh_fastd
+Cmnd_Alias RELOAD_CMD = /usr/bin/killall -HUP fastd
 %auto ALL=(ALL) NOPASSWD: RELOAD_CMD
