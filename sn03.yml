@@ -56,7 +56,7 @@
       - name: internetz-me
         lower_interface: eth0
         remote_outer_ip: 178.32.215.75
-        local_outer_ip: 138.201.220.61
+        local_outer_ip: 88.198.66.22
 
     - networkd_tap_devices:
       - mesh_fastd
@@ -192,10 +192,10 @@
           timeout: 30
           targets:
             - sn01.s.ffh.zone:9100
-            - sn02.s.ffh.zone:9100
+            # - sn02.s.ffh.zone:9100
             - sn03.s.ffh.zone:9100
-            - sn04.s.ffh.zone:9100
-            - sn05.s.ffh.zone:9100
+            # - sn04.s.ffh.zone:9100
+            # - sn05.s.ffh.zone:9100
             - sn06.s.ffh.zone:9100
             - sn07.s.ffh.zone:9100
             - sn08.s.ffh.zone:9100
