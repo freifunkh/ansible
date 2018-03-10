@@ -1,6 +1,6 @@
 ---
 
-- include: backport.yml
+- include_tasks: backport.yml
   when: ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie'
 
 - name: Install watch_journald.sh
