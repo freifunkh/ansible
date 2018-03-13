@@ -138,7 +138,7 @@
 # FORWARD #
 ###########
 
-{% if firewall_mssfix %}
+{% if firewall_mssfix is defined and firewall_mssfix %}
   -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss {{ firewall_mssfix - 20 }}
 {% endif %}
 
