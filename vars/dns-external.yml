@@ -33,7 +33,7 @@
           "sn10.s.ffh.zone. IN AAAA 2a02:c207:3002:2600::a001",
           "steintor.e.ffh.zone. IN A 37.120.190.215",
           "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
-          "leintor.e.ffh.zone. IN AAAA 2a02:790:4:5::1",
+          "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1",
           "leintor.e.ffh.zone. IN A 81.3.6.94",
           "clevertor.e.ffh.zone. IN AAAA 2a02:c207:3002:4406::1",
           "clevertor.e.ffh.zone. IN A 173.249.22.70",
