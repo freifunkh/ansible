@@ -16,6 +16,7 @@
 
 # Use the packet park from iptables to put the packets in table {{ table.name }}
 /sbin/ip rule add from all fwmark 0x{{ "%x" | format(table_id) }} table {{ table.name }} priority {{ 200 + table_id }}
+/sbin/ip -6 rule add from all fwmark 0x{{ "%x" | format(table_id) }} table {{ table.name }} priority {{ 200 + table_id }}
 
 {% endfor %}
 
