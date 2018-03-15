@@ -1,6 +1,8 @@
 # For more information about this configuration file, refer to
 # babeld(8)
 
+default wired true
+
 redistribute local deny
 redistribute ip ::/0 le 1 metric 256
 redistribute ip 0.0.0.0/0 le 1 metric 256
