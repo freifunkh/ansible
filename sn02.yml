@@ -1,0 +1,146 @@
+---
+
+- hosts: sn02
+  roles:
+    - { name: ferm, tags: ferm }
+    - { name: supernode, tags: supernode }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: mesh_batman, tags: mesh_batman }
+    - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
+    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: radv_server, tags: radv_server }
+    - { name: dns_recursive, tags: dns_recursive }
+    - { name: dhcp_server, tags: dhcp_server }
+    - { name: gateway_announcement, tags: gateway_announcement }
+    - { name: stats_batches, tags: stats_batches }
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
+    - { name: iperf3, tags: iperf3 }
+    - { name: mesh_announce, tags: mesh_announce }
+    - { name: cron-apt, tags: cron-apt }
+    - { name: misc, tags: misc }
+    - { name: node_exporter, tags: node_exporter }
+  vars_files:
+    - vars/all_hosts.yml
+    - vars/domains.yml
+  pre_tasks:
+    - include_tasks: sn_snippets/add_gre.yml
+      vars:
+        peer: aegidientor
+      tags: always
+  vars:
+    - servername: sn02
+    - sn: 2
+    - mail_fqdn: "sn02.s.ffh.zone"
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
+    - cron_apt_mailto: monitoring@hannover.freifunk.net
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 195.201.97.8/32
+          - 2a01:4f8:1c0c:7149::2001/64
+        gateway4: 172.31.1.1
+        gateway6: fe80::1
+        dns_server: [213.133.98.98]
+      - iface: gre-aegidientor
+        addresses:
+          - 100.102.1.2/24
+      - iface: bat0
+        addresses:
+          - 10.2.20.1/16
+          - fdca:ffee:8::2001/64
+        no_radv_accept: true
+
+    - networkd_tap_devices:
+      - mesh_fastd
+
+    - mesh_fastd_mac: "88:E6:40:20:20:01"
+    - mesh_fastd_listen_on: [ "195.201.97.8", "2a01:4f8:1c0c:7149::2001" ]
+    - mesh_fastd_port: 10000
+    - git_addr: ssh://git@git.ffh.zone
+
+    - firewall_nat4_on_interfaces: ["internetz-me"]
+    - firewall_alternative_routingtables:
+      - name: freifunk
+        when_packet_from: ["bat0", "internetz-me"]
+        routes:
+          - dest_net: default
+            dest_if: internetz-me
+            via: 100.101.1.1
+          - dest_net: 10.2.0.0/16
+            dest_if: bat0
+          - dest_net: fdca:ffee:8::/64
+            dest_if: bat0
+
+    - dhcp_interfaces: [bat0]
+    - dhcp_range:
+        from: 10.2.20.2
+        to: 10.2.29.254
+    - dhcp_options:
+        gateway: 10.2.20.1
+        dns_server: 10.2.20.1
+
+    - dns_recursive_allowed_nets:
+      - 10.2.0.0/16
+      - fdca:ffee:8::/48
+      - 2a02:790:ff::/48
+    - dns_recursive_forwards:
+      - zone: "ffh.zone."
+        to:
+          - 37.120.176.252
+          - 2a03:4000:6:8277::1
+          - 216.218.131.2
+          - 2001:470:200::2
+          - 216.218.132.2
+          - 2001:470:300::2
+      - zone: "ffh."
+        to:
+          - 37.120.176.252
+          - 2a03:4000:6:8277::1
+      - zone: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
+        to:
+          - 37.120.176.252
+          - 2a03:4000:6:8277::1
+          - 216.218.131.2
+          - 2001:470:200::2
+          - 216.218.132.2
+          - 2001:470:300::2
+    - dns_recursive_allowed_private_adresses:
+      - fdca:ffee:8::/48
+    - dns_recursive_allowed_private_domains:
+      - "ffh.zone."
+      - "ffh."
+    - dns_recursive_listen_on:
+      - 127.0.0.1
+      - ::1
+      - 10.2.10.1
+      - fdca:ffee:8::1001
+
+    - radv_server_iface: "bat0"
+    - radv_server_adv_prefixes:
+      - fdca:ffee:8::/64
+    - radv_server_adv_dns_servers:
+      - fdca:ffee:8::2001
+
+    - stats_pings:
+      - host: 8.8.8.8
+        name: google-dns
+      - host: 100.101.1.1
+        name: internetz-me
+
+    - stats_fastd_sockets:
+      - name: mesh_fastd
+        path: /var/run/fastd.mesh_fastd.sock
+
+    - stats_pushgateway:
+        host: "[fdca:ffee:8::108]:9091"
+        job: sn02
+
+    - stats_bpfcountd_interfaces: ['bat0']
+
+    - reboot_on_kernelpanic: true
