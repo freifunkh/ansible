@@ -34,11 +34,10 @@
       - iface: eth0
         addresses:
           - 81.3.6.94/29
-          - 2a02:790:1:ff::1/64
-          - 2a02:790:ff::1/128
+          - 2a02:790:1:ff::1001/64
         gateway4: 81.3.6.89
         gateway6: fe80::1
-        dns_server: [8.8.8.8]
+        dns_server: [81.3.3.81, 8.8.8.8]
       - iface: lo
         addresses:
           - 100.100.0.1/32 # anycast for ping tests
