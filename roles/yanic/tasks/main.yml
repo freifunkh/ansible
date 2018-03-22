@@ -99,6 +99,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-yanic.conf
+  notify: reload ferm
 
 - name: Enable yanic
   systemd:

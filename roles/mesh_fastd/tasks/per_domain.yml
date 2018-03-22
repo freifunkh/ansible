@@ -33,6 +33,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-mesh_fastd_{{ domain.id }}.conf
+  notify: reload ferm
 
 - name: Start mesh_fastd on boot
   service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes state=started

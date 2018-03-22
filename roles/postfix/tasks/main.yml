@@ -72,6 +72,7 @@
       template:
         src: ferm.conf.j2
         dest: /etc/ferm/conf.d/50-postfix.conf
+      notify: reload ferm
 
     - name: start and enable service
       service:

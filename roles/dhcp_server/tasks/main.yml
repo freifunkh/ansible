@@ -29,6 +29,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-dhcpd.conf
+  notify: reload ferm
 
 - name: Enable isc-dhcp-server
   service: name=isc-dhcp-server enabled=yes

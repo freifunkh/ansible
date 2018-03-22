@@ -127,6 +127,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-node_exporter.conf
+  notify: reload ferm
 
 - name: set INIT status and start
   service: name=node_exporter enabled=yes state=started

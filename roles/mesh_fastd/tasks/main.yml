@@ -39,6 +39,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-mesh_fastd_0.conf
+  notify: reload ferm
 
 - name: Check if secret.conf exists
   register: secretfile

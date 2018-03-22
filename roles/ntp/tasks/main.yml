@@ -8,6 +8,7 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-ntp.conf
+  notify: reload ferm
 
 - name: Start ntp daemon on boot
   service: name=ntp enabled=yes state=started
