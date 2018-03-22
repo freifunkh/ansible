@@ -24,6 +24,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
@@ -42,11 +43,10 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 195.201.97.8/32
           - 2a01:4f8:1c0c:7149::2001/64
-        gateway4: 172.31.1.1
+        dhcp: true
         gateway6: fe80::1
-        dns_server: [213.133.98.98]
+        dns_server: [213.133.98.98, 8.8.8.8]
       - iface: gre-aegidientor
         addresses:
           - 100.102.1.2/24
@@ -144,3 +144,8 @@
     - stats_bpfcountd_interfaces: ['bat0']
 
     - reboot_on_kernelpanic: true
+
+    - babeld_interfaces: ['gre-aegidientor']
+    - babeld_supernode: true
+
+    - firewall_alternate_routingtables_sh_disabled: true
