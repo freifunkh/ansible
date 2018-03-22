@@ -213,6 +213,14 @@ COMMIT
   -A PREROUTING -p {{ rule.proto }} -m {{ rule.proto }} --dport {{ rule.port }} -j DNAT --to-destination {{ rule.dest}}:{{ rule.port }} -m comment --comment "{{ rule.comment | default('no comment') }}"
 {% endfor %}
 
+#
+# FlueWo - duplicate port 10000 udp to 500 udp
+#
+
+{% if sn is defined and sn == 6 %}
+  -A PREROUTING -i eth0 -p udp --dport 500 -j REDIRECT --to-port 10000
+{% endif %}
+
 COMMIT
 
 
