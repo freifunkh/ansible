@@ -11,9 +11,11 @@ domain (ip ip6) {
        ## Hack for Hostway VMs #
        interface eth1 MARK set-xmark 0x2a/0xffffffff;
 
+{% if domains is defined %}
 {% for domain in domains %}
        interface bat{{ domain.id }} MARK set-xmark 0x2a/0xffffffff;
 {% endfor %}
+{% endif %}
 
     }
   }
