@@ -1,0 +1,10 @@
+---
+
+- hosts: aegidientor
+  roles:
+    - { name: node_exporter, tags: node_exporter }
+
+  vars:
+    servername: aegidientor
+    # for node_exporter
+    prometheus_node_exporter_use_systemd: false
