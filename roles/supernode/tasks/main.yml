@@ -18,4 +18,75 @@
     src: ferm.forward.conf.j2
     dest: /etc/ferm/conf.d/50-forward.conf
 
+- name: Deploy /etc/rc.local
+  register: rclocal
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+    mode: u=rwx,g=rx,o=rx
+
+- name: Apply changes in /etc/rc.local
+  command: /etc/rc.local
+  when: rclocal|changed
+
+- name: Install iptables-persistent
+  apt: name=iptables-persistent
+
+- name: Install nf_conntrack kmod on boot
+  lineinfile: dest=/etc/modules line=nf_conntrack
+
+- name: Install nf_conntrack_ipv4 kmod on boot
+  lineinfile: dest=/etc/modules line=nf_conntrack_ipv4
+
+- name: Install nf_conntrack_ipv6 kmod on boot
+  lineinfile: dest=/etc/modules line=nf_conntrack_ipv6
+
+- name: Load nf_conntrack_ipv6 kmod
+  modprobe: name=nf_conntrack_ipv6 state=present
+
+- name: Load nf_conntrack_ipv4 kmod
+  modprobe: name=nf_conntrack_ipv4 state=present
+
+- name: Adjust netfilter conntrack table size
+  sysctl:
+    name: net.netfilter.nf_conntrack_max
+    value: "{{ firewall_conntrack_table_size }}"
+    state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
+    sysctl_file: /etc/sysctl.d/20-conntrack.conf
+    reload: yes
+
+- name: Maybe activate forwarding 4 as kernel parameter
+  sysctl:
+    name: net.ipv4.conf.all.forwarding
+    value: "1"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
+- name: Maybe activate forwarding 6 as kernel parameter
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
+# icmp unreachable/... are correctly marked by this
+- name: fwmark reflect IPv4
+  sysctl:
+    name: net.ipv4.fwmark_reflect
+    value: 1
+    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
+    reload: yes
+
+# icmp unreachable/... are correctly marked by this
+- name: fwmark reflect IPv6
+  sysctl:
+    name: net.ipv6.fwmark_reflect
+    value: 1
+    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
+    reload: yes
+
+- name: Ensure alternative routing tables are existing
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    line: "42 freifunk"
 
