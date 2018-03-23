@@ -22,6 +22,7 @@
   template:
     src: systemd.service.j2
     dest: /etc/systemd/system/babeld.service
+  when: ansible_service_mgr == 'systemd'
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -35,6 +36,20 @@
     name: babeld
     state: started
     daemon_reload: yes
+  when: ansible_service_mgr == 'systemd'
+
+- name: Start service
+  service:
+    name: babeld
+    state: started
+  when: ansible_service_mgr != 'systemd'
+
+- name: install /etc/default
+  notify: Restart babeld with service
+  template:
+    src: default.j2
+    dest: /etc/default/babeld
+  when: ansible_service_mgr != 'systemd'
 
 - name: Enable service
   service:
