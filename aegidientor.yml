@@ -3,8 +3,12 @@
 - hosts: aegidientor
   roles:
     - { name: node_exporter, tags: node_exporter }
+    - { name: babeld, tags: babeld }
 
   vars:
     servername: aegidientor
     # for node_exporter
     prometheus_node_exporter_use_systemd: false
+
+    babeld_interfaces: ["gre-sn02"]
+    babeld_exitnode: true
