@@ -23,7 +23,9 @@ domain (ip ip6) {
             proto tcp dport ssh ACCEPT;
             proto tcp dport 1337 ACCEPT;
 
+{%if domains is defined %}
             interface (bat0 {% for d in domains %}bat{{d.id}} {% endfor %}) jump MESH_INPUT;
+{% endif %}
         }
         chain OUTPUT {
             policy ACCEPT;

@@ -17,7 +17,7 @@
 
 - name: Install main configuration file
   template:
-    src: ferm.conf
+    src: ferm.conf.j2
     dest: /etc/ferm/ferm.conf
   notify: reload ferm
 
