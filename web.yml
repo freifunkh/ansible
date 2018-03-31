@@ -37,17 +37,16 @@
         locations:
           - location: /
             directory_index: true
+          - location: /beta/factory/
+            type: proxy
+            proxy_forward_url: https://build.ffh.zone/job/gluon-beta/ws/beta/images/factory/
+          - location: /beta/sysupgrade/
+            type: proxy
+            proxy_forward_url: https://build.ffh.zone/job/gluon-beta/ws/beta/images/sysupgrade/
       - domain: www.fnorden.net
         root: /var/www/fnorden.net
         tls: true
         tls_redirect_to_https: true
-      - domain: buildproxy4.ffh.zone
-        tls: true
-        tls_redirect_to_https: true
-        locations:
-          - location: /
-            type: proxy
-            proxy_forward_url: https://build.ffh.zone/
       - domain: hannover.freifunk.net
         root: /var/www/web
         tls: true
