@@ -30,6 +30,6 @@
 - name: Enable ferm service
   service:
     name: ferm
-    enabled: no
+    enabled: yes
     state: started
 
