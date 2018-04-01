@@ -31,19 +31,6 @@
     dest: /etc/ferm/conf.d/50-babeld.conf
   notify: reload ferm
 
-- name: Start service
-  systemd:
-    name: babeld
-    state: started
-    daemon_reload: yes
-  when: ansible_service_mgr == 'systemd'
-
-- name: Start service
-  service:
-    name: babeld
-    state: started
-  when: ansible_service_mgr != 'systemd'
-
 - name: install /etc/default
   notify: Restart babeld with service
   template:
@@ -51,8 +38,17 @@
     dest: /etc/default/babeld
   when: ansible_service_mgr != 'systemd'
 
-- name: Enable service
+- name: Start service
+  systemd:
+    name: babeld
+    state: started
+    daemon_reload: yes
+    enabled: yes
+  when: ansible_service_mgr == 'systemd'
+
+- name: Start service
   service:
     name: babeld
+    state: started
     enabled: yes
-
+  when: ansible_service_mgr != 'systemd'
