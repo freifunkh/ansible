@@ -145,10 +145,10 @@
       - 10.2.90.1
       - fdca:ffee:8::9001
 
-    - radv_server_iface: "bat0"
-    - radv_server_adv_prefixes:
-      - fdca:ffee:8::/64
-    - radv_server_adv_dns_servers:
+    - radv_server_prefixes:
+      - fdca:ffee:8
+      - 2a02:790:ff
+    - radv_server_dns:
       - fdca:ffee:8::9001
 
     - stats_pings:
