@@ -1,3 +1,5 @@
 ---
-radv_server_adv_prefixes: []
-radv_server_adv_dns_servers: []
+radv_server_prefixes: []
+radv_server_dns:
+- 2001:4860:4860::8888
+- 2001:4860:4860::8844
