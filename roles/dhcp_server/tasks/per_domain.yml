@@ -11,13 +11,7 @@
       dns_server: "10.{{ domain.id }}.{{ sn }}0.1"
       gateway: "10.{{ domain.id }}.{{ sn }}0.1"
 
-- name: Generate dhcpd batX config
+- name: "Generate dhcpd bat{{ domain.id }} config"
   template:
     src: batX.conf.j2
     dest: "/etc/dhcp/bat{{ domain.id }}.conf"
-
-- name: Add batX config to main config file
-  lineinfile:
-    path: /etc/dhcp/dhcpd.conf
-    line: 'include "/etc/dhcp/bat{{ domain.id }}.conf";'
-    insertafter: EOF
