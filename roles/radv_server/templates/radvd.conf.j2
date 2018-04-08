@@ -8,7 +8,7 @@ interface bat0
  prefix fdca:ffee:8::/64 {
  };
 
- RDNSS fdca:ffee:8::a001 {
+ RDNSS fdca:ffee:8::{{ "%x" | format(sn) }}001 {
   FlushRDNSS off;
  };
 
@@ -22,7 +22,7 @@ interface bat{{ domain.id }}
  AdvDefaultLifetime 0;
  MaxRtrAdvInterval 200;
  MinDelayBetweenRAs 15;
- 
+
 {% for prefix in radv_server_prefixes %}
  prefix {{ prefix }}:{{ sn }}{{ domain.id }}::/64 {
  };
