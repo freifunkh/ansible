@@ -33,11 +33,11 @@
     - include_tasks: sn_snippets/add_gre.yml
       vars:
         peer: aegidientor
-      tags: always    
+      tags: always
     - include_tasks: sn_snippets/add_gre.yml
       vars:
         peer: leintor
-      tags: always          
+      tags: always
   vars:
     - servername: sn10
     - sn: 10
@@ -64,7 +64,7 @@
           - dest: fdca:ffee:8::/64
             table: 42
         no_radv_accept: true
- 
+
     - networkd_tap_devices:
       - mesh_fastd
 
@@ -110,11 +110,9 @@
         gateway: 10.2.100.1
         dns_server: 10.2.100.1
 
-    - radv_server_iface: "bat0"
-    - radv_server_adv_prefixes:
-      - fdca:ffee:8::/64
-    - radv_server_adv_dns_servers:
-      - fdca:ffee:8::a001
+    - radv_server_prefixes:
+      - fdca:ffee:8
+      - 2a02:790:ff
 
     - stats_pings:
       - host: 8.8.8.8

@@ -49,7 +49,7 @@
         dns_server: [213.133.98.98, 8.8.8.8]
       - iface: gre-aegidientor
         addresses:
-          - 100.102.1.2/24
+          - 100.101.2.2/24
       - iface: bat0
         addresses:
           - 10.2.20.1/16
@@ -64,31 +64,6 @@
     - mesh_fastd_port: 10000
     - git_addr: ssh://git@git.ffh.zone
 
-    - firewall_nat4_on_interfaces: ["internetz-me"]
-    - firewall_alternative_routingtables:
-      - name: freifunk
-        when_packet_from: ["bat0", "internetz-me"]
-        routes:
-          - dest_net: default
-            dest_if: internetz-me
-            via: 100.101.1.1
-          - dest_net: 10.2.0.0/16
-            dest_if: bat0
-          - dest_net: fdca:ffee:8::/64
-            dest_if: bat0
-
-    - dhcp_interfaces: [bat0]
-    - dhcp_range:
-        from: 10.2.20.2
-        to: 10.2.29.254
-    - dhcp_options:
-        gateway: 10.2.20.1
-        dns_server: 10.2.20.1
-
-    - dns_recursive_allowed_nets:
-      - 10.2.0.0/16
-      - fdca:ffee:8::/48
-      - 2a02:790:ff::/48
     - dns_recursive_forwards:
       - zone: "ffh.zone."
         to:
@@ -118,19 +93,19 @@
     - dns_recursive_listen_on:
       - 127.0.0.1
       - ::1
-      - 10.2.10.1
-      - fdca:ffee:8::1001
+      - 10.2.20.1
+      - fdca:ffee:8::2001
 
-    - radv_server_iface: "bat0"
-    - radv_server_adv_prefixes:
-      - fdca:ffee:8::/64
-    - radv_server_adv_dns_servers:
+    - radv_server_prefixes:
+      - fdca:ffee:8
+      - 2a02:790:ff
+    - radv_server_dns:
       - fdca:ffee:8::2001
 
     - stats_pings:
       - host: 8.8.8.8
         name: google-dns
-      - host: 100.101.1.1
+      - host: 100.101.2.1
         name: internetz-me
 
     - stats_fastd_sockets:
