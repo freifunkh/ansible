@@ -15,7 +15,7 @@
 - name: Generate dhcpd bat0 config
   notify: Restart isc-dhcp-server
   template:
-    src: batX.conf.j2
+    src: bat0.conf.j2
     dest: /etc/dhcp/bat0.conf
 
 - name: Domain configs
