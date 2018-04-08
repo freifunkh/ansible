@@ -1,0 +1,31 @@
+---
+
+- name: Generate firewall config stanza for MARK 42 (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.mark.conf.j2
+    dest: /etc/ferm/conf.d/02-mark.conf
+
+- name: Generate firewall config stanza for FORWARD (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.forward.conf.j2
+    dest: /etc/ferm/conf.d/50-forward.conf
+
+- name: Ensure alternative routing tables are existing
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    line: "42 freifunk"
+
+- name: Deploy /etc/rc.local
+  register: rclocal
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+    mode: u=rwx,g=rx,o=rx
+
+- name: Apply changes in /etc/rc.local
+  command: /etc/rc.local
+  when: rclocal|changed
+
+

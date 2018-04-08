@@ -1,0 +1,22 @@
+---
+
+- name: Create network interface for each gre endpoint
+  template:
+    src: gre-network.j2
+    dest: /etc/systemd/network/10-gre-{{ item.key }}.network
+  with_dict: "{{ exitnodes }}"
+  when: not (sn==7 or sn==8)
+
+- name: Create gre tunnel in networkd
+  template:
+    src: gre-netdev.j2
+    dest: /etc/systemd/network/20-gre-{{ item.key }}.netdev
+  with_dict: "{{ exitnodes }}"
+  when: not (sn==7 or sn==8)
+
+- name: Generate firewall config stanza for GRE tunnel (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.gre.conf.j2
+    dest: /etc/ferm/conf.d/10-gre-exitnodes.conf
+

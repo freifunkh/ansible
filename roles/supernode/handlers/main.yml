@@ -1,0 +1,5 @@
+---
+- name: reload ferm
+  service: 
+    name: ferm
+    state: reloaded
