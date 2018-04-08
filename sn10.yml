@@ -4,9 +4,7 @@
   roles:
     - { name: supernode, tags: supernode }
     - { name: ferm, tags: ferm }
-    - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
-    - { name: simple_firewall, tags: simple_firewall }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
@@ -23,21 +21,13 @@
     - { name: iperf3, tags: iperf3 }
     - { name: mesh_announce, tags: mesh_announce }
     - { name: cron-apt, tags: cron-apt }
+    - { name: cli_tools, tags: cli_tools }
     - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }
     - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
-  pre_tasks:
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: aegidientor
-      tags: always
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: leintor
-      tags: always
   vars:
     - servername: sn10
     - sn: 10
@@ -72,43 +62,6 @@
     - mesh_fastd_listen_on: [ "173.212.248.190", "2a02:c207:3002:2600::a001" ]
     - mesh_fastd_port: 10000
     - git_addr: ssh://git@git.ffh.zone
-    - firewall_open_ports_tcp: [1337]
-    - firewall_open_ports_udp: [10000]
-    - firewall_open_ports_tcp_by_iface:
-      - port: 5201
-        iface: bat0
-    - firewall_open_ports_udp_by_iface:
-      - port: 53
-        iface: bat0
-      - port: 67
-        iface: bat0
-      - port: 1001
-        iface: bat0
-
-    - firewall_nat4_on_interfaces: ["internetz-me", "hostway"]
-    - firewall_alternative_routingtables:
-      - name: freifunk
-        when_packet_from: ["bat0", "internetz-me","hostway"]
-        routes:
-          - dest_net: default
-            dest_if: gre-hostway
-            via: 100.103.10.1
-          - dest_net: 10.2.0.0/16
-            dest_if: bat0
-          - dest_net: fdca:ffee:8::/64
-            dest_if: bat0
-
-    - firewall_open_ports_tcp_by_ip:
-      - port: 9100
-        ip4: "{{ stats_address }}"
-
-    - dhcp_interfaces: [bat0]
-    - dhcp_range:
-        from: 10.2.100.2
-        to: 10.2.109.254
-    - dhcp_options:
-        gateway: 10.2.100.1
-        dns_server: 10.2.100.1
 
     - stats_pings:
       - host: 8.8.8.8
