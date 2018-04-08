@@ -110,10 +110,6 @@
         gateway: 10.2.100.1
         dns_server: 10.2.100.1
 
-    - radv_server_prefixes:
-      - fdca:ffee:8
-      - 2a02:790:ff
-
     - stats_pings:
       - host: 8.8.8.8
         name: google-dns
