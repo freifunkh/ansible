@@ -19,16 +19,22 @@ server:
   interface: 10.{{ domain.id }}.{{ sn * 10 }}.1
 {% endfor %}
 
-{% for net in dns_recursive_allowed_nets %}
-  access-control: {{ net }} allow
-{% endfor %}
+  access-control: 10.0.0.0/8 allow
+  access-control: fdca:ffee:8::/48 allow
+  access-control: 2a02:790:ff::/48 allow
 
-{% for addr in dns_recursive_allowed_private_adresses %}
-  private-address: {{ addr }}
-{% endfor %}
-{% for domain in dns_recursive_allowed_private_domains %}
-  private-domain: "{{ domain }}"
-{% endfor %}
+  private-domain: ffh.zone.
+  private-address: fdca:ffee:8::/48
+
+{% if dns_recursive_allowed_private_adresses is defined %}
+  INVALID LEGACY
+{% endif %}
+{% if dns_recursive_allowed_private_domains is defined %}
+  INVALID LEGACY
+{% endif %}
+{% if dns_recursive_allowed_nets is defined %}
+  INVALID LEGACY
+{% endif %}
 
 {% for zone in dns_recursive_allowed_private_rdns_zones %}
     local-zone: "{{ zone }}" transparent

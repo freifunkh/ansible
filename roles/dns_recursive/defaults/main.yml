@@ -1,9 +1,3 @@
 ---
 dns_recursive_forwards: []
-dns_recursive_allowed_nets:
-- 10.0.0.0/8
-- fdca:ffee:8::/48
-- 2a02:790:ff::/48
-dns_recursive_allowed_private_adresses: []
-dns_recursive_allowed_private_domains: []
 dns_recursive_allowed_private_rdns_zones: []
