@@ -17,7 +17,8 @@ domain (ip ip6) {
             interface lo ACCEPT;
 
             # respond to ping
-            proto icmp ACCEPT; 
+            proto icmp ACCEPT;
+            proto ipv6-icmp ACCEPT;
 
             # allow SSH connections
             proto tcp dport ssh ACCEPT;

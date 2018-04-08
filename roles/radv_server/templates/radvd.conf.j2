@@ -23,16 +23,23 @@ interface bat{{ domain.id }}
  MaxRtrAdvInterval 200;
  MinDelayBetweenRAs 15;
 
-{% for prefix in radv_server_prefixes %}
- prefix {{ prefix }}:{{ sn }}{{ domain.id }}::/64 {
- };
-{% endfor %}
+ {% if radv_server_prefixes is defined %}
+   INVALID LEGACY
+ {% endif %}
 
-{% for ip in radv_server_dns %}
- RDNSS {{ ip }} {
+ {% if radv_server_dns is defined %}
+   INVALID LEGACY
+ {% endif %}
+
+ prefix 2a02:790:ff:{{ sn }}{{ domain.id }}::/64 {
+ };
+
+ prefix fdca:ffee:8:{{ domain.id }}::/64 {
+ };
+
+ RDNSS 2a02:790:ff:{{ sn }}{{ domain.id }}::1 {
   FlushRDNSS off;
  };
-{% endfor %}
 
 };
 {% endfor %}
