@@ -3,8 +3,20 @@ server:
   username: "unbound"
   directory: "/etc/unbound"
 
-{% for ip in dns_recursive_listen_on %}
-  interface: {{ ip }}
+{% if dns_recursive_listen_on is defined %}
+  INVALID LEGACY
+{% endif %}
+
+  interface: 127.0.0.1
+  interface: ::1
+
+  interface: 10.2.{{ sn * 10 }}.1
+  interface: fdca:ffee:8::{{ "%x" | format(sn) }}001
+
+{% for domain in domains | default( [] ) %}
+  interface: fdca:ffee:8:{{ domain.id }}::1
+  interface: 2a02:790:ff:{{ sn }}{{ domain.id }}::1
+  interface: 10.{{ domain.id }}.{{ sn * 10 }}.1
 {% endfor %}
 
 {% for net in dns_recursive_allowed_nets %}

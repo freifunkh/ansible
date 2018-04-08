@@ -6,5 +6,4 @@ dns_recursive_allowed_nets:
 - 2a02:790:ff::/48
 dns_recursive_allowed_private_adresses: []
 dns_recursive_allowed_private_domains: []
-dns_recursive_listen_on: ["::", "0.0.0.0"]
 dns_recursive_allowed_private_rdns_zones: []
