@@ -22,7 +22,6 @@
     - { name: mesh_announce, tags: mesh_announce }
     - { name: cron-apt, tags: cron-apt }
     - { name: cli_tools, tags: cli_tools }
-    - { name: misc, tags: misc }
     - { name: node_exporter, tags: node_exporter }
     - { name: babeld, tags: babeld }
   vars_files:
