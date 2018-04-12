@@ -46,6 +46,7 @@
         addresses:
           - 10.2.20.1/16
           - fdca:ffee:8::2001/64
+        macaddress: 12:34:56:78:90:02
         no_radv_accept: true
 
     - networkd_tap_devices:
