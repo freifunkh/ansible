@@ -8,6 +8,20 @@
   with_dict: "{{ exitnodes }}"
   when: not (sn==7 or sn==8)
 
+- name: Create /etc/systemd/network/eth0.network.d directory
+  notify: Restart networkd
+  file:
+    name: /etc/systemd/network/eth0.network.d  
+    state: directory
+  when: not (sn==7 or sn==8)
+
+- name: Drop tunnel config into /etc/systemd/network/eth0.network.d directory
+  notify: Restart networkd
+  template: 
+    src: tunnel.conf.j2
+    dest: /etc/systemd/network/eth0.network.d/gre-tunnel.conf
+  when: not (sn==7 or sn==8)
+
 - name: Create gre tunnel in networkd
   notify: Restart networkd
   template:
