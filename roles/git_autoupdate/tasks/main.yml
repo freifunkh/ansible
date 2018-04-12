@@ -13,12 +13,16 @@
     system: yes
     generate_ssh_key: yes
 
-- name: Create lockfile to wait until ssh key is deployed to the git server
-  file: path=/home/auto/wait_for_access.lock state=touch
+- name: Publish new public ssh key to repository
+  include_tasks: gitolite.yml
   when: createuser|changed
 
-- name: Wait until the ssh key is deployed to the git server and lockfile is removed manually
-  wait_for: path=/home/auto/wait_for_access.lock state=absent
+#- name: Create lockfile to wait until ssh key is deployed to the git server
+#  file: path=/home/auto/wait_for_access.lock state=touch
+#  when: createuser|changed
+
+#- name: Wait until the ssh key is deployed to the git server and lockfile is removed manually
+#  wait_for: path=/home/auto/wait_for_access.lock state=absent
 
 - name: Install autoupdate script
   template:
