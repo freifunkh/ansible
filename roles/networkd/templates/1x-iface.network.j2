@@ -30,6 +30,11 @@ DHCP=ipv4
 IPv6AcceptRouterAdvertisements=false
 {% endif %}
 
+{% if item.1.macaddress is defined %}
+[Link]
+MACAddress={{ item.1.macaddress }}
+{% endif %}
+
 {% for route in item.1.static_routes | default([]) %}
 [Route]
 {% if route.gw is defined %}
