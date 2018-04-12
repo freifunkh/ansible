@@ -4,21 +4,21 @@ GW_MODE=/sys/class/net/bat%/mesh/gw_mode
 GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
-	for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+	for i in 0 {% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
 		echo off > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: off"
 	done
 	systemctl stop isc-dhcp-server
 }
 
 on() {
-	for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+	for i in 0 {% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
 		echo server > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: server"
 	done
 	systemctl start isc-dhcp-server
 }
 
 # ensure that we announce the highest bandwidth
-for i in 0 {% for d in domains %}{{ d.id }} {% endfor %}; do
+for i in 0 {% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
 	echo "96MBit/96MBit" > $(echo $GW_BANDWIDTH | sed "s_%_${i}_")
 done
 
