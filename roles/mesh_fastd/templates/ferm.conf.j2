@@ -1,7 +1,10 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
-      proto udp dport ({{ mesh_fastd_port }}) ACCEPT;
+      proto udp dport (10000) ACCEPT;
+{% for domain in domains | default( [] ) %}
+      proto udp dport ({{ 10000 + domain.id | int  }}) ACCEPT;
+{% endfor %}
     }
   }
 }

@@ -1,0 +1,22 @@
+[Match]
+Name=bat{{ domain.id }}
+
+[Network]
+Address=10.{{ domain.id }}.{{ sn }}0.1/16
+Address=2a02:790:ff:{{ sn }}{{ domain.id }}::1/64
+Address=fdca:ffee:8:{{ sn }}{{ domain.id }}::1/64
+IPv6AcceptRouterAdvertisements=false
+
+[Link]
+MACAddress=88:E6:40:ba:{{ "%x" | format(sn) }}0:{{ domain.id }}
+
+[Route]
+Destination=10.0.0.0/8
+Table=42
+[Route]
+Destination=fdca:ffee:8::/48
+Table=42
+[Route]
+Destination=2a02:790:ff::/48
+Table=42
+

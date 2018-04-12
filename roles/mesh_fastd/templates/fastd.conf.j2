@@ -7,9 +7,9 @@ method "null"; # prefer null over salsa2012+umac, since only routers in
 method "salsa2012+umac";
 {% for ip in mesh_fastd_listen_on %}
 {% if ":" in ip %}
-bind [{{ ip }}] port {{ mesh_fastd_port }};
+bind [{{ ip }}] port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
 {% else %}
-bind {{ ip }} port {{ mesh_fastd_port }};
+bind {{ ip }} port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
 {% endif %}
 {% endfor %}
 

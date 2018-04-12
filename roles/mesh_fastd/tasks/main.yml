@@ -1,102 +1,16 @@
 ---
 
-- name: Install https for apt
-  apt:
-    update_cache: yes
-    name: apt-transport-https
-
-- name: Add universe-factory repository key
-  apt_key:
-    keyserver: pool.sks-keyservers.net
-    id: 16EF3F64CB201D9C
-
-- name: Add universe-factory repositories
-  register: fastdrepositoryadded
-  apt_repository:
-    repo: "deb http://repo.universe-factory.net/debian/ sid main"
-
-- name: Update apt chache to get universe-factory packages
-  apt: update_cache=yes
-  when: fastdrepositoryadded|changed
-
 - name: Install fastd
-  apt: name=fastd
+  include_tasks: install.yml
 
-- name: Remove autostart of generic fastd instance on boot
-  service: name=fastd enabled=no
+- name: Generate secret if necessary
+  include_tasks: secret.yml
 
-- name: Create mesh_fastd daemon config directories
-  file: path=/etc/fastd/mesh_fastd state=directory
+- name: Set network buffers
+  include_tasks: buffers.yml
 
-- name: Install mesh_fastd daemon config
-  notify: Restart mesh_fastd
-  template:
-    dest: "/etc/fastd/mesh_fastd/fastd.conf"
-    src: "fastd.conf.j2"
-
-- name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-mesh_fastd_0.conf
-  notify: reload ferm
-
-- name: Check if secret.conf exists
-  register: secretfile
-  stat: path=/etc/fastd/mesh_fastd/secret.conf
-
-- name: Generate secret
-  register: generatedsecret
-  command: fastd --generate-key --machine-readable
-  when: not secretfile.stat.exists
-
-- name: Install mesh_fastd daemon secret
-  notify: Restart mesh_fastd
-  when: not secretfile.stat.exists
-  template:
-    dest: "/etc/fastd/mesh_fastd/secret.conf"
-    src: "secret.conf.j2"
-    mode: "u=rw,g=,o="
-
-- name: Check if mesh_fastd remotes file exists
-  stat: path=/etc/fastd/mesh_fastd/remotes.conf
-  register: remotes
-
-- name: Ensure mesh_fastd remotes file exits
-  when: not remotes.stat.exists
-  file: path=/etc/fastd/mesh_fastd/remotes.conf state=touch
-  notify: Restart mesh_fastd
-
-- name: Start mesh_fastd on boot
-  service: name=fastd@mesh_fastd enabled=yes state=started
-
-- name: Increase network buffers net.core.rmem_max
-  notify: Restart mesh_fastd
-  sysctl:
-    name: net.core.rmem_max
-    value: 33554432
-    sysctl_set: yes
-
-- name: Increase network buffers net.core.rmem_default
-  notify: Restart mesh_fastd
-  sysctl:
-    name: net.core.rmem_default
-    value: 33554432
-    sysctl_set: yes
-
-- name: Increase network buffers net.core.wmem_max
-  notify: Restart mesh_fastd
-  sysctl:
-    name: net.core.wmem_max
-    value: 33554432
-    sysctl_set: yes
-
-- name: Increase network buffers net.core.wmem_default
-  notify: Restart mesh_fastd
-  sysctl:
-    name: net.core.wmem_default
-    value: 33554432
-    sysctl_set: yes
+- name: Generate config for dom0
+  include_tasks: dom0.yml
 
 - name: Domain configs
   include_tasks: per_domain.yml
@@ -104,3 +18,12 @@
   loop_control:
     loop_var: domain
   when: domains is defined
+
+- name: Reread networkd config for new bat devices
+  systemd:
+    name: systemd-networkd
+    state: restarted
+
+- name: Firewalling mesh_fastd for all domains
+  include_tasks: ferm.yml
+

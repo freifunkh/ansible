@@ -1,0 +1,22 @@
+[Match]
+Name=bat0
+
+[Network]
+Address=10.2.{{ sn }}0.1/16
+Address=2a02:790:ff:{{ sn }}::1/64
+Address=fdca:ffee:8::{{ "%x" | format(sn) }}001/64
+IPv6AcceptRouterAdvertisements=false
+
+[Link]
+MACAddress=88:E6:40:ba:{{ "%x" | format(sn) }}0:02
+
+[Route]
+Destination=10.0.0.0/8
+Table=42
+[Route]
+Destination=fdca:ffee:8::/48
+Table=42
+[Route]
+Destination=2a02:790:ff::/48
+Table=42
+

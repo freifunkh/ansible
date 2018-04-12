@@ -1,3 +1,13 @@
+- name: "Generate networkd bat device (dom {{ domain.id }})"
+  template:
+    src: network.j2
+    dest: "/etc/systemd/network/10-bat{{ domain.id }}.network"
+
+- name: "Generate networkd tap device (dom {{ domain.id }})"
+  template:
+    src: netdev.j2
+    dest: "/etc/systemd/network/20-tap-mesh_fastd_{{ domain.id }}.netdev"
+
 - name: Create mesh_fastd daemon config directories
   file: path=/etc/fastd/mesh_fastd_{{ domain.id }} state=directory
 
@@ -12,7 +22,7 @@
 
 - name: Generate secret.conf link
   file:
-    src: "/etc/fastd/mesh_fastd/secret.conf"
+    src: "/etc/fastd/secret.conf"
     dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/secret.conf"
     state: link
 
@@ -27,13 +37,6 @@
   template:
     src: fastd.conf.j2
     dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/fastd.conf"
-
-- name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-mesh_fastd_{{ domain.id }}.conf
-  notify: reload ferm
 
 - name: Start mesh_fastd on boot
   service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes state=started
