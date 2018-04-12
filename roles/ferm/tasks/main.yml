@@ -20,14 +20,12 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/ferm.conf
-  notify: reload ferm
 
 - name: ferm config for final REJECTs
   notify: reload ferm
   template:
     src: 99-REJECT.conf
     dest: /etc/ferm/conf.d/99-REJECT.conf
-  notify: reload ferm
 
 - name: Enable ferm service
   notify: reload ferm
