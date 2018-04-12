@@ -54,14 +54,6 @@
   template: src=2x-tap.netdev.j2 dest=/etc/systemd/network/2{{ item.0 }}-tap-{{ item.1 }}.netdev
   with_indexed_items: "{{ networkd_tap_devices }}"
 
-- name: Domain configs
-  notify: Restart networkd
-  include_tasks: per_domain.yml
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  when: domains is defined
-
 - name: Enable dns resolving with systemd-resolved
   register: enableresolved
   file: src=/run/systemd/resolve/resolv.conf dest=/etc/resolv.conf state=link force=yes
@@ -76,3 +68,4 @@
   # would remove their already applied configuration. networkd does not perceive
   # the removed configuration and would not apply it's own. This would cause connection
   # loss. So we wait until the next reboot, to let networkd do the whole networking.
+
