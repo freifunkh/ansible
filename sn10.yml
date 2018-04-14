@@ -60,7 +60,6 @@
     - mesh_fastd_mac: "88:E6:40:20:A0:01"
     - mesh_fastd_listen_on: [ "173.212.248.190", "2a02:c207:3002:2600::a001" ]
     - mesh_fastd_port: 10000
-    - git_addr: ssh://git@git.ffh.zone
 
     - stats_pings:
       - host: 8.8.8.8

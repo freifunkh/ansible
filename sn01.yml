@@ -66,7 +66,6 @@
     - mesh_fastd_mac: "88:E6:40:20:10:01"
     - mesh_fastd_listen_on: [ "148.251.126.250", "2a01:4f8:210:2230::1001" ]
     - mesh_fastd_port: 10000
-    - git_addr: ssh://git@git.ffh.zone
     - firewall_open_ports_tcp: [1337]
     - firewall_open_ports_udp: [10000]
     - firewall_open_ports_tcp_by_iface:

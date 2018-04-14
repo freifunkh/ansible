@@ -45,8 +45,6 @@
         gateway6: fe80::1
         dns_server: [213.133.98.98, 8.8.8.8]
 
-    - git_addr: ssh://git@git.ffh.zone
-
     - stats_pings:
       - host: 8.8.8.8
         name: google-dns

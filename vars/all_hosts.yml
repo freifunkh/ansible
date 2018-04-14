@@ -1,6 +1,5 @@
 - firewall_ssh_ports:
-  # Since we use both ports for now depending on the host. We open both ports
-  # on all machines to not lock out ourself.
+  # DEPRECATED. only used with simple_firewall
   - 22
   - 1337
 - exitnodes:
@@ -22,6 +21,7 @@
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: mail.ffh.zone
+- git_addr: ssh://git@git.ffh.zone
 - journald_watch_enabled: true
 - journald_watch_mailto: "monitoring@hannover.freifunk.net"
 - journald_watch_filter_regexes:
