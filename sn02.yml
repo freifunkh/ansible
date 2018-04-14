@@ -5,7 +5,7 @@
     - { name: ferm, tags: ferm }
     - { name: supernode, tags: supernode }
     - { name: networkd, tags: networkd }
-    - { name: reboot, tags: reboot }
+    # - { name: reboot, tags: reboot }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
@@ -35,6 +35,8 @@
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
+    - legacy_dom0: true
+
     - networkd_configures:
       - iface: eth0
         addresses:
@@ -43,9 +45,6 @@
         gateway6: fe80::1
         dns_server: [213.133.98.98, 8.8.8.8]
 
-    - mesh_fastd_mac: "88:E6:40:20:20:01"
-    - mesh_fastd_listen_on: [ "195.201.97.8", "2a01:4f8:1c0c:7149::2001" ]
-    # - mesh_fastd_port: 10000
     - git_addr: ssh://git@git.ffh.zone
 
     - stats_pings:
