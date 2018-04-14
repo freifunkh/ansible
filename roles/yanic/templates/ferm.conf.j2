@@ -1,7 +1,7 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
-      proto udp dport (10002) ACCEPT;
+      proto udp dport ({{ yanic_port | default(10002) }}) ACCEPT;
     }
   }
 }
