@@ -75,8 +75,6 @@
         remote_outer_ip: 173.212.248.190
         local_outer_ip: 81.3.6.94
 
-    - reboot_on_kernelpanic: true
-
     - firewall_mssfix: 1330
     - firewall_open_ports_tcp: [1337]
 

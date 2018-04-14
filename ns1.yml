@@ -29,8 +29,6 @@
         gateway4: 37.120.176.1
         dns_server: [8.8.8.8, 8.8.4.4]
 
-    - reboot_on_kernelpanic: true
-
     - dns_authoritative_nameserver:
       - nameserver: "ns1.fnorden.net."
       - nameserver: "ns2.fnorden.net."

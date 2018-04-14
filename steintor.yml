@@ -68,5 +68,3 @@
 
     - firewall_nat4_on_interfaces: ["eth0"]
     - firewall_conntrack_table_size: 1048576
-
-    - reboot_on_kernelpanic: true

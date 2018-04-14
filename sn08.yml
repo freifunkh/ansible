@@ -174,8 +174,6 @@
 
     - stats_bpfcountd_interfaces: ['bat0']
 
-    - reboot_on_kernelpanic: true
-
     - babeld_interfaces: ['eth1']
 
     - firewall_alternate_routingtables_sh_disabled: true
