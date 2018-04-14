@@ -22,7 +22,6 @@
     - { name: stats_batches, tags: stats_batches }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
-    - { name: gatemon, tags: gatemon }
     - { name: admin, tags: admin }
     - { name: cron-apt, tags: cron-apt }
   vars_files:
@@ -222,7 +221,3 @@
         job: sn03
 
     - stats_bpfcountd_interfaces: ['bat0']
-
-    - gatemon_name: 'sn03'
-    - gatemon_provider: 'Hetzner'
-    - gatemon_token: 'Oag8F6phfvcRjOfMw2rYzqDJK1MNzJlz3ZiTkQLY'
