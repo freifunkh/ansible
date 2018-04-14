@@ -31,7 +31,6 @@
     mesh_fastd_iface: "mesh_fastd_{{ domain.id }}"
     mesh_fastd_port: "{{ 10000 + domain.id | int }}"
     mesh_fastd_batdev: "{{ domain.id }}"
-    mesh_fastd_mac: "{{ ':'.join(mesh_fastd_mac.split(':')[0:5] + ['%02d' % domain.id | int]) }}"
 
 - name: Generate fastd config
   template:
