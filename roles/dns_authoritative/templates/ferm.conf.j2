@@ -1,0 +1,8 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      proto (udp) dport (53) ACCEPT;
+      proto (tcp) dport (53) ACCEPT;
+    }
+  }
+}
