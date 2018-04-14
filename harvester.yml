@@ -13,7 +13,6 @@
     - { name: nginx, tags: nginx }
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
-    - { name: misc, tags: misc }
   vars_files:
       - vars/all_hosts.yml
   vars:

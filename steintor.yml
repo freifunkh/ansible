@@ -11,7 +11,6 @@
     - { name: admin, tags: admin }
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
-    - { name: misc, tags: misc }
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:

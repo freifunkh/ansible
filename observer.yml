@@ -6,7 +6,6 @@
     - { name: nginx, tags: nginx }
     - { name: admin, tags: admin }
     - { name: cron-apt, tags: cron-apt }
-    - { name: misc, tags: misc }
   vars_files:
       - vars/all_hosts.yml
   vars:

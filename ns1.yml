@@ -10,7 +10,6 @@
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
-    - { name: misc, tags: misc }
     - { name: postfix, tags: postfix }
   vars_files:
       - vars/dns-external.yml
