@@ -1,0 +1,15 @@
+[Unit]
+Description=For Easy Rule Making Firewall
+Wants=network.target
+Before=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/ferm /etc/ferm/ferm.conf
+ExecReload=/usr/sbin/ferm /etc/ferm/ferm.conf
+ExecStop=/usr/sbin/ferm -F /etc/ferm/ferm.conf
+
+[Install]
+WantedBy=multi-user.target
+
