@@ -32,10 +32,8 @@
     src: ferm.service.j2
     dest: /etc/systemd/system/ferm.service
 
+# Obviously a workaround, but neither the systemd 
+# nor the service module is able to enable the service.
 - name: Enable ferm service
-  notify: reload ferm
-  systemd:
-    name: ferm
-    enabled: yes
-    state: started
+  command: systemctl enable ferm
 
