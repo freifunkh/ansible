@@ -178,6 +178,5 @@
     - reboot_on_kernelpanic: true
 
     - babeld_interfaces: ['eth1']
-    - babeld_supernode: true
 
     - firewall_alternate_routingtables_sh_disabled: true

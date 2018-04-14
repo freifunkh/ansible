@@ -81,4 +81,3 @@
     - reboot_on_kernelpanic: true
 
     - babeld_interfaces: [gre-leintor]
-    - babeld_supernode: true
