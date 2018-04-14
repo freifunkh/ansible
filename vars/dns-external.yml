@@ -46,8 +46,6 @@
           "babelnetz.ffh.zone. IN NS nsbabel.fnorden.net.",
           "harvester.ffh.zone. IN A 88.198.66.29",
           "harvester.ffh.zone. IN AAAA 2a01:4f8:140:430a::101",
-          "status.ffh.zone. IN A 88.198.66.29",
-          "status.ffh.zone. IN AAAA 2a01:4f8:140:430a::101",
           "observer.ffh.zone. IN A 37.120.178.19",
           "observer.ffh.zone. IN AAAA 2a03:4000:6:82c8::1",
           "observer.ffh.zone. IN MX 1 observer.ffh.zone.",
