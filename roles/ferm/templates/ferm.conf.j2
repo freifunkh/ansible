@@ -24,8 +24,11 @@ domain (ip ip6) {
             proto tcp dport ssh ACCEPT;
             proto tcp dport 1337 ACCEPT;
 
+{%if legacy_dom0 == true %}
+            interface (bat0) jump MESH_INPUT;
+{% endif %}
 {%if domains is defined %}
-            interface (bat0 {% for d in domains %}bat{{d.id}} {% endfor %}) jump MESH_INPUT;
+            interface ({% for d in domains %}bat{{d.id}} {% endfor %}) jump MESH_INPUT;
 {% endif %}
         }
         chain OUTPUT {
