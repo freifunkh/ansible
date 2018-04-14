@@ -3,6 +3,7 @@
 - hosts: ns1
   roles:
     - { name: networkd, tags: networkd }
+    - { name: ferm, tags: ferm }
     - { role: dns_authoritative, tags: dns_authoritative }
     - { role: dns_zonenodes, tags: dns_zonenodes }
     - { name: simple_mail, tags: simple_mail }
