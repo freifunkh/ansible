@@ -1,4 +1,5 @@
 ---
+legacy_dom0: true
 dhcp_interface: "bat0"
 dhcp_default_leasetime: 600
 dhcp_max_leasetime: 7200

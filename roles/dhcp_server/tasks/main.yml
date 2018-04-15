@@ -17,6 +17,7 @@
   template:
     src: bat0.conf.j2
     dest: /etc/dhcp/bat0.conf
+  when: legacy_dom0 == true
 
 - name: Domain configs
   notify: Restart isc-dhcp-server

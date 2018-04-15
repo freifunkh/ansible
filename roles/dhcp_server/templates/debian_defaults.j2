@@ -14,5 +14,5 @@
 
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
-INTERFACESv4="bat0{% for d in domains | default( [] ) %} bat{{ d.id }}{% endfor %}"
+INTERFACESv4="{% if legacy_dom0 == true %}bat0{% endif %}{% for d in domains | default( [] ) %} bat{{ d.id }}{% endfor %}"
 INTERFACESv6=""

@@ -8,7 +8,9 @@ max-lease-time {{ dhcp_max_leasetime}};
 
 log-facility local7;
 
+{% if legacy_dom0 == true %}
 include "/etc/dhcp/bat0.conf";
+{% endif %}
 {% for domain in domains | default( [] ) %}
 include "/etc/dhcp/bat{{ domain.id }}.conf";
 {% endfor %}
