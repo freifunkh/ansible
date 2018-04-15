@@ -1,3 +1,4 @@
+{% if legacy_dom0 == true %}
 interface bat0
 {
  AdvSendAdvert on;
@@ -17,9 +18,9 @@ interface bat0
  };
 
 };
+{% endif %}
 
 {% for domain in domains | default( [] ) %}
-
 interface bat{{ domain.id }}
 {
  AdvSendAdvert on;
@@ -50,4 +51,5 @@ interface bat{{ domain.id }}
  };
 
 };
+
 {% endfor %}
