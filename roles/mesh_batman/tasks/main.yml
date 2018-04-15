@@ -63,6 +63,7 @@
   service: name=fastd@mesh_fastd state=restarted
   when: installedversion|changed and bat0_exists.stat.exists
 
+# SMELL: Should not depend on bat0 (legacy_dom0 may be false)
 - name: Restart domain fastds
   service: name=fastd@mesh_fastd_{{ domain.id }} state=restarted
   with_items: "{{ domains }}"
