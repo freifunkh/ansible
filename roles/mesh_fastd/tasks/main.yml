@@ -11,6 +11,7 @@
 
 - name: Generate config for dom0
   include_tasks: dom0.yml
+  when: legacy_dom0 == true
 
 - name: Domain configs
   include_tasks: per_domain.yml

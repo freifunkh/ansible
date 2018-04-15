@@ -1,4 +1,5 @@
 ---
+legacy_dom0: true
 mesh_fastd_iface: mesh_fastd
 mesh_fastd_port: 10000
 mesh_fastd_peerlimit: 150

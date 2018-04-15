@@ -1,7 +1,9 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
+{% if legacy_dom0 == true %}
       proto udp dport (10000) ACCEPT;
+{% endif %}
 {% for domain in domains | default( [] ) %}
       proto udp dport ({{ 10000 + domain.id | int  }}) ACCEPT;
 {% endfor %}
