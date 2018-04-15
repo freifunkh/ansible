@@ -21,7 +21,7 @@
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: mail.ffh.zone
-- git_addr: ssh://git@git.ffh.zone
+- git_addr: ssh://git@git.ffh.zone:1337
 - reboot_on_kernelpanic: true
 - journald_watch_enabled: true
 - journald_watch_mailto: "monitoring@hannover.freifunk.net"
