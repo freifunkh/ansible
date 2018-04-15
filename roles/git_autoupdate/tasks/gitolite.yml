@@ -3,7 +3,7 @@
 - name: Locally checkout gitolite repo
   local_action: git 
   args:
-    repo: ssh://git@git.ffh.zone:1337/gitolite-admin.git
+    repo: {{ git_addr }}/gitolite-admin.git
     dest: /tmp/{{ servername }}/gitolite
     accept_hostkey: yes
 

@@ -33,7 +33,7 @@
   become: yes
   become_user: auto
   git: >
-    repo=ssh://git@git.ffh.zone:1337/py-respondd
+    repo={{ git_addr }}/py-respondd
     dest=/opt/py-respondd
     accept_hostkey=true
   register: code

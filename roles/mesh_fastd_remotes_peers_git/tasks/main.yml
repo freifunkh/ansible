@@ -10,7 +10,7 @@
   become: yes
   become_user: auto
   git:
-    repo: "{{ git_addr }}:1337/peers"
+    repo: "{{ git_addr }}/peers"
     dest: /etc/fastd/peers
     accept_hostkey: true
 
