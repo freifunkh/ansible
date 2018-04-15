@@ -1,15 +1,8 @@
 ---
 
-- name: Enable backbone remotes
-  lineinfile:
-    dest: /etc/fastd/mesh_fastd/remotes.conf
-    line: "include \"backbone.conf\";"
-
-- name: Install backbone remotes file
-  notify: Restart mesh_fastd
-  template:
-    dest: "/etc/fastd/mesh_fastd/backbone.conf"
-    src: "backbone.conf.j2"
+- name: Enable dom0 backbone config
+  include_tasks: dom0.yml
+  when: legacy_dom0 == true
 
 - name: Domain configs
   include_tasks: per_domain.yml

@@ -3,7 +3,7 @@
 - name: Create the peers directory
   file:
     state: directory
-    dest: /etc/fastd/mesh_fastd/peers
+    dest: /etc/fastd/peers
     owner: auto
 
 - name: Clone the peers git
@@ -11,7 +11,7 @@
   become_user: auto
   git:
     repo: "{{ git_addr }}:1337/peers"
-    dest: /etc/fastd/mesh_fastd/peers
+    dest: /etc/fastd/peers
     accept_hostkey: true
 
 - name: Allow restarting the fastd instance for user auto
@@ -26,22 +26,13 @@
     minute: "*/5"
     job: >
       /home/auto/autoupdate.sh
-      /etc/fastd/mesh_fastd/peers
+      /etc/fastd/peers
       && (sudo /usr/bin/killall -HUP fastd
       || echo "Reload of mesh_fastd instance failed")
 
-- name: Enable peers-git remotes in fastd
-  notify: Restart mesh_fastd
-  blockinfile:
-    dest: /etc/fastd/mesh_fastd/remotes.conf
-    marker: "# {mark} PEERS GIT (ANSIBLE)"
-    content: |
-     peer group "peers-grp" {
-        {% if mesh_fastd_peer_limit is defined %}
-        peer limit {{ mesh_fastd_peer_limit }};
-        {% endif %}
-        include peers from "peers";
-      }
+- name: dom0 peers config
+  include_tasks: dom0.yml
+  when: legacy_dom0 == true
 
 - name: Domain configs
   include_tasks: per_domain.yml

@@ -1,5 +1,5 @@
 
-- name: Enable backbone remotes
+- name: Enable backbone remotes (dom {{ domain.id }})
   lineinfile:
     dest: /etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf
     line: "include \"backbone.conf\";"
