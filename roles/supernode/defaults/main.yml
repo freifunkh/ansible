@@ -1,3 +1,4 @@
 ---
 # -1 means the default value of "nf_conntrack_buckets value * 4"
 firewall_conntrack_table_size: -1
+legacy_dom0: true
