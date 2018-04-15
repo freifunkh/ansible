@@ -7,9 +7,6 @@
     marker: "# {mark} PEERS GIT (ANSIBLE)"
     content: |
      peer group "peers-grp" {
-        {% if mesh_fastd_peer_limit is defined %}
-        peer limit {{ mesh_fastd_peer_limit }};
-        {% endif %}
         include peers from "peers";
       }
 
