@@ -2,6 +2,7 @@
 
 - name: Restart mesh_fastd
   service: name=fastd@mesh_fastd state=restarted
+  when: legacy_dom0 == true
 
 - name: Restart domain fastds
   service: name=fastd@mesh_fastd_{{ domain.id }} state=restarted
