@@ -1,2 +1,3 @@
 ---
 gateway_announcement_enabled: true
+legacy_dom0: true
