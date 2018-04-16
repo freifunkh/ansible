@@ -154,13 +154,3 @@
         name: google-dns
       - host: 100.101.1.1
         name: internetz-me
-
-    - stats_fastd_sockets:
-      - name: mesh_fastd
-        path: /var/run/fastd.mesh_fastd.sock
-
-    - stats_pushgateway:
-        host: "[fdca:ffee:8::108]:9091"
-        job: sn01
-
-    - stats_bpfcountd_interfaces: ['bat0']

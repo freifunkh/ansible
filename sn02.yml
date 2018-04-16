@@ -51,14 +51,4 @@
       - host: 100.101.2.1
         name: internetz-me
 
-    - stats_fastd_sockets:
-      - name: mesh_fastd
-        path: /var/run/fastd.mesh_fastd.sock
-
-    - stats_pushgateway:
-        host: "[fdca:ffee:8::108]:9091"
-        job: sn02
-
-    - stats_bpfcountd_interfaces: ['bat0']
-
     - babeld_interfaces: ['gre-aegidientor']

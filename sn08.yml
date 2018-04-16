@@ -164,16 +164,6 @@
       - host: 100.103.8.1
         name: leintor
 
-    - stats_fastd_sockets:
-      - name: mesh_fastd
-        path: /var/run/fastd.mesh_fastd.sock
-
-    - stats_pushgateway:
-        host: "[fdca:ffee:8::108]:9091"
-        job: sn08
-
-    - stats_bpfcountd_interfaces: ['bat0']
-
     - babeld_interfaces: ['eth1']
 
     - firewall_alternate_routingtables_sh_disabled: true
