@@ -25,3 +25,17 @@
 - name: Remove autostart of generic fastd instance on boot
   service: name=fastd enabled=no
 
+- name: Remove legacy init.d file
+  file: path=/etc/init.d/fastd state=absent
+
+- name: Install own service file fastd@.service
+  template: src=fastd@.service.j2 dest=/etc/systemd/system/fastd@.service
+  register: servicefile
+
+- name: Install own service file fastd.service
+  template: src=fastd.service.j2 dest=/etc/systemd/system/fastd.service
+  register: servicefile2
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+  when: servicefile|changed or servicefile2|changed
