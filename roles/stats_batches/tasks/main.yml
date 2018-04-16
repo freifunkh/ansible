@@ -10,19 +10,21 @@
     name: auto
     system: yes
 
+- name: Create stats scripts directory
+  file:
+    path: "{{ stats_batch_install_path }}/handler"
+    state: directory
+
+
 - name: Install the shell scripts
-  git:
-    repo: https://github.com/freifunkh/prometheus-sn
-    dest: "{{ stats_batch_install_path }}"
+  copy:
+    src: handler/
+    dest: "{{ stats_batch_install_path }}/handler/"
 
 - name: Generate custom gen_stats.sh script
   template:
     src: stats.sh.j2
     dest: "{{ stats_batch_install_path }}/gen_stats.sh"
-
-- name: Make stats.sh executable
-  file:
-    path: "{{ stats_batch_install_path }}/gen_stats.sh"
     mode: "0755"
 
 - name: Automatically push stats
@@ -33,44 +35,20 @@
     job: >
       sh {{ stats_batch_install_path }}/gen_stats.sh |
       curl -s -X POST --data-binary @-
-      {{ stats_pushgateway.host }}/metrics/job/{{ stats_pushgateway.job }}
+      {{ stats_pushgateway.host }}/metrics/job/{{ servername }}
 
-- name: Install build dependencies
-  apt:
-    name: "{{ item }}"
-  with_items: ['build-essential', 'libpcap-dev']
-  when: stats_bpfcountd_interfaces | length > 0
-
-- name: Download bpfcountd
-  register: updatebpfcountd
-  git:
-    repo: https://github.com/lemoer/bpfcountd
-    dest: /opt/bpfcountd
-  when: stats_bpfcountd_interfaces | length > 0
-
-- name: Build bpfcountd
-  notify: Restart bpfcountd
-  make:
-    chdir: /opt/bpfcountd
-    target: bpfcountd
-  when: stats_bpfcountd_interfaces | length > 0
-
-- name: Install servicefile
+- name: Install bandwidth test script
   template:
-    src: bpfcountd@.service.j2
-    dest: /etc/systemd/system/bpfcountd@.service
-  when: stats_bpfcountd_interfaces | length > 0
+    src: traffic.sh.j2
+    dest: /home/auto/traffic.sh
+    mode: 755
 
-- name: Generate filter file
-  notify: Restart bpfcountd
-  template:
-    src: filters.j2
-    dest: /etc/bpfcountd-filters
+- name: Install cronjob for bandwidth test scripts
+  cron:
+    name: "generate traffic statistic for fastd foobar"
+    minute: "*/5"
+    user: root
+    job: /home/auto/traffic.sh 300
 
-- name: Enable bpfcountd on interfaces
-  service:
-    name: bpfcountd@{{ item }}
-    state: started
-    enabled: yes
-  with_items: "{{ stats_bpfcountd_interfaces }}"
-  when: stats_bpfcountd_interfaces | length > 0
+- name: Install bpfcountd stuff
+  include_tasks: bpfcountd.yml

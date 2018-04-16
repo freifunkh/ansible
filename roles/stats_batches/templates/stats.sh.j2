@@ -9,13 +9,19 @@ ping -c 5 -i 0.2 {{ test.host }} | sh format_ping.sh "{{ test.name }}"
 {% endfor %}
 
 # fastd
-{% for socket in stats_fastd_sockets %}
-python fastd.py {{ socket.path }} {{ socket.name }}
+{% if legacy_dom0 == true %}
+python fastd.py /var/run/fastd.mesh_fastd.sock mesh_fastd
+{% endif %}
+{% for domain in (domains | default( [] ) ) %}
+python fastd.py /var/run/fastd.mesh_fastd_{{ domain.id }}.sock mesh_fastd_{{ domain.id }}
 {% endfor %}
 
 # bpfcountd
-{% for interface in stats_bpfcountd_interfaces %}
-sh bpfcountd.sh /var/run/bpfcountd.{{ interface }}.sock
+{% if legacy_dom0 == true %}
+sh bpfcountd.sh /var/run/bpfcountd.bat0.sock
+{% endif %}
+{% for domain in (domains | default( [] ) ) %}
+sh bpfcountd.sh /var/run/bpfcountd.bat{{ domain.id }}.sock
 {% endfor %}
 
 sh simple_file.sh curr_bandwidth /tmp/curr_bandwidth

@@ -2,3 +2,4 @@
 stats_fastd_sockets: []
 stats_pings: []
 stats_bpfcountd_interfaces: []
+legacy_dom0: true
