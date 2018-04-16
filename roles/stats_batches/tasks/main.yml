@@ -37,18 +37,5 @@
       curl -s -X POST --data-binary @-
       {{ stats_pushgateway.host }}/metrics/job/{{ servername }}
 
-- name: Install bandwidth test script
-  template:
-    src: traffic.sh.j2
-    dest: /home/auto/traffic.sh
-    mode: 755
-
-- name: Install cronjob for bandwidth test scripts
-  cron:
-    name: "generate traffic statistic for fastd foobar"
-    minute: "*/5"
-    user: root
-    job: /home/auto/traffic.sh 300
-
 - name: Install bpfcountd stuff
   include_tasks: bpfcountd.yml

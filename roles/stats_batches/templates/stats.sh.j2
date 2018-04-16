@@ -23,5 +23,3 @@ sh bpfcountd.sh /var/run/bpfcountd.bat0.sock
 {% for domain in (domains | default( [] ) ) %}
 sh bpfcountd.sh /var/run/bpfcountd.bat{{ domain.id }}.sock
 {% endfor %}
-
-sh simple_file.sh curr_bandwidth /tmp/curr_bandwidth
