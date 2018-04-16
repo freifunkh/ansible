@@ -1,5 +1,8 @@
 ---
 
+- name: Clean local checkout directory
+  local_action: command rm -Rf /tmp/{{ servername }}/gitolite
+ 
 - name: Locally checkout gitolite repo
   local_action: git 
   args:
