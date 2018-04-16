@@ -2,7 +2,7 @@
 
 - name: Install dependencies
   apt: name={{ item }}
-  with_items: ["git", "curl"]
+  with_items: ["git", "curl", "netcat-openbsd"]
 
 - name: Create auto user
   register: createuser
