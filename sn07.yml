@@ -25,6 +25,7 @@
     - { name: iperf3, tags: iperf3 }
   vars_files:
     - vars/all_hosts.yml
+    - vars/secrets.yml
   vars:
     - servername: sn07
     - sn: 7

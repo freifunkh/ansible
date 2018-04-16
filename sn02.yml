@@ -28,6 +28,7 @@
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
+    - vars/secrets.yml
   vars:
     - servername: sn02
     - sn: 2

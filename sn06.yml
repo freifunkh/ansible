@@ -26,6 +26,7 @@
     - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
+    - vars/secrets.yml
   vars:
     - servername: sn06
     - sn: 6

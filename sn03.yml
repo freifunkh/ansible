@@ -26,6 +26,7 @@
     - { name: cron-apt, tags: cron-apt }
   vars_files:
     - vars/all_hosts.yml
+    - vars/secrets.yml
   vars:
     - servername: sn03
     - sn: 3
