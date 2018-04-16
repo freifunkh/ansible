@@ -10,8 +10,10 @@ server:
   interface: 127.0.0.1
   interface: ::1
 
+{% if legacy_dom0 == true %}
   interface: 10.2.{{ sn * 10 }}.1
   interface: fdca:ffee:8::{{ "%x" | format(sn) }}001
+{% endif %}
 
 {% for domain in domains | default( [] ) %}
   interface: fdca:ffee:8:{{ domain.id }}::1
