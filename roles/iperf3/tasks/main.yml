@@ -14,8 +14,11 @@
 - name: Install iperf3
   apt: name=iperf3
 
-- name: Start iperf3 daemon on boot
-  service: name=iperf3 enabled=yes state=started
+- name: Enable iperf3 daemon on boot
+  command: systemctl enable iperf3
+
+- name: Start iperf3 daemon
+  command: systemctl start iperf3
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed

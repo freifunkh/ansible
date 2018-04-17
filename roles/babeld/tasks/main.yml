@@ -38,12 +38,16 @@
     dest: /etc/default/babeld
   when: ansible_service_mgr != 'systemd'
 
-- name: Start service
-  systemd:
-    name: babeld
-    state: started
-    daemon_reload: yes
-    enabled: yes
+- name: Systemd daemon-reload
+  command: systemctl daemon-reload
+  when: ansible_service_mgr == 'systemd'
+
+- name: Enable systemd service
+  command: systemctl enable babeld
+  when: ansible_service_mgr == 'systemd'
+
+- name: Start systemd service
+  command: systemctl start babeld
   when: ansible_service_mgr == 'systemd'
 
 - name: Start service

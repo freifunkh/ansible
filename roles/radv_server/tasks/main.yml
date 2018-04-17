@@ -15,7 +15,7 @@
     # Remove this when debian gets a real service file
 
 - name: Enable radvd
-  service: name=radvd enabled=yes
+  command: systemctl enable radvd
 
 - name: Start radvd
-  service: name=radvd state=started
+  command: systemctl start radvd

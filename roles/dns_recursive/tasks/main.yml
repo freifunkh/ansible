@@ -27,4 +27,4 @@
   notify: reload ferm
 
 - name: Enable unbound
-  service: name=unbound enabled=yes
+  command: systemctl enable unbound

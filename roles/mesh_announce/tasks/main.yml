@@ -53,12 +53,14 @@
     dest: /etc/ferm/conf.d/50-mesh_announce.conf
   notify: reload ferm
 
-- name: enable respondd by service
-  become: true
-  service:
-    name: respondd.service
-    enabled: yes
-    state: started
+- name: Systemd daemon-reload
+  command: systemctl daemon-reload
+
+- name: Enable systemd service
+  command: systemctl enable respondd
+
+- name: Start systemd service
+  command: systemctl start respondd
 
 - name: restart respondd if something changed
   when: code.changed

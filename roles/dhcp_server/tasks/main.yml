@@ -41,7 +41,7 @@
   notify: reload ferm
 
 - name: Enable isc-dhcp-server
-  service: name=isc-dhcp-server enabled=yes
+  command: systemctl enable isc-dhcp-server
 
 - name: Start isc-dhcp-server
-  service: name=isc-dhcp-server state=started
+  command: systemctl start isc-dhcp-server
