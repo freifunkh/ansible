@@ -5,7 +5,8 @@
     - { name: ferm, tags: ferm }
     - { name: supernode, tags: supernode }
     - { name: networkd, tags: networkd }
-    # - { name: reboot, tags: reboot }
+    # Enable reboot role on initial roleout.
+    - { name: reboot, tags: reboot }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
@@ -25,6 +26,8 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: node_exporter, tags: node_exporter }
     - { name: babeld, tags: babeld }
+    # Enable reboot role on initial roleout.
+    - { name: reboot, tags: reboot }
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
@@ -36,7 +39,7 @@
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
-    - legacy_dom0: false
+    - legacy_dom0: true 
 
     - networkd_configures:
       - iface: eth0

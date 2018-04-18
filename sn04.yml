@@ -26,6 +26,8 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: node_exporter, tags: node_exporter }
     - { name: babeld, tags: babeld }
+    # Enable reboot role on initial roleout.
+    - { name: reboot, tags: reboot }
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
@@ -42,7 +44,7 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 2a01:4f8:1c1c:10fe::2001/64
+          - 2a01:4f8:1c1c:10fe::4001/64
         dhcp: true
         gateway6: fe80::1
         dns_server: [213.133.98.98, 8.8.8.8]
