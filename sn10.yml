@@ -69,3 +69,5 @@
         name: internetz-me
 
     - babeld_interfaces: [gre-leintor]
+
+    - radv_announce_default: true
