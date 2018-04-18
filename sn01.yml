@@ -26,11 +26,6 @@
   vars_files:
     - vars/all_hosts.yml
     - vars/secrets.yml
-  pre_tasks:
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: leintor
-      tags: always
   vars:
     - servername: sn01
     - sn: 1
