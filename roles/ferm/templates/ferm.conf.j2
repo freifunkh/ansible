@@ -24,10 +24,10 @@ domain (ip ip6) {
             proto tcp dport ssh ACCEPT;
             proto tcp dport 1337 ACCEPT;
 
-{%if legacy_dom0 == true %}
+{%if sn is defined && legacy_dom0 == true %}
             interface (bat0) jump MESH_INPUT;
 {% endif %}
-{%if domains is defined %}
+{%if sn is defined && domains is defined %}
             interface ({% for d in domains %}bat{{d.id}} {% endfor %}) jump MESH_INPUT;
 {% endif %}
         }
@@ -35,15 +35,15 @@ domain (ip ip6) {
             policy ACCEPT;
 
             # connection tracking
-            #mod state state INVALID DROP;
+            mod state state INVALID DROP;
             mod state state (ESTABLISHED RELATED) ACCEPT;
         }
         chain FORWARD {
             policy DROP;
 
             # connection tracking
-            # mod state state INVALID DROP;
-            # mod state state (ESTABLISHED RELATED) ACCEPT;
+            mod state state INVALID DROP;
+            mod state state (ESTABLISHED RELATED) ACCEPT;
         }
 
 	chain MESH_INPUT {
