@@ -74,3 +74,5 @@
 - dns_recursive_allowed_private_rdns_zones:
   - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 - stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
+- batman_build_from_source: true
+- batman_build_version: v2018.1
