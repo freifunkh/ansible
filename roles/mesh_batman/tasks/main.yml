@@ -6,6 +6,7 @@
   with_items:
     - dkms
     - git
+    - linux-headers-amd64
   when: batman_build_from_source
 
 - name: Clone batman sources
@@ -13,6 +14,17 @@
     repo: https://git.open-mesh.org/batman-adv.git
     dest: /usr/src/batman-adv-{{ batman_build_version }}/
     version: "{{ batman_build_version }}"
+  when: batman_build_from_source
+
+- name: remove from dkms
+  command: dkms remove batman-adv/{{ batman_build_version }} --all
+
+- name: Reset batman
+  command: git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}
+  when: batman_build_from_source
+
+- name: Patch batman
+  shell: curl https://github.com/FreifunkVogtland/batman-adv/commit/83fea7fd23b97a3613b79d3be51959620a0c574a.patch | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
   when: batman_build_from_source
 
 - name: Add the dkms info to the source
@@ -30,6 +42,8 @@
 - name: Get dkms status for version {{ batman_build_version }}
   set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("noversion") }}"
   when: batman_build_from_source
+
+- debug: var=batman_version_status
 
 - name: Add version {{ batman_build_version }} to dkms
   command: "dkms add -m batman-adv -v {{ batman_build_version }}"
