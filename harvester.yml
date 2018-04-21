@@ -8,6 +8,7 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
