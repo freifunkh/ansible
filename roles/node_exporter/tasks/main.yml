@@ -139,6 +139,7 @@
   template: src={{item}} dest=/opt/node_exporter/{{item}} mode="775"
   with_items:
     - export_babeld.sh
+    - export_bpfcountd.sh
     - export_batman.sh
     - export_fastd.py
 
