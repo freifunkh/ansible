@@ -46,6 +46,16 @@ def cross(sp, dev):
             print_it('fastd_traffic_' + k + '_packets', tags, v['packets'])
 
 
+    print_it('fastd_connected', dict(type="supernode", dev=dev), len(list(peers)))
+
+    # count non supernodes
+    peers = json_res['peers'].values()
+    peers = filter(lambda p: not p['name'].startswith('sn'), peers)
+    peers = filter(lambda p: p['connection'] is not None, peers)
+
+    print_it('fastd_connected', dict(type="other", dev=dev), len(list(peers)))
+
+
 for sock in glob.glob('/var/run/fastd.*.sock'):
-	cross(sock, sock.replace('/var/run/fastd.', '').replace('.sock', ''))
+    cross(sock, sock.replace('/var/run/fastd.', '').replace('.sock', ''))
 
