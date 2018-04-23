@@ -24,8 +24,12 @@
   when: batman_build_from_source
 
 - name: Patch batman
-  shell: curl https://github.com/FreifunkVogtland/batman-adv/commit/83fea7fd23b97a3613b79d3be51959620a0c574a.patch | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
+  shell: curl {{ item }} | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
   when: batman_build_from_source
+  with_items:
+   - https://paste.irrelefant.net/einei4aN.txt
+   - https://paste.irrelefant.net/raaW8eej.txt
+   - https://paste.irrelefant.net/xoraza8E.txt
 
 - name: Add the dkms info to the source
   template:
