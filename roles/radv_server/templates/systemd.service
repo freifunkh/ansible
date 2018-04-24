@@ -4,6 +4,7 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
+ExecStartPre=/bin/sleep 10
 ExecStart=/usr/sbin/radvd --nodaemon --logmethod=stderr
 Restart=always
 RestartSec=5s
