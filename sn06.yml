@@ -2,31 +2,39 @@
 
 - hosts: sn06
   roles:
+    # General
+    - { name: ferm, tags: ferm }
     - { name: supernode, tags: supernode }
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
-    - { name: simple_firewall, tags: simple_firewall }
+    - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
+    - { name: babeld, tags: babeld }
     - { name: ssh_known_hosts, tags: ssh_known_hosts }
+    - { name: simple_mail, tags: simple_mail }
+    - { name: admin, tags: admin }
+    - { name: cron-apt, tags: cron-apt }
+    # Batman
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: mesh_announce, tags: mesh_announce }
+    # Stats, Monitoring, Logging
     - { name: radv_server, tags: radv_server }
     - { name: dns_recursive, tags: dns_recursive }
     - { name: dhcp_server, tags: dhcp_server }
     - { name: gateway_announcement, tags: gateway_announcement }
     - { name: stats_batches, tags: stats_batches }
-    - { name: simple_mail, tags: simple_mail }
-    - { name: journald, tags: journald }
-    - { name: iperf3, tags: iperf3 }
-    - { name: admin, tags: admin }
     - { name: node_exporter, tags: node_exporter }
-    - { name: mesh_announce, tags: mesh_announce }
-    - { name: cron-apt, tags: cron-apt }
-    - { name: babeld, tags: babeld }
+    - { name: iperf3, tags: iperf3 }
+    - { name: journald, tags: journald }
+    - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
+
   vars_files:
     - vars/all_hosts.yml
+    - vars/domains.yml
     - vars/secrets.yml
+
   vars:
     - servername: sn06
     - sn: 6
@@ -42,125 +50,10 @@
         gateway4: 173.249.5.1
         gateway6: fe80::1
         dns_server: [213.136.95.10, 213.136.95.11]
-      - iface: internetz-me
-        addresses:
-          - 100.101.6.2/24
-          - fdca::1/64
-      - iface: hostway
-        addresses:
-          - 100.103.6.2/24
-          - 2a02:790:ff:106::2/64   # transport ip
-      - iface: bat0
-        addresses:
-          - 10.2.60.1/16
-          - fdca:ffee:8::6001/64
-          - 2a02:790:ff:6::1/64
-        static_routes:
-          - dest: 10.2.0.0/16
-            table: 42
-          - dest: fdca:ffee:8::/64
-            table: 42
-          - dest: 2a02:790:ff:6::/64
-            table: 42
-        no_radv_accept: true
 
-    - networkd_gre_tunnels:
-      - name: internetz-me
-        lower_interface: eth0
-        remote_outer_ip: 178.32.215.75
-        local_outer_ip: 173.249.5.34
-      - name: hostway
-        lower_interface: eth0
-        remote_outer_ip: 81.3.6.94
-        local_outer_ip: 173.249.5.34
+    - babeld_interfaces: ['gre-leintor']
 
-    - networkd_tap_devices:
-      - mesh_fastd
-
-    - mesh_fastd_mac: "88:E6:40:20:60:01"
-    - firewall_open_ports_udp: [10000]
-    - firewall_allowed_forwards:
-      - between: bat0
-        and: internetz-me
-      - between: bat0
-        and: hostway
-
-    - firewall_open_ports_tcp: [1337]
-    - firewall_open_ports_udp_by_iface:
-      - port: 53
-        iface: bat0
-      - port: 67
-        iface: bat0
-      - port: 1001
-        iface: bat0
-
-    - firewall_nat4_on_interfaces: ["internetz-me", "hostway"]
-    - firewall_conntrack_table_size: 1048576
-    - firewall_alternative_routingtables:
-      - name: freifunk
-        when_packet_from: ["bat0", "internetz-me", "hostway"]
-        routes:
-          - dest_net: default
-            dest_if: hostway
-            via: 100.103.6.1
-          - dest_net: 10.2.0.0/16
-            dest_if: bat0
-          - dest_net: fdca:ffee:8::/64
-            dest_if: bat0
-
-    - firewall_open_ports_tcp_by_ip:
-      - port: 9100
-        ip4: "{{ stats_address }}"
-
-    - dhcp_interfaces: [bat0]
-    - dhcp_range:
-        from: 10.2.60.2
-        to: 10.2.69.254
-    - dhcp_options:
-        gateway: 10.2.60.1
-        dns_server: 10.2.60.1
-
-    - dns_recursive_listen_on:
-      - 127.0.0.1
-      - ::1
-      - 10.2.60.1
-      - fdca:ffee:8::6001
-    - dns_recursive_allowed_nets:
-      - 10.2.0.0/16
-      - fdca:ffee:8::/48
-      - 2a02:790:ff::/48
-    - dns_recursive_forwards:
-      - zone: "ffh.zone."
-        to:
-          - 37.120.176.252
-          - 2a03:4000:6:8277::1
-          - 216.218.131.2
-          - 2001:470:200::2
-          - 216.218.132.2
-          - 2001:470:300::2
-      - zone: "ffh."
-        to:
-          - 37.120.176.252
-          - 2a03:4000:6:8277::1
-      - zone: "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
-        to:
-          - 37.120.176.252
-          - 2a03:4000:6:8277::1
-          - 216.218.131.2
-          - 2001:470:200::2
-          - 216.218.132.2
-          - 2001:470:300::2
-    - dns_recursive_allowed_private_adresses:
-      - fdca:ffee:8::/48
-    - dns_recursive_allowed_private_domains:
-      - "ffh.zone."
-      - "ffh."
-
-    - radv_server_prefixes:
-      - fdca:ffee:8
-      - 2a02:790:ff
-    - radv_server_dns:
-      - fdca:ffee:8::6001
+    - legacy_dom0: true
 
     - stats_pings:
       - host: 8.8.8.8
@@ -168,4 +61,3 @@
       - host: 100.101.5.1
         name: internetz-me
 
-    - babeld_interfaces: ['hostway']
