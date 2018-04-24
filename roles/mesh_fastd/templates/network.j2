@@ -3,8 +3,8 @@ Name=bat{{ domain.id }}
 
 [Network]
 Address=10.{{ domain.id }}.{{ sn }}0.1/16
-Address=2a02:790:ff:{{ sn }}{{ domain.id }}::1/64
-Address=fdca:ffee:8:{{ domain.id }}::1/64
+Address=2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001/64
+Address=fdca:ffee:8:{{ domain.id }}::{{ "%x" | format(sn) }}001/64
 IPv6AcceptRouterAdvertisements=false
 
 [Link]
