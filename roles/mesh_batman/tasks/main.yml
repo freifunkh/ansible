@@ -16,8 +16,13 @@
     version: "{{ batman_build_version }}"
   when: batman_build_from_source
 
+- name: Test for existing batman-adv versions
+  register: dkms_batman_status
+  command: dkms status -m batman-adv/{{ batman_build_version }} | grep installed >/dev/null; echo $?
+
 - name: remove from dkms
   command: dkms remove batman-adv/{{ batman_build_version }} --all
+  when: dkms_batman_status == 0
 
 - name: Reset batman
   command: git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}
