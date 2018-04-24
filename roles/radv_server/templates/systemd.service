@@ -2,9 +2,16 @@
 Description=IPv6 Router Advertisement Daemon
 Requires=network-online.target
 After=network-online.target
+{% if legacy_dom0 == true %}
+After=sys-subsystem-net-devices-bat0.device
+Requires=sys-subsystem-net-devices-bat0.device
+{% endif %}
+{% if domains is defined %}
+After=sys-subsystem-net-devices-bat99.device
+Requires=sys-subsystem-net-devices-bat99.device
+{% endif %}
 
 [Service]
-ExecStartPre=/bin/sleep 10
 ExecStart=/usr/sbin/radvd --nodaemon --logmethod=stderr
 Restart=always
 RestartSec=5s
