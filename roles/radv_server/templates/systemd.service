@@ -7,8 +7,10 @@ After=sys-subsystem-net-devices-bat0.device
 Requires=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% if domains is defined %}
-After=sys-subsystem-net-devices-bat99.device
-Requires=sys-subsystem-net-devices-bat99.device
+{% for domain in domains %}
+After=sys-subsystem-net-devices-bat{{ domain.id }}.device
+Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+{% endfor %}
 {% endif %}
 
 [Service]
