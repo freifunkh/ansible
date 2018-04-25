@@ -16,3 +16,8 @@ type="dns",subtype="query";udp and port 53 and ((udp[11]&0x80) != 0x80 or (ip6[5
 type="dns",subtype="response";udp and port 53 and ((udp[11]&0x80) == 0x80 or (ip6[51]&0x80) == 0x80)
 type="ip6";ip6
 type="ipL";ip
+proto="udp"; udp
+proto="tcp",port="443";tcp and port 443
+proto="tcp",port="80";tcp and port 80
+proto="tcp",port="other";tcp and not (port 80 or port 443)
+proto="fastd";udp and portrange 10000-10100
