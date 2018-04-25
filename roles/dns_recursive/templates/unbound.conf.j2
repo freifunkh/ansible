@@ -16,8 +16,8 @@ server:
 {% endif %}
 
 {% for domain in domains | default( [] ) %}
-  interface: fdca:ffee:8:{{ domain.id }}::1
-  interface: 2a02:790:ff:{{ sn }}{{ domain.id }}::1
+  interface: fdca:ffee:8:{{ domain.id }}::{{ "%x" | format(sn) }}001
+  interface: 2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001
   interface: 10.{{ domain.id }}.{{ sn * 10 }}.1
 {% endfor %}
 
