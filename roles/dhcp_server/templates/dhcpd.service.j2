@@ -1,0 +1,21 @@
+[Unit]
+Description=ISC DHCP Server for IPv4 (dhcpd.conf)
+After=network.target
+ConditionPathExists=/etc/dhcp/dhcpd.conf
+{% if legacy_dom0 == true %}
+After=sys-subsystem-net-devices-bat0.device
+Requires=sys-subsystem-net-devices-bat0.device
+{% endif %}
+{% for domain in domains %}
+After=sys-subsystem-net-devices-bat{{ domain.id }}.device
+Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+{% endfor %}
+
+[Service]
+Environment="DHCPD_CONF=/etc/dhcp/dhcpd.conf"
+ExecStartPre=/usr/bin/touch /var/lib/dhcp/dhcpd.leases
+ExecStartPre=/usr/sbin/dhcpd -f -t -4 -q $OPTIONS -cf "$DHCPD_CONF"
+ExecStart=/usr/sbin/dhcpd -f -4 -q $OPTIONS -cf "$DHCPD_CONF"
+
+[Install]
+WantedBy=multi-user.target

@@ -27,12 +27,6 @@
     loop_var: domain
   when: domains is defined
 
-- name: Generate debian defaults
-  notify: Restart isc-dhcp-server
-  template:
-    src: debian_defaults.j2
-    dest: /etc/default/isc-dhcp-server
-
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
   template:
@@ -40,8 +34,28 @@
     dest: /etc/ferm/conf.d/50-dhcpd.conf
   notify: reload ferm
 
-- name: Enable isc-dhcp-server
-  command: systemctl enable isc-dhcp-server
+- name: Deploy systemd service file
+  template:
+    src: dhcpd.service.j2
+    dest: /etc/systemd/system/dhcpd.service
 
-- name: Start isc-dhcp-server
-  command: systemctl start isc-dhcp-server
+- name: Stop isc-dhcp-server via systemd
+  systemd:
+    name: isc-dhcp-server
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
+- name: Disable isc-dhcp-server sysv scripts
+  file:
+    path: /etc/init.d/isc-dhcp-server
+    state: absent
+
+- name: Reload systemd daemon
+  command: systemctl daemon-reload
+
+- name: Enable dhcpd
+  command: systemctl enable dhcpd
+
+- name: Start dhcpd
+  command: systemctl start dhcpd

@@ -7,14 +7,14 @@ off() {
 	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
 		echo off > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: off"
 	done
-	systemctl stop isc-dhcp-server
+	systemctl stop dhcpd
 }
 
 on() {
 	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
 		echo server > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: server"
 	done
-	systemctl start isc-dhcp-server
+	systemctl start dhcpd
 }
 
 # ensure that we announce the highest bandwidth
