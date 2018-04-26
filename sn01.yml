@@ -15,7 +15,6 @@
     - { name: dns_recursive, tags: dns_recursive }
     - { name: dhcp_server, tags: dhcp_server }
     - { name: gateway_announcement, tags: gateway_announcement }
-    - { name: stats_batches, tags: stats_batches }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }

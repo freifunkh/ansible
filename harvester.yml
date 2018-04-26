@@ -14,7 +14,6 @@
     - { name: nginx, tags: nginx }
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
-    - { name: stats_batches, tags: stats_batches }
     - { name: node_exporter, tags: node_exporter }
   vars_files:
       - vars/all_hosts.yml
