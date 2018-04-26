@@ -46,7 +46,7 @@ interface bat{{ domain.id }}
  prefix fdca:ffee:8:{{ domain.id }}::/64 {
  };
 
- RDNSS 2a02:790:ff:{{ sn }}{{ domain.id }}::1 {
+ RDNSS 2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001 {
   FlushRDNSS off;
  };
 
