@@ -10,9 +10,11 @@ IPv6AcceptRouterAdvertisements=false
 [Link]
 MACAddress=88:E6:40:ba:{{ "%x" | format(sn) }}0:02
 
+{% for i in range(0,10) %}
 [Route]
-Destination=10.0.0.0/8
+Destination=10.2.{{ sn }}{{ i }}.0/24
 Table=42
+{% endfor %}
 [Route]
 Destination=fdca:ffee:8::/48
 Table=42
