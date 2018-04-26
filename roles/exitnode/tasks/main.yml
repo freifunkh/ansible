@@ -1,51 +1,11 @@
+TODO: WORK IN PROGRESS - FINISH WORK, THEN TEST
 ---
 
-- name: Generate firewall config stanza for FORWARD (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.forward.conf.j2
-    dest: /etc/ferm/conf.d/50-forward.conf
+- name: Kernel modules stuff
+  include_tasks: kmod.yml
 
-- name: Install nf_conntrack kmod on boot
-  lineinfile: dest=/etc/modules line=nf_conntrack
+- name: Firewall stuff
+  include_tasks: ferm.yml
 
-- name: Install nf_conntrack_ipv4 kmod on boot
-  lineinfile: dest=/etc/modules line=nf_conntrack_ipv4
-
-- name: Install nf_conntrack_ipv6 kmod on boot
-  lineinfile: dest=/etc/modules line=nf_conntrack_ipv6
-
-- name: Install nf_conntrack_proto_gre kmod on boot
-  lineinfile: dest=/etc/modules line=nf_conntrack_proto_gre
-
-- name: Load nf_conntrack_proto_gre kmod
-  modprobe: name=nf_conntrack_proto_gre state=present
-
-- name: Load nf_conntrack_ipv6 kmod
-  modprobe: name=nf_conntrack_ipv6 state=present
-
-- name: Load nf_conntrack_ipv4 kmod
-  modprobe: name=nf_conntrack_ipv4 state=present
-
-- name: Adjust netfilter conntrack table size
-  sysctl:
-    name: net.netfilter.nf_conntrack_max
-    value: "{{ firewall_conntrack_table_size }}"
-    state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
-    sysctl_file: /etc/sysctl.d/20-conntrack.conf
-    reload: yes
-
-- name: Maybe activate forwarding 4 as kernel parameter
-  sysctl:
-    name: net.ipv4.conf.all.forwarding
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-forwarding.conf
-    reload: yes
-
-- name: Maybe activate forwarding 6 as kernel parameter
-  sysctl:
-    name: net.ipv6.conf.all.forwarding
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-forwarding.conf
-    reload: yes
-
+- name: sysctl stuff
+  include_tasks: sysctl.yml

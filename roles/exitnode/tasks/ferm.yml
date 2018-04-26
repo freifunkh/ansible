@@ -1,0 +1,7 @@
+---
+
+- name: Generate firewall config stanza for FORWARD (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.forward.conf.j2
+    dest: /etc/ferm/conf.d/50-FORWARD-gre.conf
