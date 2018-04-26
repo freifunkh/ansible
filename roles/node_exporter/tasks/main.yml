@@ -6,6 +6,9 @@
 # @see http://prometheus.io/docs/introduction/getting_started/
 #
 
+- name: Install bpfcountd stuff
+  include_tasks: bpfcountd.yml
+
 - name: ensure ca-certificates package
   apt:
     name: ca-certificates

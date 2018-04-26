@@ -36,6 +36,3 @@
       sh {{ stats_batch_install_path }}/gen_stats.sh |
       curl -s -X POST --data-binary @-
       {{ stats_pushgateway.host }}/metrics/job/{{ servername }}
-
-- name: Install bpfcountd stuff
-  include_tasks: bpfcountd.yml
