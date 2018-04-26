@@ -201,6 +201,7 @@
             - sn10.s.ffh.zone:9100
             - leintor.e.ffh.zone:9100
             - aegidientor.e.ffh.zone:9100
+            - harvester.ffh.zone:9100
 
     - prometheus_use_pushgateway: true
 
