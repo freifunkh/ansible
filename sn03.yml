@@ -190,10 +190,10 @@
           timeout: 30
           targets:
             - sn01.s.ffh.zone:9100
-            # - sn02.s.ffh.zone:9100
+            - sn02.s.ffh.zone:9100
             - sn03.s.ffh.zone:9100
-            # - sn04.s.ffh.zone:9100
-            # - sn05.s.ffh.zone:9100
+            - sn04.s.ffh.zone:9100
+            - sn05.s.ffh.zone:9100
             - sn06.s.ffh.zone:9100
             - sn07.s.ffh.zone:9100
             - sn08.s.ffh.zone:9100
