@@ -22,6 +22,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: node_exporter, tags: node_exporter }
     - { name: iperf3, tags: iperf3 }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
     - vars/secrets.yml
@@ -154,3 +155,4 @@
         name: google-dns
       - host: 100.103.7.1
         name: leintor
+    - babeld_interfaces: ['eth1']
