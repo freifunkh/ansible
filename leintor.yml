@@ -15,14 +15,6 @@
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: sn01
-      tags: always
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: sn09
-      tags: always
   vars:
     - servername: leintor
     - mail_fqdn: "leintor.e.ffh.zone"
