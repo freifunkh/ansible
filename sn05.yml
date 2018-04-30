@@ -50,7 +50,9 @@
         gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.98.98]
 
-    - babeld_interfaces: ['gre-aegidientor']
+    - babeld_interfaces: ['gre-aegidientor', 'gre-leintor']
+    - babeld_interface_penalty:
+        gre-leintor: 100
 
     - legacy_dom0: true
 
