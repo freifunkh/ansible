@@ -8,5 +8,9 @@ redistribute local deny
 redistribute ip 2a02:790:ff::/48 metric 256
 redistribute ip 10.0.0.0/8 metric 256
 
+{% for iface, penalty in babeld_interface_penalty.items() %}
+in if {{ iface }} metric {{ penalty }}
+{% endfor %}
+
 local-port 33123
 
