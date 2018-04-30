@@ -12,7 +12,7 @@
     sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone.') }}" }
     sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone.') }}" }
     sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone.') }}" }
-    # sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone.') }}" }
+    sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone.') }}" }
     sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone.') }}" }
     sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone.') }}" }
     sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone.') }}" }
