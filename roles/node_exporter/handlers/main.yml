@@ -2,3 +2,9 @@
 
 - name: Restart node_exporter
   systemd: name=node_exporter state=restarted daemon_reload=yes
+
+- name: Restart bpfcountd
+  service:
+    name: bpfcountd@{{ item }}
+    state: restarted
+  with_items: "{{ stats_bpfcountd_interfaces }}"
