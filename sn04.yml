@@ -39,7 +39,7 @@
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
 
-    - legacy_dom0: false
+    - legacy_dom0: true
 
     - networkd_configures:
       - iface: eth0
