@@ -1,0 +1,37 @@
+log to stderr level {{ mesh_fastd_debug_level }};
+interface "{{ mesh_fastd_iface }}";
+
+method "null"; # prefer null over salsa2012+umac, since only routers in
+               # "performance mode" support null cipher. routers in
+               # "security mode" fall back to salsa2012 then.
+method "salsa2012+umac";
+
+bind {{ ansible_eth0.ipv4.address }} port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
+{% for ip in ansible_eth0.ipv6 | default( [] ) %}
+bind [{{ ip.address }}] port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
+{% endfor %}
+
+hide ip addresses yes;
+hide mac addresses yes;
+
+include "secret.conf";
+mtu {{ mesh_fastd_mtu }};
+
+include "remotes.conf";
+peer limit {{ mesh_fastd_peerlimit }};
+
+# enable fastd to run without another peers configured
+peer "!!!_dummy_!!!" {
+  key "0000000000000000000000000000000000000000000000000000000000000000";
+}
+
+status socket "/var/run/fastd.{{ mesh_fastd_iface }}.sock";
+
+on up "
+ chmod o+rw /var/run/fastd.{{ mesh_fastd_iface }}.sock
+ batctl -m bat{{ mesh_fastd_batdev | default(0) }} if add $INTERFACE
+{% if sn is defined %}
+ ip link set address 88:e6:40:20:00:{% if domain is defined %}{{ '%02d' % domain.id | int }}{% else %}01{% endif %} dev $INTERFACE
+{% endif %}
+ ip link set $INTERFACE up
+";

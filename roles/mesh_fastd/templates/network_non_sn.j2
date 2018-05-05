@@ -1,0 +1,9 @@
+[Match]
+Name=bat{{ domain.id }}
+
+[Network]
+Address=fdca:ffee:8:{{ domain.id }}::{{ mesh_ula_address_suffix }}/64
+IPv6AcceptRouterAdvertisements=false
+
+[Link]
+MACAddress=88:E6:40:ba:00:{{ domain.id }}

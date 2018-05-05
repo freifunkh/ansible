@@ -9,16 +9,27 @@
 - name: Set network buffers
   include_tasks: buffers.yml
 
-- name: Generate config for dom0
+- name: Generate config for dom0 (supernode)
   include_tasks: dom0.yml
-  when: legacy_dom0 == true
+  when: legacy_dom0 == true and sn is defined
 
-- name: Domain configs
+- name: Domain configs (supernode)
   include_tasks: per_domain.yml
   with_items: "{{domains}}"
   loop_control:
     loop_var: domain
-  when: domains is defined
+  when: domains is defined and sn is defined
+
+- name: Generate config for dom0 (non-supernode)
+  include_tasks: dom0_non_sn.yml
+  when: legacy_dom0 == true and sn is not defined
+
+- name: Domain configs (non-supernode)
+  include_tasks: per_domain_non_sn.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined and sn is not defined
 
 - name: Reread networkd config for new bat devices
   systemd:
