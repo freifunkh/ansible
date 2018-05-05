@@ -76,3 +76,4 @@
 - stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
 - batman_build_from_source: true
 - batman_build_version: v2018.0
+- batman: true
