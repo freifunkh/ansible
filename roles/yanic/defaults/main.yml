@@ -3,7 +3,7 @@
 go_version: "1.8"
 yanic_user: yanic
 yanic_group: www-data
-yanic_interface: eth0
+yanic_interfaces: ["bat0"]
 yanic_port: 10001
 yanic_nodes_enabled: false
 yanic_nodes_version: 2
