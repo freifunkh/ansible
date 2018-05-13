@@ -57,5 +57,8 @@ def cross(sp, dev):
 
 
 for sock in glob.glob('/var/run/fastd.*.sock'):
-    cross(sock, sock.replace('/var/run/fastd.', '').replace('.sock', ''))
+    try:
+        cross(sock, sock.replace('/var/run/fastd.', '').replace('.sock', ''))
+    except ConnectionRefusedError:
+        pass
 
