@@ -145,6 +145,7 @@
     - export_bpfcountd.sh
     - export_batman.sh
     - export_fastd.py
+    - export_sys.sh
 
 - name: install run_exporters.sh
   template: src=run_exporters.sh dest=/opt/run_exporters.sh mode="775"
