@@ -31,3 +31,8 @@
     owner: auto
     group: auto
     mode: "u=rwx,g=r,o=r"
+
+- name: Install global ssh known_hosts file
+  template:
+    src: known_hosts.j2
+    dest: /etc/ssh/ssh_known_hosts

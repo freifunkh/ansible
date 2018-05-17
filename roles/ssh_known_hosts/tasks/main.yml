@@ -1,6 +1,0 @@
----
-
-- name: Install global known_hosts file
-  template:
-    src: known_hosts.j2
-    dest: /etc/ssh/ssh_known_hosts
