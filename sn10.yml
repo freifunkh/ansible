@@ -9,7 +9,6 @@
     - { name: networkd, tags: networkd }
     - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
     - { name: babeld, tags: babeld }
-    - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: simple_mail, tags: simple_mail }
     - { name: admin, tags: admin }
     - { name: cron-apt, tags: cron-apt }

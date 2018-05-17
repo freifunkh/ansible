@@ -13,11 +13,6 @@
     - { name: cron-apt, tags: cron-apt }
   vars_files:
     - vars/all_hosts.yml
-  pre_tasks:
-    - include_tasks: sn_snippets/add_gre.yml
-      vars:
-        peer: sn01
-      tags: always
   vars:
     - servername: steintor
     - mail_fqdn: "steintor.e.ffh.zone"
@@ -35,36 +30,14 @@
       - iface: lo
         addresses:
           - 100.100.0.1/32 # anycast for ping tests
-      - iface: gre-sn04
-        addresses:
-          - 192.168.44.42/30
-      - iface: gre-sn05
-        addresses:
-          - 192.168.44.49/30
-
-    - networkd_gre_tunnels:
-      - name: gre-sn04
-        lower_interface: eth0
-        remote_outer_ip: 46.38.253.239
-        local_outer_ip: 37.120.190.215
-
-      - name: gre-sn05
-        lower_interface: eth0
-        remote_outer_ip: 5.45.103.36
-        local_outer_ip: 37.120.190.215
 
     - firewall_mssfix: 1330
-    - firewall_open_ports_tcp: [1337]
     - firewall_allowed_forwards:
       - between: eth0
         and: gre-sn04
 
       - between: eth0
         and: gre-sn05
-
-    - firewall_open_ports_tcp_by_ip:
-      - port: 9100
-        ip4: "{{ stats_address }}"
 
     - firewall_nat4_on_interfaces: ["eth0"]
     - firewall_conntrack_table_size: 1048576

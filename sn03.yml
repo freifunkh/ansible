@@ -6,7 +6,6 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
     - { name: simple_firewall, tags: simple_firewall }
-    - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
