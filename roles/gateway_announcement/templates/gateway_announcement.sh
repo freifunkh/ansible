@@ -5,6 +5,7 @@ GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
 	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
+		[ -f $(echo $GW_MODE | sed "s_%_${i}_") ] || continue
 		echo off > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: off"
 	done
 	systemctl stop dhcpd
@@ -12,6 +13,7 @@ off() {
 
 on() {
 	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
+		[ -f $(echo $GW_MODE | sed "s_%_${i}_") ] || continue
 		echo server > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: server"
 	done
 	systemctl start dhcpd
@@ -19,6 +21,7 @@ on() {
 
 # ensure that we announce the highest bandwidth
 for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
+	[ -f $(echo $GW_BANDWIDTH | sed "s_%_${i}_") ] || continue
 	echo "96MBit/96MBit" > $(echo $GW_BANDWIDTH | sed "s_%_${i}_")
 done
 
