@@ -2,7 +2,7 @@
 
 for usock_path in /var/run/bpfcountd.*.sock; do
 
-	[ -f "$usock_path" ] || continue
+	[ -S "$usock_path" ] || continue
 
 	stats=$(nc -w 1 -U "$usock_path")
 	iface=$(echo "$usock_path" | awk -F. '{print $(NF-1)}')
