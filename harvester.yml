@@ -40,7 +40,6 @@
     - legacy_dom0: true
     - mesh_ula_address_suffix: 1231
 
-    - yanic_interfaces: ["bat0", "bat10", "bat11", "bat12", "bat13", "bat14", "bat15", "bat16", "bat17", "bat18", "bat19", "bat20", "bat21", "bat99"]
     - yanic_port: 10002
     - yanic_nodes_enabled: true
     - yanic_nodes_path: /var/www/harvester.ffh.zone
