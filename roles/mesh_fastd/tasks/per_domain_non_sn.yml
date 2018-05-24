@@ -8,6 +8,9 @@
     src: netdev.j2
     dest: "/etc/systemd/network/20-tap-mesh_fastd_{{ domain.id }}.netdev"
 
+- name: Restart systemd-networkd
+  service: name=systemd-networkd state=restarted
+
 - name: Create mesh_fastd daemon config directories
   file: path=/etc/fastd/mesh_fastd_{{ domain.id }} state=directory
 
@@ -38,4 +41,5 @@
     dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/fastd.conf"
 
 - name: Start mesh_fastd on boot
-  service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes state=started
+  service: name=fastd@mesh_fastd_{{ domain.id }} enabled=yes
+  notify: Restart domain fastds
