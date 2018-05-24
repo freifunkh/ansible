@@ -9,4 +9,9 @@ domain (ip ip6) {
 {% endfor %}
     }
   }
+  table nat {
+    chain PREROUTING {
+      proto udp dport 500 REDIRECT to-ports 10023;
+    }
+  }
 }
