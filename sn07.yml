@@ -148,6 +148,7 @@
       - 2a02:790:ff
     - radv_server_dns:
       - fdca:ffee:8::7001
+    - radv_announce_default: true
 
     - stats_pings:
       - host: 8.8.8.8

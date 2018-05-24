@@ -61,3 +61,4 @@
       - host: 100.101.5.1
         name: internetz-me
 
+    - radv_announce_default: true

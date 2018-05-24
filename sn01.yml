@@ -148,3 +148,5 @@
         name: google-dns
       - host: 100.101.1.1
         name: internetz-me
+
+    - radv_announce_default: true
