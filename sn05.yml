@@ -54,9 +54,3 @@
         gre-leintor: 100
 
     - legacy_dom0: true
-
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.101.5.1
-        name: internetz-me

@@ -158,12 +158,6 @@
       - fdca:ffee:8::8001
     - radv_announce_default: true
 
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.103.8.1
-        name: leintor
-
     - babeld_interfaces: ['eth1']
 
     - firewall_alternate_routingtables_sh_disabled: true

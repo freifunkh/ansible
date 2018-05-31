@@ -43,24 +43,16 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 173.212.248.190/24
-          - 2a02:c207:3002:2600::1/64
-          - 2a02:c207:3002:2600::a001/64
-        gateway4: 173.212.248.1
+          - 81.3.6.91/29
+          - 2a02:790:1:ff::a001/64
+        gateway4: 81.3.6.89
         gateway6: fe80::1
-        dns_server: [213.136.95.10, 79.143.183.251]
+        dns_server: [81.3.3.81, 83.246.106.204]
 
     - babeld_interfaces: ['gre-aegidientor', 'gre-leintor']
     - babeld_interface_penalty:
-        gre-leintor: 100
+        gre-aegidientor: 100
 
     - legacy_dom0: true
     - radv_announce_default: true
-
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.101.1.1
-        name: internetz-me
-
 

@@ -53,8 +53,3 @@
 
     - legacy_dom0: true
 
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.101.9.1
-        name: internetz-me

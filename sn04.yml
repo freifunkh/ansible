@@ -48,10 +48,4 @@
         gateway6: fe80::1
         dns_server: [213.133.98.98, 8.8.8.8]
 
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.101.4.1
-        name: internetz-me
-
     - babeld_interfaces: ['gre-leintor']

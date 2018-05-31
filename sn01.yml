@@ -143,10 +143,4 @@
     - radv_server_dns:
       - fdca:ffee:8::1001
 
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.101.1.1
-        name: internetz-me
-
     - radv_announce_default: true

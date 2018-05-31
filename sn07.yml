@@ -149,10 +149,5 @@
     - radv_server_dns:
       - fdca:ffee:8::7001
     - radv_announce_default: true
-
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 100.103.7.1
-        name: leintor
     - babeld_interfaces: ['eth1']
+

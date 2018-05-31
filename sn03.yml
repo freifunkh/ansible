@@ -205,9 +205,3 @@
 
     - grafana_allow_signup: true
     - grafana_anonymous_access: true
-
-    - stats_pings:
-      - host: 8.8.8.8
-        name: google-dns
-      - host: 192.168.43.30
-        name: internetz-me
