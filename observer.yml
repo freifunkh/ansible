@@ -2,18 +2,15 @@
 
 - hosts: observer
   roles:
-    - { name: ferm, tags: ferm }
-    - { name: cli_tools, tags: cli_tools }
-    - { name: nginx, tags: nginx }
     - { name: admin, tags: admin }
-    - { name: cron-apt, tags: cron-apt }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: ferm, tags: ferm }
+    - { name: nginx, tags: nginx }
   vars_files:
       - vars/all_hosts.yml
   vars:
     - servername: observer
-    - mail_fqdn: "observer.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
-    - cron_apt_mailto: monitoring@hannover.freifunk.net
 
     - nginx_sites:
       - domain: observer.ffh.zone
