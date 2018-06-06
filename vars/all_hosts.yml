@@ -30,7 +30,7 @@
 - journald_watch_filter_regexes:
   - '/kernel: do_IRQ:.*No irq handler for vector \(irq -1\)/'
   - '/client [^ ]* has duplicate leases on 10.2.0.0\/16$/' # client requests a new (different) address/lease without releasing the old one
-  - '/Abandoning IP address 10.2.[0-9.]*: pinged before offer$/'
+  - '/Abandoning IP address 10.[0-9.]*: pinged before offer$/'
   - '/Abandoning IP address 10.2.[0-9.]*: declined.$/'
   - '/uid lease 10.2.[0-9.]* for client [^ ]* is duplicate on 10.2.0.0\/16$/'
   - '/sshd.*fatal: no matching cipher found/'
