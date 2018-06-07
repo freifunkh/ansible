@@ -6,6 +6,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: ferm, tags: ferm }
     - { name: nginx, tags: nginx }
+    - { name: icinga2-config, tags: icinga2-config }
   vars_files:
       - vars/all_hosts.yml
   vars:
