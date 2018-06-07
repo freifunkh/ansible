@@ -1,0 +1,11 @@
+---
+
+- name: Copy icinga2 config files
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/icinga2/conf.d/"
+    owner: "root"
+    mode: 0644
+  with_fileglob:
+    - "files/*"
+  notify: Reload icinga2
