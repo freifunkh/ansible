@@ -5,7 +5,7 @@ After=network.target sys-subsystem-net-devices-mesh_fastd.device
 After=sys-subsystem-net-devices-mesh_fastd.device
 # Requires=sys-subsystem-net-devices-mesh_fastd.device
 {% endif %}
-{% for domain in domains %}
+{% for domain in domains | default([]) %}
 After=sys-subsystem-net-devices-mesh_fastd_{{ domain.id }}.device
 # Requires=sys-subsystem-net-devices-mesh_fastd_{{ domain.id }}.device
 {% endfor %}
