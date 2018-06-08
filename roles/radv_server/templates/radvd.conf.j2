@@ -10,6 +10,11 @@ interface bat0
  MaxRtrAdvInterval 200;
  MinDelayBetweenRAs 15;
 
+ prefix 2a02:790:ff:{{ sn }}::/64 {
+   AdvValidLifetime 300;
+   AdvPreferredLifetime 150;
+ };
+
  prefix fdca:ffee:8::/64 {
    AdvValidLifetime 300;
    AdvPreferredLifetime 150;
