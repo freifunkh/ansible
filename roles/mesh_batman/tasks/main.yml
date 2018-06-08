@@ -28,8 +28,10 @@
   when: batman_build_from_source
   with_items:
    - https://paste.irrelefant.net/einei4aN.txt
-   - https://paste.irrelefant.net/raaW8eej.txt
    - https://paste.irrelefant.net/xoraza8E.txt
+   - https://patchwork.open-mesh.org/patch/17405/mbox/ # crc issue
+   - https://patchwork.open-mesh.org/patch/17406/mbox/ # crc issue
+   - https://paste.irrelefant.net/chieNoo8.txt # crc issue counters
 
 - name: Add the dkms info to the source
   template:
