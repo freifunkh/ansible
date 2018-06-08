@@ -11,6 +11,8 @@ interface bat0
  MinDelayBetweenRAs 15;
 
  prefix fdca:ffee:8::/64 {
+   AdvValidLifetime 300;
+   AdvPreferredLifetime 150;
  };
 
  RDNSS fdca:ffee:8::{{ "%x" | format(sn) }}001 {
@@ -41,9 +43,13 @@ interface bat{{ domain.id }}
  {% endif %}
 
  prefix 2a02:790:ff:{{ sn }}{{ domain.id }}::/64 {
+   AdvValidLifetime 300;
+   AdvPreferredLifetime 150;
  };
 
  prefix fdca:ffee:8:{{ domain.id }}::/64 {
+   AdvValidLifetime 300;
+   AdvPreferredLifetime 150;
  };
 
  RDNSS 2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001 {
