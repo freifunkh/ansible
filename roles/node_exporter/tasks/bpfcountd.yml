@@ -18,9 +18,17 @@
     target: bpfcountd
 
 - name: Install servicefile
+  register: servicefilechanged
   template:
-    src: bpfcountd@.service.j2
-    dest: /etc/systemd/system/bpfcountd@.service
+    src: "{{item}}.j2"
+    dest: /etc/systemd/system/{{item}}
+  with_items:
+    - bpfcountd@.service
+    - bpfcountd.service
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  when: servicefilechanged | changed
 
 - name: Generate filter file
   notify: Restart bpfcountd
