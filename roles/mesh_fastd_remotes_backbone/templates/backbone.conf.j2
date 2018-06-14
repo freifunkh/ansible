@@ -42,12 +42,12 @@ peer group "backbone" {
   }
 
   peer "sn09" {
-    key "9b2e727cb1a48ba860391f0d32e5210a5d97f29cd7f7f9b8b45e6f8d531aae84";
+    key "993f94b586f91a0a678db904fc26a3e60c23c513a0bfd4451954408e89d00dda";
     remote "sn09.s.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
   peer "sn10" {
-    key "01cc6efc8c1d204dd809e85e9b5f44ce9046b4936cc7bebfac8c580a00bd1081";
+    key "1b9a4d020316aa4a6d7c5dcc15f054afff010309b75ff6721dc8a66c20270b01";
     remote "sn10.s.ffh.zone" port {{ 10000 if domain is not defined else 10000 + domain.id | int  }};
   }
 
