@@ -5,8 +5,6 @@
         to: "fdca:ffee:8::3001"
       - zone: "stats"
         to: "fdca:ffee:8::108"
-      - zone: "opkg"
-        to: "fdca:ffee:8::1832"
       - zone: "web"
         to: "fdca:ffee:8::101"
       - zone: "hightower"
