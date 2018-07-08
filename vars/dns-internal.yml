@@ -9,5 +9,3 @@
         to: "fdca:ffee:8::101"
       - zone: "hightower"
         to: "fdca:ffee:8::1337"
-      - zone: "lounge"
-        to: "fdca:ffee:8:0:c01:2bff:febb:a46d"
