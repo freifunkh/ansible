@@ -38,6 +38,8 @@
           "clevertor.e.ffh.zone. IN AAAA 2a02:c207:3002:4406::1",
           "clevertor.e.ffh.zone. IN A 173.249.22.70",
           "aegidientor.e.ffh.zone. IN A 178.32.215.75",
+          "ntp.ffh.zone. IN A 88.198.66.22",
+          "ntp.ffh.zone. IN AAAA 2a01:4f8:140:430a::3001",                    
           "web.ffh.zone. IN A 88.198.66.3",
           "web.ffh.zone. IN AAAA 2a01:4f8:140:430a:ff::443",
           "stats.ffh.zone. IN A 88.198.66.22",
