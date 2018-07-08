@@ -39,14 +39,6 @@ interface bat{{ domain.id }}
  MaxRtrAdvInterval 200;
  MinDelayBetweenRAs 15;
 
- {% if radv_server_prefixes is defined %}
-   INVALID LEGACY
- {% endif %}
-
- {% if radv_server_dns is defined %}
-   INVALID LEGACY
- {% endif %}
-
  prefix 2a02:790:ff:{{ sn }}{{ domain.id }}::/64 {
    AdvValidLifetime 300;
    AdvPreferredLifetime 150;
@@ -57,10 +49,17 @@ interface bat{{ domain.id }}
    AdvPreferredLifetime 150;
  };
 
- RDNSS 2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001 {
+ RDNSS fdca:ffee:8:{{ domain.id }}::1 {
   FlushRDNSS off;
  };
 
 };
 
 {% endfor %}
+
+{% if radv_server_prefixes is defined %}
+  INVALID LEGACY
+{% endif %}
+{% if radv_server_dns is defined %}
+  INVALID LEGACY
+{% endif %}
