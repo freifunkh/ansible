@@ -44,6 +44,8 @@
   - '/sshd.*error: Received disconnect from.*No supported authentication methods available \[preauth\]/'
   - '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
   - '/dhcpd.*Failed to send.*byte long packet over fallback interface./'
+  - '/dhcpd.*: send_packet: Operation not permitted/'
+  - '/dhcpd.*: icmp_echorequest .*: Operation not permitted/'
   - '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
   - '/systemd[.*]: Failed to start Clean php session files./'
 - admin_pubkeys:
