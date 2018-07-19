@@ -118,10 +118,10 @@
   when: item.root is defined
   with_items: "{{ nginx_sites }}"
 
-- name: Generate Diffie-Hellman group
-  command: openssl dhparam -out /etc/nginx/keys/dhparams-4096.pem 4096
-  args:
-    creates: /etc/nginx/keys/dhparams-4096.pem
+- name: Copy pre-defined DH group ffdhe4096
+  template:
+    src: dhparams-4096.pem.j2
+    dest: /etc/nginx/keys/dhparams-4096.pem
   when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
