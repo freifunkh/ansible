@@ -101,7 +101,7 @@
           rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
 
       - domain: tiles.ffh.zone
-        root: /var/www/tiles.ffh.zone
+        root: /var/www/tiles/www
         tls: true
         tls_redirect_to_https: true
         untouchable: true
