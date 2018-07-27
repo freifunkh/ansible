@@ -1,0 +1,4 @@
+[Network]
+{% for supernode in supernodes %}
+Tunnel=gre-{{ supernode }}
+{% endfor %}

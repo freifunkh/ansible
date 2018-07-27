@@ -1,5 +1,7 @@
-TODO: WORK IN PROGRESS - FINISH WORK, THEN TEST
 ---
+
+- name: GRE stuff
+  include_tasks: gre.yml
 
 - name: Kernel modules stuff
   include_tasks: kmod.yml

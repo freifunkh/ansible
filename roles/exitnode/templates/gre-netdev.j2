@@ -1,0 +1,9 @@
+[NetDev]
+Name=gre-{{ item.key }}
+Kind=gre
+MTUBytes=1480
+
+[Tunnel]
+Local={{ exitnodes[servername].ip4 }}
+Remote={{ supernodes[item.key].ip4 }}
+TTL=64
