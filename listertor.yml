@@ -19,6 +19,7 @@
   pre_tasks:
   vars:
     - servername: listertor
+    - exitnode: 5
     - mail_fqdn: "listertor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net

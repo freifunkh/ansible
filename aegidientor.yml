@@ -7,6 +7,7 @@
 
   vars:
     servername: aegidientor
+    exitnode: 1
     # for node_exporter
     prometheus_node_exporter_use_systemd: false
 
