@@ -12,12 +12,15 @@
 - name: Install nf_conntrack_proto_gre kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_proto_gre
 
-- name: Load nf_conntrack_proto_gre kmod
-  modprobe: name=nf_conntrack_proto_gre state=present
+- name: Load nf_conntrack kmod
+  modprobe: name=nf_conntrack state=present
 
 - name: Load nf_conntrack_ipv6 kmod
   modprobe: name=nf_conntrack_ipv6 state=present
 
 - name: Load nf_conntrack_ipv4 kmod
   modprobe: name=nf_conntrack_ipv4 state=present
+
+- name: Load nf_conntrack_proto_gre kmod
+  modprobe: name=nf_conntrack_proto_gre state=present
 
