@@ -4,7 +4,10 @@
   apt:
     name: "{{ item }}"
     update_cache: yes
-  with_items: ['build-essential', 'libpcap-dev']
+  with_items: 
+    - build-essential
+    - libpcap-dev
+    - git
 
 - name: Download bpfcountd
   register: updatebpfcountd
