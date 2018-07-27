@@ -27,7 +27,7 @@ domain (ip6) {
   table filter {
     chain FORWARD {
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1310;
-    {
+    }
   }
 }
 
