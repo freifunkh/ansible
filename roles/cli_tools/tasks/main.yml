@@ -1,7 +1,7 @@
 ---
 
 - name: Install cli tools
-  apt: name={{ item }}
+  apt: name={{ item }} update_cache=yes
   with_items:
     - netcat-openbsd
     - tcpdump

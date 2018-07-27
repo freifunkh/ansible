@@ -1,7 +1,7 @@
 ---
 
 - name: Install Foswiki dependencies
-  apt: name={{ item }}
+  apt: name={{ item }} update_cache=yes
   with_items:
     - tar
     - unzip

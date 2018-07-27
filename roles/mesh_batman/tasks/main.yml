@@ -3,6 +3,7 @@
 - name: Add build dependencies
   apt:
     name: "{{ item }}"
+    update_cache: yes
   with_items:
     - dkms
     - git

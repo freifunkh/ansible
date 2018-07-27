@@ -1,7 +1,7 @@
 ---
 
 - name: Install unbound
-  apt: name=unbound
+  apt: name=unbound update_cache=yes
 
 - name: Configure unbound
   notify: Restart unbound

@@ -3,6 +3,7 @@
 - name: Install https for apt
   apt:
     name: apt-transport-https
+    update_cache: yes
 
 - name: Add grafana repository key
   apt_key:

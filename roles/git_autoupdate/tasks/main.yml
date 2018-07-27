@@ -1,7 +1,7 @@
 ---
 
 - name: Install dependencies (git, sudo)
-  apt: name={{ item }}
+  apt: name={{ item }} update_cache=yes
   with_items:
     - git
     - sudo

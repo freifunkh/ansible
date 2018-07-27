@@ -1,6 +1,6 @@
 ---
 - name: Install radvd
-  apt: name=radvd
+  apt: name=radvd update_cache=yes
 
 - name: Generate radvd config
   notify: Restart radvd

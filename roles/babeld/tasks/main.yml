@@ -1,7 +1,7 @@
 ---
 
 - name: Install babeld
-  apt: name=babeld
+  apt: name=babeld update_cache=yes
 
 - name: Install babeld supernode config
   notify: Restart babeld

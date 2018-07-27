@@ -12,6 +12,7 @@
 - name: ensure ca-certificates package
   apt:
     name: ca-certificates
+    update_cache: yes
 
 - name: Ensure prometheus user
   user:

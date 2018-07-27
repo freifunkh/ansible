@@ -1,7 +1,7 @@
 ---
 
 - name: Install package
-  apt: name=cron-apt
+  apt: name=cron-apt update_cache=yes
 
 - name: Deploy main config file
   template:

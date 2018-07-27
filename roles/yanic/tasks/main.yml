@@ -3,6 +3,7 @@
 - name: Ensure git
   apt:
     name: git
+    update_cache: yes
 
 - name: Ensure ansible dir
   file:

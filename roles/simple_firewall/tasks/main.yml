@@ -1,7 +1,7 @@
 ---
 
 - name: Install iptables-persistent
-  apt: name=iptables-persistent
+  apt: name=iptables-persistent update_cache=yes
 
 - name: Install nf_conntrack kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack

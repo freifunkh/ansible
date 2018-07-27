@@ -1,7 +1,7 @@
 ---
 
 - name: Install gatemon dependencies
-  apt: name={{ item }}
+  apt: name={{ item }} update_cache=yes
   with_items:
     - monitoring-plugins-basic
     - monitoring-plugins-standard

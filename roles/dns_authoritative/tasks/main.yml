@@ -1,7 +1,7 @@
 ---
 
 - name: Install nsd
-  apt: name=nsd
+  apt: name=nsd update_cache=yes
 
 - name: Configure nsd
   notify: Restart nsd

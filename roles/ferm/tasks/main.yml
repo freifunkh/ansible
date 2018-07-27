@@ -3,6 +3,7 @@
 - name: Install ferm
   apt: 
     name: ferm
+    update_cache: yes
 
 - name: Prepare ferm conf.d directory
   file:

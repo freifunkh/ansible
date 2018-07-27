@@ -1,7 +1,7 @@
 ---
 
 - name: Install dependencies (perl, libjson-perl, libnet-ip-perl, python-netaddr)
-  apt: name={{ item }}
+  apt: name={{ item }} update_cache=yes
   with_items:
     - perl
     - libjson-perl

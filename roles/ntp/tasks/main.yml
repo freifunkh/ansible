@@ -1,7 +1,7 @@
 ---
 
 - name: Install ntp
-  apt: name=ntp
+  apt: name=ntp update_cache=yes
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed

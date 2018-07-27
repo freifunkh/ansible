@@ -1,6 +1,6 @@
 ---
 - name: Install isc-dhcp-server
-  apt: name=isc-dhcp-server
+  apt: name=isc-dhcp-server update_cache=yes
   
 - name: Ramdisk in fstab eintragen
   notify: Restart isc-dhcp-server

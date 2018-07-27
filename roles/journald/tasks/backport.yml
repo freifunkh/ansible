@@ -14,6 +14,7 @@
     name: systemd
     default_release: jessie-backports
     state: latest
+    update_cache: yes
 
 - name: Reboot after upgrading systemd
   command: /usr/bin/systemd-run --on-active=2 /bin/systemctl reboot

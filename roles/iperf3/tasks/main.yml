@@ -12,7 +12,7 @@
     dest: /etc/systemd/system/iperf3.service
 
 - name: Install iperf3
-  apt: name=iperf3
+  apt: name=iperf3 update_cache=yes
 
 - name: Enable iperf3 daemon on boot
   command: systemctl enable iperf3
