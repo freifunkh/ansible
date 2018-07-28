@@ -15,7 +15,7 @@
   template:
     src: exitnode.conf.j2
     dest: /etc/babeld.conf
-  when: babeld_exitnode | default(False)
+  when: exitnode is defined
 
 - name: Install babeld systemd service
   notify: Restart babeld
