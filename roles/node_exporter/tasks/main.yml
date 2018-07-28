@@ -8,6 +8,7 @@
 
 - name: Install bpfcountd stuff
   include_tasks: bpfcountd.yml
+  when: sn is defined
 
 - name: ensure ca-certificates package
   apt:
