@@ -6,8 +6,6 @@
     - { name: exitnode, tags: exitnode }
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
-#    - { name: simple_firewall, tags: simple_firewall }
-#    - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
@@ -35,12 +33,4 @@
         addresses:
           - 100.100.0.1/32 # anycast for ping tests
 
-    - firewall_mssfix: 1330
-
-    - firewall_allowed_forwards: "all"
-
-    - firewall_nat4_on_interfaces: ["eth0"]
-    - firewall_conntrack_table_size: 1048576
-
-    - babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "grep-sn08", "gre-sn09", "gre-sn10"]
-    - babeld_exitnode: true
+    - babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
