@@ -12,8 +12,10 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
+
   vars_files:
     - vars/all_hosts.yml
+
   vars:
     - servername: steintor
     - exitnode: 2
