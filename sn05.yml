@@ -48,10 +48,11 @@
         gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.98.98]
 
-    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-listertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
     - babeld_interface_penalty:
         gre-leintor: 120
         gre-steintor: 130
+        gre-clevertor: 140
 
     - legacy_dom0: true
     - radv_announce_default: true

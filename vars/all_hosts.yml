@@ -6,7 +6,7 @@
     aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone.') }}" }
     steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone.') }}" }
     leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone.') }}" }
-    # clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone.') }}" }
+    clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone.') }}" }
     listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone.') }}" }
 - supernodes:
     sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone.') }}" }
