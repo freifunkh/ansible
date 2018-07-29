@@ -18,15 +18,16 @@
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: node_exporter, tags: node_exporter }
+
   vars_files:
       - vars/all_hosts.yml
       - vars/domains.yml
       - vars/secrets.yml
+
   vars:
     - servername: harvester
     - mail_fqdn: "harvester.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
-    - cron_apt_mailto: monitoring@hannover.freifunk.net
 
     - networkd_configures:
       - iface: eth0

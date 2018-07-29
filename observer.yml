@@ -7,8 +7,10 @@
     - { name: ferm, tags: ferm }
     - { name: nginx, tags: nginx }
     - { name: icinga2-config, tags: icinga2-config }
+
   vars_files:
       - vars/all_hosts.yml
+
   vars:
     - servername: observer
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
