@@ -48,6 +48,7 @@
         gateway6: fe80::1
         dns_server: [213.133.98.98, 8.8.8.8]
 
-    - babeld_interfaces: ['gre-leintor', 'gre-listertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-listertor']
     - babeld_interface_penalty:
         gre-leintor: 120
+        gre-steintor: 130

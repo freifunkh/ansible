@@ -49,9 +49,10 @@
         gateway6: fe80::1
         dns_server: [213.136.95.10, 213.136.95.11]
 
-    - babeld_interfaces: ['gre-leintor', 'gre-listertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-listertor']
     - babeld_interface_penalty:
         gre-leintor: 100
+        gre-steintor: 130
 
     - legacy_dom0: true
     - radv_announce_default: true

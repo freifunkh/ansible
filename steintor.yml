@@ -2,15 +2,16 @@
 
 - hosts: steintor
   roles:
+    - { name: ferm, tags: ferm }
+    - { name: exitnode, tags: exitnode }
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
-    - { name: simple_firewall, tags: simple_firewall }
-    - { name: ssh_known_hosts, tags: ssh_known_hosts }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
+    - { name: babeld, tags: babeld }
   vars_files:
     - vars/all_hosts.yml
   vars:
@@ -27,18 +28,9 @@
           - 2a03:4000:6:b1d6::1/64
         gateway4: 37.120.188.1
         gateway6: fe80::1
-        dns_server: [8.8.8.8]
+        dns_server: ['2a03:4000:0:1::e1e6', '46.38.252.230', '1.1.1.1']
       - iface: lo
         addresses:
           - 100.100.0.1/32 # anycast for ping tests
 
-    - firewall_mssfix: 1330
-    - firewall_allowed_forwards:
-      - between: eth0
-        and: gre-sn04
-
-      - between: eth0
-        and: gre-sn05
-
-    - firewall_nat4_on_interfaces: ["eth0"]
-    - firewall_conntrack_table_size: 1048576
+    - babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
