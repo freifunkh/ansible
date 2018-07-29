@@ -27,18 +27,18 @@
     - { name: iperf3, tags: iperf3 }
     - { name: journald, tags: journald }
     - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
+
   vars_files:
     - vars/all_hosts.yml
     - vars/domains.yml
     - vars/secrets.yml
+
   vars:
     - servername: sn02
     - sn: 2
     - mail_fqdn: "sn02.s.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush]
     - cron_apt_mailto: monitoring@hannover.freifunk.net
-
-    - legacy_dom0: true 
 
     - networkd_configures:
       - iface: eth0
@@ -52,3 +52,6 @@
     - babeld_interface_penalty:
         gre-leintor: 120
         gre-steintor: 130
+
+    - legacy_dom0: true
+    - radv_announce_default: true

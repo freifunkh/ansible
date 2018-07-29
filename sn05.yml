@@ -55,3 +55,4 @@
         gre-steintor: 130
 
     - legacy_dom0: true
+    - radv_announce_default: true
