@@ -12,5 +12,11 @@ redistribute ip 10.0.0.0/8 metric 256
 in if {{ iface }} metric {{ penalty }}
 {% endfor %}
 
+# disable asymmetric routing, route all IPv6 to leintor
+{% for name,node in exitnodes.items() if not name=='leintor' %}
+out if gre-{{ name }} ip ::/0 deny
+in if gre-{{ name }} ip ::/0 deny
+{% endfor %}
+
 local-port 33123
 
