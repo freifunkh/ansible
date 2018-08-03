@@ -19,6 +19,11 @@
     # sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone.') }}" }
     sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone.') }}" }
     sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone.') }}" }
+- helpernodes:
+    harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone.') }}" }
+    observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone.') }}" }
+    ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net.') }}" }
+    web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone.') }}" }
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: mail.ffh.zone
