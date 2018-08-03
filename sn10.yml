@@ -50,9 +50,10 @@
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
     - babeld_interface_penalty:
-        gre-listertor: 100
-        gre-steintor: 130
-        gre-clevertor: 140
+        gre-leintor: 100
+        gre-steintor: 110
+        gre-listertor: 120
+        gre-clevertor: 130
 
     - legacy_dom0: true
     - radv_announce_default: true
