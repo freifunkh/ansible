@@ -11,7 +11,7 @@ domain (ip ip6) {
   }
   table nat {
     chain PREROUTING {
-      proto udp dport 500 REDIRECT to-ports 10023;
+      proto udp dport 500 if eth0 REDIRECT to-ports 10023;
     }
   }
 }
