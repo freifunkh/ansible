@@ -47,6 +47,7 @@
     - yanic_influxdb_enabled: true
     - yanic_influx_database: yanic_harvester
     - yanic_influx_hostname: http://sn03.s.ffh.zone:8086/
+    # yanic_influx_password in var/secrets.yml
 
     - nginx_sites:
       - domain: harvester.ffh.zone
