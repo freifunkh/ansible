@@ -1,0 +1,9 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+{% for client in influxdb_clients | default( [] ) %}
+      saddr {{ client }} proto tcp dport (8086) ACCEPT;
+{% endfor %}
+    }
+  }
+}

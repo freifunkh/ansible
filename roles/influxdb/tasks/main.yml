@@ -1,0 +1,77 @@
+---
+
+- name: Add repo key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+
+- name: Add influx repo
+  register: influxrepositoryadded
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/debian stretch stable"
+
+- name: Update apt chache to get influxdb packages
+  apt: update_cache=yes
+  when: influxrepositoryadded is changed
+
+- name: Install influxdb from repo
+  register: influxinstall
+  apt:
+    name: influxdb
+    state: latest
+
+- name: Generate config file
+  register: influx_configfile
+  template:
+    src: influxdb.conf.j2
+    dest: /etc/influxdb/influxdb.conf
+
+- name: Delpoy original/commented config template
+  template:
+    src: influxdb.original.conf.j2
+    dest: /etc/influxdb/influxdb.original.conf
+
+- name: Ensure meta directory exists and has correct ownership
+  file:
+    state: directory
+    path: "{{ influxdb_meta_path }}"
+    owner: "influxdb"
+    group: "influxdb"
+    recurse: yes
+
+- name: Ensure data directory exists and has correct ownership
+  file:
+    state: directory
+    path: "{{ influxdb_data_path }}"
+    owner: "influxdb"
+    group: "influxdb"
+    recurse: yes
+
+- name: Ensure wal directory exists and has correct ownership
+  file:
+    state: directory
+    path: "{{ influxdb_wal_path }}"
+    owner: "influxdb"
+    group: "influxdb"
+    recurse: yes
+
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-influxdb.conf
+  notify: reload ferm
+
+- name: Reload influxdb service
+  systemd:
+    name: influxdb
+    state: restarted
+    daemon_reload: yes
+  when: influx_configfile is changed
+
+- name: Enable service
+  service:
+    name: influxdb
+    enabled: yes
+    state: started
+

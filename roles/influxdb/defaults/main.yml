@@ -1,0 +1,6 @@
+---
+
+influxdb_meta_path: "/var/lib/influxdb/meta"
+influxdb_data_path: "/var/lib/influxdb/data"
+influxdb_wal_path:  "/var/lib/influxdb/wal"
+influxdb_bind_address: ":8086"

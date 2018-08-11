@@ -1,0 +1,20 @@
+[meta]
+  dir = "{{ influxdb_meta_path }}"
+[data]
+  dir = "{{ influxdb_data_path }}"
+  wal-dir = "{{ influxdb_wal_path }}"
+[coordinator]
+[retention]
+[shard-precreation]
+[monitor]
+[admin]
+[http]
+  enabled = true
+  bind-address = "{{ influxdb_bind_address }}"
+  auth-enabled = true
+[subscriber]
+[[graphite]]
+[[collectd]]
+[[opentsdb]]
+[[udp]]
+[continuous_queries]
