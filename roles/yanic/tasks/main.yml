@@ -39,37 +39,6 @@
     group: "{{ yanic_group }}"
     system: yes
 
-- name: Check if yanic_influx_password password is already generated
-  register: yanicpassw
-  stat:
-    path: /var/lib/ansible/yanic_influx_password
-
-- name: Generate admin password
-  shell: cat /dev/urandom | tr -dc _A-Z-a-z-0-9 | head -c 32 > /var/lib/ansible/yanic_influx_password
-  when: not yanicpassw.stat.exists
-
-- name: Ensure yanic_influx_password file rights
-  file:
-    path: /var/lib/ansible/yanic_influx_password
-    mode: 0640
-
-- name: Get yanic_influx_password back
-  register: yanic_influx_password
-  command: cat /var/lib/ansible/yanic_influx_password
-  changed_when: False
-
-- name: Print yanic_influx_password when new password was created
-  pause:
-    prompt: |
-      To add the new user yanic_{{ ansible_hostname }} to influxdb, call:
-
-      influx> create user yanic_{{ ansible_hostname }} with password '{{ yanic_influx_password.stdout }}';
-      influx> create database {{ yanic_influx_database }};
-      influx> grant all on {{ yanic_influx_database }} to yanic_{{ ansible_hostname }};
-
-      After doing this, press ENTER.
-  when: not yanicpassw.stat.exists
-
 - name: Ensure persist directory, if needed
   file:
     path: "/var/lib/yanic/"
