@@ -15,6 +15,7 @@
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
+    - { name: influxdb, tags: influxdb }
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: node_exporter, tags: node_exporter }
@@ -46,8 +47,16 @@
     - yanic_nodes_path: /var/www/harvester.ffh.zone
     - yanic_influxdb_enabled: true
     - yanic_influx_database: yanic_harvester
-    - yanic_influx_hostname: http://sn03.s.ffh.zone:8086/
+    - yanic_influx_hostname: http://localhost:8086/
     # yanic_influx_password in var/secrets.yml
+
+    - influxdb_meta_path: "/media/data/influxdb/meta"
+    - influxdb_data_path: "/media/data/influxdb/data"
+    - influxdb_wal_path:  "/media/data/influxdb/wal"
+    - influxdb_bind_address: ":8086"
+    - influxdb_clients:
+        - "88.198.66.22/32"							# temp stats.ffh.zone
+        - "2a01:4f8:140:430a::3001/128"	# temp stats.ffh.zone
 
     - nginx_sites:
       - domain: harvester.ffh.zone
