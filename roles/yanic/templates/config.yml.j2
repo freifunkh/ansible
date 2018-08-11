@@ -168,7 +168,7 @@ enable   = true
 address  = "{{ yanic_influx_hostname }}"
 database = "{{ yanic_influx_database }}"
 username = "yanic_{{ ansible_hostname }}"
-password = "{{ yanic_influx_password.stdout }}"
+password = "{{ yanic_influx_password }}"
 
 # Tagging of the data (optional)
 [database.connection.influxdb.tags]
