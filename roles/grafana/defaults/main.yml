@@ -6,3 +6,4 @@ grafana_listen_on:
 grafana_allow_signup: false
 grafana_anonymous_access: false
 grafana_datadir: "/var/lib/grafana"
+grafana_smtp_from: "grafana-admin@localhost"
