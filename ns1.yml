@@ -12,6 +12,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     - { name: postfix, tags: postfix }
+    - { name: ntp, tags: ntp }
 
   vars_files:
       - vars/dns-external.yml
