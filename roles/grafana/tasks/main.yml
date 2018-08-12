@@ -17,7 +17,7 @@
 
 - name: Update apt chache to get grafana packages
   apt: update_cache=yes
-  when: grafanarepo|changed
+  when: grafanarepo is changed
 
 - name: Install grafana
   apt:
