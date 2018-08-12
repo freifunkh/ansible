@@ -17,9 +17,10 @@
     # Harvester
     - { name: influxdb, tags: influxdb }
     - { name: prometheus, tags: prometheus }
+    - { name: node_exporter, tags: node_exporter }
+    - { name: grafana, tags: grafana }
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
-    - { name: node_exporter, tags: node_exporter }
 
   vars_files:
       - vars/all_hosts.yml
@@ -88,6 +89,8 @@
             - leintor.e.ffh.zone:9100
             - aegidientor.e.ffh.zone:9100
             - harvester.ffh.zone:9100
+
+    - grafana_datadir: "/media/data/grafana"
 
     - nginx_sites:
       - domain: harvester.ffh.zone
