@@ -106,3 +106,14 @@
             gzip: true
         tls: true
         tls_redirect_to_https: true
+      - domain: opkg.ffh.zone
+        tls: false
+        locations:
+          - location: /openwrt/
+            type: proxy
+            proxy_pass_host: false
+            proxy_forward_url: https://archive.openwrt.org/
+          - location: /lede/
+            type: proxy
+            proxy_pass_host: false
+            proxy_forward_url: https://downloads.lede-project.org/
