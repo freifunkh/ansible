@@ -16,6 +16,7 @@
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
     - { name: influxdb, tags: influxdb }
+    - { name: prometheus, tags: prometheus }
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: node_exporter, tags: node_exporter }
@@ -57,6 +58,36 @@
     - influxdb_clients:
         - "88.198.66.22/32"							# temp stats.ffh.zone
         - "2a01:4f8:140:430a::3001/128"	# temp stats.ffh.zone
+
+    - prometheus_storage_path: "/media/data/prometheus"
+    - prometheus_clients:
+        - "88.198.66.22/32"							# temp stats.ffh.zone
+        - "2a01:4f8:140:430a::3001/128"	# temp stats.ffh.zone
+    - prometheus_scrapes:
+        - name: prometheus
+          interval: 60
+          timeout: 60
+          targets: ['localhost:9090']
+        - name: node_exporter
+          interval: 60
+          timeout: 30
+          targets:
+            - sn01.s.ffh.zone:9100
+            - sn02.s.ffh.zone:9100
+            - sn03.s.ffh.zone:9100
+            - sn04.s.ffh.zone:9100
+            - sn05.s.ffh.zone:9100
+            - sn06.s.ffh.zone:9100
+            - sn07.s.ffh.zone:9100
+            - sn08.s.ffh.zone:9100
+            - sn09.s.ffh.zone:9100
+            - sn10.s.ffh.zone:9100
+            - steintor.e.ffh.zone:9100
+            - listertor.e.ffh.zone:9100
+            - clevertor.e.ffh.zone:9100
+            - leintor.e.ffh.zone:9100
+            - aegidientor.e.ffh.zone:9100
+            - harvester.ffh.zone:9100
 
     - nginx_sites:
       - domain: harvester.ffh.zone
