@@ -13,7 +13,7 @@
 - name: Add grafana repositories
   register: grafanarepo
   apt_repository:
-    repo: "deb https://packagecloud.io/grafana/testing/debian/ jessie main"
+    repo: "deb https://packagecloud.io/grafana/testing/debian/ {{ ansible_distribution_release }} main"
 
 - name: Update apt chache to get grafana packages
   apt: update_cache=yes
