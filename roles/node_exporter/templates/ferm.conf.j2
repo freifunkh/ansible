@@ -1,7 +1,15 @@
-domain (ip ip6) {
+domain (ip) {
   table filter {
     chain INPUT {
-      saddr {{ lookup('dig', 'sn03.s.ffh.zone.') }}/32 proto tcp dport (9100) ACCEPT;
+      saddr {{ lookup('dig', 'harvester.ffh.zone./A') }}/32 proto tcp dport (9100) ACCEPT;
+    }
+  }
+}
+
+domain (ip6) {
+  table filter {
+    chain INPUT {
+      saddr {{ lookup('dig', 'harvester.ffh.zone./AAAA') }}/128 proto tcp dport (9100) ACCEPT;
     }
   }
 }
