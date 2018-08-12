@@ -1,0 +1,9 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+{% for client in prometheus_clients | default( [] ) %}
+      saddr {{ client }} proto tcp dport (9090) ACCEPT;
+{% endfor %}
+    }
+  }
+}

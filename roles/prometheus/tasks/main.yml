@@ -16,7 +16,7 @@
     src: https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz
     dest: /opt
     remote_src: True
-  when: prometheusversion|changed
+  when: prometheusversion is changed
 
 - name: Ensure prometheus user
   user:
@@ -26,8 +26,9 @@
 - name: Permissions on data directory
   file:
     state: directory
-    path: "/var/lib/prometheus"
+    path: "{{ prometheus_storage_path }}"
     owner: "prometheus"
+    group: "prometheus"
     recurse: yes
 
 - name: Prometheus systemd service file
@@ -42,12 +43,19 @@
     src: config.yml.j2
     dest: /etc/prometheus.yml
 
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-prometheus.conf
+  notify: reload ferm
+
 - name: Reload services
   systemd:
     name: prometheus
     state: restarted
     daemon_reload: yes
-  when: servicefile|changed or configfile|changed
+  when: servicefile is changed or configfile is changed
 
 - name: Enable service
   service:
@@ -67,7 +75,7 @@
     src: https://github.com/prometheus/pushgateway/releases/download/v{{ prometheus_pushgateway_version }}/pushgateway-{{ prometheus_pushgateway_version }}.linux-amd64.tar.gz
     dest: /opt
     remote_src: True
-  when: pushgatewayversion|changed
+  when: pushgatewayversion is changed
 
 - name: Install pushgateway.service
   register: pushservicefile
@@ -81,7 +89,7 @@
     name: prometheus
     state: restarted
     daemon_reload: yes
-  when: pushservicefile|changed
+  when: pushservicefile is changed
 
 - name: Enable push service
   service:
