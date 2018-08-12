@@ -91,6 +91,10 @@
             - harvester.ffh.zone:9100
 
     - grafana_datadir: "/media/data/grafana"
+    - grafana_allow_signup: true
+    - grafana_anonymous_access: true
+    - grafana_smtp_host: "mail.ffh.zone:25"
+    - grafana_smtp_from: "grafana@hannover.freifunk.net"
 
     - nginx_sites:
       - domain: harvester.ffh.zone
