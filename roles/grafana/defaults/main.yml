@@ -5,3 +5,4 @@ grafana_listen_on:
   ip: '' # listens on all ips
 grafana_allow_signup: false
 grafana_anonymous_access: false
+grafana_datadir: "/var/lib/grafana"

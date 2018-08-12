@@ -29,6 +29,21 @@
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
 
+- name: Permissions on data directory
+  file:
+    state: directory
+    path: "{{ grafana_datadir }}"
+    owner: "grafana"
+    group: "grafana"
+    recurse: yes
+
+- name: Change DATA_DIR in /etc/default/grafana-server
+  lineinfile:
+    dest: /etc/default/grafana-server
+    regexp: '^(DATA_DIR=).*'
+    line: 'DATA_DIR={{ grafana_datadir }}'
+    state: present
+
 - name: Enable grafana
   service:
     name: grafana-server
