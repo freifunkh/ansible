@@ -35,10 +35,6 @@
 - journald_watch_mailto: "monitoring@hannover.freifunk.net"
 - journald_watch_filter_regexes:
   - '/kernel: do_IRQ:.*No irq handler for vector \(irq -1\)/'
-  - '/client [^ ]* has duplicate leases on 10.2.0.0\/16$/' # client requests a new (different) address/lease without releasing the old one
-  - '/Abandoning IP address 10.[0-9.]*: pinged before offer$/'
-  - '/Abandoning IP address 10.2.[0-9.]*: declined.$/'
-  - '/uid lease 10.2.[0-9.]* for client [^ ]* is duplicate on 10.2.0.0\/16$/'
   - '/sshd.*fatal: no matching cipher found/'
   - '/sshd.*fatal: no hostkey alg \[preauth\]/'
   - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
@@ -52,6 +48,10 @@
   - '/dhcpd.*Failed to send.*byte long packet over fallback interface./'
   - '/dhcpd.*: send_packet: Operation not permitted/'
   - '/dhcpd.*: icmp_echorequest .*: Operation not permitted/'
+  - '/dhcpd.*: uid lease .* for client .* is duplicate on/'
+  - '/dhcpd.*: client .* has duplicate leases on 10/'  # client requests a new (different) address/lease without releasing the old one
+  - '/dhcpd.*: Abandoning IP address 10.*: pinged before offer$/'
+  - '/dhcpd.*: Abandoning IP address 10.*: declined.$/'
   - '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
   - '/systemd[.*]: Failed to start Clean php session files./'
 - admin_pubkeys:
