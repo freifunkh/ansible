@@ -15,7 +15,10 @@
     reload: yes
   when: reboot_on_kernelpanic == true
 
+- stat: path=/etc/default/grub
+  register: grubprober
 - name: Disable os-prober in grub
   lineinfile:
     path: /etc/default/grub
     line: 'GRUB_DISABLE_OS_PROBER="true"'
+  when: grubprober.stat.exists == true
