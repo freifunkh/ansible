@@ -33,7 +33,7 @@
 - name: Set prompt (PS1)
   lineinfile:
     path: /root/.bashrc
-    line: 'export PS1="\[\e[37m\][\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[31m\]{{ servername or "\h" }}\[\e[m\]\[\e[37m\]]\[\e[m\]\[\e[37m\]:\[\e[m\]\[\e[34m\]\w\[\e[m\] \[\e[37m\]\\$\[\e[m\] "'
+    line: 'export PS1="\[\e[37m\][\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[31m\]{{ servername | default("\h") }}\[\e[m\]\[\e[37m\]]\[\e[m\]\[\e[37m\]:\[\e[m\]\[\e[34m\]\w\[\e[m\] \[\e[37m\]\\$\[\e[m\] "'
 
 - name: Set dr alias
   lineinfile:
