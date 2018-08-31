@@ -23,6 +23,7 @@
     - iputils-tracepath
     - jq
     - net-tools
+    - dnsutils
 
 - name: Set prompt (PS1)
   lineinfile:
