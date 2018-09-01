@@ -22,6 +22,7 @@
     - { name: radv_server, tags: radv_server }
     - { name: dns_recursive, tags: dns_recursive }
     - { name: dhcp_server, tags: dhcp_server }
+    - { name: dhcp_test, tags: dhcp_test }
     - { name: gateway_announcement, tags: gateway_announcement }
     - { name: node_exporter, tags: node_exporter }
     - { name: iperf3, tags: iperf3 }
