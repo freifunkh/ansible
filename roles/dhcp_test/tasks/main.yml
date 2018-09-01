@@ -1,0 +1,46 @@
+---
+
+- name: Install dhtest dependencies
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - git
+    - build-essential
+
+- name: Check dhtest checkout
+  stat:
+    path: /opt/dhtest
+  register: dhtest_path
+
+
+- name: Clone dhtest sources
+  git:
+    repo: https://github.com/saravana815/dhtest.git
+    dest: /opt/dhtest
+  when: dhtest_path is defined and dhtest_path.stat.exists==false
+
+- name: Check dhtest executable
+  stat:
+    path: /opt/dhtest/dhtest
+  register: dhtest_executable
+
+- name: Build dhtest
+  command: make
+  args:
+    chdir: /opt/dhtest
+  when: dhtest_executable is defined and dhtest_executable.stat.exists==false
+
+- name: Add test script
+  template:
+    src: dhcp_test.py.j2
+    dest: /opt/dhtest/dhcp_test.py
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Activate cronjob to run dhcp_test.py
+  cron:
+    name: "check dhcpd now and then"
+    user: root
+    minute: "0"
+    job: /opt/dhtest/dhcp_test.py
+

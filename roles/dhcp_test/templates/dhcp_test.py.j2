@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+import commands
+import re
+
+sn = {{ sn }}
+interfaces = [ {% for d in domains %}{{ d.id }}{% if not loop.last %}, {% endif %}{% endfor %} ]
+
+#reset script log file
+with open('/var/log/dhtest.log', 'w') as f:
+    f.write('')
+    f.close
+
+#print_log(- prints the output to both stdout and file
+def print_log(msg, cmd=None):
+    if cmd != None:
+        print msg, cmd
+        msg_full = msg + cmd + "\n"
+    else:
+        print msg
+        msg_full = msg + "\n"
+
+    with open('/var/log/dhtest.log', 'a') as f:
+        f.write(msg_full)
+        f.close
+
+#write_log - write the output to file
+def write_log(msg):
+    with open('/var/log/dhtest.log', 'a') as f:
+        msg_full = msg + "\n"
+        f.write(msg_full)
+        f.close
+
+ip_addr_re = re.compile('.*DHCP ack received\s+- Acquired IP: (\d+\.\d+\.\d+\.\d+).*', re.M);
+
+for interface in interfaces:
+    valid_ip_addr_re = re.compile('.*DHCP ack received\s+- Acquired IP: 10\.'+str(interface)+'\.'+str(sn)+'\d\.\d+.*', re.M);
+    cmd = "/opt/dhtest/dhtest -T 10 -h dhtest -m 88:e6:40:ba:ff:ff -i bat" + str(interface)
+    # print_log("Running command ", cmd)
+    out = commands.getoutput(cmd)
+    write_log(out)
+
+    m_ip_addr = ip_addr_re.search(out)
+    if m_ip_addr:
+        ip_addr = m_ip_addr.group(1)
+        m_valid_ip_addr = valid_ip_addr_re.search(out)
+        if not m_valid_ip_addr:
+            print_log("IP address received from a different DHCP server: ", ip_addr)
+    else:
+        print_log("FAIL: command ", cmd)
+
+    # release IP address
+    cmd += " -r"
+    out = commands.getoutput(cmd)
+    write_log(out)
+
