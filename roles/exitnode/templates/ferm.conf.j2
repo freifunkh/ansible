@@ -15,9 +15,17 @@ domain (ip) {
     chain FORWARD {
       outerface eth0 daddr 10.0.0.0/8 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 100.64.0.0/10 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 127.0.0.0/8 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 169.254.0.0/16 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 172.16.0.0/12 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 192.0.2.0/24 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 192.88.99.0/24 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 192.168.0.0/16 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 198.18.0.0/15 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 198.51.100.0/24 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 203.0.113.0/24 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 224.0.0.0/4 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 240.0.0.0/4 REJECT reject-with icmp-port-unreachable;
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
     }
@@ -27,6 +35,14 @@ domain (ip) {
 domain (ip6) {
   table filter {
     chain FORWARD {
+      outerface eth0 daddr 0100::/64 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 2001:2::/48 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 2001:10::/28 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 2001:db8::/32 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 2002::/16 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 3ffe::/16 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr fc00::/7 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr fec0::/10 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr ff00::/8 REJECT reject-with icmp-port-unreachable;
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
