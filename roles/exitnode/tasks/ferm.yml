@@ -5,3 +5,4 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-exitnode.conf
+  notify: reload ferm
