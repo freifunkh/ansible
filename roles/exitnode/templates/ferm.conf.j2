@@ -17,6 +17,7 @@ domain (ip) {
       outerface eth0 daddr 100.64.0.0/10 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 172.16.0.0/12 REJECT reject-with icmp-port-unreachable;
       outerface eth0 daddr 192.168.0.0/16 REJECT reject-with icmp-port-unreachable;
+      outerface eth0 daddr 224.0.0.0/4 REJECT reject-with icmp-port-unreachable;
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
     }
@@ -26,6 +27,8 @@ domain (ip) {
 domain (ip6) {
   table filter {
     chain FORWARD {
+      outerface eth0 daddr ff00::/8 REJECT reject-with icmp-port-unreachable;
+
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
     }
   }
