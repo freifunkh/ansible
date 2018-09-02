@@ -24,6 +24,7 @@
     - jq
     - net-tools
     - dnsutils
+    - ndisc6
 
 - name: Set prompt (PS1)
   lineinfile:
