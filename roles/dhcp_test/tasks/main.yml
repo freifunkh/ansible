@@ -41,6 +41,6 @@
   cron:
     name: "check dhcpd now and then"
     user: root
-    minute: "0"
-    job: /opt/dhtest/dhcp_test.py
+    minute: "*/5"
+    job: cd /tmp; /opt/dhtest/dhcp_test.py
 

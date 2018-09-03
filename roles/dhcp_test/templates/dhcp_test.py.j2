@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
-import commands
+import subprocess
 import re
 
 sn = {{ sn }}
@@ -35,9 +35,13 @@ ip_addr_re = re.compile('.*DHCP ack received\s+- Acquired IP: (\d+\.\d+\.\d+\.\d
 
 for interface in interfaces:
     valid_ip_addr_re = re.compile('.*DHCP ack received\s+- Acquired IP: 10\.'+str(interface)+'\.'+str(sn)+'\d\.\d+.*', re.M);
-    cmd = "/opt/dhtest/dhtest -T 10 -h dhtest -m 88:e6:40:ba:ff:ff -i bat" + str(interface)
-    # print_log("Running command ", cmd)
-    out = commands.getoutput(cmd)
+    cmd = "/opt/dhtest/dhtest -T 10 -m 88:e6:40:ba:ff:ff -i bat" + str(interface)
+    try:
+        out = subprocess.check_output(cmd,stderr=subprocess.STDOUT,shell=True)
+    except subprocess.CalledProcessError as e:
+        write_log("Error "+str(e.returncode)+": "+e.output+"\n")
+        continue
+
     write_log(out)
 
     m_ip_addr = ip_addr_re.search(out)
@@ -45,12 +49,17 @@ for interface in interfaces:
         ip_addr = m_ip_addr.group(1)
         m_valid_ip_addr = valid_ip_addr_re.search(out)
         if not m_valid_ip_addr:
-            print_log("IP address received from a different DHCP server: ", ip_addr)
+            print_log("Received IP address from another DHCP server: ", ip_addr)
     else:
         print_log("FAIL: command ", cmd)
 
     # release IP address
-    cmd += " -r"
-    out = commands.getoutput(cmd)
+    cmd = "/opt/dhtest/dhtest -T 10 -m 88:e6:40:ba:ff:ff -i bat" + str(interface) + " -r"
+    try:
+        out = subprocess.check_output(cmd,shell=True)
+    except subprocess.CalledProcessError as e:
+        write_log("Error "+str(e.returncode)+": "+e.output+"\n")
+        continue
+
     write_log(out)
 
