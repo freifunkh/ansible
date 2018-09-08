@@ -21,7 +21,7 @@
     src: https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
     dest: /usr/local
     remote_src: True
-  when: goversion|changed
+  when: goversion is changed
 
 - name: Install path to go stuff
   copy:

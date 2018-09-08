@@ -26,6 +26,6 @@
 
 - name: Apply changes in /etc/rc.local
   command: /etc/rc.local
-  when: rclocal|changed
+  when: rclocal is changed
 
 

@@ -18,4 +18,4 @@
     group: "{{ nginx_user }}"
     mode: u=rwX,g=rwX,o=rX
     recurse: yes
-  when: repositorycloned|changed
+  when: repositorycloned is changed

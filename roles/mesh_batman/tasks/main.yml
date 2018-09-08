@@ -69,7 +69,7 @@
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
   modprobe: name=batman_adv state=absent
-  when: batman_build_from_source and installedversion|changed
+  when: batman_build_from_source and installedversion is changed
 
 - name: Install batctl
   apt: name=batctl
@@ -82,7 +82,7 @@
 
 - name: Restart mesh_fastd
   service: name=fastd@mesh_fastd state=restarted
-  when: installedversion|changed and bat0_exists.stat.exists
+  when: installedversion is changed and bat0_exists.stat.exists
 
 # SMELL: Should not depend on bat0 (legacy_dom0 may be false)
 - name: Restart domain fastds
@@ -90,4 +90,4 @@
   with_items: "{{ domains }}"
   loop_control:
     loop_var: domain
-  when: domains is defined and installedversion|changed and bat0_exists.stat.exists
+  when: domains is defined and installedversion is changed and bat0_exists.stat.exists

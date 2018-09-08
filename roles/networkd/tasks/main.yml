@@ -8,7 +8,7 @@
 
 - name: Update apt chache to get jessie-backports packages
   apt: update_cache=yes
-  when: backportsrepositoryadded|changed
+  when: backportsrepositoryadded is changed
 
 - name: Install systemd from backports repo
   register: systemdinstall
@@ -22,12 +22,12 @@
   command: /usr/bin/systemd-run --on-active=2 /bin/systemctl reboot
   async: 1
   poll: 0
-  when: systemdinstall|changed
+  when: systemdinstall is changed
   changed_when: true
 
 - name: Waiting for server to come back after upgrading systemd
   local_action: command sleep 60
-  when: systemdinstall|changed
+  when: systemdinstall is changed
 
 - name: Enable systemd-networkd
   service: name=systemd-networkd enabled=yes state=started
@@ -60,7 +60,7 @@
 
 - name: Directly restart networkd
   service: name=systemd-networkd state=restarted
-  when: enableresolved|changed
+  when: enableresolved is changed
 
 - name: Disable debian networking
   service: name=networking enabled=no

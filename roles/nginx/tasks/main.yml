@@ -23,7 +23,7 @@
 
 - name: Update apt cache to get nginx packages
   apt: update_cache=yes
-  when: nginxrepositoryadded|changed
+  when: nginxrepositoryadded is changed
 
 - name: Remove old nginx
   apt:

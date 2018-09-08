@@ -32,7 +32,7 @@
 
 - name: reload systemd
   command: systemctl daemon-reload
-  when: servicefilechanged | changed
+  when: servicefilechanged is changed
 
 - name: Generate filter file
   notify: Restart bpfcountd

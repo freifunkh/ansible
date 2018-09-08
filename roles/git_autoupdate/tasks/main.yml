@@ -15,11 +15,11 @@
 
 - name: Publish new public ssh key to repository
   include_tasks: gitolite.yml
-  when: createuser|changed
+  when: createuser is changed
 
 #- name: Create lockfile to wait until ssh key is deployed to the git server
 #  file: path=/home/auto/wait_for_access.lock state=touch
-#  when: createuser|changed
+#  when: createuser is changed
 
 #- name: Wait until the ssh key is deployed to the git server and lockfile is removed manually
 #  wait_for: path=/home/auto/wait_for_access.lock state=absent

@@ -72,11 +72,11 @@
 
 - name: Load and apply the new firewall 4 rules
   command: iptables-restore /etc/iptables/rules.v4
-  when: iptables4|changed
+  when: iptables4 is changed
 
 - name: Load and apply the new firewall 6 rules
   command: ip6tables-restore /etc/iptables/rules.v6
-  when: iptables6|changed
+  when: iptables6 is changed
 
 - name: Ensure alternative routing tables are existing
   lineinfile:
@@ -94,7 +94,7 @@
 
 - name: Apply changes in /etc/rc.local
   command: /etc/rc.local
-  when: rclocal|changed
+  when: rclocal is changed
 
 - name: Generate script for alternative routingtables
   template:
