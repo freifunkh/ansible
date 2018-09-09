@@ -15,15 +15,26 @@
     dest: /usr/src/batman-adv-{{ batman_build_version }}/
     version: "{{ batman_build_version }}"
 
+- name: Get dkms status
+  register: dkmsstatus
+  command: "dkms status -m batman-adv"
+  changed_when: false
+
+- name: Get dkms status for batman-adv
+  set_fact: 
+    batman_in_dkms: "{{ dkmsstatus.stdout_lines | first | default('nobatman') }}"
+
 - name: Remove from dkms
-  command: dkms remove batman-adv/{{ batman_build_version }} --all
-  # TODO: conditionalize, only if there is sth to remove
+  command: "dkms remove batman-adv/{{ batman_build_version }} --all"
+  when: batman_in_dkms is not match("nobatman")
 
 - name: Reset batman
-  command: git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}
+  command: "git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}"
 
 - name: Patch batman
   shell: curl {{ item }} | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
+  args:
+    warn: False
   with_items:
    - https://paste.irrelefant.net/einei4aN.txt
    - https://paste.irrelefant.net/xoraza8E.txt
@@ -36,25 +47,25 @@
     src: dkms.conf.j2
     dest: /usr/src/batman-adv-{{ batman_build_version }}/dkms.conf
 
-- name: Get dkms status
+- name: Get dkms status again
   register: dkmsstatus
-  command: "dkms status"
+  command: "dkms status -m batman-adv -v {{ batman_build_version }}"
   changed_when: false
 
-- name: Get dkms status for version {{ batman_build_version }}
-  set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("noversion") }}"
-  # " (hotfix for vi's syntax highlighting)
+- name: Get dkms status for batman-adv version {{ batman_build_version }}
+  set_fact: 
+    batman_version_status: "{{ dkmsstatus.stdout_lines | first | default('noversion') }}"
 
 - debug: var=batman_version_status
 
 - name: Add version {{ batman_build_version }} to dkms
   command: "dkms add -m batman-adv -v {{ batman_build_version }}"
-  when: 'noversion' in batman_version_status
+  when: batman_version_status is match("noversion")
 
 - name: Install version {{ batman_build_version }} using dkms
   register: installedversion
   command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
-  when: 'installed' not in batman_version_status
+  when: batman_version_status is not search("installed")
 
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
