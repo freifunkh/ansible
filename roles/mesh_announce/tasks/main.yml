@@ -11,6 +11,13 @@
     - ethtool
     - git
 
+- name: Create auto user
+  register: createuser
+  user:
+    name: auto
+    system: yes
+    generate_ssh_key: yes
+
 - name: create mesh_announce directory
   become: true
   file:
