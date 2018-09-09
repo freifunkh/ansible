@@ -1,75 +1,13 @@
 ---
 
-- name: Add build dependencies
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-  with_items:
-    - dkms
-    - git
-    - linux-headers-amd64
+- name: Include 'Build from source'
+  include_tasks: build_from_source.yml
   when: batman_build_from_source
-
-- name: Clone batman sources
-  git:
-    repo: https://git.open-mesh.org/batman-adv.git
-    dest: /usr/src/batman-adv-{{ batman_build_version }}/
-    version: "{{ batman_build_version }}"
-  when: batman_build_from_source
-
-- name: remove from dkms
-  command: dkms remove batman-adv/{{ batman_build_version }} --all
-
-- name: Reset batman
-  command: git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}
-  when: batman_build_from_source
-
-- name: Patch batman
-  shell: curl {{ item }} | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
-  when: batman_build_from_source
-  with_items:
-   - https://paste.irrelefant.net/einei4aN.txt
-   - https://paste.irrelefant.net/xoraza8E.txt
-   - https://patchwork.open-mesh.org/patch/17405/mbox/ # crc issue
-   - https://patchwork.open-mesh.org/patch/17406/mbox/ # crc issue
-   - https://paste.irrelefant.net/chieNoo8.txt # crc issue counters
-
-- name: Add the dkms info to the source
-  template:
-    src: dkms.conf.j2
-    dest: /usr/src/batman-adv-{{ batman_build_version }}/dkms.conf
-  when: batman_build_from_source
-
-- name: Get dkms status
-  register: dkmsstatus
-  command: "dkms status"
-  changed_when: false
-  when: batman_build_from_source
-
-- name: Get dkms status for version {{ batman_build_version }}
-  set_fact: batman_version_status="{{ dkmsstatus.stdout_lines | select('match', '^batman-adv, ' + batman_build_version) | first | default("noversion") }}"
-  when: batman_build_from_source
-
-- debug: var=batman_version_status
-
-- name: Add version {{ batman_build_version }} to dkms
-  command: "dkms add -m batman-adv -v {{ batman_build_version }}"
-  when: batman_build_from_source and 'noversion' in batman_version_status
-
-- name: Install version {{ batman_build_version }} using dkms
-  register: installedversion
-  command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
-  when: batman_build_from_source and 'installed' not in batman_version_status
 
 - name: Check if bat0 exists
   register: bat0_exists
   stat:
     path: /sys/class/net/bat0
-
-- name: Unload batman_adv module when installed version has changed
-  # The module will be loaded by "Load batman_adv module" again
-  modprobe: name=batman_adv state=absent
-  when: batman_build_from_source and installedversion is changed
 
 - name: Install batctl
   apt: name=batctl
