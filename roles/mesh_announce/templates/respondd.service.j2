@@ -3,7 +3,7 @@ Description=Respondd
 After=network.target
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i bat0 -i mesh_fastd -b bat0
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i bat0 -i mesh_fastd -b bat0 -g ff05::2:1001
 Restart=always
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
