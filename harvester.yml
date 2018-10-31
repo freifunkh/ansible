@@ -61,7 +61,7 @@
         - "2a01:4f8:140:430a::3001/128"	# temp stats.ffh.zone
 
     - prometheus_storage_path: "/media/data/prometheus"
-    - prometheus_storage_retention: "365d"
+    - prometheus_storage_retention: "8760h0m0s"
     - prometheus_clients:
         - "88.198.66.22/32"							# temp stats.ffh.zone
         - "2a01:4f8:140:430a::3001/128"	# temp stats.ffh.zone
