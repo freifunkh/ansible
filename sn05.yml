@@ -56,4 +56,4 @@
         gre-leintor: 130
 
     - legacy_dom0: true
-    - radv_announce_default: true
+    - radv_announce_default: false
