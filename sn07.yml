@@ -42,9 +42,8 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 185.216.214.187/24
           - 2a0b:bbc0:1:9::c5/64
-        gateway4: 185.216.214.1
+        dhcp: true
         gateway6: 2a0b:bbc0:1:9::1
         dns_server: [9.9.9.9, 1.1.1.1]
 
