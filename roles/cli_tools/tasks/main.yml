@@ -36,3 +36,7 @@
     path: /root/.bashrc
     line: 'alias dr="ip r s t 0 | grep \"default via\" && ip -6 r s t 0 | grep \"default via\""'
 
+- name: Set traceraute alias
+  lineinfile:
+    path: /root/.bashrc
+    line: 'alias traceraute="traceroute"'
