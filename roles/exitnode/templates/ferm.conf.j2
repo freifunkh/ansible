@@ -28,6 +28,8 @@ domain (ip) {
       outerface eth0 daddr 240.0.0.0/4 REJECT reject-with icmp-port-unreachable;
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+      outerface eth0 interface eth0 DROP;
+      ACCEPT;
     }
   }
 }
@@ -46,6 +48,8 @@ domain (ip6) {
       outerface eth0 daddr ff00::/8 REJECT reject-with icmp-port-unreachable;
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+      outerface eth0 interface eth0 DROP;
+      ACCEPT;
     }
   }
 }
