@@ -38,6 +38,7 @@
           "clevertor.e.ffh.zone. IN AAAA 2a02:c207:3002:4406::1",
           "clevertor.e.ffh.zone. IN A 173.249.22.70",
           # "aegidientor.e.ffh.zone. IN A 178.32.215.75",
+          # "aegidientor.e.ffh.zone. IN AAAA 2a01:4f8:1c1c:2f89::1",
           # "listertor.e.ffh.zone. IN AAAA 2a01:4f8:1c1c:2f89::1",
           # "listertor.e.ffh.zone. IN A 159.69.41.90",
           "ntp.ffh.zone. IN A 37.120.176.252",
