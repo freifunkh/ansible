@@ -13,7 +13,7 @@
     value: 10
     state: present
     reload: yes
-  when: reboot_on_kernelpanic == true
+  when: reboot_on_kernelpanic == true and ansible_virtualization_type != "lxc"
 
 - stat: path=/etc/default/grub
   register: grubprober
@@ -21,4 +21,4 @@
   lineinfile:
     path: /etc/default/grub
     line: 'GRUB_DISABLE_OS_PROBER="true"'
-  when: grubprober.stat.exists == true
+  when: grubprober.stat.exists == true and ansible_virtualization_type != "lxc"
