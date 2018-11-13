@@ -27,9 +27,10 @@
 
 - name: Remove old nginx
   apt:
-    name: "{{ item }}"
     state: absent
-  with_items:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - nginx=1.6.*
     - nginx-common=1.6.*
 

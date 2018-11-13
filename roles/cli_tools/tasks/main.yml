@@ -1,8 +1,11 @@
 ---
 
 - name: Install cli tools
-  apt: name={{ item }} update_cache=yes
-  with_items:
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
     - netcat-openbsd
     - tcpdump
     - nmap

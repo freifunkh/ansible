@@ -2,8 +2,13 @@
 
 - name: Install dependencies
   apt: name={{ item }}
-  update_cache: yes
-  with_items: ["git", "curl", "netcat-openbsd"]
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - git
+    - curl
+    - netcat-openbsd
 
 - name: Create auto user
   register: createuser

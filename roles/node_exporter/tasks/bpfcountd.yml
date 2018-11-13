@@ -2,9 +2,10 @@
 
 - name: Install build dependencies
   apt:
-    name: "{{ item }}"
     update_cache: yes
-  with_items: 
+    name: "{{ packages }}"
+  vars:
+    packages:
     - build-essential
     - libpcap-dev
     - git

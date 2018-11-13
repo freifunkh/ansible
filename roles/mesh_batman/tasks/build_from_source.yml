@@ -2,9 +2,10 @@
 
 - name: Add build dependencies
   apt:
-    name: "{{ item }}"
     update_cache: yes
-  with_items:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - dkms
     - git
     - linux-headers-amd64

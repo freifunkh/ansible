@@ -1,8 +1,11 @@
 ---
 
 - name: Install gatemon dependencies
-  apt: name={{ item }} update_cache=yes
-  with_items:
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
     - monitoring-plugins-basic
     - monitoring-plugins-standard
     - nagios-plugins-contrib
@@ -16,7 +19,6 @@
   stat:
     path: /usr/lib/gatemon
   register: gatemon_path
-
 
 - name: Clone gatemon sources
   git:
