@@ -30,6 +30,7 @@
           - 37.120.176.252/22
           - 2a03:4000:6:8277::1/64
         gateway4: 37.120.176.1
+        gateway6: fe80::1
         dns_server: [8.8.8.8, 8.8.4.4]
 
     - dns_authoritative_nameserver:
