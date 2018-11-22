@@ -11,6 +11,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     # special
+    - DavidWittman.redis
 
   vars_files:
     - vars/all_hosts.yml
@@ -29,3 +30,4 @@
         gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.98.98, 213.133.99.99]
 
+    - redis_bind: 127.0.0.1
