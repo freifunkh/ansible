@@ -11,7 +11,10 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     # special
-    - DavidWittman.redis
+    - { name: DavidWittman.redis, tags: redis }
+    - { name: geerlingguy.postgresql, tags: postgresql }
+    - { name: lae.netbox, tags: netbox }
+    - { role: nginx, tags: nginx }
 
   vars_files:
     - vars/all_hosts.yml
@@ -30,4 +33,28 @@
         gateway6: 2a01:4f8:140:430a::1
         dns_server: [213.133.98.98, 213.133.99.99]
 
+    - netbox_stable: true
+    - netbox_socket: "0.0.0.0:8011"
+    - netbox_superuser_password: netbox
+    - netbox_config:
+        ALLOWED_HOSTS:
+          - "*"
+        MEDIA_ROOT: "{{ netbox_shared_path }}/media"
+        REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
+    - netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
+    - netbox_webhooks_enabled: true
+
+    - postgresql_users:
+        - name: "{{ netbox_database_user }}"
+          role_attr_flags: CREATEDB,NOSUPERUSER
+
     - redis_bind: 127.0.0.1
+
+    - nginx_sites:
+      - domain: ipam.ffh.zone
+        root: /var/www/html
+        tls: true
+        locations:
+          - location: /
+            type: proxy
+            proxy_forward_url: http://localhost:8011/
