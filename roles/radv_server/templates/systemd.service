@@ -4,12 +4,12 @@ Requires=network-online.target
 After=network-online.target
 {% if legacy_dom0 == true %}
 After=sys-subsystem-net-devices-bat0.device
-Requires=sys-subsystem-net-devices-bat0.device
+# Requires=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% if domains is defined %}
 {% for domain in domains %}
 After=sys-subsystem-net-devices-bat{{ domain.id }}.device
-Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+# Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
 {% endfor %}
 {% endif %}
 
