@@ -204,12 +204,14 @@ object Host "build" {
   }
 }
 
-object Host "sn02" {
-  display_name = "SN02"
+
+{% for name,node in supernodes.items() %}
+object Host "{{ name }}" {
+  display_name = "{{ name }}"
   import "generic-host"
 
-  address = "195.201.97.8"
-  address6 = "2a01:4f8:1c0c:7149::2001"
+  address = "{{ lookup('dig', name+'.s.ffh.zone./A') }}"
+  address6 = "{{ lookup('dig', name+'.s.ffh.zone./AAAA') }}"
 
   vars.type = "super"
   vars.ssh_port = 1337
@@ -219,117 +221,15 @@ object Host "sn02" {
   }
 }
 
-object Host "sn04" {
-  display_name = "SN04"
+{% endfor %}
+
+{% for name,node in exitnodes.items() %}
+object Host "{{ name }}" {
+  display_name = "{{ name }}"
   import "generic-host"
 
-  address = "195.201.136.197"
-  address6 = "2a01:4f8:1c1c:10fe::4001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn05" {
-  display_name = "SN05"
-  import "generic-host"
-
-  address = "88.198.67.124"
-  address6 = "2a01:4f8:140:430a::5001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn06" {
-  display_name = "SN06"
-  import "generic-host"
-
-  address = "173.249.5.34"
-  address6 = "2a02:c207:3002:3831::6001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn07" {
-  display_name = "SN07"
-  import "generic-host"
-
-  address = "185.216.214.187"
-  address6 = "2a0b:bbc0:1:9::c5"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn08" {
-  display_name = "SN08"
-  import "generic-host"
-
-  address = "176.9.100.184"
-  address6 = "2a01:4f8:151:42a1::8001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn09" {
-  display_name = "SN09"
-  import "generic-host"
-
-  address = "81.3.6.92"
-  address6 = "2a02:790:1:ff::9001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "sn10" {
-  display_name = "SN10"
-  import "generic-host"
-
-  address = "81.3.6.91"
-  address6 = "2a02:790:1:ff::a001"
-
-  vars.type = "super"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "clevertor" {
-  display_name = "Clevertor"
-  import "generic-host"
-
-  address = "173.249.22.70"
-  address6 = "2a02:c207:3002:4406::1"
+  address = "{{ lookup('dig', name+'.e.ffh.zone./A') }}"
+  address6 = "{{ lookup('dig', name+'.e.ffh.zone./AAAA') }}"
 
   vars.type = "exit"
   vars.ssh_port = 1337
@@ -339,32 +239,4 @@ object Host "clevertor" {
   }
 }
 
-object Host "leintor" {
-  display_name = "Leintor"
-  import "generic-host"
-
-  address = "81.3.6.94"
-  address6 = "2a02:790:1:ff::1001"
-
-  vars.type = "exit"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
-
-object Host "steintor" {
-  display_name = "Steintor"
-  import "generic-host"
-
-  address = "37.120.190.215"
-  address6 = "2a03:4000:6:b1d6::1"
-
-  vars.type = "exit"
-  vars.ssh_port = 1337
-
-  vars.notification["mail"] = {
-    groups = [ "ffhadmins" ]
-  }
-}
+{% endfor %}

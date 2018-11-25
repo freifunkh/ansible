@@ -9,3 +9,9 @@
   with_fileglob:
     - "files/*"
   notify: Reload icinga2
+
+- name: Generate hosts.conf
+  notify: Reload icinga2
+  template:
+    src: "hosts.conf.j2"
+    dest: "/etc/icinga2/conf.d/hosts.conf"
