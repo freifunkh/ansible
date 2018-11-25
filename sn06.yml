@@ -46,6 +46,7 @@
           - 2a02:c207:3002:3831::6001/64
         gateway4: 173.249.5.1
         gateway6: fe80::1
+        no_radv_accept: true
         dns_server: [213.136.95.10, 213.136.95.11]
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']

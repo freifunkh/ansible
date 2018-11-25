@@ -45,6 +45,7 @@
           - 2a01:4f8:1c1c:10fe::4001/64
         dhcp: true
         gateway6: fe80::1
+        no_radv_accept: true
         dns_server: [213.133.98.98, 8.8.8.8]
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']

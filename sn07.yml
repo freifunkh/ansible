@@ -45,6 +45,7 @@
           - 2a0b:bbc0:1:9::c5/64
         dhcp: true
         gateway6: 2a0b:bbc0:1:9::1
+        no_radv_accept: true
         dns_server: [9.9.9.9, 1.1.1.1]
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
