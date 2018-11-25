@@ -3,27 +3,27 @@
   - 22
   - 1337
 - exitnodes:
-    # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone.') }}" }
-    steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone.') }}" }
-    leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone.') }}" }
-    clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone.') }}" }
-    # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone.') }}" }
+    # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
+    steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
+    leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}" }
+    clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
+    # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
 - supernodes:
-    # sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone.') }}" }
-    sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone.') }}" }
-    # sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone.') }}" }
-    sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone.') }}" }
-    sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone.') }}" }
-    sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone.') }}" }
-    sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone.') }}" }
-    # sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone.') }}" }
-    sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone.') }}" }
-    sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone.') }}" }
+    # sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
+    sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}" }
+    # sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone./A') }}" }
+    sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone./A') }}" }
+    sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}" }
+    sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
+    sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
+    # sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}" }
+    sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}" }
+    sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}" }
 - helpernodes:
-    harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone.') }}" }
-    observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone.') }}" }
-    ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net.') }}" }
-    web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone.') }}" }
+    harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}" }
+    observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}" }
+    ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net./A') }}" }
+    web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}" }
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: mail.ffh.zone
