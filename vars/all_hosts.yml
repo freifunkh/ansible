@@ -11,7 +11,7 @@
 - supernodes:
     # sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
     sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}" }
-    # sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone./A') }}" }
+    sn03: { id: 3, ip4: "{{ lookup('dig', 'sn03.s.ffh.zone./A') }}" }
     sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone./A') }}" }
     sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}" }
     sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
