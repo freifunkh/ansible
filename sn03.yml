@@ -48,6 +48,8 @@
         gateway6: 2001:4ba0:babe::1
         no_radv_accept: true
         dns_server: [62.141.32.4, 9.9.9.10]
+        static_routes:
+        - dest: 2001:4ba0:babe::1/128
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
     - babeld_interface_penalty:
