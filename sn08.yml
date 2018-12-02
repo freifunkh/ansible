@@ -37,7 +37,7 @@
     - servername: sn08
     - sn: 8
     - mail_fqdn: "sn08.s.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, leon]
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, leon, codefetch]
 
     - networkd_configures:
       - iface: eth0

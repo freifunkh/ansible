@@ -21,7 +21,7 @@
   vars:
     - servername: web
     - mail_fqdn: "web.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch]
 
     - networkd_configures:
       - iface: eth0
