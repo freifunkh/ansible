@@ -25,11 +25,10 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 185.216.213.179/24
           - 2a0b:bbc0:1:9::1ba/64
-        gateway4: 185.216.213.1 
+        dhcp: true
         gateway6: 2a0b:bbc0:1:9::1
-        dns_server: ['9.9.9.10', '1.1.1.1']
+        dns_server: ['9.9.9.10', '1.1.1.1', '2001:470:20::2']
       - iface: lo
         addresses:
           - 100.100.0.1/32 # anycast for ping tests
