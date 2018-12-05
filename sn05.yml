@@ -51,8 +51,8 @@
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
     - babeld_interface_penalty:
-        gre-listertor: 100
-        gre-clevertor: 110
+        gre-clevertor: 100
+        gre-listertor: 110
         gre-steintor: 120
         gre-leintor: 130
 
