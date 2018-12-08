@@ -48,7 +48,7 @@
         dhcp: true
         dns_server: [9.9.9.9, 1.1.1.1]
 
-    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor']
+    - babeld_interfaces: ['gre-listertor', 'gre-steintor', 'gre-leintor', 'gre-clevertor']
     - babeld_interface_penalty:
         gre-listertor: 100
         gre-steintor: 110
