@@ -48,12 +48,14 @@
         dhcp: true
         dns_server: [9.9.9.9, 1.1.1.1]
 
-    - babeld_interfaces: ['gre-listertor', 'gre-steintor', 'gre-leintor', 'gre-clevertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
     - babeld_interface_penalty:
-        gre-listertor: 100
-        gre-steintor: 110
-        gre-clevertor: 120
+        gre-aegidientor: 666
+        gre-steintor: 120
         gre-leintor: 130
+        gre-clevertor: 110
+        gre-listertor: 100
+        gre-bruehltor: 666
 
     - legacy_dom0: true
     - radv_announce_default: false
