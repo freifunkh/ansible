@@ -3,11 +3,11 @@ Description=a small daemon to monitor network traffic using bpf (berkley packet 
 After=network.target
 {% if legacy_dom0 == true %}
 After=sys-subsystem-net-devices-bat0.device
-Requires=sys-subsystem-net-devices-bat0.device
+# Requires=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% for domain in domains | default([]) %}
 After=sys-subsystem-net-devices-bat{{ domain.id }}.device
-Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+# Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
 {% endfor %}
 PartOf=bpfcountd.service
 
