@@ -28,6 +28,7 @@
     - net-tools
     - dnsutils
     - ndisc6
+    - less
 
 - name: Set prompt (PS1)
   lineinfile:
