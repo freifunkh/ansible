@@ -4,6 +4,6 @@ cd /etc/nsd/zones
 perl knoten_compile.pl forward {{ dns_zonenodes_nodedomain }} > {{ dns_zonenodes_nodedomain }}.zone
 perl knoten_compile.pl reverse {{ dns_zonenodes_nodedomain }} > {{ dns_zonenodes_rdnsdomain }}.zone
 
-cat rdns.zone.inc >> {{ dns_zonenodes_rdnsdomain }}.zone
+# cat rdns.zone.inc >> {{ dns_zonenodes_rdnsdomain }}.zone
 
 /usr/sbin/nsd-control reload | grep -ve '^ok$'

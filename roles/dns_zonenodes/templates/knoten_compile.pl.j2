@@ -54,7 +54,7 @@ print '    1w      ; slave copy expire time'."\n";
 print '    1h      ; NXDOMAIN cache time'."\n";
 print '    )'."\n";
 print ''."\n";
-print "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa. IN PTR n.ffh.zone.\n";
+# print "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa. IN PTR n.ffh.zone.\n";
 {% for ns in dns_authoritative_nameserver %}
 print '@   IN  NS  {{ns.nameserver}}'."\n";
 {% endfor %}
