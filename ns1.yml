@@ -50,8 +50,8 @@
     - dns_authoritative_external:
       - domain: "n.ffh.zone"
         zonefile: "n.ffh.zone.zone"
-      - domain: "7.0.0.0.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
-        zonefile: "7.0.0.0.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.zone"
+      - domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
+        zonefile: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.zone"
       - domain: "ffh"
         zonefile: "ffh.zone"
       - domain: "hannover.freifunk.net"
@@ -60,7 +60,7 @@
 
     - dns_zonenodes_toplevel: "ffh.zone."
     - dns_zonenodes_nodedomain: "n.ffh.zone"
-    - dns_zonenodes_rdnsdomain: "7.0.0.0.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
+    - dns_zonenodes_rdnsdomain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
     - dns_zonenodes_matchIP: "/^2a02/"
     - dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
 
