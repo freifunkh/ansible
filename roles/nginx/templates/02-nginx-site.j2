@@ -7,7 +7,10 @@ server {
     access_log                  off;
     error_log                   /var/log/nginx/error-{{ item.domain }}.log;
 
-    return                      301 https://{{ item.domain }}$request_uri;
+    location / {
+        return                  301 https://{{ item.domain }}$request_uri;
+    }
+
 {% else %}
 {% include '04-nginx-site-basics.j2' %}
 {% include '05-nginx-site-location.j2' %}
