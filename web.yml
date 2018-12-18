@@ -39,12 +39,6 @@
         locations:
           - location: /
             directory_index: true
-          - location: /beta/factory/
-            type: proxy
-            proxy_forward_url: https://build.ffh.zone/job/gluon-beta/ws/beta/images/factory/
-          - location: /beta/sysupgrade/
-            type: proxy
-            proxy_forward_url: https://build.ffh.zone/job/gluon-beta/ws/beta/images/sysupgrade/
       - domain: www.fnorden.net
         root: /var/www/fnorden.net
         tls: true
