@@ -204,6 +204,31 @@ object Host "build" {
   }
 }
 
+object Host "fet" {
+  display_name = "Fachrat Elektrotechnik (Leo)"
+  import "generic-host"
+
+  address = "130.75.81.163"
+
+  vars.type = "fet"
+  vars.ssh_port = 22
+
+  vars.http_vhosts["http fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+  }
+
+  vars.http_vhosts["https fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.notification["mail"] = {
+    users = [ "leo" ]
+  }
+}
+
 
 {% for name,node in supernodes.items() %}
 object Host "{{ name }}" {
