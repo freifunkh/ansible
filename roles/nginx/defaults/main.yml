@@ -7,4 +7,4 @@ nginx_sites_available_dir: /etc/nginx/sites-available
 nginx_sites_enabled_dir: /etc/nginx/sites-enabled
 nginx_keys_dir: /etc/nginx/keys
 nginx_getssl_dir: /opt/getssl
-nginx_resolver: "[2a00:f48:100c:7b::2] [2a02:e00:ffec:11a::1] 62.113.203.55 130.255.78.223"
+nginx_resolver: "[2001:470:100::2] [2620:0:ccc::2] 208.67.220.220"
