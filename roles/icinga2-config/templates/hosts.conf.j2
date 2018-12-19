@@ -22,7 +22,7 @@ object Host NodeName {
   import "generic-host"
 
   /* Specify the address attributes for checks e.g. `ssh` or `http`. */
-  address = "127.0.0.1"
+  address  = "127.0.0.1"
   address6 = "::1"
 
   vars.type = "monitor"
@@ -36,7 +36,12 @@ object Host NodeName {
   vars.http_vhosts["https"] = {
     http_uri = "/"
     http_ssl = true
-    http_sni   = true
+    http_sni = true
+  }
+
+  vars.http_vhosts["cert"] = {
+    http_ssl = true
+    http_sni = true
     http_certificate = "7"
   }
 
@@ -59,30 +64,25 @@ object Host "harvester" {
   display_name = "Harvester"
   import "generic-host"
 
-  address = "88.198.66.29"
+  address  = "88.198.66.29"
   address6 = "2a01:4f8:140:430a::101"
 
   vars.type = "web"
   vars.ssh_port = 1337
 
   vars.http_vhosts["http nodes"] = {
-    http_vhost  = "harvester.ffh.zone"
+    http_vhost = "harvester.ffh.zone"
   }
 
   vars.http_vhosts["https nodes"] = {
-    http_vhost  = "harvester.ffh.zone"
-    http_uri    = "/nodes.json"
-    http_ssl    = true
+    http_vhost = "harvester.ffh.zone"
+    http_uri   = "/nodes.json"
+    http_ssl   = true
     http_sni   = true
-    http_certificate = "7"
   }
 
-  vars.http_vhosts["http status"] = {
-    http_vhost = "status.ffh.zone"
-  }
-
-  vars.http_vhosts["https status"] = {
-    http_vhost = "status.ffh.zone"
+  vars.http_vhosts["cert nodes"] = {
+    http_vhost = "harvester.ffh.zone"
     http_ssl   = true
     http_sni   = true
     http_certificate = "7"
@@ -96,6 +96,12 @@ object Host "harvester" {
     http_vhost = "prometheus.ffh.zone"
     http_ssl   = true
     http_sni   = true
+  }
+
+  vars.http_vhosts["cert prometheus"] = {
+    http_vhost = "prometheus.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
     http_certificate = "7"
   }
 
@@ -104,6 +110,12 @@ object Host "harvester" {
   }
 
   vars.http_vhosts["https stats"] = {
+    http_vhost = "stats.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert stats"] = {
     http_vhost = "stats.ffh.zone"
     http_ssl   = true
     http_sni   = true
@@ -119,7 +131,7 @@ object Host "ns1" {
   display_name = "DNS & Mail"
   import "generic-host"
 
-  address = "37.120.176.252"
+  address  = "37.120.176.252"
   address6 = "2a03:4000:6:8277::1"
 
   vars.type = "dnsmail"
@@ -134,7 +146,7 @@ object Host "webserver" {
   display_name = "Webserver"
   import "generic-host"
 
-  address = "88.198.66.3"
+  address  = "88.198.66.3"
   address6 = "2a01:4f8:140:430a:ff::443"
 
   vars.type = "web"
@@ -145,6 +157,12 @@ object Host "webserver" {
   }
 
   vars.http_vhosts["https web"] = {
+    http_vhost = "hannover.freifunk.net"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert web"] = {
     http_vhost = "hannover.freifunk.net"
     http_ssl   = true
     http_sni   = true
@@ -159,6 +177,12 @@ object Host "webserver" {
     http_vhost = "firmware.ffh.zone"
     http_ssl   = true
     http_sni   = true
+  }
+
+  vars.http_vhosts["cert firmware"] = {
+    http_vhost = "firmware.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
     http_certificate = "7"
   }
 
@@ -167,6 +191,12 @@ object Host "webserver" {
   }
 
   vars.http_vhosts["https fnorden"] = {
+    http_vhost = "fnorden.net"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert fnorden"] = {
     http_vhost = "fnorden.net"
     http_ssl   = true
     http_sni   = true
@@ -182,7 +212,7 @@ object Host "build" {
   display_name = "Build"
   import "generic-host"
 
-  address = "130.75.178.26"
+  address  = "130.75.178.26"
   address6 = "2001:470:775a:42:1000::115"
 
   vars.type = "web"
@@ -193,6 +223,12 @@ object Host "build" {
   }
 
   vars.http_vhosts["https build"] = {
+    http_vhost = "build.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert build"] = {
     http_vhost = "build.ffh.zone"
     http_ssl   = true
     http_sni   = true
@@ -221,6 +257,12 @@ object Host "fet" {
     http_vhost = "www.fet.uni-hannover.de"
     http_ssl   = true
     http_sni   = true
+  }
+
+  vars.http_vhosts["cert fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+    http_ssl   = true
+    http_sni   = true
     http_certificate = "7"
   }
 
@@ -235,7 +277,7 @@ object Host "{{ name }}" {
   display_name = "{{ name }}"
   import "generic-host"
 
-  address = "{{ lookup('dig', name+'.s.ffh.zone./A') }}"
+  address  = "{{ lookup('dig', name+'.s.ffh.zone./A') }}"
   address6 = "{{ lookup('dig', name+'.s.ffh.zone./AAAA') }}"
 
   vars.type = "super"
@@ -253,7 +295,7 @@ object Host "{{ name }}" {
   display_name = "{{ name }}"
   import "generic-host"
 
-  address = "{{ lookup('dig', name+'.e.ffh.zone./A') }}"
+  address  = "{{ lookup('dig', name+'.e.ffh.zone./A') }}"
   address6 = "{{ lookup('dig', name+'.e.ffh.zone./AAAA') }}"
 
   vars.type = "exit"
