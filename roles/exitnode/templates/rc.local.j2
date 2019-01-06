@@ -1,0 +1,17 @@
+#!/bin/sh -e
+#
+# do not change this, since it is created by ansible!
+#
+
+#
+# RULES FOR TABLE ffnw
+#
+
+# This unreachable route prevents leaking of packets in the other routing tables
+# when we have no other default route in the freifunk table.
+
+# Use the packet park from iptables to put the packets in table freifunk
+/sbin/ip rule add from all fwmark 0x17 table ffnw priority 242
+# /sbin/ip -6 rule add from all fwmark 0x17 table ffnw priority 242
+
+exit 0
