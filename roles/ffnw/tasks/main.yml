@@ -1,0 +1,7 @@
+---
+
+- name: GRE stuff
+  include_tasks: gre.yml
+
+- name: Firewall stuff
+  include_tasks: ferm.yml

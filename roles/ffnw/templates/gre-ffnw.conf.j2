@@ -1,0 +1,4 @@
+[Network]
+{% for host in ffnw %}
+Tunnel=gre-ffnw-{{ host }}
+{% endfor %}

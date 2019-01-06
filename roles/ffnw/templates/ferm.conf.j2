@@ -1,0 +1,22 @@
+domain (ip) {
+  table mangle {
+    chain PREROUTING {
+{% for name,node in supernodes.items() %}
+      interface gre-{{ name }} MARK set-xmark 0x17/0xffffffff;
+{% endfor %}
+    }
+  }
+  table nat {
+    chain POSTROUTING {
+      saddr 10.0.0.0/8 outerface gre-ffnw-ber SNAT to 185.197.132.136;
+    }
+  }
+  table filter {
+    chain INPUT {
+{% for name,node in ffnw.items() %}
+      saddr {{ node.remote }}/32 proto gre ACCEPT; # ffnw-{{ name }}
+      interface gre-ffnw-{{ name }} proto tcp dport 179 ACCEPT;
+{% endfor %}
+    }
+  }
+}

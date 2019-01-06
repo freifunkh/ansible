@@ -1,0 +1,8 @@
+[NetDev]
+Name=gre-ffnw-{{ item.key }}
+Kind=gre
+
+[Tunnel]
+Local={{ item.value.local }}
+Remote={{ item.value.remote }}
+TTL=64

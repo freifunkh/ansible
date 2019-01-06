@@ -1,0 +1,10 @@
+[Match]
+Name=gre-ffnw-{{ item.key }}
+
+[Network]
+Address={{ item.value.address4 }}
+Address={{ item.value.address6 }}
+
+[Link]
+MTUBytes={{ item.value.mtu }}
+Multicast=true
