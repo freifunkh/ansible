@@ -9,7 +9,7 @@ sn07 ansible_host=sn07.s.ffh.zone ansible_user=root ansible_port=1337
 sn08 ansible_host=sn08.s.ffh.zone ansible_user=root ansible_port=1337
 sn09 ansible_host=sn09.s.ffh.zone ansible_user=root ansible_port=1337
 sn10 ansible_host=sn10.s.ffh.zone ansible_user=root ansible_port=1337
-aegidientor ansible_host=aegidientor.e.ffh.zone ansible_user=root ansible_port=22
+aegidientor ansible_host=aegidientor.e.ffh.zone ansible_user=root ansible_port=1337
 steintor ansible_host=steintor.e.ffh.zone ansible_user=root ansible_port=1337
 leintor ansible_host=leintor.e.ffh.zone ansible_user=root ansible_port=1337
 clevertor ansible_host=clevertor.e.ffh.zone ansible_user=root ansible_port=1337
