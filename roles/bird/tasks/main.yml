@@ -1,0 +1,27 @@
+---
+- name: Install bird
+  apt: name=bird update_cache=yes
+
+- name: Generate bird config
+  notify: Restart bird
+  template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird.conf
+
+- name: Generate bird config
+  notify: Restart bird
+  template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird.conf
+
+- name: Enable bird
+  command: systemctl enable bird
+
+- name: Start bird
+  command: systemctl start bird
+
+- name: Enable bird6
+  command: systemctl enable bird6
+
+- name: Start bird6
+  command: systemctl start bird6
