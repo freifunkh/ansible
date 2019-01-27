@@ -42,14 +42,13 @@
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 88.198.67.124/27
-          - 2a01:4f8:140:430a::5001/64
-        gateway4: 88.198.67.97
-        gateway6: 2a01:4f8:140:430a::1
+          - '2a01:4f8:1c1c:ce20::5001/64'
+        dhcp: true
+        gateway6: fe80::1
         no_radv_accept: true
-        dns_server: [213.133.98.98]
+        dns_server: [9.9.9.10, '2001:470:20::2']
 
-    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor']
     - babeld_interface_penalty:
         gre-aegidientor: 666
         gre-steintor: 130
