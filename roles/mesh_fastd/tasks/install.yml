@@ -5,10 +5,15 @@
     update_cache: yes
     name: apt-transport-https
 
-- name: Add universe-factory repository key
-  apt_key:
-    keyserver: pool.sks-keyservers.net
-    id: 16EF3F64CB201D9C
+#- name: Add universe-factory repository key
+#  apt_key:
+#    keyserver: pool.sks-keyservers.net
+#    id: 16EF3F64CB201D9C
+
+- name: Add universe-factory repo key
+  command: "apt-key add -"
+  args:
+    stdin: "{{ lookup('file', 'templates/universe-key.txt') }}"
 
 - name: Add universe-factory repositories
   register: fastdrepositoryadded
