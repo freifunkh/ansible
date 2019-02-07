@@ -117,7 +117,7 @@
           - location: /lede/
             type: proxy
             proxy_pass_host: false
-            proxy_forward_url: https://downloads.lede-project.org/
+            proxy_forward_url: https://downloads.openwrt.org/
       - domain: prometheus.ffh.zone
         tls: true
         locations:
