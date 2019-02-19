@@ -43,7 +43,7 @@
       - iface: eth0
         addresses:
           - 2a01:4f8:151:42a1::8001/64
-        gateway6: fe80::1
+        gateway6: 2a01:4f8:151:42a1::2
         no_radv_accept: true
         dhcp: true
         dns_server: [9.9.9.9, 1.1.1.1]
