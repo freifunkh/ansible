@@ -4,7 +4,7 @@
   - 1337
 - exitnodes:
     aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
-    steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
+    # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
     leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}" }
     clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
     # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
