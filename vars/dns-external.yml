@@ -74,5 +74,6 @@
           "lounge.ffh.zone. IN A 130.75.178.26",
           "sn08-host.ffh.zone. IN A 176.9.100.177",
           "opkg.ffh.zone. IN AAAA 2a01:4f8:140:430a::101",
-          "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
+          "nrue.ffh.zone. IN NS freedns1.registrar-servers.com.",
+          "ffh.zone. IN NS TXT \"hb3122081928a4a4bbda4003d863fd9b9""
         ]
