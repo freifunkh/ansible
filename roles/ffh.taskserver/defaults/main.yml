@@ -1,0 +1,4 @@
+---
+
+taskdatadir: "/var/lib/taskd"
+ts_port: 53589

@@ -1,0 +1,152 @@
+---
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-taskserver.conf
+  notify: reload ferm
+
+- name: install taskserver
+  apt:
+    name: taskd
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: copy ffh-vars to /usr/share/taskd/pki/
+  template:
+    src: vars.j2
+    dest: /usr/share/taskd/pki/vars
+    owner: Debian-taskd
+    group: Debian-taskd
+    mode: '0644'
+
+- name: generate ca
+  command: ./generate.ca
+  args:
+    chdir: /usr/share/taskd/pki/
+    creates: /usr/share/taskd/pki/ca.*.pem
+
+- name: generate server
+  command: ./generate.server
+  args:
+    chdir: /usr/share/taskd/pki/
+    creates: /usr/share/taskd/pki/server.cert.pem
+
+- name: generate certificate revocation list
+  command: ./generate.crl
+  args:
+    chdir: /usr/share/taskd/pki/
+    creates: /usr/share/taskd/pki/server.crl.pem
+
+- name: change ownership of relevant files to taskd
+  file:
+    path: "/usr/share/taskd/pki/{{ item }}"
+    owner: Debian-taskd
+    group: Debian-taskd
+    mode: 0400
+  with_items:
+    - 'ca.cert.pem'
+    - 'ca.key.pem'
+    - 'server.cert.pem'
+    - 'server.crl.pem'
+    - 'server.key.pem'
+
+- name: symlink pki files to $TASKDATA
+  file:
+    src: "/usr/share/taskd/pki/{{ item }}"
+    dest: "{{ taskdatadir }}/{{ item }}"
+    owner: Debian-taskd
+    group: Debian-taskd
+    state: link
+  with_items:
+    - 'ca.cert.pem'
+    - 'ca.key.pem'
+    - 'server.cert.pem'
+    - 'server.crl.pem'
+    - 'server.key.pem'
+
+- name: initialize taskd
+  command: "taskd init --data {{ taskdatadir }}"
+  args:
+    chdir: "{{ taskdatadir }}"
+    creates: "{{ taskdatadir }}/orgs"
+  become: yes
+  become_user: Debian-taskd
+
+- name: configure server
+  command: "taskd config --data {{ taskdatadir }} server 0.0.0.0:{{ ts_port }}"
+  become: yes
+  become_user: Debian-taskd
+
+- name: configure server vars
+  command: "taskd config --data {{ taskdatadir }} --force {{ item }} {{ taskdatadir }}/{{ item }}.pem"
+  become: yes
+  become_user: Debian-taskd
+  with_items:
+    - 'ca.cert'
+    - 'server.cert'
+    - 'server.crl'
+    - 'server.key'
+
+- name: create log location
+  file:
+    path: /var/log/taskd
+    owner: Debian-taskd
+    group: Debian-taskd
+    state: directory
+
+- name: configure log location
+  command: "taskd config --data {{ taskdatadir }} log /var/log/taskd/taskd.log"
+  become: yes
+  become_user: Debian-taskd
+
+- name: configure pid location
+  command: "taskd config --data {{ taskdatadir }} pid.file /var/run/taskd.pid"
+  become: yes
+  become_user: Debian-taskd
+
+- name: enable and start taskd
+  service:
+    name: taskd
+    enabled: yes
+    state: started
+
+- name: create ffh organization
+  command: "taskd add --data {{ taskdatadir }} org freifunkh"
+  args:
+    creates: "{{ taskdatadir }}/orgs/freifunkh"
+  become: yes
+  become_user: Debian-taskd
+
+- name: create users
+  shell: "cat */*/* | grep {{ item.name }} || taskd add --data {{ taskdatadir }} user 'freifunkh' '{{ item.name }}'"
+  args:
+    chdir: "{{ taskdatadir }}/orgs/freifunkh"
+  with_items: "{{ admin_pubkeys }}"
+  become: yes
+  become_user: Debian-taskd
+
+- name: create keydir
+  file:
+    path: /root/.config/taskd
+    owner: Debian-taskd
+    group: Debian-taskd
+    state: directory
+
+- name: symlink {{ item }} file
+  file:
+    owner: Debian-taskd
+    group: Debian-taskd
+    src: "/usr/share/taskd/pki/{{ item }}"
+    dest: "/root/.config/taskd/{{ item }}"
+    state: link
+  with_items:
+    - 'vars'
+    - 'ca.key.pem'
+    - 'ca.cert.pem'
+
+- name: create signed userkeys
+  shell: "ls -l *.pem | grep {{ item.name }} || /usr/share/taskd/pki/generate.client '{{ item.name }}'"
+  args:
+    chdir: "/root/.config/taskd"
+  with_items: "{{ admin_pubkeys }}"
