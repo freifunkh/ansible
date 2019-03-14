@@ -5,3 +5,6 @@
 
 - name: Firewall stuff
   include_tasks: ferm.yml
+
+- name: Bird stuff
+  include_tasks: bird.yml
