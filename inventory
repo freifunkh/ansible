@@ -14,6 +14,7 @@ steintor ansible_host=steintor.e.ffh.zone ansible_user=root ansible_port=1337
 leintor ansible_host=leintor.e.ffh.zone ansible_user=root ansible_port=1337
 clevertor ansible_host=clevertor.e.ffh.zone ansible_user=root ansible_port=1337
 listertor ansible_host=listertor.e.ffh.zone ansible_user=root ansible_port=1337
+bruehltor ansible_host=bruehltor.e.ffh.zone ansible_user=root ansible_port=1337
 ns1 ansible_host=ns1.fnorden.net ansible_user=root ansible_port=1337
 harvester ansible_host=harvester.ffh.zone ansible_user=root ansible_port=1337
 web ansible_host=web.ffh.zone ansible_user=root ansible_port=1337
