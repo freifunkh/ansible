@@ -20,14 +20,15 @@
     - servername: listertor
     - exitnode: 5
     - mail_fqdn: "listertor.e.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
+    - admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
 
     - networkd_configures:
       - iface: eth0
         addresses:
-          - 2a0b:bbc0:1:9::1ba/64
-        dhcp: true
-        gateway6: 2a0b:bbc0:1:9::1
+          - 2a02:c207:3003:6341::1/64
+          - 173.212.239.89/24
+        gateway4: 173.212.239.1
+        gateway6: fe80::1
         dns_server: ['9.9.9.10', '1.1.1.1', '2001:470:20::2']
       - iface: lo
         addresses:
