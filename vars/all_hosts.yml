@@ -26,9 +26,6 @@
     ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net./A') }}" }
     web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}" }
     log: { id: 5, ip4: "{{ lookup('dig', 'log.ffh.zone./A') }}" }
-- ffnw:
-    ber: { remote: "185.197.132.7", local: "88.198.67.124", mtu: 1400, address4: "100.100.96.59/31", address6: "fe80::2/64" }
-    fra: { remote: "185.197.132.3", local: "88.198.67.124", mtu: 1400, address4: "100.100.32.59/31", address6: "fe80::2/64" }
 - simple_mail:
     root_email: monitoring@hannover.freifunk.net
     mail_server: mail.ffh.zone
