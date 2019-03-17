@@ -12,7 +12,7 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
-    - { name: ffnw, tags: ffnw }
+    - { name: ffh.bgp_uplink, tags: bgp_exit }
     - { name: bird, tags: bird }
   vars_files:
     - vars/all_hosts.yml
@@ -38,5 +38,10 @@
         static_routes:
           - dest: 185.197.132.136/32
             table: 23
+
+      - uplinks:
+          ffnw_ber: { remote: "185.197.132.7", local: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}", mtu: 1400, address4: "100.100.96.59/31", address6: "fe80::2/64" }
+          ffnw_fra: { remote: "185.197.132.3", local: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}", mtu: 1400, address4: "100.100.32.59/31", address6: "fe80::2/64" }
+          hw_haj:   { remote: "195.47.229.254", local: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}", mtu: 1476, address6: "2a02:790:2:3:31c3::2/126" }
 
     - babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
