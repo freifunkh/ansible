@@ -16,7 +16,7 @@
     - { name: mesh_batman, tags: mesh_batman }
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
-    - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    # - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
     - { name: mesh_announce, tags: mesh_announce }
     # Stats, Monitoring, Logging
     - { name: radv_server, tags: radv_server }
@@ -50,7 +50,7 @@
 
     - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor']
     - babeld_interface_penalty:
-        gre-aegidientor: 666
+        gre-aegidientor: 90
         gre-steintor: 130
         gre-leintor: 110
         gre-clevertor: 100
