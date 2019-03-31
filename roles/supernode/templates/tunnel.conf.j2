@@ -1,4 +1,4 @@
 [Network]
-{% for en in exitnodes %}
-Tunnel=gre-{{ en }}
+{% for exitnode in exitnodes %}
+Tunnel=gre-{{ exitnode }}
 {% endfor %}
