@@ -19,7 +19,7 @@
   pre_tasks:
   vars:
     - servername: aegidientor
-    - exitnode: 1
+    - en: 1
     - mail_fqdn: "aegidientor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
 

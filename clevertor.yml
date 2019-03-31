@@ -18,7 +18,7 @@
 
   vars:
     - servername: clevertor
-    - exitnode: 4
+    - en: 4
     - mail_fqdn: "clevertor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
 

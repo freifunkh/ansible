@@ -18,7 +18,7 @@
 
   vars:
     - servername: steintor
-    - exitnode: 2
+    - en: 2
     - mail_fqdn: "steintor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
 

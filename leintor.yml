@@ -17,7 +17,7 @@
   pre_tasks:
   vars:
     - servername: leintor
-    - exitnode: 3
+    - en: 3
     - mail_fqdn: "leintor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
 

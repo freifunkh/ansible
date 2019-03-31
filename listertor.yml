@@ -18,7 +18,7 @@
 
   vars:
     - servername: listertor
-    - exitnode: 5
+    - en: 5
     - mail_fqdn: "listertor.e.ffh.zone"
     - admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
 
