@@ -1,0 +1,9 @@
+[Match]
+Name=gre-{{ item.key }}
+
+[Network]
+{% if item.value.id > en %}
+Address=fe80::1/64
+{% else %}
+Address=fe80::2/64
+{% endif %}

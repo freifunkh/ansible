@@ -2,3 +2,7 @@
 {% for supernode in supernodes %}
 Tunnel=gre-{{ supernode }}
 {% endfor %}
+{% for exitnode in exitnodes %}
+{% if exitnode != servername %}Tunnel=gre-{{ exitnode }}
+{% endif %}
+{% endfor %}
