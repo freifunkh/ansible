@@ -22,6 +22,8 @@ sub normalize_nodename {
     $data =~ s/[\-]+/-/g;       # no subsequent dashes
     $data =~ s/^[\-]//g;        # no leading dashes
     
+    if ( length( $data ) > 50 ) { $data = substr $data, 0, 50; };
+    
     return $data;
 }
 
