@@ -1,0 +1,25 @@
+---
+
+- name: Add build dependencies
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - git
+    - build-essential
+
+- name: Clone babeld git repo
+  git:
+    repo: https://github.com/jech/babeld.git
+    dest: /usr/src/babeld-{{ babeld_build_version }}/
+    version: "{{ babeld_build_version }}"
+
+- name: Make babeld
+  register: babeldmake
+  make:
+    chdir: "/usr/src/babeld-{{ babeld_build_version }}"
+ 
+- name: Install babeld
+  command: "cp /usr/src/babeld-{{ babeld_build_version }}/babeld /usr/sbin/babeld"
+  when: babeldmake is changed

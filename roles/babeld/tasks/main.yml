@@ -1,7 +1,16 @@
 ---
 
 - name: Install babeld
-  apt: name=babeld update_cache=yes
+  apt: name=babeld update_cache=yes state=present
+  when: not babeld_build_from_source
+
+- name: Uninstall babeld
+  apt: name=babeld update_cache=yes state=absent
+  when: babeld_build_from_source
+
+- name: Include 'Build from source'
+  include_tasks: build_from_source.yml
+  when: babeld_build_from_source
 
 - name: Install babeld supernode config
   notify: Restart babeld
@@ -15,7 +24,7 @@
   template:
     src: exitnode.conf.j2
     dest: /etc/babeld.conf
-  when: exitnode is defined
+  when: en is defined
 
 - name: Install babeld systemd service
   notify: Restart babeld
