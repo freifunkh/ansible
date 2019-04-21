@@ -93,3 +93,5 @@
 - batman_build_from_source: true
 - batman_build_version: v2018.0
 - batman: true
+- babeld_build_from_source: true
+- babeld_build_version: "babeld-1.8.4"
