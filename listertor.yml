@@ -20,7 +20,7 @@
     - servername: listertor
     - en: 5
     - mail_fqdn: "listertor.e.ffh.zone"
-    - admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch]
+    - admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
 
     - networkd_configures:
       - iface: eth0
