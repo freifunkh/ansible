@@ -44,3 +44,13 @@
   lineinfile:
     path: /root/.bashrc
     line: 'alias traceraute="traceroute"'
+
+- name: Install bin files
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/bin/"
+    owner: "root"
+    mode: 0755
+  with_fileglob:
+    - "files/bin/*"
+
