@@ -8,7 +8,7 @@ redistribute ip ::/0 le 1 metric 256
 redistribute ip 0.0.0.0/0 le 1 metric 256
 
 # do not accept default routes from peers
-in ip 0.0.0.0/0 deny
-in ip ::/0 deny
+in ip 0.0.0.0/0 le 1 deny
+in ip ::/0 le 1 deny
 
 local-port 33123
