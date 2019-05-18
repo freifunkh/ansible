@@ -25,6 +25,20 @@
   when: systemdinstall is changed
   changed_when: true
 
+- name: "sysctl: net.ipv6.conf.all.disable_ipv6 to 0"
+  sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: "0"
+    sysctl_file: /etc/sysctl.d/10-ipv6.conf
+    reload: yes
+
+- name: "sysctl: net.ipv6.conf.default.disable_ipv6 to 0"
+  sysctl:
+    name: net.ipv6.conf.default.disable_ipv6
+    value: "0"
+    sysctl_file: /etc/sysctl.d/10-ipv6.conf
+    reload: yes
+
 - name: Waiting for server to come back after upgrading systemd
   local_action: command sleep 60
   when: systemdinstall is changed
