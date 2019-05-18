@@ -66,9 +66,10 @@
     enabled: yes
   when: ansible_service_mgr != 'systemd'
 
-- name: "Cronjob: restart babeld once per day"
+- name: "Cronjob: restart babeld weekly"
   cron:
     name: "Restart babeld"
     job: "systemctl restart babeld"
-    hour: "{{ sn | default(en) | default(12) }}"
+    hour: "3"
+    weekday: "3"
 

@@ -4,9 +4,9 @@
 default type wired
 
 redistribute ip 100.64.0.0/10 local allow metric 256
-redistribute local deny
 redistribute ip ::/0 le 1 metric 256
 redistribute ip 0.0.0.0/0 le 1 metric 256
+redistribute local deny
 
 # do not accept default routes from peers
 in ip 0.0.0.0/0 le 1 deny

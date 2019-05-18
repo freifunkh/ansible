@@ -4,9 +4,9 @@ default type wired
 export-table 42
 import-table 42
 
-redistribute local deny
 redistribute ip 2a02:790:ff::/48 metric 256
 redistribute ip 10.0.0.0/8 metric 256
+redistribute local deny
 
 {% for iface, penalty in babeld_interface_penalty.items() %}
 in if {{ iface }} ip 0.0.0.0/0 metric {{ penalty }}
@@ -19,4 +19,3 @@ in if gre-{{ name }} ip ::/0 deny
 {% endfor %}
 
 local-port 33123
-
