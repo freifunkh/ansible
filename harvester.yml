@@ -121,7 +121,7 @@
           - location: /modules/
             type: proxy
             proxy_pass_host: false
-            proxy_forward_url: http://build.ffh.zone/
+            proxy_forward_url: http://build.ffh.zone/job/gluon-beta/ws/beta/packages/
       - domain: prometheus.ffh.zone
         tls: true
         locations:
