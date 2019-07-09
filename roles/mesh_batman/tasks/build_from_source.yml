@@ -42,6 +42,7 @@
    - https://patchwork.open-mesh.org/patch/17405/mbox/ # crc issue
    - https://patchwork.open-mesh.org/patch/17406/mbox/ # crc issue
    - https://paste.irrelefant.net/chieNoo8.txt # crc issue counters
+   - https://paste.irrelefant.net/eiRee0vu.txt # tt transit crc foo
 
 - name: Add the dkms info to the source
   template:
