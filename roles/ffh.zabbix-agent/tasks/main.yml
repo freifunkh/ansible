@@ -1,0 +1,28 @@
+---
+
+- name: Install zabbix-agent via apt
+  apt:
+    name: zabbix-agent
+    update_cache: yes
+
+- name: Open zabbix-agent port in firewall (ferm)
+  template:
+    src: ferm.conf.j2
+    dest: "/etc/ferm/conf.d/zabbix-agent.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: Deploy zabbix-agent config file
+  template:
+    src: agent.conf.j2
+    dest: "/etc/zabbix/zabbix_agentd.conf.d/ansible.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: Enable and start zabbix-agent
+  service:
+    name: "zabbix-agent"
+    enabled: yes
+    state: "started"
