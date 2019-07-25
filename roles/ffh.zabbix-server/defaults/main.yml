@@ -1,0 +1,11 @@
+---
+
+zabbix_server_dbname: "zabbix_db"
+zabbix_server_dbhost: "127.0.0.1"
+zabbix_server_dbport: "3306"
+zabbix_server_dbpassword: "password"
+zabbix_server_db_login_user: "root"
+zabbix_server_db_login_password: "roots-secret"
+zabbix_server_create_dbname: false
+zabbix_server_create_dbuser: false
+zabbix_server_host: ""

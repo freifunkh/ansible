@@ -1,0 +1,88 @@
+---
+
+- name: Add Zabbix Repo Key
+  apt_key:
+    url: "https://repo.zabbix.com/zabbix-official-repo.key"
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/zabbix.gpg
+
+- name: Add Zabbix Repo
+  apt_repository:
+    repo: "deb http://repo.zabbix.com/zabbix/4.0/debian stretch main"
+    state: present
+    filename: zabbix
+
+- name: Install Zabbix Server (via apt)
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - zabbix-server-mysql
+
+- name: "Create a new MySQL database with name {{ zabbix_server_dbname }}"
+  mysql_db:
+    name: "{{ zabbix_server_dbname }}"
+    collation: "utf8_bin"
+    encoding: "utf8"
+    state: present
+    login_host: "{{ zabbix_server_dbhost }}"
+    login_port: "{{ zabbix_server_dbport }}"
+    login_user: "{{ zabbix_server_db_login_user }}"
+    login_password: "{{ zabbix_server_db_login_password }}"
+  when: zabbix_server_create_dbname
+
+- name: "Create a new MySQL user with name {{ zabbix_server_dbuser }} using {{ zabbix_server_db_login_user }}"
+  mysql_user:
+    name: "{{ zabbix_server_dbuser }}"
+    password: "{{ zabbix_server_dbpassword }}"
+    priv: '{{zabbix_server_dbname }}.*:ALL'
+    host: "{{ zabbix_server_host }}"
+    state: present
+    login_host: "{{ zabbix_server_dbhost }}"
+    login_port: "{{ zabbix_server_dbport }}"
+    login_user: "{{ zabbix_server_db_login_user }}"
+    login_password: "{{ zabbix_server_db_login_password }}"
+  when: zabbix_server_create_dbuser
+
+- name: "Check if zabbix db is already initialised"
+  register: zabbix_table_status
+  shell: "echo 'SHOW TABLES;' | mysql {{ zabbix_server_dbname }} --user='{{ zabbix_server_dbuser }}' --password='{{ zabbix_server_dbuser }}' | wc -l"
+  ignore_errors: True
+
+- name: "Initialise database"
+  mysql_db:
+    state: import
+    name: "{{ zabbix_server_dbname }}"
+    login_host: "{{ zabbix_server_dbhost }}"
+    login_port: "{{ zabbix_server_dbport }}"
+    login_user: "{{ zabbix_server_db_login_user }}"
+    login_password: "{{ zabbix_server_db_login_password }}"
+    target: "/usr/share/doc/zabbix-server-mysql/create.sql.gz"
+  when: (zabbix_table_status.stdout|int) == 0
+
+- name: Deploy zabbix-server config
+  notify: restart zabbix-server
+  template:
+    src: zabbix_server.conf.j2
+    dest: /etc/zabbix/zabbix_server.conf
+
+- name: Create Ferm config directory (if necessary)
+  file:
+    path: /etc/ferm/conf.d
+    state: directory
+  when: zabbix_server_no_firewall is undefined
+
+- name: Generate firewall config stanza (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-zabbix-server.conf
+  when: zabbix_server_no_firewall is undefined
+
+- name: Enable Zabbix Server on bootup
+  service:
+    name: "zabbix-server"
+    enabled: yes
+    state: "started"
+
