@@ -45,6 +45,8 @@
           "listertor.e.ffh.zone. IN A 173.212.239.89",
           "ipam.ffh.zone. IN A 88.198.66.30",
           "ipam.ffh.zone. IN AAAA 2a01:4f8:140:430a::112",
+          "panoptikum.ffh.zone. IN A 88.198.66.30",
+          "panoptikum.ffh.zone. IN AAAA 2a01:4f8:140:430a::112",
           "log.ffh.zone. IN A 88.198.66.30",
           "log.ffh.zone. IN AAAA 2a01:4f8:140:430a::112",
           "ntp.ffh.zone. IN A 37.120.176.252",
