@@ -1,0 +1,29 @@
+---
+
+- name: Add Zabbix Repo Key
+  apt_key:
+    url: "https://repo.zabbix.com/zabbix-official-repo.key"
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/zabbix.gpg
+
+- name: Add Zabbix Repo
+  apt_repository:
+    repo: "deb http://repo.zabbix.com/zabbix/4.0/debian stretch main"
+    state: present
+    filename: zabbix
+
+- name: Install Zabbix Webfrontend (via apt)
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - zabbix-frontend-php
+
+- name: "PHP Timezone setting"
+  notify: Reload nginx
+  lineinfile:
+    dest: /etc/php/7.0/fpm/php.ini
+    regexp: "date.timezone ="
+    line: "date.timezone = Europe/Berlin"
+
