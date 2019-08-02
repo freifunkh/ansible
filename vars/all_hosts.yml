@@ -7,7 +7,7 @@
     # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
     leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}" }
     clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
-    listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
+    # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
     bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
 - supernodes:
     # sn01: { id: 1, ip4: "192.168.1.1" }
@@ -16,7 +16,7 @@
     sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone./A') }}" }
     sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}" }
     sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
-    # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
+    sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
     sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}" }
     sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}" }
     sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}" }
