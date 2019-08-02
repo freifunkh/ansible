@@ -12,7 +12,7 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
-    - { name: ffh.bgp_uplink, tags: bgp_exit }
+    - { name: ffh.bgp_exit, tags: bgp_exit }
     - { name: bird, tags: bird }
   vars_files:
     - vars/all_hosts.yml
