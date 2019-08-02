@@ -13,6 +13,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: postfix, tags: postfix }
     - { name: ntp, tags: ntp }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars_files:
       - vars/dns-external.yml
@@ -102,3 +103,6 @@
       - "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}]/128"
       - "{{ lookup('dig', 'observer.ffh.zone./A') }}/32"
       - "[{{ lookup('dig', 'observer.ffh.zone./AAAA') }}]/128"
+
+    - zabbix_agent_server: "zabbix.ffh.zone"
+    - zabbix_agent_server_active: "zabbix.ffh.zone"
