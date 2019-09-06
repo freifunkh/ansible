@@ -4,14 +4,14 @@
   notify: Restart networkd
   template:
     src: gre-network.j2
-    dest: /etc/systemd/network/15-gre-ffnw-{{ item.key }}.network
+    dest: /etc/systemd/network/15-gre-{{ item.key }}.network
   with_dict: "{{ ffnw }}"
 
 - name: Create gre tunnel in networkd
   notify: Restart networkd
   template:
     src: gre-netdev.j2
-    dest: /etc/systemd/network/30-gre-ffnw-{{ item.key }}.netdev
+    dest: /etc/systemd/network/30-gre-{{ item.key }}.netdev
   with_dict: "{{ ffnw }}"
 
 - name: Create /etc/systemd/network/10-eth0.network.d directory
@@ -23,5 +23,5 @@
 - name: Drop tunnel config into /etc/systemd/network/10-eth0.network.d directory
   notify: Restart networkd
   template: 
-    src: gre-ffnw.conf.j2
-    dest: /etc/systemd/network/10-eth0.network.d/gre-ffnw.conf
+    src: gre-uplinks.conf.j2
+    dest: /etc/systemd/network/10-eth0.network.d/gre-uplinks.conf

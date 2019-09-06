@@ -1,0 +1,4 @@
+[Network]
+{% for host in uplinks %}
+Tunnel=gre-{{ host }}
+{% endfor %}
