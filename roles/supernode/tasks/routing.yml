@@ -6,6 +6,12 @@
     src: ferm.mark.conf.j2
     dest: /etc/ferm/conf.d/02-mark.conf
 
+- name: Generate firewall config stanza for Freifunk-Blocker (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.ff-blocker.conf.j2
+    dest: /etc/ferm/conf.d/09-ff-blocker.conf
+
 - name: Generate firewall config stanza for FORWARD (ferm)
   notify: reload ferm
   template:
