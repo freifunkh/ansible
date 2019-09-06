@@ -6,9 +6,6 @@ domain (ip ip6) {
        interface gre-{{ name }} MARK set-xmark 0x2a/0xffffffff;
 {% endfor %}
 
-       ## Hack for Hostway VMs #
-       interface eth1 MARK set-xmark 0x2a/0xffffffff;
-
 {% if legacy_dom0 == true %}
        interface bat0 MARK set-xmark 0x2a/0xffffffff;
 {% endif %}
