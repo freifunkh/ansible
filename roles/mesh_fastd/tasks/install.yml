@@ -5,27 +5,8 @@
     update_cache: yes
     name: apt-transport-https
 
-#- name: Add universe-factory repository key
-#  apt_key:
-#    keyserver: pool.sks-keyservers.net
-#    id: 16EF3F64CB201D9C
-
-- name: Add universe-factory repo key
-  command: "apt-key add -"
-  args:
-    stdin: "{{ lookup('file', 'templates/universe-key.txt') }}"
-
-- name: Add universe-factory repositories
-  register: fastdrepositoryadded
-  apt_repository:
-    repo: "deb http://repo.universe-factory.net/debian/ sid main"
-
-- name: Update apt chache to get universe-factory packages
-  apt: update_cache=yes
-  when: fastdrepositoryadded is changed
-
 - name: Install fastd
-  apt: name=fastd
+  apt: name=fastd update_cache=yes
 
 - name: Remove autostart of generic fastd instance on boot
   service: name=fastd enabled=no
