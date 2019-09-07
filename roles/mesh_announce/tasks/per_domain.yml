@@ -1,6 +1,0 @@
-
-- name: Enable systemd service for legacy domain {{ domain.id }}
-  command: systemctl enable respondd@{{ domain.id }}
-
-- name: Start systemd service for legacy domain {{ domain.id }}
-  command: systemctl start respondd@{{ domain.id }}
