@@ -35,11 +35,17 @@
     accept_hostkey=true
   register: code
 
-- name: copy systemd service
+- name: copy systemd service for legacy domain
   become: true
   template:
     src: "respondd.service.j2"
     dest: "/lib/systemd/system/respondd.service"
+
+- name: copy systemd service for domains
+  become: true
+  template:
+    src: "respondd@.service.j2"
+    dest: "/lib/systemd/system/respondd@.service"
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -51,11 +57,18 @@
 - name: Systemd daemon-reload
   command: systemctl daemon-reload
 
-- name: Enable systemd service
+- name: Enable systemd service for legacy domain
   command: systemctl enable respondd
 
-- name: Start systemd service
+- name: Start systemd service for legacy domain
   command: systemctl start respondd
+
+- name: Start and enable systemd service for domains
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined and sn is defined and domain.id != 0
 
 - name: restart respondd if something changed
   when: code.changed
