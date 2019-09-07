@@ -3,7 +3,7 @@ Description=Respondd
 After=network.target
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i bat0 -i mesh_fastd -b bat0 -g ff05::2:1001
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers {% for domain in domains | default( [] ) %} -i bat{{ domain.id }} -b bat{{ domain.id }}  -i mesh_fastd_{{ domain.id }} {% endfor %} -i bat0 -b bat0 -i mesh_fastd 
 Restart=always
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
