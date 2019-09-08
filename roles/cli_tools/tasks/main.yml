@@ -29,6 +29,7 @@
     - dnsutils
     - ndisc6
     - less
+    - iptstate
 
 - name: Set prompt (PS1)
   lineinfile:
