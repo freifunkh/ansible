@@ -1,0 +1,18 @@
+---
+
+- hosts: build
+  roles:
+    # General
+    - { name: ferm, tags: ferm }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
+  vars_files:
+      - vars/all_hosts.yml
+      - vars/secrets.yml
+
+  vars:
+    - servername: build
+    - mail_fqdn: "build.ffh.zone"
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
+
+
