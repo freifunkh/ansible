@@ -49,7 +49,7 @@
         no_radv_accept: true
         dns_server: [81.3.3.81, 83.246.106.204]
 
-    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor']
+    - babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
     - babeld_interface_penalty:
         gre-aegidientor: 666
         gre-steintor: 130
