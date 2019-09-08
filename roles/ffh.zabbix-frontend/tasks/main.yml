@@ -8,7 +8,7 @@
 
 - name: Add Zabbix Repo
   apt_repository:
-    repo: "deb http://repo.zabbix.com/zabbix/4.0/debian stretch main"
+    repo: "deb http://repo.zabbix.com/zabbix/4.0/debian {{ ansible_distribution_release }} main"
     state: present
     filename: zabbix
 
