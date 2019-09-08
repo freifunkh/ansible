@@ -97,3 +97,5 @@
 - batman: true
 - babeld_build_from_source: true
 - babeld_build_version: "babeld-1.8.4"
+- zabbix_agent_server: "2a01:4f8:140:430a::112,88.198.66.30"
+- zabbix_agent_server_active: "2a01:4f8:140:430a::112,88.198.66.30"

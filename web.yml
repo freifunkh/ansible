@@ -16,6 +16,7 @@
     - { role: foswiki, tags: foswiki }
     - { role: ffh.taskserver, tags: taskserver }
     - { role: ffh.zabbix-frontend, tags: zabbix-frontend }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars_files:
     - vars/all_hosts.yml

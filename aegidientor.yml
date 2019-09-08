@@ -14,6 +14,8 @@
     - { name: babeld, tags: babeld }
     - { name: ffh.bgp_exit, tags: bgp_exit }
     - { name: bird, tags: bird }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:

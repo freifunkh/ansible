@@ -26,6 +26,7 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: iperf3, tags: iperf3 }
     - { name: journald, tags: journald }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
 
   vars_files:

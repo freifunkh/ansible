@@ -12,6 +12,8 @@
     - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
   vars_files:
     - vars/all_hosts.yml
   pre_tasks:
