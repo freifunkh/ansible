@@ -1,2 +1,2 @@
-deb http://repo.zabbix.com/zabbix/4.2/debian stretch main
-deb-src http://repo.zabbix.com/zabbix/4.2/debian stretch main
+deb http://repo.zabbix.com/zabbix/4.0/debian {{ ansible_distribution_release }} main
+deb-src http://repo.zabbix.com/zabbix/4.0/debian {{ ansible_distribution_release }} main
