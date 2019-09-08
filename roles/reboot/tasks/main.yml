@@ -14,3 +14,7 @@
     delay: 30
   connection: local
   ignore_errors: yes
+
+- name: Re-gather facts since some things could have changed
+  setup:
+    filter: "*"
