@@ -44,3 +44,9 @@ inet_protocols = all
 #virtual_alias_domains = hannover.freifunk.net freifunk-hannover.de
 virtual_alias_domains = {{ postfix_virtual_alias_domains }}
 virtual_alias_maps = hash:/etc/postfix/virtual
+
+# SRS stuff?
+sender_canonical_maps = tcp:127.0.0.1:10001
+sender_canonical_classes = envelope_sender
+recipient_canonical_maps = tcp:127.0.0.1:10002
+recipient_canonical_classes = envelope_recipient
