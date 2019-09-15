@@ -1,0 +1,9 @@
+[NetDev]
+Name=gt-{{ item.key }}
+Kind=gretap
+MTUBytes=1480
+
+[Tunnel]
+Remote={{ supernodes[item.key].ip4 }}
+TTL=64
+Local={{ supernodes[servername].ip4 }}

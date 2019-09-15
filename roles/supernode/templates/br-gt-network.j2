@@ -1,0 +1,11 @@
+[Match]
+Name=br-gt
+
+[Network]
+{% if legacy_dom0 == true %}
+VLAN=vlan-gt-200
+{% endif %}
+{% for domain in domains | default([]) %}
+VLAN=vlan-gt-{{ 200 + (domain.id | int) }}
+{% endfor %}
+

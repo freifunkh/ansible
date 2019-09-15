@@ -1,0 +1,11 @@
+[Unit]
+After=sys-subsystem-net-devices-vlan\x2dgt\x2d{{ 200 + (item.id | int) }}.device
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sleep 3
+ExecStart=/sbin/ip link show vlan-gt-{{ 200 + (item.id | int) }}
+ExecStart=/usr/sbin/batctl -m bat{{ item.id }} if add vlan-gt-{{ 200 + (item.id | int) }}
+
+[Install]
+WantedBy=sys-subsystem-net-devices-vlan\x2dgt\x2d{{ 200 + (item.id | int) }}.device

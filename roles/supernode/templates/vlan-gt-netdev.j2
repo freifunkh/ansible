@@ -1,0 +1,7 @@
+[NetDev]
+Name=vlan-gt-{{ (item.id | int) + 200 }}
+Kind=vlan
+
+[VLAN]
+Id={{ (item.id | int) + 200 }}
+

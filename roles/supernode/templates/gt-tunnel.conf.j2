@@ -1,0 +1,6 @@
+[Network]
+{% for supernode in supernodes %}
+{% if supernode != servername %}
+Tunnel=gt-{{ supernode }}
+{% endif %}
+{% endfor %}
