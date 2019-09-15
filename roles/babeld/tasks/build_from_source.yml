@@ -23,3 +23,15 @@
 - name: Install babeld
   command: "cp /usr/src/babeld-{{ babeld_build_version }}/babeld /usr/sbin/babeld"
   when: babeldmake is changed
+
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    state: "directory"
+
+- name: Save built version
+  copy:
+    content: '"{{babeld_build_version}}"'
+    dest: /etc/ansible/facts.d/babeld_built_version.fact
+
+  
