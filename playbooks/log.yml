@@ -19,8 +19,7 @@
     - { role: nginx, tags: nginx }
 
   vars_files:
-    - vars/all_hosts.yml
-    - vars/secrets.yml
+    - ../secrets.yml
 
   vars:
     - servername: log

@@ -24,9 +24,7 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars_files:
-      - vars/all_hosts.yml
-      - vars/domains.yml
-      - vars/secrets.yml
+      - ../secrets.yml
 
   vars:
     - servername: harvester

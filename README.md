@@ -7,6 +7,8 @@ git clone git@github.com:freifunkh/ansible.git ansible
 cd ansible
 ```
 
+Do not forget to place your secrets.yml into the main dir.
+
 **deploy all supernodes:**
 ``` shell
 ansible-playbook playbooks/supernodes.yml

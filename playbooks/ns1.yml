@@ -15,11 +15,6 @@
     - { name: ntp, tags: ntp }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
-  vars_files:
-      - vars/dns-external.yml
-      - vars/dns-internal.yml
-      - vars/all_hosts.yml
-
   vars:
     - servername: ns1
     - mail_fqdn: "ns1.fnorden.net"

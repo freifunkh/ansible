@@ -14,9 +14,6 @@
     - { name: babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
-  vars_files:
-    - vars/all_hosts.yml
-
   vars:
     - servername: bruehltor
     - en: 6

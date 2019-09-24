@@ -31,6 +31,4 @@
     - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
 
   vars_files:
-    - vars/all_hosts.yml
-    - vars/domains.yml
-    - vars/secrets.yml
+    - ../secrets.yml

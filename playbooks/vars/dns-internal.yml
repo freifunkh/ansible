@@ -1,5 +1,0 @@
-    - dns_authoritative_zones:
-      # - zone: "firmware"
-      #   to: "fdca:ffee:8::102"
-      - zone: "hightower"
-        to: "fdca:ffee:8::1337"

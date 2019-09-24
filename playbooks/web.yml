@@ -18,9 +18,6 @@
     - { role: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
-  vars_files:
-    - vars/all_hosts.yml
-
   vars:
     - servername: web
     - mail_fqdn: "web.ffh.zone"
