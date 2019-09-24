@@ -1,5 +1,8 @@
 ---
 
+- name: Install ebtables
+  apt: name=ebtables
+
 - name: Create network interface for each gt endpoint
   notify: Restart networkd
   template:
@@ -99,6 +102,9 @@
   with_items:
     - "{{ domains }}"
 
+- name: Restart networkd
+  command: systemctl restart systemd-networkd
+
 - name: Start systemd services for dom0
   command: systemctl start add-gt-to-bat{{ item.id }}.service
   when: legacy_dom0
@@ -110,10 +116,10 @@
   with_items:
     - "{{ domains }}"
 
-#- name: Generate firewall config stanza for GRE tunnel (ferm) TODO!!!!
-#  notify: reload ferm
-#  template:
-#    src: ferm.gre.conf.j2
-#    dest: /etc/ferm/conf.d/10-gre-exitnodes.conf
+- name: Generate firewall config stanza for GT tunnel (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.gt.conf.j2
+    dest: /etc/ferm/conf.d/10-br-gt-noforward.conf
 
 
