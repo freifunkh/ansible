@@ -280,7 +280,8 @@ if True:
         curses.echo()
         curses.endwin()
         raise e
-
+    except KeyboardInterrupt:
+        pass
 
     curses.nocbreak()
     stdscr.keypad(0)
