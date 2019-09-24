@@ -1,0 +1,84 @@
+---
+
+- hosts: log
+  roles:
+    - { name: networkd, tags: networkd }
+    - { name: ferm, tags: ferm }
+    # admin stuff
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: cron-apt, tags: cron-apt }
+    # special
+    - { name: DavidWittman.redis, tags: redis }
+    - { name: geerlingguy.mysql, tags: mysql }
+    - { name: geerlingguy.postgresql, tags: postgresql }
+    - { name: lae.netbox, tags: netbox }
+    - { name: ffh.zabbix-server, tags: zabbix-server }
+    - { role: nginx, tags: nginx }
+
+  vars_files:
+    - vars/all_hosts.yml
+    - vars/secrets.yml
+
+  vars:
+    - servername: log
+    - mail_fqdn: "log.ffh.zone"
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 88.198.66.30/27
+          - 2a01:4f8:140:430a::112/64
+        gateway4: 88.198.66.1
+        gateway6: 2a01:4f8:140:430a::1
+        dns_server: [213.133.98.98, 213.133.99.99]
+
+    - zabbix_server_dbname: "zabbix"
+    - zabbix_server_dbhost: "localhost"
+    - zabbix_server_dbport: "3306"
+    - zabbix_server_dbuser: "zabbix"
+    - zabbix_server_dbpassword: "{{ log_zabbix_dbpassword }}"
+    - zabbix_server_db_login_user: "root"
+    - zabbix_server_db_login_password: ""
+    - zabbix_server_create_dbname: "true"
+    - zabbix_server_create_dbuser: "true"
+    - zabbix_server_host: "localhost"
+
+    - mysql_root_password: "{{ log_mysql_root_password }}"
+    - mysql_databases:
+      - name: "{{ zabbix_server_dbname }}"
+    - mysql_users:
+      - name: "{{ zabbix_server_dbuser }}"
+        host: "{{ zabbix_server_dbhost }}"
+        password: "{{ zabbix_server_dbpassword }}"
+        priv: "{{ zabbix_server_dbname }}.*:ALL"
+
+    - netbox_stable: true
+    - netbox_stable_version: 2.6.1
+    - netbox_socket: "0.0.0.0:8011"
+    - netbox_superuser_password: "netbox"
+    - netbox_config:
+        ALLOWED_HOSTS:
+          - "*"
+        MEDIA_ROOT: "{{ netbox_shared_path }}/media"
+        REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
+    - netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
+    - netbox_webhooks_enabled: true
+
+    - postgresql_users:
+        - name: "{{ netbox_database_user }}"
+          role_attr_flags: CREATEDB,NOSUPERUSER
+
+    - redis_bind: 127.0.0.1
+
+    - nginx_sites:
+      - domain: ipam.ffh.zone
+        root: /var/www/html
+        tls: true
+        locations:
+          - location: /
+            type: proxy
+            proxy_forward_url: http://localhost:8011/

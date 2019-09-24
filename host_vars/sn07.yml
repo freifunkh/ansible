@@ -1,0 +1,27 @@
+---
+servername: sn07
+sn: 7
+mail_fqdn: "sn07.s.ffh.zone"
+admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
+
+networkd_configures:
+- iface: eth0
+  addresses:
+    - 2a02:c207:3003:6341::1/64
+    - 173.212.239.89/24
+  gateway4: 173.212.239.1
+  gateway6: fe80::1
+  no_radv_accept: true
+  dns_server: [213.136.95.10, 213.136.95.11]
+
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interface_penalty:
+  gre-aegidientor: 666
+  gre-steintor: 666
+  gre-leintor: 110
+  gre-clevertor: 100
+  gre-listertor: 666
+  gre-bruehltor: 666
+
+legacy_dom0: true
+radv_announce_default: false

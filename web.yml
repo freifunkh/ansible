@@ -1,0 +1,124 @@
+---
+
+- hosts: web
+  roles:
+    - { name: networkd, tags: networkd }
+    - { name: ferm, tags: ferm }
+    # admin stuff
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: cron-apt, tags: cron-apt }
+    # special
+    - { role: nginx, tags: nginx }
+    - { role: fnorden.net, tags: fnorden.net }
+    - { role: foswiki, tags: foswiki }
+    - { role: ffh.taskserver, tags: taskserver }
+    - { role: ffh.zabbix-frontend, tags: zabbix-frontend }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
+  vars_files:
+    - vars/all_hosts.yml
+
+  vars:
+    - servername: web
+    - mail_fqdn: "web.ffh.zone"
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 88.198.66.3/27
+          - 2a01:4f8:140:430a:ff::443/64
+        gateway4: 88.198.66.1
+        gateway6: 2a01:4f8:140:430a::1
+        dns_server: [213.133.98.98, 213.133.99.99]
+
+    - nginx_sites:
+      - domain: firmware.ffh.zone
+        root: /var/www/firmware
+        tls: true
+        locations:
+          - location: /
+            directory_index: true
+      - domain: www.fnorden.net
+        root: /var/www/fnorden.net
+        tls: true
+        tls_redirect_to_https: true
+      - domain: hannover.freifunk.net
+        root: /var/www/web
+        tls: true
+        tls_redirect_to_https: true
+        php: true
+        locations:
+          - location: /download
+            directory_index: true
+            disable_symlinks: true
+        custom_config: |
+          set $foswiki_root "/var/www/web/wiki";
+
+          client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
+
+          location = /wiki/ {
+            root $foswiki_root;
+            rewrite .* /wiki/Main/WebHome;
+          }
+
+          location ~ ^/wiki/pub/(.*) {
+            alias $foswiki_root/pub/$1;
+            allow all;
+          }
+
+          location ~ ^/wiki/bin/ {
+            root $foswiki_root;
+            gzip off;
+            #fastcgi_pass             unix:/var/run/nginx/foswiki.sock;
+            fastcgi_pass             127.0.0.1:9000;
+            fastcgi_split_path_info  ^(/wiki/bin/\w+)(.*);
+            #  Captures two variables   ($fastcgi_script_name) and ($fastcgi_path_info)
+            fastcgi_param            SCRIPT_FILENAME $foswiki_root/bin/$fastcgi_script_name;
+            fastcgi_param            SCRIPT_NAME     $fastcgi_script_name;
+            fastcgi_param            PATH_INFO       $fastcgi_path_info;
+            include fastcgi_params;
+          }
+
+          location ~ (^/wiki/lib|^/wiki/data|^/wiki/locale|^/wiki/templates|^/wiki/tools|^/wiki/working) {
+            root $foswiki_root;
+            deny all;
+          }
+
+          if ($http_user_agent ~ ^SiteSucker|^iGetter|^larbin|^LeechGet|^RealDownload|^Teleport|^Webwhacker|^WebDevil|^Webzip|^Attache|^SiteSnagger|^WX_mail|^EmailCollector|^WhoWhere|^Roverbot|^ActiveAgent|^EmailSiphon|^CrownPeak-HttpAgent|^$) {
+            rewrite .* /404.html break;
+          }
+
+          location ~ ^/wiki/(.*)$ {
+            root $foswiki_root;
+            rewrite ^/wiki/(.*)$ /wiki/bin/view/$1;
+          }
+
+          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
+
+          location ~ ^/zabbix/ {
+            root /usr/share/zabbix;
+            disable_symlinks on;
+            fastcgi_param PHP_VALUE "
+              max_execution_time 300
+              memory_limit 128M
+              post_max_size 16M
+              upload_max_filesize 2M
+              max_input_time 300
+              max_input_vars 10000
+              always_populate_raw_post_data -1
+            ";
+          }
+
+          location ~ /zabbix/(local|app|conf|include) {
+            deny all;
+          }
+
+      - domain: tiles.ffh.zone
+        root: /var/www/tiles/www
+        tls: true
+        tls_redirect_to_https: true
+        untouchable: true

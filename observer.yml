@@ -1,0 +1,24 @@
+---
+
+- hosts: observer
+  roles:
+    - { name: admin, tags: admin }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: ferm, tags: ferm }
+    - { name: nginx, tags: nginx }
+    - { name: icinga2-config, tags: icinga2-config }
+    - { name: cron-apt, tags: cron-apt }
+
+  vars_files:
+      - vars/all_hosts.yml
+
+  vars:
+    - servername: observer
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
+
+    - nginx_sites:
+      - domain: observer.ffh.zone
+        root: /var/www/observer.ffh.zone
+        tls: true
+        tls_redirect_to_https: true
+        untouchable: true

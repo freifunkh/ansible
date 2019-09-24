@@ -1,0 +1,38 @@
+---
+
+- hosts: leintor
+  roles:
+    - { name: ferm, tags: ferm }
+    - { name: exitnode, tags: exitnode }
+    - { name: cli_tools, tags: cli_tools }
+    - { name: networkd, tags: networkd }
+    - { name: simple_mail, tags: simple_mail }
+    - { name: journald, tags: journald }
+    - { name: admin, tags: admin }
+    - { name: node_exporter, tags: node_exporter }
+    - { name: cron-apt, tags: cron-apt }
+    - { name: babeld, tags: babeld }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
+  vars_files:
+    - vars/all_hosts.yml
+  pre_tasks:
+  vars:
+    - servername: leintor
+    - en: 3
+    - mail_fqdn: "leintor.e.ffh.zone"
+    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
+
+    - networkd_configures:
+      - iface: eth0
+        addresses:
+          - 81.3.6.94/29
+          - 2a02:790:1:ff::1001/64
+        gateway4: 81.3.6.89
+        gateway6: fe80::1
+        dns_server: [81.3.3.81, 8.8.8.8]
+      - iface: lo
+        addresses:
+          - 100.100.0.1/32 # anycast for ping tests
+
+    - babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
