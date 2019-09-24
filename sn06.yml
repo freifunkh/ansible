@@ -1,6 +1,6 @@
 ---
 
-- hosts: sn07
+- hosts: sn06
   roles:
     # General
     - { name: ferm, tags: ferm }
