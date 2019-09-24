@@ -1,8 +1,9 @@
 ---
 
-- hosts: sn07
+- hosts: supernodes
   roles:
     # General
+    - { name: ffh.devname, tags: devname }
     - { name: ferm, tags: ferm }
     - { name: supernode, tags: supernode }
     - { name: cli_tools, tags: cli_tools }

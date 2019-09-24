@@ -25,3 +25,5 @@ babeld_interface_penalty:
 
 legacy_dom0: true
 radv_announce_default: false
+
+fix_netifnames: true
