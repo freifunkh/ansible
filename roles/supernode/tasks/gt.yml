@@ -3,23 +3,39 @@
 - name: Install ebtables
   apt: name=ebtables
 
-- name: Create network interface for each gt endpoint
+
+# IT IS VERY IMPORTANT TO RELOAD THE FIREWALL BEFORE STARTING THE DEVICES
+# BECAUSE OTHERWISE THE BRIDGE FORWARDING WILL CAUSE PACKET STORMS
+- name: Generate firewall config stanza for GT tunnel (ferm)
+  notify: reload ferm
+  template:
+    src: ferm.gt.conf.j2
+    dest: /etc/ferm/conf.d/10-br-gt-noforward.conf
+
+- name: Already restart ferm here
+  meta: flush_handlers
+
+- name: Install wait_for_iface.sh
+  copy:
+    src: wait_for_iface.sh
+    dest: /usr/bin/wait_for_iface.sh
+    mode: 755
+
+- name: Create network for gt endpoint
   notify: Restart networkd
   template:
     src: gt-network.j2
-    dest: /etc/systemd/network/19-gt-{{ item.key }}.network
-  when: item.key != servername
-  with_dict: "{{ supernodes }}"
+    dest: /etc/systemd/network/19-gt.network
 
 - name: Create /etc/systemd/network/10-eth0.network.d directory
   notify: Restart networkd
   file:
-    name: /etc/systemd/network/10-eth0.network.d  
+    name: /etc/systemd/network/10-eth0.network.d
     state: directory
 
 - name: Drop tunnel config into /etc/systemd/network/10-eth0.network.d directory
   notify: Restart networkd
-  template: 
+  template:
     src: gt-tunnel.conf.j2
     dest: /etc/systemd/network/10-eth0.network.d/gt-tunnel.conf
 
@@ -44,82 +60,33 @@
   notify: Restart networkd
   template:
     src: vlan-gt-netdev.j2
-    dest: /etc/systemd/network/19-vlan-gt-{{ 200 + (item.id | int) }}.netdev
-  when: legacy_dom0
+    dest: /etc/systemd/network/19-vlan-gt-2{{ item.id }}.netdev
   with_items:
-    - id: 0
+    - "{{ domains_with_dom0 }}"
 
-- name: Create vlan-gt* devices
-  notify: Restart networkd
-  template:
-    src: vlan-gt-netdev.j2
-    dest: /etc/systemd/network/19-vlan-gt-{{ 200 + (item.id | int) }}.netdev
-  with_items:
-    - "{{ domains }}"
-
-- name: Create vlan-gt* networks
+- name: Create vlan-gt* network
   notify: Restart networkd
   template:
     src: vlan-gt-network.j2
-    dest: /etc/systemd/network/19-vlan-gt-{{ 200 + (item.id | int) }}.network
-  when: legacy_dom0
-  with_items:
-    - id: 0
+    dest: /etc/systemd/network/19-vlan-gt.network
 
-- name: Create vlan-gt* networks
-  notify: Restart networkd
-  template:
-    src: vlan-gt-network.j2
-    dest: /etc/systemd/network/19-vlan-gt-{{ 200 + (item.id | int) }}.network
-  with_items: "{{ domains }}"
-
-- name: Create systemd service to add vlan-gt-200 devices into bat0
+- name: Create systemd service to add vlan-gt-* devices into bat*
   template:
     src: addtobatX.j2
-    dest: /etc/systemd/system/add-gt-to-bat{{ item.id }}.service
-  when: legacy_dom0
-  with_items:
-    - id: 0
-
-- name: Create systemd service to add vlan-gt* devices into bat*
-  template:
-    src: addtobatX.j2
-    dest: /etc/systemd/system/add-gt-to-bat{{ item.id }}.service
-  with_items:
-    - "{{domains}}"
+    dest: /etc/systemd/system/add-gt-to-batX@.service
 
 - name: Systemd daemon-reload
   command: systemctl daemon-reload
 
-- name: Enable systemd services for dom0
-  command: systemctl enable add-gt-to-bat{{ item.id }}.service
-  when: legacy_dom0
-  with_items:
-    - id: 0
-
 - name: Enable systemd services
-  command: systemctl enable add-gt-to-bat{{ item.id }}.service
+  command: systemctl enable add-gt-to-batX@{{ item.id }}
   with_items:
-    - "{{ domains }}"
+    - "{{ domains_with_dom0 }}"
 
 - name: Restart networkd
   command: systemctl restart systemd-networkd
 
-- name: Start systemd services for dom0
-  command: systemctl start add-gt-to-bat{{ item.id }}.service
-  when: legacy_dom0
-  with_items:
-    - id: 0
-
 - name: Start systemd services
-  command: systemctl start add-gt-to-bat{{ item.id }}.service
+  command: systemctl start add-gt-to-batX@{{ item.id }}.service
   with_items:
-    - "{{ domains }}"
-
-- name: Generate firewall config stanza for GT tunnel (ferm)
-  notify: reload ferm
-  template:
-    src: ferm.gt.conf.j2
-    dest: /etc/ferm/conf.d/10-br-gt-noforward.conf
-
-
+    - "{{ domains_with_dom0 }}"

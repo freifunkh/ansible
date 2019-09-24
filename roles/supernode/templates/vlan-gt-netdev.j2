@@ -1,7 +1,7 @@
 [NetDev]
-Name=vlan-gt-{{ (item.id | int) + 200 }}
+Name=vlan-gt-2{{ item.id }}
 Kind=vlan
+MTUBytes=1458
 
 [VLAN]
-Id={{ (item.id | int) + 200 }}
-
+Id=2{{ item.id }}
