@@ -56,6 +56,7 @@ journald_watch_filter_regexes:
 - '/dhcpd.*: Abandoning IP address 10.*: declined.$/'
 - '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
 - '/systemd[.*]: Failed to start Clean php session files./'
+- '/fastd@mesh.*: .*dump status: write: Broken pipe/'
 admin_pubkeys:
 - name: lemoer
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qBzYhG0oXJCAVr5Bgh9dJ2ZqgzsB9oTGZlBn5ZIjO lemoer@orange
