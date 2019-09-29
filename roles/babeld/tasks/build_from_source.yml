@@ -19,9 +19,21 @@
   register: babeldmake
   make:
     chdir: "/usr/src/babeld-{{ babeld_build_version }}"
- 
+
+- name: Stop (old) babeld instance
+  systemd:
+    name: babeld
+    state: stopped
+  when: babeldmake is changed
+
 - name: Install babeld
   command: "cp /usr/src/babeld-{{ babeld_build_version }}/babeld /usr/sbin/babeld"
+  when: babeldmake is changed
+
+- name: Start (new) babeld instance
+  systemd:
+    name: babeld
+    state: started
   when: babeldmake is changed
 
 - name: "Create custom fact directory"
