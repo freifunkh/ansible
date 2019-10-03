@@ -12,6 +12,7 @@
       gateway: "10.{{ domain.id }}.{{ sn }}0.1"
 
 - name: "Generate dhcpd bat{{ domain.id }} config"
+  notify: Restart isc-dhcp-server
   template:
     src: batX.conf.j2
     dest: "/etc/dhcp/bat{{ domain.id }}.conf"

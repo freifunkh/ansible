@@ -20,7 +20,6 @@
   when: legacy_dom0 == true
 
 - name: Domain configs
-  notify: Restart isc-dhcp-server
   include_tasks: per_domain.yml
   with_items: "{{ domains }}"
   loop_control:
