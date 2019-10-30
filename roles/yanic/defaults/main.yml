@@ -1,6 +1,6 @@
 ---
 
-go_version: "1.8"
+go_version: "1.13.1"
 yanic_user: yanic
 yanic_group: www-data
 yanic_port: 10001
