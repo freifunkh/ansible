@@ -165,7 +165,7 @@
     url: https://raw.githubusercontent.com/srvrco/getssl/8599aa1c20763698f93ebed5ef68493eca00eec0/getssl
     dest: "{{ nginx_getssl_dir }}/getssl"
     mode: 0700
-    checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
+    checksum: sha256:bb5d57808f33d959e426d9263509969a5a7131e50451f87c7f53ae18c389e912
   when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
