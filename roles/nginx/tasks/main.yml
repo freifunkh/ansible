@@ -162,7 +162,7 @@
 
 - name: Download getssl
   get_url:
-    url: https://raw.githubusercontent.com/srvrco/getssl/cb7779102a96e4802249460255303babaf1d8322/getssl
+    url: https://raw.githubusercontent.com/srvrco/getssl/8599aa1c20763698f93ebed5ef68493eca00eec0/getssl
     dest: "{{ nginx_getssl_dir }}/getssl"
     mode: 0700
     checksum: sha256:61d77e8d33915ac4026033091600628991463b55aadf367d8408efb933d4d613
