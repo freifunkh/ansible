@@ -96,7 +96,7 @@
 
           rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
 
-          location /zabbix/ {
+          location /zabbix {
             alias /usr/share/zabbix;
             disable_symlinks on;
             fastcgi_param PHP_VALUE "
