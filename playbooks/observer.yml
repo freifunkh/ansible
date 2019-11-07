@@ -11,7 +11,7 @@
 
   vars:
     - servername: observer
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
+    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
 
     - nginx_sites:
       - domain: observer.ffh.zone

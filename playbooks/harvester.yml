@@ -29,7 +29,7 @@
   vars:
     - servername: harvester
     - mail_fqdn: "harvester.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD, s_2]
+    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD, s_2]
 
     - networkd_configures:
       - iface: eth0

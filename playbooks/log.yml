@@ -24,7 +24,7 @@
   vars:
     - servername: log
     - mail_fqdn: "log.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
+    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
 
     - networkd_configures:
       - iface: eth0

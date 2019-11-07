@@ -21,7 +21,7 @@
     - servername: aegidientor
     - en: 1
     - mail_fqdn: "aegidientor.e.ffh.zone"
-    - admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
+    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
 
     - networkd_configures:
       - iface: eth0

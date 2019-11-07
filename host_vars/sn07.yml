@@ -2,7 +2,7 @@
 servername: sn07
 sn: 7
 mail_fqdn: "sn07.s.ffh.zone"
-admin_authorized: [lemoer, cawi, luk, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
+admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
 
 networkd_configures:
 - iface: eth0
