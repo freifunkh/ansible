@@ -25,6 +25,13 @@ domain (ip ip6) {
             proto tcp dport 1337 ACCEPT;
 
 {%if batman is defined and legacy_dom0 == true %}
+            interface (mesh_fastd) jump MESH_INPUT;
+{% endif %}
+{%if batman is defined and domains is defined %}
+            interface ({% for d in domains %}mesh_fastd_{{d.id}} {% endfor %}) jump MESH_INPUT;
+{% endif %}
+
+{%if batman is defined and legacy_dom0 == true %}
             interface (bat0) jump MESH_INPUT;
 {% endif %}
 {%if batman is defined and domains is defined %}
