@@ -1,0 +1,6 @@
+---
+
+- name: deploy ferm exitconfig
+  template:
+    src: ferm-10-exit.conf.j2
+    dest: /etc/ferm/conf.d/10-exit.conf

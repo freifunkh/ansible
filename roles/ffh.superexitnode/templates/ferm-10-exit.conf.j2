@@ -1,0 +1,41 @@
+
+@def $DEV_EXIT = eth0;
+@def $DEV_IP = {{exit_ip}};
+
+@def &PRIV_NET($net) = {
+      outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
+}
+
+domain (ip) {
+  table nat {
+    chain POSTROUTING {
+# WE PREFER SNAT HERE TO SET IP EXPLICITLY (needed on sn01)
+#      saddr 10.0.0.0/8 outerface $DEV_EXIT MASQUERADE;
+      saddr 10.0.0.0/8 outerface $DEV_EXIT SNAT to $DEV_IP;
+    }
+  }
+
+  table filter {
+    chain FORWARD {
+      &PRIV_NET(10.0.0.0/8);
+      &PRIV_NET(100.64.0.0/10);
+      &PRIV_NET(127.0.0.0/8);
+      &PRIV_NET(169.254.0.0/16);
+      &PRIV_NET(172.16.0.0/12);
+      &PRIV_NET(192.0.2.0/24);
+      &PRIV_NET(192.88.99.0/24);
+      &PRIV_NET(192.168.0.0/16);
+      &PRIV_NET(198.18.0.0/15);
+      &PRIV_NET(198.51.100.0/24);
+      &PRIV_NET(203.0.113.0/24);
+      &PRIV_NET(224.0.0.0/4);
+      &PRIV_NET(240.0.0.0/4);
+
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+
+      outerface $DEV_EXIT interface $DEV_EXIT DROP;
+      outerface $DEV_EXIT ACCEPT;
+    }
+  }
+}
+
