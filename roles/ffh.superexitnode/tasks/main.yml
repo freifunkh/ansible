@@ -4,3 +4,9 @@
   template:
     src: ferm-10-exit.conf.j2
     dest: /etc/ferm/conf.d/10-exit.conf
+
+- name: Kernel module stuff
+  include_tasks: kmod.yml
+
+- name: Conntrack stuff
+  include_tasks: sysctl.yml

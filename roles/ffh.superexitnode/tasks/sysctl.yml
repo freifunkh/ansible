@@ -1,0 +1,24 @@
+---
+
+- name: Adjust netfilter conntrack table size
+  sysctl:
+    name: net.netfilter.nf_conntrack_max
+    value: "{{ firewall_conntrack_table_size }}"
+    state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
+    sysctl_file: /etc/sysctl.d/20-conntrack.conf
+    reload: yes
+
+- name: Maybe activate forwarding 4 as kernel parameter
+  sysctl:
+    name: net.ipv4.conf.all.forwarding
+    value: "1"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
+- name: Maybe activate forwarding 6 as kernel parameter
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    sysctl_file: /etc/sysctl.d/50-forwarding.conf
+    reload: yes
+
