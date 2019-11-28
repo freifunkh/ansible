@@ -39,3 +39,13 @@ domain (ip) {
   }
 }
 
+domain (ip ip6) {
+  table filter {
+    chain FORWARD {
+
+      ACCEPT;
+
+    }
+  }
+}
+
