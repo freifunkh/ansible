@@ -1,6 +1,7 @@
 ---
 
 - name: deploy ferm exitconfig
+  notify: restart ferm
   template:
     src: ferm-10-exit.conf.j2
     dest: /etc/ferm/conf.d/10-exit.conf
