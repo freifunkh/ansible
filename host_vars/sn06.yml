@@ -2,7 +2,6 @@
 servername: sn06
 sn: 6
 mail_fqdn: "sn06.s.ffh.zone"
-admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
 
 networkd_configures:
 - iface: eth0

@@ -88,6 +88,8 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhx0r/mvxf4YZd+cK/JAQJyNo2fubv7K60UAWWFG8sCIAzg1U8ORoidAJax16nmNpe4iXeyrzXDHoLWHfANKOzlf4peDwaZWOHHlfUQ6kV2S10ndHJOQ4isFj+hT7qU50vWknV2IdCwgRPjL5kMU8R1Kux7b9kJz41VPocJcZNQbqQsvuTUrsFSCHw2nZvglX5tScyNIyU9EC1Ee0LY9KCA4STx84WHyAoGN7m/D1XtPEczIJXuRzmDWErqPXV0sZXoMJ860anUZqRZSXTumH6Z20nzGWD4iYX5kuuDPba4cuOmtHisDyGVhle2xnI/qUAF5u2abYRlBI6DHWXWnNmw== Manu FFH GIT
 - name: s_2
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8M75KrippHPwkAJYrc+GKRAttD1x9ZgZEZSF9UZ/Tk sebastian@sebastian-msi
+- name: ctandi
+  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6f4GU51qSPSDM98KB7joDAzWXf7jbbZi9a7KfTsYBaT1nqlcCsltPBTKUa6cjgUYVrDL3QnKA8nsa24ZSROZA4X9b1TUBNKhdR6CldoOtr+QRjEfmRJ+qDrDJD9yjX//9D4sKmhGZ7JX/5xTGgqUW9OlMudvxOXof11KDeJk+X4jmvUmsQS+GF5+YOg7UI+2vsxbDJK9kgkryzWRl7+7uSmd4e3UJn+P2NeHf85JReZnelYyWzqDRykc0IuwtuvHvgDMOo1xArveWC/dmGJ/HGWti0JJ5SJSOsaSVD4tEA7Cyp8lmeEYE2JmGrC07izLglc/YrCB/UdEbMkY/5st7 andi@ae490
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"

@@ -2,7 +2,6 @@
 servername: sn10
 sn: 10
 mail_fqdn: "sn10.s.ffh.zone"
-admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD]
 
 networkd_configures:
 - iface: eth0
