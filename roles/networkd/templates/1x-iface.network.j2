@@ -50,4 +50,7 @@ Metric={{ route.metric }}
 {% if route.table is defined %}
 Table={{ route.table }}
 {% endif %}
+{% if route.pref_src is defined %}
+PreferredSource={{ route.pref_src }}
+{% endif %}
 {% endfor %}
