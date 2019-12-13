@@ -74,20 +74,10 @@
           timeout: 30
           targets:
             - sn01.s.ffh.zone:9100
-            - sn02.s.ffh.zone:9100
-            - sn03.s.ffh.zone:9100
-            - sn04.s.ffh.zone:9100
-            - sn05.s.ffh.zone:9100
-            - sn06.s.ffh.zone:9100
-            - sn07.s.ffh.zone:9100
             - sn08.s.ffh.zone:9100
             - sn09.s.ffh.zone:9100
             - sn10.s.ffh.zone:9100
-            - bruehltor.e.ffh.zone:9100
-            - listertor.e.ffh.zone:9100
-            - clevertor.e.ffh.zone:9100
             - leintor.e.ffh.zone:9100
-            - aegidientor.e.ffh.zone:9100
             - harvester.ffh.zone:9100
 
     - grafana_datadir: "/media/data/grafana"
