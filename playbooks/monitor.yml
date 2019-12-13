@@ -1,6 +1,6 @@
 ---
 
-- hosts: log
+- hosts: monitor
   roles:
     - { name: networkd, tags: networkd }
     - { name: ferm, tags: ferm }
@@ -22,18 +22,16 @@
     - ../secrets.yml
 
   vars:
-    - servername: log
-    - mail_fqdn: "log.ffh.zone"
+    - servername: monitor
+    - mail_fqdn: "monitor.ffh.zone"
     - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
 
     - networkd_configures:
       - iface: eth0
+        dhcp: true
         addresses:
-          - 88.198.66.30/27
-          - 2a01:4f8:140:430a::112/64
-        gateway4: 88.198.66.1
-        gateway6: 2a01:4f8:140:430a::1
-        dns_server: [213.133.98.98, 213.133.99.99]
+          - 2a01:4f8:221:100c::1003/64
+        gateway6: 2a01:4f8:221:100c::2
 
     - zabbix_server_dbname: "zabbix"
     - zabbix_server_dbhost: "localhost"
@@ -74,7 +72,7 @@
     - redis_bind: 127.0.0.1
 
     - nginx_sites:
-      - domain: ipam.ffh.zone
+      - domain: netbox.ffh.zone
         root: /var/www/html
         tls: true
         locations:

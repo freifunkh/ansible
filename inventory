@@ -30,5 +30,5 @@ helpernodes:
       ansible_host: web.ffh.zone
     observer:
       ansible_host: observer.ffh.zone
-    log:
-      ansible_host: log.ffh.zone
+    monitor:
+      ansible_host: monitor.ffh.zone

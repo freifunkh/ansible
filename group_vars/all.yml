@@ -25,7 +25,7 @@ helpernodes:
   observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}" }
   ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net./A') }}" }
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}" }
-  log: { id: 5, ip4: "{{ lookup('dig', 'log.ffh.zone./A') }}" }
+  monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}" }
 simple_mail:
   root_email: monitoring@hannover.freifunk.net
   mail_server: mail.ffh.zone
