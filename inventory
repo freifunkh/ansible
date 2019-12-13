@@ -8,16 +8,6 @@ supernodes:
   hosts:
     sn01:
       ansible_host: sn01.s.ffh.zone
-#    sn02:
-#      ansible_host: sn02.s.ffh.zone
-    sn03:
-      ansible_host: sn03.s.ffh.zone
-    sn04:
-      ansible_host: sn04.s.ffh.zone
-    sn05:
-      ansible_host: sn05.s.ffh.zone
-    sn07:
-      ansible_host: sn07.s.ffh.zone
     sn08:
       ansible_host: sn08.s.ffh.zone
     sn09:
@@ -27,18 +17,8 @@ supernodes:
 
 exitnodes:
   hosts:
-    aegidientor:
-      ansible_host: aegidientor.e.ffh.zone
-    steintor:
-      ansible_host: steintor.e.ffh.zone
     leintor:
       ansible_host: leintor.e.ffh.zone
-    clevertor:
-      ansible_host: clevertor.e.ffh.zone
-    listertor:
-      ansible_host: listertor.e.ffh.zone
-    bruehltor:
-      ansible_host: bruehltor.e.ffh.zone
 
 helpernodes:
   hosts:
