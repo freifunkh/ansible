@@ -8,7 +8,9 @@ method "salsa2012+umac";
 
 bind {{ ansible_eth0.ipv4.address }} port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
 {% for ip in ansible_eth0.ipv6 | default( [] ) %}
+{% if not ip.address.startswith('fe80') %}
 bind [{{ ip.address }}] port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
+{% endif %}
 {% endfor %}
 
 hide ip addresses yes;
