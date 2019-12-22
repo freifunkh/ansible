@@ -24,3 +24,11 @@ babeld_interface_penalty:
 
 legacy_dom0: true
 radv_announce_default: true
+apinger_targets2:
+- description: exitnode v4 via gre
+  ips:
+    - 100.103.9.1
+- description: hostway router
+  ips:
+    - 2a02:790::1
+

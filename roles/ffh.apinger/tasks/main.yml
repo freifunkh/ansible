@@ -1,0 +1,70 @@
+---
+
+- name: Check whether apinger is installed
+  stat: path=/usr/local/sbin/apinger
+  register: apinger_installed
+
+- name: Install apinger
+  block:
+    - name: Install dependencies
+      apt:
+        pkg:
+          - automake
+          - bison
+          - flex
+          - rrdtool
+    - name: Clone apinger
+      git:
+        repo: https://github.com/Jajcus/apinger
+        dest: /opt/apinger
+    - name: Build and install apinger
+      shell: "sh autogen.sh && cd src && make install"
+      args:
+        chdir: /opt/apinger
+  when: not apinger_installed.stat.exists
+
+- name: Generate /etc/apinger.conf
+  notify: Apinger Changed
+  template:
+    src: apinger.conf.j2
+    dest: /etc/apinger.conf
+
+- name: Install service files and stuff
+  block:
+    - name: Install apinger.service
+      copy:
+        src: apinger.service
+        dest: /etc/systemd/system/apinger.service
+    - name: Install apinger-http.service
+      copy:
+        src: apinger-http.service
+        dest: /etc/systemd/system/apinger-http.service
+    - name: Allow http port 8765 in ferm
+      copy:
+        src: 50-apinger-http.conf
+        dest: /etc/ferm/conf.d/50-apinger-http.conf
+    - name: Generate directories & do systemd stuff
+      shell: |
+        mkdir -p /srv/apinger-http
+        mkdir -p /srv/apinger-http/apinger
+        chown nobody /srv/apinger-http/apinger/
+        mkdir -p /srv/apinger-http/cgi-bin
+        systemctl daemon-reload
+        systemctl enable apinger
+        systemctl start apinger
+        systemctl enable apinger-http
+        systemctl start apinger-http
+        systemctl restart ferm
+    - name: Redirect from / to /cgi-bin/apinger in http
+      copy:
+        src: index.html
+        dest: /srv/apinger-http/index.html
+    - name: Install config update script ffh_apinger_conf_changed
+      copy:
+        src: ffh_apinger_conf_changed
+        dest: /usr/bin/ffh_apinger_conf_changed
+        mode: 755
+  when: not apinger_installed.stat.exists
+
+
+

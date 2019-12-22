@@ -1,0 +1,32 @@
+user "nobody"
+group "nogroup"
+
+status {
+        file "/tmp/apinger.status"
+        interval 5m
+}
+
+rrd interval 30s;
+
+target default {
+        ## How often the probe should be sent
+        interval 1s
+
+        avg_delay_samples 10
+        avg_loss_samples 50
+        avg_loss_delay_samples 20
+
+        ## Location of the RRD
+        rrd file "/tmp/apinger-%t.rrd"
+}
+
+{% for target in apinger_targets + (apinger_targets2 | default([])) %}
+{% for ip in target.ips %}
+{% if not ip in (ansible_all_ipv4_addresses + ansible_all_ipv6_addresses) %}
+target "{{ ip }}" {
+        description "{{ target.description }}";
+}
+
+{% endif %}
+{% endfor %}
+{% endfor %}

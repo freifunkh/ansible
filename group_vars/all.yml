@@ -133,3 +133,26 @@ domains_with_dom0:
 - id: "22"
 - id: "23"
 - id: "99"
+apinger_targets:
+- description: sn01
+  ips:
+  - 10.10.10.1
+  - 185.197.132.140
+  - fdca:ffee:8:18::1001
+- description: sn09 
+  ips:
+  - 10.10.90.1
+  - 81.3.6.92
+  - fdca:ffee:8:18::9001
+- description: sn10
+  ips:
+  - 10.10.100.1
+  - 81.3.6.91
+  - fdca:ffee:8:18::a001
+- description: google dns
+  ips:
+  - 8.8.8.8
+- description: heise.de
+  ips:
+  - 193.99.144.80
+  - "2a02:2e0:3fe:1001:302::"

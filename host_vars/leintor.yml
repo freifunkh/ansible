@@ -1,0 +1,6 @@
+---
+apinger_targets2:
+- description: hostway router
+  ips:
+    - 2a02:790::1
+

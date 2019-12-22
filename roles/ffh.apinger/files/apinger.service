@@ -1,0 +1,8 @@
+[Unit]
+Description=Apinger
+
+[Service]
+ExecStart=/usr/local/sbin/apinger -c /etc/apinger.conf -f
+
+[Install]
+WantedBy=multi-user.target

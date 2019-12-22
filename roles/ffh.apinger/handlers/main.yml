@@ -1,0 +1,4 @@
+---
+
+- name: Apinger Changed
+  command: /usr/bin/ffh_apinger_conf_changed

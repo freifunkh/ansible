@@ -13,6 +13,7 @@
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.apinger, tags: ffh.apinger }
 
   pre_tasks:
   vars:

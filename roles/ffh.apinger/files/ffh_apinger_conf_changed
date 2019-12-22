@@ -1,0 +1,6 @@
+#!/bin/sh
+
+systemctl restart apinger
+apinger -c /etc/apinger.conf -g /srv/apinger-http/apinger -l /apinger > /srv/apinger-http/cgi-bin/apinger
+chown nobody /srv/apinger-http/apinger/
+chmod +x /srv/apinger-http/cgi-bin/apinger
