@@ -10,7 +10,7 @@
 - name: sysctl - Reboot on kernel panic
   sysctl:
     name: kernel.panic
-    value: 10
+    value: "10"
     state: present
     reload: yes
   when: reboot_on_kernelpanic == true and ansible_virtualization_type != "lxc"
