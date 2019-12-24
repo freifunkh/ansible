@@ -3,8 +3,6 @@ all:
   vars:
     ansible_user: "root"
     ansible_port: 1337
-
-supernodes:
   hosts:
     sn01:
       ansible_host: sn01.s.ffh.zone
@@ -14,21 +12,34 @@ supernodes:
       ansible_host: sn09.s.ffh.zone
     sn10:
       ansible_host: sn10.s.ffh.zone
-
-exitnodes:
-  hosts:
     leintor:
       ansible_host: leintor.e.ffh.zone
-
-helpernodes:
-  hosts:
     ns1:
       ansible_host: ns1.fnorden.net
     harvester:
       ansible_host: harvester.ffh.zone
     web:
-      ansible_host: web.ffh.zone
+      ansible_host: 88.99.88.13
     observer:
       ansible_host: observer.ffh.zone
     monitor:
       ansible_host: monitor.ffh.zone
+
+supernodes:
+  hosts:
+    sn01:
+    sn08:
+    sn09:
+    sn10:
+
+exitnodes:
+  hosts:
+    leintor:
+
+helpernodes:
+  hosts:
+    ns1:
+    harvester:
+    web:
+    observer:
+    monitor:
