@@ -43,3 +43,9 @@ helpernodes:
     web:
     observer:
     monitor:
+
+batmannodes:
+  hosts:
+    harvester:
+  children:
+    supernodes:
