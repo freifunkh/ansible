@@ -30,6 +30,7 @@
     - ndisc6
     - less
     - iptstate
+    - aptitude
 
 - name: Set prompt (PS1)
   lineinfile:
