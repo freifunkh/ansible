@@ -30,6 +30,7 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: reboot, tags: reboot }  # Enable reboot role on initial roleout.
     - { name: ffh.apinger, tags: ffh.apinger }
+    - { name: ffh.telegraf, tags: ffh.telegraf }
 
   vars_files:
     - ../secrets.yml

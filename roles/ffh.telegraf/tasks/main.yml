@@ -1,0 +1,15 @@
+---
+
+- name: Check whether telegraf is installed
+  stat: path=/usr/bin/telegraf
+  register: telegraf_bin
+
+- name: Install telegraf
+  apt: deb=https://dl.influxdata.com/telegraf/releases/telegraf_1.13.0-1_amd64.deb
+  when: not telegraf_bin.stat.exists
+
+- name: Update telegraf config
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+  notify: Restart telegraf
