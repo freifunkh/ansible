@@ -5,7 +5,7 @@
     - { name: networkd, tags: networkd }
     - { name: ferm, tags: ferm }
     # admin stuff
-    - { name: simple_mail, tags: simple_mail }
+    # - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
@@ -14,7 +14,7 @@
     - { role: nginx, tags: nginx }
     - { role: fnorden.net, tags: fnorden.net }
     - { role: foswiki, tags: foswiki }
-    - { role: ffh.taskserver, tags: taskserver }
+    # - { role: ffh.taskserver, tags: taskserver }
     - { role: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
@@ -25,11 +25,10 @@
 
     - networkd_configures:
       - iface: eth0
+        dhcp: true
         addresses:
-          - 88.198.66.3/27
-          - 2a01:4f8:140:430a:ff::443/64
-        gateway4: 88.198.66.1
-        gateway6: 2a01:4f8:140:430a::1
+          - 2a01:4f8:221:100c::443/64
+        gateway6: 2a01:4f8:221:100c::2
         dns_server: [213.133.98.98, 213.133.99.99]
 
     - nginx_sites:
