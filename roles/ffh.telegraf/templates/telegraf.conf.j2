@@ -21,6 +21,11 @@
 [[inputs.netstat]]
 [[inputs.processes]]
 [[inputs.kernel]]
+[[inputs.exec]]
+  commands = ["/usr/bin/ffh_peer_counter.sh -j"]
+  data_format = "json"
+  name_suffix = "_fastd"
+  tag_keys = ["domain"]
 
 # Output Plugin InfluxDB
 [[outputs.influxdb]]
