@@ -58,27 +58,9 @@
     - /etc/nginx/conf.d/default.conf
   notify: Reload nginx
 
-- name: Install PHP 5 (Debian Jessie)
-  apt:
-    name: php5-fpm
-  when: item.php|default(False) and ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie'
-  with_items: "{{ nginx_sites }}"
-
-- name: Install PHP 7 (Debian Stretch)
-  apt:
-    name: php7.0-fpm
-  when: item.php|default(False) and ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'
-  with_items: "{{ nginx_sites }}"
-
-- name: set nginx_use_php70 to indicate we are using php7
-  set_fact: nginx_use_php70=true
-  when: item.php|default(False) and ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'
-  with_items: "{{ nginx_sites }}"
-
-- name: Install PHP (Ubuntu)
+- name: Install PHP
   apt:
     name: php-fpm
-  when: item.php|default(False) and ansible_distribution == 'Ubuntu'
   with_items: "{{ nginx_sites }}"
 
 - name: Create webroot for nginx
