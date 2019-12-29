@@ -1,7 +1,7 @@
 # See https://github.com/srvrco/getssl
 
 #CA="https://acme-staging.api.letsencrypt.org"
-CA="https://acme-v01.api.letsencrypt.org"
+CA="https://acme-v02.api.letsencrypt.org"
 PRIVATE_KEY_ALG="rsa"
 ACL=('{{ nginx_webroot }}/.well-known/acme-challenge')
 DOMAIN_CERT_LOCATION="{{ nginx_keys_dir }}/{{ item.domain }}.csr"
