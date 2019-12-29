@@ -14,10 +14,11 @@ dns_authoritative_toplevel:
        "sn10.ffh.zone. IN CNAME sn10.s.ffh.zone.",
        "sn01.maint.ffh.zone. 120 IN A 194.50.19.35",
        "sn01.maint.ffh.zone. IN AAAA 2a07:59c6:eefd:5::1001",
+       "sn08.maint.ffh.zone. IN A 176.9.100.177",
        "sn01.s.ffh.zone. 120 IN A 185.197.132.140",
        # "sn02.s.ffh.zone. IN A 195.201.97.8",
        # "sn02.s.ffh.zone. IN AAAA 2a01:4f8:1c0c:7149::2001",
-       "sn03.s.ffh.zone. IN A 51.38.107.247",
+       # "sn03.s.ffh.zone. IN A 51.38.107.247",
        # "sn03.s.ffh.zone. IN AAAA 2001:4ba0:babe:3054::3001",
        # "sn04.s.ffh.zone. IN A 195.201.136.197",
        # "sn04.s.ffh.zone. IN AAAA 2a01:4f8:1c1c:10fe::4001",
@@ -29,7 +30,6 @@ dns_authoritative_toplevel:
        # "sn07.s.ffh.zone. IN A 173.212.239.89",
        "sn08.s.ffh.zone. IN A 176.9.100.184",
        "sn08.s.ffh.zone. IN AAAA 2a01:4f8:151:42a1::8001",
-       "sn08-host.ffh.zone. IN A 176.9.100.177",
        "sn09.s.ffh.zone. IN A 81.3.6.92",
        "sn09.s.ffh.zone. IN AAAA 2a02:790:1:ff::9001",
        "sn10.s.ffh.zone. IN A 81.3.6.91",
@@ -57,7 +57,6 @@ dns_authoritative_toplevel:
        "web.ffh.zone. 60 IN A 88.198.66.3",
        "web.ffh.zone. 60 IN AAAA 2a01:4f8:140:430a:ff::443",
        "tiles.ffh.zone. IN CNAME web.ffh.zone.",
-       "babelnetz.ffh.zone. IN NS nsbabel.fnorden.net.",
        "harvester.ffh.zone. IN A 88.99.88.12",
        "harvester.ffh.zone. IN AAAA 2a01:4f8:221:100c::1001",
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
@@ -77,7 +76,7 @@ dns_authoritative_toplevel:
        "build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN AAAA 2001:470:775a:42:1000::115",
        "lounge.ffh.zone. IN A 130.75.178.26",
-       "opkg.ffh.zone. 60 IN AAAA 2a01:4f8:140:430a::101",
+       "opkg.ffh.zone. 60 IN AAAA 2a01:4f8:140:430a::101", # deprecated since vH18
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
 
