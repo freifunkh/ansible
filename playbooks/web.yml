@@ -38,6 +38,11 @@
         locations:
           - location: /
             directory_index: true
+      - domain: fnorden.net
+        root: /var/www/fnorden.net
+        tls: true
+        tls_redirect_to_https: true
+      # Todo: Multiple domains & certs for one web
       - domain: www.fnorden.net
         root: /var/www/fnorden.net
         tls: true
