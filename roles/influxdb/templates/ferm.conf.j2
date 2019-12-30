@@ -1,9 +1,19 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
+      proto tcp dport (8086) ACCEPT {
 {% for client in influxdb_clients | default( [] ) %}
-      saddr {{ client }} proto tcp dport (8086) ACCEPT;
+        saddr {{ client }};
 {% endfor %}
+{% for name, supernode in supernodes.items() %}
+{% if supernode.ip4 is defined %}
+        saddr {{ supernode.ip4 }};   # {{ name }}
+{% endif %}
+{% if supernode.ip6 is defined %}
+        saddr {{ supernode.ip6 }};   # {{ name }}
+{% endif %}
+{% endfor %}
+      }
     }
   }
 }

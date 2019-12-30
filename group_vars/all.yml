@@ -17,9 +17,9 @@ supernodes:
   # sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}" }
   # sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
   # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
-  sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}" }
-  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}" }
-  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}" }
+  sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
+  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}"  }
+  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}"  }
 helpernodes:
   harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}" }
   observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}" }
