@@ -64,8 +64,8 @@ object Host "harvester" {
   display_name = "Harvester"
   import "generic-host"
 
-  address  = "88.198.66.29"
-  address6 = "2a01:4f8:140:430a::101"
+  address  = "88.99.88.12"
+  address6 = "2a01:4f8:221:100c::1001"
 
   vars.type = "web"
   vars.ssh_port = 1337
@@ -146,8 +146,8 @@ object Host "webserver" {
   display_name = "Webserver"
   import "generic-host"
 
-  address  = "88.198.66.3"
-  address6 = "2a01:4f8:140:430a:ff::443"
+  address  = "88.99.88.13"
+  address6 = "2a01:4f8:221:100c::443"
 
   vars.type = "web"
   vars.ssh_port = 1337
