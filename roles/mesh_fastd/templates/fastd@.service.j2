@@ -1,5 +1,6 @@
 [Unit]
 Description=Fast and Secure Tunnelling Daemon (connection %I)
+PartOf=fastd.service
 After=network.target sys-subsystem-net-devices-mesh_fastd.device
 {% if legacy_dom0 == true %}
 After=sys-subsystem-net-devices-mesh_fastd.device
