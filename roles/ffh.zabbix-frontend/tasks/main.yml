@@ -23,7 +23,7 @@
 - name: "PHP Timezone setting"
   notify: Reload nginx
   lineinfile:
-    dest: /etc/php/7.0/fpm/php.ini
+    dest: /etc/php/7.3/fpm/php.ini
     regexp: "date.timezone ="
     line: "date.timezone = Europe/Berlin"
 
