@@ -76,3 +76,24 @@
     name: yanic
     state: started
     enabled: yes
+
+- name: neigh gc_thresh1 IPv6
+  sysctl:
+    name: net.ipv6.neigh.default.gc_thresh1
+    value: "32768"
+    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
+    reload: yes
+
+- name: neigh gc_thresh2 IPv6
+  sysctl:
+    name: net.ipv6.neigh.default.gc_thresh2
+    value: "65536"
+    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
+    reload: yes
+
+- name: neigh gc_thresh3 IPv6
+  sysctl:
+    name: net.ipv6.neigh.default.gc_thresh3
+    value: "131072"
+    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
+    reload: yes
