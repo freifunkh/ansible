@@ -16,6 +16,7 @@
     - { name: geerlingguy.postgresql, tags: postgresql }
     - { name: lae.netbox, tags: netbox }
     - { name: ffh.zabbix-server, tags: zabbix-server }
+    - { name: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { role: nginx, tags: nginx }
 
   vars_files:
@@ -73,9 +74,30 @@
 
     - nginx_sites:
       - domain: netbox.ffh.zone
-        root: /var/www/html
+        root: /var/www/netbox.ffh.zone
         tls: true
         locations:
           - location: /
             type: proxy
             proxy_forward_url: http://localhost:8011/
+      - domain: zabbix.ffh.zone
+        root: /var/www/zabbix.ffh.zone
+        tls: true
+        tls_redirect_to_https: true
+        php: true
+        custom_config: |
+          location / {
+            alias /usr/share/zabbix;
+            disable_symlinks on;
+            fastcgi_param PHP_VALUE "
+              max_execution_time 300
+              memory_limit 128M
+              post_max_size 16M
+              upload_max_filesize 2M
+              max_input_time 300
+              max_input_vars 10000
+              always_populate_raw_post_data -1
+            ";
+          }
+
+

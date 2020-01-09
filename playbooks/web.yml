@@ -15,7 +15,6 @@
     - { role: fnorden.net, tags: fnorden.net }
     - { role: foswiki, tags: foswiki }
     # - { role: ffh.taskserver, tags: taskserver }
-    - { role: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars:
@@ -99,24 +98,6 @@
           }
 
           rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
-
-          location /zabbix {
-            alias /usr/share/zabbix;
-            disable_symlinks on;
-            fastcgi_param PHP_VALUE "
-              max_execution_time 300
-              memory_limit 128M
-              post_max_size 16M
-              upload_max_filesize 2M
-              max_input_time 300
-              max_input_vars 10000
-              always_populate_raw_post_data -1
-            ";
-          }
-
-          location ~ /zabbix/(local|app|conf|include) {
-            deny all;
-          }
 
       - domain: tiles.ffh.zone
         root: /var/www/tiles/www
