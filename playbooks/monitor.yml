@@ -55,7 +55,7 @@
         priv: "{{ zabbix_server_dbname }}.*:ALL"
 
     - netbox_stable: true
-    - netbox_stable_version: 2.6.1
+    - netbox_stable_version: 2.6.12
     - netbox_socket: "0.0.0.0:8011"
     - netbox_superuser_password: "netbox"
     - netbox_config:
@@ -63,6 +63,7 @@
           - "*"
         MEDIA_ROOT: "{{ netbox_shared_path }}/media"
         REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
+        SCRIPTS_ROOT: "{{ netbox_shared_path }}/scripts"
     - netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
     - netbox_webhooks_enabled: true
 
@@ -76,6 +77,7 @@
       - domain: netbox.ffh.zone
         root: /var/www/netbox.ffh.zone
         tls: true
+        tls_redirect_to_https: true
         locations:
           - location: /
             type: proxy
