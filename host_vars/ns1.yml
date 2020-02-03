@@ -50,6 +50,8 @@ dns_authoritative_toplevel:
        "pve-ffnw.ffh.zone. IN AAAA 2a07:59c6:eefd:5::1",
        "monitor.ffh.zone. IN A 88.99.88.14",
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",
+       "awx.ffh.zone. IN A 88.99.100.51",
+       "awx.ffh.zone. IN AAAA 2a01:4f8:221:100c::1005",
        "zabbix.ffh.zone. IN CNAME monitor.ffh.zone.",
        "netbox.ffh.zone. IN CNAME monitor.ffh.zone.",
        "ntp.ffh.zone. IN A 37.120.176.252",
