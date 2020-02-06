@@ -78,7 +78,8 @@ dns_authoritative_toplevel:
        "lounge.ffh.zone. IN AAAA 2001:470:775a:42:1000::115",
        "lounge.ffh.zone. IN A 130.75.178.26",
        "opkg.ffh.zone. 60 IN CNAME harvester.ffh.zone.", # deprecated since vH18
-       "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
+       "nrue.ffh.zone. IN NS freedns1.registrar-servers.com.",
+       "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone."
      ]
 
 dns_authoritative_zones:
