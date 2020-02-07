@@ -15,6 +15,9 @@
     - { name: ntp, tags: ntp }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
+  vars_files:
+    - ../secrets.yml
+
   vars:
     - servername: ns1
     - mail_fqdn: "ns1.fnorden.net"

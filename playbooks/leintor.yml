@@ -16,6 +16,10 @@
     - { name: ffh.apinger, tags: ffh.apinger }
 
   pre_tasks:
+
+  vars_files:
+    - ../secrets.yml
+
   vars:
     - servername: leintor
     - en: 3
