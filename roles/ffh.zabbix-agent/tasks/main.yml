@@ -31,17 +31,26 @@
   template:
     src: agent.conf.j2
     dest: "/etc/zabbix/zabbix_agentd.d/ansible.conf"
-    owner: "root"
-    group: "root"
+    owner: "zabbix"
+    group: "zabbix"
     mode: "0644"
+
+- name: Deploy zabbix-agent psk file
+  notify: reload zabbix-agent
+  template:
+    src: zabbix_agentd.psk.j2
+    dest: "/etc/zabbix/zabbix_agentd.d/secret.psk"
+    owner: "zabbix"
+    group: "zabbix"
+    mode: "0640"
 
 - name: Deploy zabbix-agent userparameter file
   notify: reload zabbix-agent
   template:
     src: userparameter_supernode.conf.j2
     dest: "/etc/zabbix/zabbix_agentd.d/userparameter_supernode.conf"
-    owner: "root"
-    group: "root"
+    owner: "zabbix"
+    group: "zabbix"
     mode: "0644"
   when: sn is defined
 
