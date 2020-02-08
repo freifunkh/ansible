@@ -5,3 +5,4 @@ TLSConnect=psk
 TLSAccept=psk
 TLSPSKFile=/etc/zabbix/zabbix_agentd.d/secret.psk
 TLSPSKIdentity={{ zabbix_agent_psk_id | default("none") }}
+UserParameter=ipneighbour[*],ip -$1 neighbour show nud $2 | wc -l
