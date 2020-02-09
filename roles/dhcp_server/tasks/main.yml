@@ -1,6 +1,9 @@
 ---
 - name: Install isc-dhcp-server
   apt: name=isc-dhcp-server update_cache=yes
+
+- name: Install dhcpd-pools
+  apt: name=dhcpd-pools
   
 - name: Ramdisk in fstab eintragen
   notify: Restart isc-dhcp-server
