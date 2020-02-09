@@ -1,3 +1,5 @@
+shared-network dom0 {
+
 subnet 10.2.0.0 netmask 255.255.0.0 {
    authoritative;
    interface bat0;
@@ -5,4 +7,6 @@ subnet 10.2.0.0 netmask 255.255.0.0 {
 
    option domain-name-servers 10.2.{{ sn }}0.1;
    option routers 10.2.{{ sn }}0.1;
+}
+
 }

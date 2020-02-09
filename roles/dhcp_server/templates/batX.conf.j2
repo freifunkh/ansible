@@ -1,3 +1,5 @@
+shared-network dom{{ domain.id }} {
+
 subnet {{ dhcp_net.net }} netmask {{ dhcp_net.mask }} {
    authoritative;
    interface {{ dhcp_interface }};
@@ -5,4 +7,6 @@ subnet {{ dhcp_net.net }} netmask {{ dhcp_net.mask }} {
 
    option domain-name-servers {{ dhcp_options.dns_server }};
    option routers {{ dhcp_options.gateway }};
+}
+
 }
