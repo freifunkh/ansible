@@ -14,6 +14,7 @@
     - { role: nginx, tags: nginx }
     - { role: fnorden.net, tags: fnorden.net }
     - { role: foswiki, tags: foswiki }
+    - { role: git2cal, tags: git2cal }
     # - { role: ffh.taskserver, tags: taskserver }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
@@ -107,3 +108,11 @@
         tls: true
         tls_redirect_to_https: true
         untouchable: true
+
+    - git2cal:
+        user: www-data
+        git2cal_dir: /opt/git2cal
+        calendar_git: https://github.com/freifunkh/calendar.git
+        calendar_dir: /tmp/calendar
+        ics_file: /var/www/web/api/meetings.ics
+        json_file: /var/www/web/api/meetings.json

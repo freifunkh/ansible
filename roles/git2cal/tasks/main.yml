@@ -1,0 +1,69 @@
+---
+
+- name: Add user
+  user:
+    name: "{{ git2cal.user }}"
+
+- name: Install python3
+  apt:
+    name: python3
+
+- name: Install virtualenv
+  apt:
+    pkg:
+      - python3-venv
+      - python3-pip
+      - python3-setuptools
+
+- name: Make folder for script
+  file:
+      path: "{{ git2cal.git2cal_dir }}"
+      owner: "{{ git2cal.user }}"
+      group: "{{ git2cal.user }}"
+      state: "directory"
+      mode: "0755"
+
+- name: Check out git2cal
+  git:
+    repo: 'https://github.com/freifunkh/git2cal.git'
+    dest: "{{ git2cal.git2cal_dir }}"
+  become_user: "{{ git2cal.user }}"
+
+- name: Add python libs
+  pip:
+    requirements: "{{ git2cal.git2cal_dir }}/requirements.txt"
+    virtualenv: "{{ git2cal.git2cal_dir }}/ve"
+    virtualenv_command: "/usr/bin/python3 -m venv"
+    virtualenv_site_packages: yes
+
+- name: Check out calendar git
+  git:
+    repo: "{{ git2cal.calendar_git }}"
+    dest: "{{ git2cal.calendar_dir }}"
+
+- name: Add cron job for git pull
+  cron:
+    name: "git2cal git pull"
+    user: "{{ git2cal.user }}"
+    minute: "4,34"
+    hour: "*"
+    job: "cd {{ git2cal.calendar_dir }}; git pull >/dev/null 2>&1"
+
+- name: Add cron job for ics
+  cron:
+    name: "git2cal ics"
+    user: "{{ git2cal.user }}"
+    minute: "6,36"
+    hour: "*"
+    job: "{{ git2cal.git2cal_dir }}/ve/bin/python {{ git2cal.git2cal_dir }}/generate_calendar.py -f ics -i {{ git2cal.calendar_dir }}/ -o {{ git2cal.ics_file }} >/dev/null 2>&1"
+  when: git2cal.ics_file != ""
+  when: (git2cal.ics_file is defined) and (git2cal.ics_file|length > 0)
+
+- name: Add cron job for json
+  cron:
+    name: "git2cal json"
+    user: "{{ git2cal.user }}"
+    minute: "8,38"
+    hour: "*"
+    job: "{{ git2cal.git2cal_dir }}/ve/bin/python {{ git2cal.git2cal_dir }}/generate_calendar.py -f json -i {{ git2cal.calendar_dir }}/ -o {{ git2cal.json_file }} >/dev/null 2>&1"
+  when: (git2cal.json_file is defined) and (git2cal.json_file|length > 0)
