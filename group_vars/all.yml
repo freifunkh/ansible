@@ -51,7 +51,7 @@ journald_watch_filter_regexes:
 - '/dhcpd.*: send_packet: Operation not permitted/'
 - '/dhcpd.*: icmp_echorequest .*: Operation not permitted/'
 - '/dhcpd.*: uid lease .* for client .* is duplicate on/'
-- '/dhcpd.*: client .* has duplicate leases on 10/'  # client requests a new (different) address/lease without releasing the old one
+- '/dhcpd.*: client .* has duplicate leases on /'  # client requests a new (different) address/lease without releasing the old one
 - '/dhcpd.*: Abandoning IP address 10.*: pinged before offer$/'
 - '/dhcpd.*: Abandoning IP address 10.*: declined.$/'
 - '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
