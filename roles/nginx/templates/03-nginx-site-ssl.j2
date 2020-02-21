@@ -3,13 +3,11 @@
     ssl_session_timeout         1d;
     ssl_session_cache           shared:SSL:50m;
     ssl_session_tickets         off;
+
     ssl_dhparam                 {{ nginx_keys_dir }}/dhparams-4096.pem;
-    ssl_protocols               TLSv1 TLSv1.1 TLSv1.2;
-                                # From: 2.4 Cipher - https://www.sherbers.de/howto/nginx/
-    ssl_ciphers                 EECDH+AESGCM:EDH+AESGCM:EECDH:EDH:!MD5:!RC4:!LOW:!MEDIUM:!CAMELLIA:!ECDSA:!DES:!DSS:!3DES:!NULL;
-    ssl_prefer_server_ciphers   on;
-    ssl_stapling                on;
-    ssl_stapling_verify         on;
-    ssl_trusted_certificate     {{ nginx_keys_dir }}/{{ item.domain }}.crt;
-    resolver                    {{ nginx_resolver }};
+
+    # https://ssl-config.mozilla.org/#server=nginx&version=1.16.1&config=intermediate&openssl=1.1.1d&hsts=false&ocsp=false&guideline=5.4
+    ssl_protocols               TLSv1.2 TLSv1.3;
+    ssl_ciphers                 ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers   off;
 
