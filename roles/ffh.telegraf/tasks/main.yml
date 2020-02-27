@@ -13,3 +13,9 @@
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
   notify: Restart telegraf
+
+- name: Configure rsyslogd
+  template:
+    src: rsyslogd-50-telegraf.conf
+    dest: /etc/rsyslog.d/50-telegraf.conf
+  notify: Restart syslog

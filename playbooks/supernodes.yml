@@ -27,8 +27,8 @@
     - { name: iperf3, tags: iperf3 }
     - { name: journald, tags: journald }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    - { name: ffh.apinger, tags: ffh.apinger }
-    - { name: ffh.telegraf, tags: ffh.telegraf }
+    - { name: ffh.apinger, tags: apinger }
+    - { name: ffh.telegraf, tags: telegraf }
 
   vars_files:
     - ../secrets.yml
