@@ -19,6 +19,11 @@
     - zabbix-agent
     - fping
 
+- name: Create ferm directory if necessary
+  file:
+    path: /etc/ferm/conf.d
+    state: directory
+
 - name: Open zabbix-agent port in firewall (ferm)
   notify: reload ferm
   template:
