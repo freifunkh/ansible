@@ -1,0 +1,14 @@
+---
+
+- hosts: awx
+
+  roles:
+    - { name: ferm,                 tags: ferm }
+    - { name: admin,                tags: admin }
+    - { name: cli_tools,            tags: cli_tools }
+    - { name: ffh.zabbix-agent,     tags: zabbix-agent }
+    - { name: cron-apt,             tags: cron-apt }
+    - { name: ffh.awx,              tags: awx }
+
+  vars_files:
+    - ../secrets.yml

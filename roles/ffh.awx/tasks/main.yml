@@ -1,0 +1,139 @@
+---
+
+- name: "Add Ansible Repo Key"
+  apt_key:
+    id: "93C4A3FD7BB9C367"
+    keyserver: "keyserver.ubuntu.com"
+    state: present
+
+- name: "Add Ansible Repo"
+  apt_repository:
+    repo: "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
+    state: present
+    filename: ansible
+
+- name: "Install ansible and docker requirements"
+  apt:
+   update_cache: yes
+   package:
+    - ansible
+    - apt-transport-https
+    - ca-certificates
+    - gnupg2
+    - software-properties-common
+    - python-pip
+
+- name: "Add dockers gpg key"
+  apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    state: present
+
+- name: "Add docker repository"
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+    state: present
+    filename: docker
+
+- name: "Install docker and docker composes"
+  apt:
+    update_cache: yes
+    package:
+     - docker-ce
+     - docker-ce-cli
+     - containerd.io
+
+- name: "Install Node.js and awx requirements"
+  apt:
+    package:
+     - nodejs
+     - npm
+     - python3-pip
+     - git
+     - pwgen
+     - vim
+     - python3-docker
+
+- name: "Install npm globally"
+  npm:
+   name: npm
+   global: yes
+
+- name: "Install requests 2.14.2"
+  pip:
+   name: requests==2.14.2
+   executable: /usr/bin/pip3
+
+- name: "Update alternatives for python2.7"
+  alternatives:
+    name: python
+    link: /usr/bin/python
+    path: /usr/bin/python2.7
+    priority: 1
+
+- name: "Update alternatives for python3"
+  alternatives:
+    name: python
+    link: /usr/bin/python
+    path: /usr/bin/python3
+    priority: 2
+
+- name: "Install docker compose python lib"
+  pip:
+    name: docker-compose
+    executable: /usr/bin/pip3
+
+- name: "Install ansible lib"
+  pip:
+    name: ansible
+    executable: pip2
+
+- name: "Clone awx from git"
+  git:
+    repo: "https://github.com/ansible/awx.git"
+    dest: /tmp/awx
+    force: yes
+
+- name: "Check if update file exists"
+  stat:
+    path: /root/awx-files/inventory
+  register: only_update
+
+- name: "Edit inventory"
+  template:
+    src: "inventory.j2"
+    dest: "/tmp/awx/installer/inventory"
+    mode: 0644
+  when: only_update.stat.exists == False
+
+- name: "Create folder for inventory file"
+  file:
+    path: /root/awx-files
+    state: directory
+    mode: 0755
+
+- name: "Copy old inventory"
+  copy:
+   src: /root/awx-files/inventory
+   dest: /tmp/awx/installer/inventory
+   remote_src: yes
+  when: only_update.stat.exists == True
+
+- name: "Run the AWX installation playbook"
+  command: "ansible-playbook -i inventory install.yml"
+  args:
+    chdir: /tmp/awx/installer
+    creates: /etc/awx_playbook_complete
+
+- name: "Copy inventory file for updates"
+  copy:
+    src: /tmp/awx/installer/inventory
+    dest: /root/awx-files/inventory
+    remote_src: yes
+
+
+- name: "Create a file to mark whether this playbook has completed"
+  file:
+    path: /etc/awx_playbook_complete
+    state: touch
+  changed_when: false
+

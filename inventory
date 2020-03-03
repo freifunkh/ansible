@@ -25,6 +25,8 @@ all:
       ansible_host: observer.ffh.zone
     monitor:
       ansible_host: monitor.ffh.zone
+    awx:
+      ansible_host: awx.ffh.zone
 
 supernodes:
   hosts:
@@ -44,6 +46,7 @@ helpernodes:
     web:
     observer:
     monitor:
+    awx:
 
 batmannodes:
   hosts:
