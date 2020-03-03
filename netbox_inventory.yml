@@ -1,0 +1,13 @@
+# netbox_inventory.yml file in YAML format
+# Example command line: ansible-inventory -v --list -i netbox_inventory.yml
+
+plugin: netbox
+api_endpoint: https://netbox.ffh.zone
+validate_certs: True
+config_context: False
+group_by:
+  - tags
+query_filters:
+  - tag: "ansible"
+token: "0648d09a298fcba54fb04ab2da5b4333aab9a1ba"
+
