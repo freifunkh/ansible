@@ -34,6 +34,8 @@ dns_authoritative_toplevel:
        "sn09.s.ffh.zone. IN AAAA 2a02:790:1:ff::9001",
        "sn10.s.ffh.zone. IN A 81.3.6.91",
        "sn10.s.ffh.zone. IN AAAA 2a02:790:1:ff::a001",
+       "ns1.ffh.zone. IN A 37.120.176.252",
+       "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        # "steintor.e.ffh.zone. IN A 37.120.190.215",
        # "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1001",
