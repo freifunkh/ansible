@@ -1,3 +1,5 @@
+ansible_user: "root"
+ansible_port: 1337
 firewall_ssh_ports:
 # DEPRECATED. only used with simple_firewall
 - 22
