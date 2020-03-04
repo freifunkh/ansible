@@ -2,7 +2,7 @@
 
 - hosts: observer
   roles:
-    - { name: admin, tags: admin }
+    - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ferm, tags: ferm }
     - { name: ffh.nginx, tags: nginx }
