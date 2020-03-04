@@ -12,7 +12,7 @@
     - { name: ffh.cron-apt, tags: cron-apt }
     # special
     - { role: ffh.nginx, tags: nginx }
-    - { role: fnorden.net, tags: fnorden.net }
+    - { role: ffh.fnorden.net, tags: fnorden.net }
     - { role: ffh.foswiki, tags: foswiki }
     - { role: ffh.git2cal, tags: git2cal }
     # - { role: ffh.taskserver, tags: taskserver }
