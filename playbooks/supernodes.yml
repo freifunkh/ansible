@@ -19,7 +19,7 @@
     - { name: mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
     - { name: mesh_announce, tags: mesh_announce }
     # Stats, Monitoring, Logging
-    - { name: radv_server, tags: radv_server }
+    - { name: ffh.radv_server, tags: radv_server }
     - { name: dns_recursive, tags: dns_recursive }
     - { name: dhcp_server, tags: dhcp_server }
     - { name: ffh.gateway_announcement, tags: gateway_announcement }
