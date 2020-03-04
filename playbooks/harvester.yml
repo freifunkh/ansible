@@ -12,7 +12,7 @@
     - { name: journald, tags: journald }
     # Batman
     - { name: mesh_batman, tags: mesh_batman }
-    - { name: mesh_fastd, tags: mesh_fastd }
+    - { name: ffh.mesh_fastd, tags: mesh_fastd }
     - { name: ffh.mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
     - { name: ffh.influxdb, tags: influxdb }
