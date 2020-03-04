@@ -3,12 +3,12 @@
 - hosts: awx
 
   roles:
-    - { name: ffh.ferm,             tags: ferm }
-    - { name: ffh.admin,            tags: admin }
-    - { name: ffh.cli_tools,        tags: cli_tools }
-    - { name: ffh.zabbix-agent,     tags: zabbix-agent }
-    - { name: ffh.cron-apt,         tags: cron-apt }
-    - { name: ffh.awx,              tags: awx }
+    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.awx, tags: awx }
 
   vars_files:
     - ../secrets.yml
