@@ -1,4 +1,48 @@
 ---
+servername: ns1
+mail_fqdn: "ns1.fnorden.net"
+admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
+
+networkd_configures:
+- iface: eth0
+  addresses:
+    - 37.120.176.252/22
+    - 2a03:4000:6:8277::1/64
+  gateway4: 37.120.176.1
+  gateway6: fe80::1
+  dns_server: [8.8.8.8, 8.8.4.4]
+
+dns_authoritative_nameserver:
+- nameserver: "ns1.fnorden.net."
+- nameserver: "ns2.fnorden.net."
+- nameserver: "ns3.fnorden.net."
+dns_authoritative_allowAXFR:
+- nameserver: "2001:470:600::2"
+- nameserver: "216.218.133.2"
+dns_authoritative_notify:
+- nameserver: "216.218.130.2"
+dns_authoritative_listen_on:
+- "127.0.0.1"
+- "::1"
+- "37.120.176.252"
+- "2a03:4000:6:8277::1"
+dns_authoritative_external:
+- domain: "n.ffh.zone"
+  zonefile: "n.ffh.zone.zone"
+- domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
+  zonefile: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.zone"
+- domain: "ffh"
+  zonefile: "ffh.zone"
+- domain: "hannover.freifunk.net"
+  zonefile: "hannover.freifunk.net.zone"
+dns_authoritative_SOAmail: "zonemaster.ffh.zone"
+
+dns_zonenodes_toplevel: "ffh.zone."
+dns_zonenodes_nodedomain: "n.ffh.zone"
+dns_zonenodes_rdnsdomain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
+dns_zonenodes_matchIP: "/^2a02/"
+dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
+
 dns_authoritative_toplevel:
    - domain: "ffh.zone."
      records: [
@@ -17,18 +61,6 @@ dns_authoritative_toplevel:
        "sn08.maint.ffh.zone. IN A 176.9.100.177",
        "sn01.s.ffh.zone. 120 IN A 185.197.132.140",
        "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone.",
-       # "sn02.s.ffh.zone. IN A 195.201.97.8",
-       # "sn02.s.ffh.zone. IN AAAA 2a01:4f8:1c0c:7149::2001",
-       # "sn03.s.ffh.zone. IN A 51.38.107.247",
-       # "sn03.s.ffh.zone. IN AAAA 2001:4ba0:babe:3054::3001",
-       # "sn04.s.ffh.zone. IN A 195.201.136.197",
-       # "sn04.s.ffh.zone. IN AAAA 2a01:4f8:1c1c:10fe::4001",
-       # "sn05.s.ffh.zone. IN A 116.203.68.28",
-       # "sn05.s.ffh.zone. IN AAAA 2a01:4f8:1c1c:ce20::5001",
-       # "sn06.s.ffh.zone. IN A 173.249.5.34",
-       # "sn06.s.ffh.zone. IN AAAA 2a02:c207:3002:3831::6001",
-       # "sn07.s.ffh.zone. IN AAAA 2a02:c207:3003:6341::1",
-       # "sn07.s.ffh.zone. IN A 173.212.239.89",
        "sn08.s.ffh.zone. IN A 176.9.100.184",
        "sn08.s.ffh.zone. IN AAAA 2a01:4f8:151:42a1::8001",
        "sn09.s.ffh.zone. IN A 81.3.6.92",
@@ -37,18 +69,8 @@ dns_authoritative_toplevel:
        "sn10.s.ffh.zone. IN AAAA 2a02:790:1:ff::a001",
        "ns1.ffh.zone. IN A 37.120.176.252",
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       # "steintor.e.ffh.zone. IN A 37.120.190.215",
-       # "steintor.e.ffh.zone. IN AAAA 2a03:4000:6:b1d6::1",
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1001",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
-       # "clevertor.e.ffh.zone. IN AAAA 2a02:c207:3002:4406::1",
-       # "clevertor.e.ffh.zone. IN A 173.249.22.70",
-       # "bruehltor.e.ffh.zone. IN A 213.136.89.119",
-       # "bruehltor.e.ffh.zone. IN AAAA 2a02:c207:3003:7339::1",
-       # "aegidientor.e.ffh.zone. 60 IN A 88.198.67.124",
-       # "aegidientor.e.ffh.zone. 60 IN AAAA 2a01:4f8:140:430a::ff",
-       # "listertor.e.ffh.zone. IN AAAA 2a02:c207:3003:6341::1",
-       # "listertor.e.ffh.zone. IN A 173.212.239.89",
        "pve-ffnw.ffh.zone. IN A 194.50.19.34",
        "pve-ffnw.ffh.zone. IN AAAA 2a07:59c6:eefd:5::1",
        "perf-test.ffh.zone. IN A 94.130.213.34",
@@ -86,7 +108,33 @@ dns_authoritative_toplevel:
      ]
 
 dns_authoritative_zones:
-# - zone: "firmware"
-#   to: "fdca:ffee:8::102"
 - zone: "hightower"
   to: "fdca:ffee:8::1337"
+
+
+postfix_myhostname: "mail.ffh.zone"
+postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"
+postfix_mynetworks:
+- "127.0.0.0/8"
+- "[::ffff:127.0.0.0]/104"
+- "[::1]/128"
+- "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'sn01.s.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'web.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'web.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'ns1.fnorden.net./A') }}/32"
+- "[{{ lookup('dig', 'ns1.fnorden.net./AAAA') }}]/128"
+- "{{ lookup('dig', 'monitor.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'harvester.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}]/128"
+- "{{ lookup('dig', 'observer.ffh.zone./A') }}/32"
+- "[{{ lookup('dig', 'observer.ffh.zone./AAAA') }}]/128"
