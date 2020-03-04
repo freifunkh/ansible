@@ -8,9 +8,3 @@
 
   vars_files:
       - ../secrets.yml
-
-  vars:
-    - servername: build
-    - mail_fqdn: "build.ffh.zone"
-
-
