@@ -1,9 +1,5 @@
 ansible_user: "root"
 ansible_port: 1337
-firewall_ssh_ports:
-# DEPRECATED. only used with simple_firewall
-- 22
-- 1337
 exitnodes:
   # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }

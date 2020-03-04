@@ -53,5 +53,3 @@ Note:
 - It is possible to use multiple gre tunnels.
 - This will only configure a raw gre tunnel without any assigned ip adresses.
   You need to configure addresses seperate in ```networkd_configures```.
-- If you use the ```simple_firewall``` role, it will automatically configure
-  a rule to allow incomming gre traffic for the ```remote_outer_ip```.
