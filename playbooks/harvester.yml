@@ -15,7 +15,7 @@
     - { name: mesh_fastd, tags: mesh_fastd }
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
-    - { name: influxdb, tags: influxdb }
+    - { name: ffh.influxdb, tags: influxdb }
     - { name: grafana, tags: grafana }
     - { name: yanic, tags: yanic }
     - { name: nginx, tags: nginx }
