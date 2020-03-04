@@ -9,7 +9,6 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
-    - { name: node_exporter, tags: node_exporter }
     - { name: cron-apt, tags: cron-apt }
     - { name: babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
