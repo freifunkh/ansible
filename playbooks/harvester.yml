@@ -17,7 +17,7 @@
     # Harvester
     - { name: ffh.influxdb, tags: influxdb }
     - { name: grafana, tags: grafana }
-    - { name: yanic, tags: yanic }
+    - { name: ffh.yanic, tags: yanic }
     - { name: nginx, tags: nginx }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
