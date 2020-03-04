@@ -6,7 +6,7 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.nginx, tags: nginx }
-    - { name: icinga2-config, tags: icinga2-config }
+    - { name: ffh.icinga2-config, tags: icinga2-config }
     - { name: ffh.cron-apt, tags: cron-apt }
 
   vars:
