@@ -1,0 +1,9 @@
+---
+servername: "observer"
+
+nginx_sites:
+- domain: "observer.ffh.zone"
+  root: "/var/www/observer.ffh.zone"
+  tls: true
+  tls_redirect_to_https: true
+  untouchable: true
