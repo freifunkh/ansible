@@ -10,7 +10,7 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cron-apt, tags: cron-apt }
-    - { name: babeld, tags: babeld }
+    - { name: ffh.babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: ffh.apinger }
 
