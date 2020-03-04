@@ -4,7 +4,7 @@
   roles:
     - { name: networkd, tags: networkd }
     - { name: ferm, tags: ferm }
-    - { role: dns_authoritative, tags: dns_authoritative }
+    - { role: ffh.dns_authoritative, tags: dns_authoritative }
     - { role: ffh.dns_zonenodes, tags: dns_zonenodes }
     - { name: simple_mail, tags: simple_mail }
     - { name: journald, tags: journald }
