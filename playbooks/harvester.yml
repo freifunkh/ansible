@@ -5,7 +5,7 @@
     # General
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.ferm, tags: ferm }
-    - { name: simple_mail, tags: simple_mail }
+    - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
