@@ -16,6 +16,7 @@ dns_authoritative_toplevel:
        "sn01.maint.ffh.zone. IN AAAA 2a07:59c6:eefd:5::1001",
        "sn08.maint.ffh.zone. IN A 176.9.100.177",
        "sn01.s.ffh.zone. 120 IN A 185.197.132.140",
+       "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone.",
        # "sn02.s.ffh.zone. IN A 195.201.97.8",
        # "sn02.s.ffh.zone. IN AAAA 2a01:4f8:1c0c:7149::2001",
        # "sn03.s.ffh.zone. IN A 51.38.107.247",
@@ -61,9 +62,11 @@ dns_authoritative_toplevel:
        "ntp.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "web.ffh.zone. 60 IN A 88.99.88.13",
        "web.ffh.zone. 60 IN AAAA 2a01:4f8:221:100c::443",
+       "firmware.ffh.zone. IN CNAME web.ffh.zone.",
        "tiles.ffh.zone. IN CNAME web.ffh.zone.",
        "harvester.ffh.zone. IN A 88.99.88.12",
        "harvester.ffh.zone. IN AAAA 2a01:4f8:221:100c::1001",
+       "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
        "prometheus.ffh.zone. IN CNAME harvester.ffh.zone.",
        "webdebug.ffh.zone. IN A 10.2.80.1",
@@ -73,16 +76,13 @@ dns_authoritative_toplevel:
        "observer.ffh.zone. IN TXT \"v=spf1 a mx ~all\"",
        "git.ffh.zone. IN A 37.120.176.252",
        "git.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       "firmware.ffh.zone. 60 IN CNAME web.ffh.zone.",
        "mail.ffh.zone. IN A 37.120.176.252",
        "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "build.ffh.zone. IN AAAA 2001:470:775a:42:1000::115",
        "build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN AAAA 2001:470:775a:42:1000::115",
        "lounge.ffh.zone. IN A 130.75.178.26",
-       "opkg.ffh.zone. 60 IN CNAME harvester.ffh.zone.", # deprecated since vH18
-       "nrue.ffh.zone. IN NS freedns1.registrar-servers.com.",
-       "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone."
+       "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
 
 dns_authoritative_zones:
