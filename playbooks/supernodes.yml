@@ -4,7 +4,7 @@
   roles:
     # General
     - { name: ffh.devname, tags: devname }
-    - { name: ferm, tags: ferm }
+    - { name: ffh.ferm, tags: ferm }
     - { name: ffh.supernode, tags: supernode }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.networkd, tags: networkd }

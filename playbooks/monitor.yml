@@ -3,7 +3,7 @@
 - hosts: monitor
   roles:
     - { name: ffh.networkd, tags: networkd }
-    - { name: ferm, tags: ferm }
+    - { name: ffh.ferm, tags: ferm }
     # admin stuff
     - { name: simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }

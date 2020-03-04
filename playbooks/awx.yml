@@ -3,7 +3,7 @@
 - hosts: awx
 
   roles:
-    - { name: ferm,                 tags: ferm }
+    - { name: ffh.ferm,             tags: ferm }
     - { name: ffh.admin,            tags: admin }
     - { name: ffh.cli_tools,        tags: cli_tools }
     - { name: ffh.zabbix-agent,     tags: zabbix-agent }

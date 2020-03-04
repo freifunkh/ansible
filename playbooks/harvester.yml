@@ -4,7 +4,7 @@
   roles:
     # General
     - { name: ffh.networkd, tags: networkd }
-    - { name: ferm, tags: ferm }
+    - { name: ffh.ferm, tags: ferm }
     - { name: simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
