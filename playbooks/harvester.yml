@@ -7,7 +7,7 @@
     - { name: ferm, tags: ferm }
     - { name: simple_mail, tags: simple_mail }
     - { name: admin, tags: admin }
-    - { name: cli_tools, tags: cli_tools }
+    - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.journald, tags: journald }
     # Batman

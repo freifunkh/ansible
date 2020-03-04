@@ -9,7 +9,7 @@
     - { name: simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }
     - { name: admin, tags: admin }
-    - { name: cli_tools, tags: cli_tools }
+    - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.postfix, tags: postfix }
     - { name: ffh.ntp, tags: ntp }
