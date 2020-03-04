@@ -9,7 +9,7 @@
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
-    - { name: journald, tags: journald }
+    - { name: ffh.journald, tags: journald }
     # Batman
     - { name: ffh.mesh_batman, tags: mesh_batman }
     - { name: ffh.mesh_fastd, tags: mesh_fastd }

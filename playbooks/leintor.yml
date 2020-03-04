@@ -7,7 +7,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: networkd, tags: networkd }
     - { name: simple_mail, tags: simple_mail }
-    - { name: journald, tags: journald }
+    - { name: ffh.journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.babeld, tags: babeld }

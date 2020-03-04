@@ -24,7 +24,7 @@
     - { name: ffh.dhcp_server, tags: dhcp_server }
     - { name: ffh.gateway_announcement, tags: gateway_announcement }
     - { name: ffh.iperf3, tags: iperf3 }
-    - { name: journald, tags: journald }
+    - { name: ffh.journald, tags: journald }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }

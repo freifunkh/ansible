@@ -7,7 +7,7 @@
     - { role: ffh.dns_authoritative, tags: dns_authoritative }
     - { role: ffh.dns_zonenodes, tags: dns_zonenodes }
     - { name: simple_mail, tags: simple_mail }
-    - { name: journald, tags: journald }
+    - { name: ffh.journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
