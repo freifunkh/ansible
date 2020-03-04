@@ -7,7 +7,7 @@
     - { name: ferm, tags: ferm }
     - { name: ffh.nginx, tags: nginx }
     - { name: icinga2-config, tags: icinga2-config }
-    - { name: cron-apt, tags: cron-apt }
+    - { name: ffh.cron-apt, tags: cron-apt }
 
   vars:
     - servername: observer

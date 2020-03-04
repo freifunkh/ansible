@@ -9,7 +9,7 @@
     - { name: journald, tags: journald }
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
-    - { name: cron-apt, tags: cron-apt }
+    - { name: ffh.cron-apt, tags: cron-apt }
     # special
     - { name: DavidWittman.redis, tags: redis }
     - { name: geerlingguy.mysql, tags: mysql }
