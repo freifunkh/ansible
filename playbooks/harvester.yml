@@ -16,7 +16,6 @@
     - { name: mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
     - { name: influxdb, tags: influxdb }
-    - { name: prometheus, tags: prometheus }
     - { name: node_exporter, tags: node_exporter }
     - { name: grafana, tags: grafana }
     - { name: yanic, tags: yanic }
@@ -58,27 +57,6 @@
         - "88.99.88.12/32"
         - "2a01:4f8:221:100c::1001/128"
 
-    - prometheus_storage_path: "/media/data/prometheus"
-    - prometheus_storage_retention: "8760h"
-    - prometheus_clients:
-        - "88.99.88.12/32"
-        - "2a01:4f8:221:100c::1001/128"
-    - prometheus_scrapes:
-        - name: prometheus
-          interval: 60
-          timeout: 60
-          targets: ['localhost:9090']
-        - name: node_exporter
-          interval: 60
-          timeout: 30
-          targets:
-            - sn01.s.ffh.zone:9100
-            - sn08.s.ffh.zone:9100
-            - sn09.s.ffh.zone:9100
-            - sn10.s.ffh.zone:9100
-            - leintor.e.ffh.zone:9100
-            - harvester.ffh.zone:9100
-
     - grafana_datadir: "/media/data/grafana"
     - grafana_allow_signup: true
     - grafana_anonymous_access: true
@@ -110,12 +88,6 @@
             type: proxy
             proxy_pass_host: false
             proxy_forward_url: http://build.ffh.zone/job/gluon-beta/ws/beta/packages/
-      - domain: prometheus.ffh.zone
-        tls: true
-        locations:
-          - location: /
-            type: proxy
-            proxy_forward_url: http://[::1]:9090/
       - domain: stats.ffh.zone
         tls: true
         tls_redirect_to_https: true
