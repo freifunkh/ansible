@@ -23,7 +23,6 @@
     - servername: leintor
     - en: 3
     - mail_fqdn: "leintor.e.ffh.zone"
-    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, tobby, mrplow, sush]
 
     - networkd_configures:
       - iface: eth0

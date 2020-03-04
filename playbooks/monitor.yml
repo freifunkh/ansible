@@ -25,7 +25,6 @@
   vars:
     - servername: monitor
     - mail_fqdn: "monitor.ffh.zone"
-    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush]
 
     - networkd_configures:
       - iface: eth0

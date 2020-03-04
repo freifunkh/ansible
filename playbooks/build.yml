@@ -12,6 +12,5 @@
   vars:
     - servername: build
     - mail_fqdn: "build.ffh.zone"
-    - admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
 
 
