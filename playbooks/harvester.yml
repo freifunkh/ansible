@@ -18,7 +18,7 @@
     - { name: ffh.influxdb, tags: influxdb }
     - { name: ffh.grafana, tags: grafana }
     - { name: ffh.yanic, tags: yanic }
-    - { name: nginx, tags: nginx }
+    - { name: ffh.nginx, tags: nginx }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars_files:

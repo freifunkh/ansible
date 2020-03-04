@@ -11,7 +11,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     # special
-    - { role: nginx, tags: nginx }
+    - { role: ffh.nginx, tags: nginx }
     - { role: fnorden.net, tags: fnorden.net }
     - { role: ffh.foswiki, tags: foswiki }
     - { role: ffh.git2cal, tags: git2cal }

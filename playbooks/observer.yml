@@ -5,7 +5,7 @@
     - { name: admin, tags: admin }
     - { name: cli_tools, tags: cli_tools }
     - { name: ferm, tags: ferm }
-    - { name: nginx, tags: nginx }
+    - { name: ffh.nginx, tags: nginx }
     - { name: icinga2-config, tags: icinga2-config }
     - { name: cron-apt, tags: cron-apt }
 
