@@ -7,7 +7,7 @@
     - { name: ferm, tags: ferm }
     - { name: ffh.supernode, tags: supernode }
     - { name: ffh.cli_tools, tags: cli_tools }
-    - { name: networkd, tags: networkd }
+    - { name: ffh.networkd, tags: networkd }
     - { name: ffh.babeld, tags: babeld }
     - { name: simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }

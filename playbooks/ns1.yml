@@ -2,7 +2,7 @@
 
 - hosts: ns1
   roles:
-    - { name: networkd, tags: networkd }
+    - { name: ffh.networkd, tags: networkd }
     - { name: ferm, tags: ferm }
     - { role: ffh.dns_authoritative, tags: dns_authoritative }
     - { role: ffh.dns_zonenodes, tags: dns_zonenodes }
