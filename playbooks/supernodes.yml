@@ -13,7 +13,7 @@
     - { name: admin, tags: admin }
     - { name: ffh.cron-apt, tags: cron-apt }
     # Batman
-    - { name: mesh_batman, tags: mesh_batman }
+    - { name: ffh.mesh_batman, tags: mesh_batman }
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
     - { name: ffh.mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     - { name: ffh.mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
