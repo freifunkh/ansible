@@ -12,7 +12,7 @@
     - { name: cli_tools, tags: cli_tools }
     - { name: cron-apt, tags: cron-apt }
     - { name: postfix, tags: postfix }
-    - { name: ntp, tags: ntp }
+    - { name: ffh.ntp, tags: ntp }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
 
   vars_files:
