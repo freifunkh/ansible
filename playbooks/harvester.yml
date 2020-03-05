@@ -13,7 +13,6 @@
     # Batman
     - { name: ffh.mesh_batman, tags: mesh_batman }
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
-    - { name: ffh.mesh_fastd_remotes_backbone, tags: mesh_fastd_remotes_backbone }
     # Harvester
     - { name: ffh.influxdb, tags: influxdb }
     - { name: ffh.grafana, tags: grafana }
