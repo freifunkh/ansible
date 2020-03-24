@@ -8,7 +8,7 @@ interface bat0
  AdvDefaultLifetime 0;
 {% endif %}
  MaxRtrAdvInterval 200;
- MinDelayBetweenRAs 15;
+ AdvRASolicitedUnicast on;
 
  prefix 2a02:790:ff:{{ sn }}::/64 {
    AdvValidLifetime 300;
@@ -37,7 +37,8 @@ interface bat{{ domain.id }}
  AdvDefaultLifetime 0;
 {% endif %}
  MaxRtrAdvInterval 200;
- MinDelayBetweenRAs 15;
+ AdvRASolicitedUnicast on;
+ # MinDelayBetweenRAs 15;
 
  prefix 2a02:790:ff:{{ sn }}{{ domain.id }}::/64 {
    AdvValidLifetime 300;

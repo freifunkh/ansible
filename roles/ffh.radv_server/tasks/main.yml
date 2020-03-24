@@ -1,6 +1,36 @@
 ---
-- name: Install radvd
-  apt: name=radvd update_cache=yes
+
+- name: Uninstall OS-shipped radvd
+  apt: name=radvd state=absent
+
+- name: Install build-essential
+  apt:
+    pkg:
+    - build-essential
+    - bison
+    - flex
+
+- name: Unarchive radvd to local directory
+  unarchive:
+    src: "http://www.litech.org/radvd/dist/radvd-2.18.tar.gz"
+    dest: "/usr/src"
+    owner: "root"
+    group: "root"
+    remote_src: yes
+
+- name: Configure
+  command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
+  args:
+    chdir: "/usr/src/radvd-2.18"
+
+- name: Make
+  make:
+    chdir: "/usr/src/radvd-2.18"
+
+- name: Make install
+  make:
+    chdir: "/usr/src/radvd-2.18"
+    target: "install"
 
 - name: Generate radvd config
   notify: Restart radvd
@@ -12,7 +42,6 @@
   template:
     src: systemd.service
     dest: /etc/systemd/system/radvd.service
-    # Remove this when debian gets a real service file
 
 - name: Enable radvd
   command: systemctl enable radvd
