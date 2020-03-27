@@ -3,7 +3,7 @@ ansible_port: 1337
 exitnodes:
   # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
-  leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}" }
+  leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}" }
   # clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
   # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
   # bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
@@ -16,14 +16,14 @@ supernodes:
   # sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
   # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
   sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
-  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}"  }
-  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}"  }
+  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
+  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
 helpernodes:
-  harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}" }
-  observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}" }
-  ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.fnorden.net./A') }}" }
-  web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}" }
-  monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}" }
+  harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}" }
+  observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'observer.ffh.zone./AAAA') }}" }
+  ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'ns1.ffh.zone./AAAA') }}" }
+  web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
+  monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}" }
 simple_mail:
   root_email: monitoring@hannover.freifunk.net
   mail_server: mail.ffh.zone
