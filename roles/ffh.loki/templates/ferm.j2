@@ -1,0 +1,10 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+{% for name,node in supernodes.items() + exitnodes.items() + helpernodes.items() %}
+      saddr {{ node.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ name }}
+      saddr {{ node.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;      # {{ name }}
+{% endfor %}
+    }
+  }
+}
