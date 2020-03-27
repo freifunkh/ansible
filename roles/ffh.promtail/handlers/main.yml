@@ -1,0 +1,5 @@
+---
+- name: reload promtail
+  systemd:
+    name: promtail
+    state: "restarted"

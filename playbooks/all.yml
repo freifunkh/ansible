@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  roles:
+    - { name: ffh.promtail, tags: promtail }
+
+  vars_files:
+    - ../secrets.yml

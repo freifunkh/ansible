@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      saddr localhost proto tcp dport (9080) ACCEPT;
+    }
+  }
+}

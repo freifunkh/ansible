@@ -27,6 +27,7 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
+    - { name: ffh.promtail, tags: promtail }
 
   vars_files:
     - ../secrets.yml

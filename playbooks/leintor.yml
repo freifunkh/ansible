@@ -12,7 +12,8 @@
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    - { name: ffh.apinger, tags: ffh.apinger }
+    - { name: ffh.apinger, tags: apinger }
+    - { name: ffh.promtail, tags: promtail }
 
   pre_tasks:
 
