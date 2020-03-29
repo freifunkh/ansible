@@ -4,7 +4,13 @@
 
 @def &PRIV_NET($net) = {
       outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
+      outerface $DEV_EXIT saddr $net REJECT reject-with icmp-host-unreachable;
 }
+
+@def &PRIV_NET_DEST_ONLY($net) = {
+      outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
+}
+
 
 domain (ip) {
   table nat {
@@ -17,19 +23,24 @@ domain (ip) {
 
   table filter {
     chain FORWARD {
-      &PRIV_NET(10.0.0.0/8);
-      &PRIV_NET(100.64.0.0/10);
-      &PRIV_NET(127.0.0.0/8);
-      &PRIV_NET(169.254.0.0/16);
-      &PRIV_NET(172.16.0.0/12);
-      &PRIV_NET(192.0.2.0/24);
-      &PRIV_NET(192.88.99.0/24);
-      &PRIV_NET(192.168.0.0/16);
-      &PRIV_NET(198.18.0.0/15);
-      &PRIV_NET(198.51.100.0/24);
-      &PRIV_NET(203.0.113.0/24);
-      &PRIV_NET(224.0.0.0/4);
-      &PRIV_NET(240.0.0.0/4);
+
+      # We block for daddr only here, as the addresses will be natted
+      # in outgoing case anyway. Filtering them here in a useful sense
+      # is impossible therefore.
+
+      &PRIV_NET_DEST_ONLY(10.0.0.0/8);
+      &PRIV_NET_DEST_ONLY(100.64.0.0/10);
+      &PRIV_NET_DEST_ONLY(127.0.0.0/8);
+      &PRIV_NET_DEST_ONLY(169.254.0.0/16);
+      &PRIV_NET_DEST_ONLY(172.16.0.0/12);
+      &PRIV_NET_DEST_ONLY(192.0.2.0/24);
+      &PRIV_NET_DEST_ONLY(192.88.99.0/24);
+      &PRIV_NET_DEST_ONLY(192.168.0.0/16);
+      &PRIV_NET_DEST_ONLY(198.18.0.0/15);
+      &PRIV_NET_DEST_ONLY(198.51.100.0/24);
+      &PRIV_NET_DEST_ONLY(203.0.113.0/24);
+      &PRIV_NET_DEST_ONLY(224.0.0.0/4);
+      &PRIV_NET_DEST_ONLY(240.0.0.0/4);
 
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
 
@@ -48,4 +59,3 @@ domain (ip ip6) {
     }
   }
 }
-

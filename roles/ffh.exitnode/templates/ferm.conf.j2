@@ -1,3 +1,11 @@
+
+@def $DEV_EXIT = eth0;
+
+@def &PRIV_NET($net) = {
+      outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
+      outerface $DEV_EXIT saddr $net REJECT reject-with icmp-host-unreachable;
+}
+
 domain (ip) {
   table nat {
     chain POSTROUTING {
@@ -13,19 +21,19 @@ domain (ip) {
     }
 
     chain FORWARD {
-      outerface eth0 daddr 10.0.0.0/8 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 100.64.0.0/10 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 127.0.0.0/8 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 169.254.0.0/16 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 172.16.0.0/12 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 192.0.2.0/24 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 192.88.99.0/24 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 192.168.0.0/16 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 198.18.0.0/15 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 198.51.100.0/24 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 203.0.113.0/24 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 224.0.0.0/4 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 240.0.0.0/4 REJECT reject-with icmp-port-unreachable;
+      &PRIV_NET(10.0.0.0/8);
+      &PRIV_NET(100.64.0.0/10);
+      &PRIV_NET(127.0.0.0/8);
+      &PRIV_NET(169.254.0.0/16);
+      &PRIV_NET(172.16.0.0/12);
+      &PRIV_NET(192.0.2.0/24);
+      &PRIV_NET(192.88.99.0/24);
+      &PRIV_NET(192.168.0.0/16);
+      &PRIV_NET(198.18.0.0/15);
+      &PRIV_NET(198.51.100.0/24);
+      &PRIV_NET(203.0.113.0/24);
+      &PRIV_NET(224.0.0.0/4);
+      &PRIV_NET(240.0.0.0/4);
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
       outerface eth0 interface eth0 DROP;
@@ -37,15 +45,15 @@ domain (ip) {
 domain (ip6) {
   table filter {
     chain FORWARD {
-      outerface eth0 daddr 0100::/64 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 2001:2::/48 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 2001:10::/28 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 2001:db8::/32 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 2002::/16 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr 3ffe::/16 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr fc00::/7 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr fec0::/10 REJECT reject-with icmp-port-unreachable;
-      outerface eth0 daddr ff00::/8 REJECT reject-with icmp-port-unreachable;
+      &PRIV_NET(100::/64);
+      &PRIV_NET(2001:2::/48);
+      &PRIV_NET(2001:10::/28);
+      &PRIV_NET(2001:db8::/32);
+      &PRIV_NET(2002::/16);
+      &PRIV_NET(3ffe::/16);
+      &PRIV_NET(fc00::/7);
+      &PRIV_NET(fec0::/10);
+      &PRIV_NET(ff00::/8);
 
       outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
       outerface eth0 interface eth0 DROP;
