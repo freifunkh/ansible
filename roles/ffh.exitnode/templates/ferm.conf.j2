@@ -6,6 +6,11 @@
       outerface $DEV_EXIT saddr $net REJECT reject-with icmp-host-unreachable;
 }
 
+
+@def &PRIV_NET_DEST_ONLY($net) = {
+      outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
+}
+
 domain (ip) {
   table nat {
     chain POSTROUTING {
@@ -21,7 +26,12 @@ domain (ip) {
     }
 
     chain FORWARD {
-      &PRIV_NET(10.0.0.0/8);
+
+      # We block for daddr only here, as the addresses will be natted
+      # in outgoing case anyway. Filtering them here in a useful sense
+      # is impossible therefore.
+      &PRIV_NET_DEST_ONLY(10.0.0.0/8);
+
       &PRIV_NET(100.64.0.0/10);
       &PRIV_NET(127.0.0.0/8);
       &PRIV_NET(169.254.0.0/16);
