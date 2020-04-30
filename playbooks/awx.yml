@@ -9,6 +9,18 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.awx, tags: awx }
+    - { name: ffh.nginx, tags: nginx }
 
   vars_files:
     - ../secrets.yml
+
+  vars:
+    nginx_sites:
+    - domain: awx.ffh.zone
+      root: /var/www/awx.ffh.zone
+      tls: true
+      tls_redirect_to_https: true
+      locations:
+        - location: /
+          type: proxy
+          proxy_forward_url: http://localhost:8000/
