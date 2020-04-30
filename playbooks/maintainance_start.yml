@@ -1,0 +1,12 @@
+---
+
+- hosts: monitor
+
+  vars_prompt:
+    - name: "hostname"
+      prompt: "which hostname?"
+      private: no
+
+  tasks:
+    - name: start maintainance
+      command: "zabbix-cli -C 'add_host_to_hostgroup \"{{hostname}}\" \"Maintenance with data\"'"
