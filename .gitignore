@@ -1,4 +1,4 @@
 secrets
 *.retry
-secrets.yml
 galaxy/*
+.vaultpassphrase
