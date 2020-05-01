@@ -1,0 +1,10 @@
+---
+
+- hosts: perf-test
+
+  tasks:
+    - name: perf test
+      command: "ffh_speedtest -a"
+      register: out
+
+    - debug: var=out.stdout_lines

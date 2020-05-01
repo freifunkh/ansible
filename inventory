@@ -23,6 +23,9 @@ all:
       ansible_host: monitor.ffh.zone
     awx:
       ansible_host: awx.ffh.zone
+    perf-test:
+      ansible_host: 94.130.213.34
+      ansible_port: 22
 
 supernodes:
   hosts:
