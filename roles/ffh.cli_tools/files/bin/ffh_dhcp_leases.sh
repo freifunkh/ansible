@@ -10,7 +10,7 @@ echo [
 for state in free used touched defined; do
 	echo -n '     { "domain": "all", "state": "'${state}'", "count": '$(dhcpd-pools -f j | jq "[.subnets[].${state}] | add")' }'
 
-	if [ "$state" = "active" ]; then
+	if [ "$state" = "defined" ]; then
 		echo 
 	else
 		echo ,
