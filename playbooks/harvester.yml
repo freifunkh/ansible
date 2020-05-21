@@ -53,7 +53,9 @@
     - influxdb_bind_address: ":8086"
     - influxdb_clients:
         - "88.99.88.12/32"
+        - "94.130.213.34/32"               # perf-test
         - "2a01:4f8:221:100c::1001/128"
+        - "2a01:4f8:221:100c::1004/128"    # perf-test
 
     - grafana_datadir: "/media/data/grafana"
     - grafana_allow_signup: true
