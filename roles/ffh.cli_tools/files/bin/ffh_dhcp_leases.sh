@@ -7,8 +7,8 @@ count_leases() {
 leases=$(grep -e "^ *binding state" /var/lib//dhcp/dhcpd.leases)
 
 echo [
-for state in free abandoned active; do
-	echo -n '     { "domain": "all", "state": "'${state}'", "count": '$(count_leases $state)' }'
+for state in free used touched defined; do
+	echo -n '     { "domain": "all", "state": "'${state}'", "count": '$(dhcpd-pools -f j | jq "[.subnets[].${state}] | add")' }'
 
 	if [ "$state" = "active" ]; then
 		echo 
