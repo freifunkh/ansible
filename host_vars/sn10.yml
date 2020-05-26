@@ -1,17 +1,17 @@
 ---
-servername: sn10
+servername: "sn10"
 sn: 10
 mail_fqdn: "sn10.s.ffh.zone"
 
 networkd_configures:
-- iface: eth0
+- iface: "eth0"
   addresses:
-    - 81.3.6.91/29
-    - 2a02:790:1:ff::a001/64
-  gateway4: 81.3.6.89
-  gateway6: fe80::1
+    - "81.3.6.91/29"
+    - "2a02:790:1:ff::a001/64"
+  gateway4: "81.3.6.89"
+  gateway6: "fe80::1"
   no_radv_accept: true
-  dns_server: [81.3.3.81, 83.246.106.204]
+  dns_server: ["81.3.3.81", "83.246.106.204"]
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
@@ -25,9 +25,11 @@ babeld_interface_penalty:
 legacy_dom0: true
 radv_announce_default: true
 apinger_targets2:
-- description: exitnode v4 via gre
+- description: "exitnode v4 via gre"
   ips:
-    - 100.103.10.1
-- description: hostway router
+    - "100.103.10.1"
+- description: "hostway router"
   ips:
-    - 2a02:790::1
+    - "2a02:790::1"
+exit_ip: "81.3.6.91" 
+fix_netifnames: true
