@@ -1,10 +1,29 @@
 ---
-- name: Install ssmtp
+
+- name: "Install ssmtp (pre Debian Buster)"
   apt:
     name: ssmtp
     update_cache: yes
+  when: ansible_distribution_version < 10
 
-- name: Generate ssmtp config
+- name: "Check if ssmtp is installed"
+  command: "dpkg-query -W ssmtp"
+  register: ssmtp_check_deb
+  failed_when: ssmtp_check_deb.rc > 1
+  changed_when: ssmtp_check_deb.rc == 1
+
+- name: "Sideload ssmtp if necessary"
+  when: ssmtp_check_deb.rc == 1
+  block:
+  - name: "Download ssmtp"
+    get_url: 
+      url: "http://ftp.de.debian.org/debian/pool/main/s/ssmtp/ssmtp_2.64-8+b2_amd64.deb"
+      dest: "/tmp/ssmtp_2.64-8+b2_amd64.deb"
+  - name: "Install ssmtp"
+    apt:
+      deb: "/tmp/ssmtp_2.64-8+b2_amd64.deb"
+
+- name: "Generate ssmtp config"
   template:
-    src: ssmtp.conf.j2
-    dest: /etc/ssmtp/ssmtp.conf
+    src: "ssmtp.conf.j2"
+    dest: "/etc/ssmtp/ssmtp.conf"
