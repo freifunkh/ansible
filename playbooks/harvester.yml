@@ -52,10 +52,13 @@
     - influxdb_wal_path:  "/media/data/influxdb/wal"
     - influxdb_bind_address: ":8086"
     - influxdb_clients:
+        - "81.3.6.94/32"                   # leintor
         - "88.99.88.12/32"
         - "94.130.213.34/32"               # perf-test
         - "2a01:4f8:221:100c::1001/128"
         - "2a01:4f8:221:100c::1004/128"    # perf-test
+        - "2a02:790:1:ff::1001/128"        # leintor
+
 
     - grafana_datadir: "/media/data/grafana"
     - grafana_allow_signup: true
