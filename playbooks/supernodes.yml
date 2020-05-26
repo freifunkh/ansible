@@ -28,6 +28,7 @@
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.promtail, tags: promtail }
+    - { name: ffh.routingnode, tags: routingnode }
 
   vars_files:
     - ../secrets.yml

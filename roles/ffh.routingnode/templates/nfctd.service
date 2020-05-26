@@ -1,0 +1,9 @@
+[Unit]
+Description=The nfctd service
+
+[Service]
+Type=simple
+ExecStart=/opt/nfctd/src/nfctd /etc/nfctd.conf
+
+[Install]
+WantedBy=multi-user.target

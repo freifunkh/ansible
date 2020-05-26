@@ -1,0 +1,27 @@
+groups = [
+	{
+		label = "http"
+		id = "0"
+		filter = "port 80"
+},
+	{
+		label = "https"
+		id = "1"
+		filter = "port 443"
+},
+	{
+		label = "smtp"
+		id = "2"
+		filter = "port 25 or port 587"
+},
+	{
+		label = "pop3"
+		id = "3"
+		filter = "port 110"
+},
+	{
+		label = "all-default"
+		id = "4"
+		filter = "net 0.0.0.0/0"
+}
+]
