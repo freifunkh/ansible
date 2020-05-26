@@ -2,6 +2,3 @@
 
 - name: Restart babeld 
   systemd: name=babeld state=restarted daemon_reload=yes
-
-- name: Restart babeld with service
-  service: name=babeld state=restarted

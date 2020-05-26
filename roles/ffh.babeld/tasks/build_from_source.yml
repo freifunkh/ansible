@@ -1,6 +1,10 @@
 ---
+- name: "Uninstall Debian's babeld"
+  apt: 
+    name: "babeld"
+    state: "absent"
 
-- name: Add build dependencies
+- name: "Add build dependencies"
   apt:
     update_cache: yes
     name: "{{ packages }}"
@@ -9,31 +13,20 @@
     - git
     - build-essential
 
-- name: Clone babeld git repo
+- name: "Clone babeld git repo"
   git:
-    repo: https://github.com/jech/babeld.git
-    dest: /usr/src/babeld-{{ babeld_build_version }}/
+    repo: "https://github.com/jech/babeld.git"
+    dest: "/usr/src/babeld-{{ babeld_build_version }}/"
     version: "{{ babeld_build_version }}"
 
-- name: Make babeld
-  register: babeldmake
+- name: "Make babeld"
+  register: "babeldmake"
   make:
     chdir: "/usr/src/babeld-{{ babeld_build_version }}"
 
-- name: Stop (old) babeld instance
-  systemd:
-    name: babeld
-    state: stopped
-  when: babeldmake is changed
-
-- name: Install babeld
+- name: "Install babeld"
+  notify: "Restart babeld"
   command: "cp /usr/src/babeld-{{ babeld_build_version }}/babeld /usr/sbin/babeld"
-  when: babeldmake is changed
-
-- name: Start (new) babeld instance
-  systemd:
-    name: babeld
-    state: started
   when: babeldmake is changed
 
 - name: "Create custom fact directory"
@@ -41,9 +34,7 @@
     path: "/etc/ansible/facts.d"
     state: "directory"
 
-- name: Save built version
+- name: "Save built version"
   copy:
     content: '"{{babeld_build_version}}"'
-    dest: /etc/ansible/facts.d/babeld_built_version.fact
-
-  
+    dest: "/etc/ansible/facts.d/babeld_built_version.fact"

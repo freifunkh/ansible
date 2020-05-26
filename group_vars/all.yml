@@ -94,7 +94,6 @@ admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, code
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
-babeld_build_from_source: true
 babeld_build_version: "babeld-1.9.1"
 zabbix_agent_server: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') }},{{ lookup('dig', 'zabbix.ffh.zone./A') }}"
 zabbix_agent_server_active: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') }},{{ lookup('dig', 'zabbix.ffh.zone./A') }}"

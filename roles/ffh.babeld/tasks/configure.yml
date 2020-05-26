@@ -1,91 +1,36 @@
 ---
 
-- name: Build from source
-  when: babeld_build_from_source
-  block:
-    - name: Uninstall babeld
-      apt: name=babeld state=absent
-
-    - name: Include 'Build from source'
-      include_tasks: build_from_source.yml
-      when: (ansible_local['babeld_built_version'] | default(None)) != babeld_build_version
-
-- name: Configure system correctly (once)
-  when: not (ansible_local['babeld_system_configured'] | default(False))
-  tags: setup
-  block:
-    - name: Install babeld
-      apt: name=babeld update_cache=yes state=present
-      when: not babeld_build_from_source
-    
-    - name: Install babeld systemd service
-      notify: Restart babeld
-      template:
-        src: systemd.service.j2
-        dest: /etc/systemd/system/babeld.service
-      when: ansible_service_mgr == 'systemd'
-
-    - name: Generate firewall config stanza (ferm)
-      register: ferm_changed
-      template:
-        src: ferm.conf.j2
-        dest: /etc/ferm/conf.d/50-babeld.conf
-      notify: reload ferm
-    
-    - name: install /etc/default
-      notify: Restart babeld with service
-      template:
-        src: default.j2
-        dest: /etc/default/babeld
-      when: ansible_service_mgr != 'systemd'
-    
-    - name: Systemd daemon-reload
-      command: systemctl daemon-reload
-      when: ansible_service_mgr == 'systemd'
-    
-    - name: Enable systemd service
-      command: systemctl enable babeld
-      when: ansible_service_mgr == 'systemd'
-    
-    - name: Start systemd service
-      command: systemctl start babeld
-      when: ansible_service_mgr == 'systemd'
-    
-    - name: Start service
-      service:
-        name: babeld
-        state: started
-        enabled: yes
-      when: ansible_service_mgr != 'systemd'
-    
-    - name: "Cronjob: restart babeld weekly"
-      cron:
-        name: "Restart babeld"
-        job: "systemctl restart babeld"
-        hour: "3"
-        weekday: "3"
-
-    - name: Create custom fact directory
-      file:
-        path: "/etc/ansible/facts.d"
-        state: "directory"
-
-    - name: Save state
-      copy:
-        content: 'True'
-        dest: /etc/ansible/facts.d/babeld_system_configured.fact
-
-- name: Install babeld supernode config
+- name: "Install babeld systemd service"
   notify: Restart babeld
   template:
-    src: supernode.conf.j2
-    dest: /etc/babeld.conf
-  when: sn is defined
+    src: "systemd.service.j2"
+    dest: "/etc/systemd/system/babeld.service"
 
-- name: Install babeld exitnode config
-  notify: Restart babeld
+- name: "Generate firewall config stanza (ferm)"
+  notify: reload ferm
   template:
-    src: exitnode.conf.j2
-    dest: /etc/babeld.conf
-  when: en is defined
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-babeld.conf"
 
+- name: "Start service"
+  systemd:
+    name: "babeld"
+    state: "started"
+    enabled: yes
+
+- name: "Cronjob: restart babeld weekly"
+  cron:
+    name: "Restart babeld"
+    job: "systemctl restart babeld"
+    hour: "3"
+    weekday: "3"
+
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    state: "directory"
+
+- name: "Save state"
+  copy:
+    content: 'True'
+    dest: "/etc/ansible/facts.d/babeld_system_configured.fact"
