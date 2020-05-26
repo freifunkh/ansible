@@ -5,9 +5,9 @@
     # General
     - { name: ffh.devname, tags: devname }
     - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.networkd, tags: networkd }
     - { name: ffh.supernode, tags: supernode }
     - { name: ffh.cli_tools, tags: cli_tools }
-    - { name: ffh.networkd, tags: networkd }
     - { name: ffh.babeld, tags: babeld }
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }
@@ -34,6 +34,6 @@
     - ../secrets.yml
 
 
-- hosts: sn01
+- hosts: sn01,sn10
   roles:
     - { name: ffh.superexitnode, tags: superexitnode }
