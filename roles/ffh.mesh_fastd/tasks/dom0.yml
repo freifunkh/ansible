@@ -3,11 +3,6 @@
     src: network0.j2
     dest: "/etc/systemd/network/10-bat0.network"
 
-- name: Generate networkd tap device (dom0)
-  template:
-    src: netdev0.j2
-    dest: "/etc/systemd/network/20-tap-mesh_fastd.netdev"
-
 - name: Create mesh_fastd daemon config directories (dom0)
   file: path=/etc/fastd/mesh_fastd state=directory
 
