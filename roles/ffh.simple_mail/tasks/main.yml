@@ -7,7 +7,7 @@
   when: ansible_distribution_version|int < 10
 
 - name: "Check if ssmtp is installed"
-  command: "dpkg-query -W ssmtp"
+  command: "dpkg-query -s ssmtp"
   register: ssmtp_check_deb
   failed_when: ssmtp_check_deb.rc > 1
   changed_when: ssmtp_check_deb.rc == 1
