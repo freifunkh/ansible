@@ -98,3 +98,4 @@
           - location: /
             type: proxy
             proxy_forward_url: http://localhost:3000/
+            allow_connection_upgrade: true
