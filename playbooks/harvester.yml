@@ -26,7 +26,7 @@
 
   vars:
     - servername: harvester
-    - mail_fqdn: "harvester.ffh.zone"
+    - fqdn: "harvester.ffh.zone"
 
     - networkd_configures:
       - iface: eth0

@@ -1,5 +1,6 @@
 ---
 servername: "observer"
+fqdn: "observer.ffh.zone"
 
 nginx_sites:
 - domain: "observer.ffh.zone"

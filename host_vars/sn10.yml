@@ -1,7 +1,7 @@
 ---
 servername: "sn10"
 sn: 10
-mail_fqdn: "sn10.s.ffh.zone"
+fqdn: "sn10.s.ffh.zone"
 
 networkd_configures:
 - iface: "eth0"

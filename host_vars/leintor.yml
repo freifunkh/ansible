@@ -1,4 +1,5 @@
 ---
+fqdn: "leintor.e.ffh.zone"
 apinger_targets2:
 - description: hostway router
   ips:

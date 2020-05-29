@@ -23,7 +23,7 @@
 
   vars:
     - servername: web
-    - mail_fqdn: "web.ffh.zone"
+    - fqdn: "web.ffh.zone"
 
     - networkd_configures:
       - iface: eth0

@@ -1,7 +1,7 @@
 ---
 servername: sn08
 sn: 8
-mail_fqdn: "sn08.s.ffh.zone"
+fqdn: "sn08.s.ffh.zone"
 
 networkd_configures:
 - iface: eth0

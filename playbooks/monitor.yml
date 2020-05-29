@@ -26,7 +26,7 @@
 
   vars:
     - servername: monitor
-    - mail_fqdn: "monitor.ffh.zone"
+    - fqdn: "monitor.ffh.zone"
 
     - networkd_configures:
       - iface: eth0

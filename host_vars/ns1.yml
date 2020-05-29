@@ -1,6 +1,6 @@
 ---
 servername: ns1
-mail_fqdn: "ns1.fnorden.net"
+fqdn: "ns1.fnorden.net"
 admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD]
 
 networkd_configures:

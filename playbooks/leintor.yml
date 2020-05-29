@@ -25,7 +25,6 @@
   vars:
     - servername: leintor
     - en: 3
-    - mail_fqdn: "leintor.e.ffh.zone"
 
     - networkd_configures:
       - iface: eth0
