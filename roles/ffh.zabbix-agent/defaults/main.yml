@@ -1,4 +1,4 @@
 ---
-zabbix_agent_hostname: "{{ servername | default('CONFIGURE_ME') }}"
+zabbix_agent_hostname: "{{ fqdn | default('CONFIGURE_ME') }}"
 zabbix_agent_server: "127.0.0.1"
 zabbix_agent_server_active: "127.0.0.1"
