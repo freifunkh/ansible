@@ -2,6 +2,3 @@
 
 - name: Restart telegraf
   command: systemctl restart telegraf
-
-- name: Restart syslog
-  command: systemctl restart syslog
