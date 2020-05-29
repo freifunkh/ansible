@@ -66,5 +66,28 @@
         mode: 755
   when: not apinger_installed.stat.exists
 
+- name: Install bin files
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/bin/"
+    owner: "root"
+    mode: 0755
+  with_fileglob:
+    - "files/bin/*"
 
+- name: Check telegraf path
+  stat:
+    path: /etc/telegraf/telegraf.d/
+  register: telegraf_path
 
+- name: Ensure telegraf path
+  shell: mkdir -p /etc/telegraf/telegraf.d/
+  when: telegraf_path is defined and telegraf_path.stat.exists==false
+
+# We do not care whether telegraf is really installed. So it could be installed
+# later (or also never).
+- name: Set /etc/telegraf/telegraf.d/apinger.conf
+  notify: Maybe restart telegraf # handler from ffh.routingnode
+  template:
+    src: telegraf-apinger.conf
+    dest: /etc/telegraf/telegraf.d/apinger.conf
