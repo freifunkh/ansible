@@ -14,7 +14,7 @@ scrape_configs:
       max_age: 12h
       labels:
         job: systemd-journal
-        host: {{ ansible_hostname }}
+        host: {{ fqdn.split('.')[0] | default(ansible_hostname) }}
     relabel_configs:
       - source_labels: ['__journal__systemd_unit']
         target_label: 'unit'
