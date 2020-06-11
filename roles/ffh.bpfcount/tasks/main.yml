@@ -1,0 +1,57 @@
+---
+
+- name: Install build dependencies
+  apt:
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - build-essential
+    - libpcap-dev
+    - git
+
+- name: Download bpfcountd
+  register: updatebpfcountd
+  git:
+    repo: https://github.com/lemoer/bpfcountd
+    dest: /opt/bpfcountd
+
+- name: Build bpfcountd
+  notify: Restart bpfcountd
+  make:
+    chdir: /opt/bpfcountd
+    target: bpfcountd
+
+- name: Install servicefile
+  register: servicefilechanged
+  template:
+    src: "{{item}}.j2"
+    dest: /etc/systemd/system/{{item}}
+  with_items:
+    - bpfcountd@.service
+    - bpfcountd.service
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  when: servicefilechanged is changed
+
+- name: Generate filter file
+  notify: Restart bpfcountd
+  template:
+    src: filters.j2
+    dest: /etc/bpfcountd-filters
+
+- name: Enable bpfcountd on dom0 interface
+  service:
+    name: bpfcountd@bat0
+    state: started
+    enabled: yes
+  when: legacy_dom0 == true
+
+- name: Enable bpfcountd on domain interfaces
+  service:
+    name: bpfcountd@bat{{ item.id }}
+    state: started
+    enabled: yes
+  with_items: "{{ domains }}"
+  when: domains is defined

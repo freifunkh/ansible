@@ -1,0 +1,20 @@
+[Unit]
+Description=a small daemon to monitor network traffic using bpf (berkley packet filters)
+After=network.target
+{% if legacy_dom0 == true %}
+After=sys-subsystem-net-devices-bat0.device
+# Requires=sys-subsystem-net-devices-bat0.device
+{% endif %}
+{% for domain in domains | default([]) %}
+After=sys-subsystem-net-devices-bat{{ domain.id }}.device
+# Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+{% endfor %}
+PartOf=bpfcountd.service
+
+[Service]
+ExecStart=/opt/bpfcountd/bpfcountd -i %i -f /etc/bpfcountd-filters -u /var/run/bpfcountd.%i.sock
+RestartSec=10s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

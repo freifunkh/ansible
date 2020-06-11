@@ -29,6 +29,7 @@
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.promtail, tags: promtail }
     - { name: ffh.routingnode, tags: routingnode }
+    - { name: ffh.bpfcount, tags: bpfcount }
 
   vars_files:
     - ../secrets.yml
