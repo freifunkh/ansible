@@ -10,6 +10,7 @@
     - name: get local username
       local_action: shell echo $USER@$(hostname)
       register: local_username
+      changed_when: false
       tags: [always]
     - name: etckeeper pre-commit
       shell: etckeeper commit "pre-commit changes before Ansible runs ({{local_username.stdout}})" || echo "nothing to commit"
