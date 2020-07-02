@@ -1,6 +1,21 @@
 ---
 
 - hosts: supernodes
+  pre_tasks:
+    - name: install etckeeper
+      package:
+        name: etckeeper
+        state: present
+      tags: [ffh.etckeeper]
+    - name: get local username
+      local_action: shell echo $USER@$(hostname)
+      register: local_username
+      tags: [always]
+    - name: etckeeper pre-commit
+      shell: etckeeper commit "pre-commit changes before Ansible runs ({{local_username.stdout}})" || echo "nothing to commit"
+      register: pre_result
+      changed_when: pre_result.stdout.find('nothing to commit') == -1
+      tags: [always]
   roles:
     # General
     - { name: ffh.devname, tags: devname }
@@ -30,6 +45,12 @@
     - { name: ffh.promtail, tags: promtail }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.bpfcount, tags: bpfcount }
+  post_tasks:
+    - name: etckeeper post-commit
+      shell: etckeeper commit "post-commit changes after Ansible run ({{local_username.stdout}})" || echo "nothing to commit"
+      register: post_result
+      changed_when: post_result.stdout.find('nothing to commit') == -1
+      tags: [always]
 
   vars_files:
     - ../secrets.yml
