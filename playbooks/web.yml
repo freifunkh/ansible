@@ -68,6 +68,10 @@
             rewrite .* /wiki/Main/WebHome;
           }
 
+          location ~ (^/Fl(ue|ü)chtlings(wohn)?heime) {
+            rewrite .* /wiki/Maschinenraum/Fluechtlingsheime;
+          }
+
           location ~ ^/wiki/pub/(.*) {
             alias $foswiki_root/pub/$1;
             allow all;
