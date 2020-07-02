@@ -13,7 +13,7 @@
       changed_when: false
       tags: [always]
     - name: etckeeper pre-commit
-      shell: etckeeper commit "pre-commit changes before Ansible runs ({{local_username.stdout}})" || echo "nothing to commit"
+      shell: 'etckeeper commit "pre-commit changes before Ansible runs ({{local_username.stdout}}, tags: {{ansible_run_tags | join(",")}})" || echo "nothing to commit"'
       register: pre_result
       changed_when: pre_result.stdout.find('nothing to commit') == -1
       tags: [always]
@@ -48,7 +48,7 @@
     - { name: ffh.bpfcount, tags: bpfcount }
   post_tasks:
     - name: etckeeper post-commit
-      shell: etckeeper commit "post-commit changes after Ansible run ({{local_username.stdout}})" || echo "nothing to commit"
+      shell: 'etckeeper commit "post-commit changes after Ansible run ({{local_username.stdout}}, tags: {{ansible_run_tags | join(",")}})" || echo "nothing to commit"'
       register: post_result
       changed_when: post_result.stdout.find('nothing to commit') == -1
       tags: [always]
