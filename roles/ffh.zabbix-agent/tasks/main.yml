@@ -42,6 +42,15 @@
     group: "zabbix"
     mode: "0644"
 
+- name: Deploy UserParameter files
+  notify: reload zabbix-agent
+  copy:
+    src: "userparameter/userparameter_dhcpd.conf"
+    dest: "/etc/zabbix/zabbix_agentd.d/"
+    owner: "zabbix"
+    group: "zabbix"
+    mode: "0644"
+
 - name: Deploy zabbix-agent psk file
   notify: reload zabbix-agent
   template:
