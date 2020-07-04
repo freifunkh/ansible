@@ -1,0 +1,2 @@
+zabbix ALL=(ALL) NOPASSWD: /usr/bin/git -C /etc log --oneline
+Defaults:zabbix        !requiretty

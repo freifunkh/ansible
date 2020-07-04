@@ -12,12 +12,14 @@
     state: present
     filename: zabbix
 
-- name: Install zabbix-agent via apt
+- name: Install zabbix-agent and dependencies via apt
   apt:
     update_cache: yes
     pkg:
     - zabbix-agent
     - fping
+    - git
+    - sudo
 
 - name: Create ferm directory if necessary
   file:
@@ -42,14 +44,11 @@
     group: "zabbix"
     mode: "0644"
 
-- name: Deploy UserParameter files
+- name: Deploy additional configurataion files in /etc
   notify: reload zabbix-agent
   copy:
-    src: "userparameter/userparameter_dhcpd.conf"
-    dest: "/etc/zabbix/zabbix_agentd.d/"
-    owner: "zabbix"
-    group: "zabbix"
-    mode: "0644"
+    src: "etc/"
+    dest: "/etc/"
 
 - name: Deploy zabbix-agent psk file
   notify: reload zabbix-agent
