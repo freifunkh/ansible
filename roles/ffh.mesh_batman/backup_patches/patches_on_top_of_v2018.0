@@ -1,0 +1,421 @@
+From fdb908bbdaeaa7f8b3e7c321a75bbdaeae946508 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Leonardo=20M=C3=B6rlein?= <git@irrelefant.net>
+Date: Sat, 21 Apr 2018 19:30:03 +0200
+Subject: [PATCH 1/4] batman-adv: Add debugging counters to translation table
+ code
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+New counters:
+- tt_request_rx_miss_crc
+- tt_request_rx_miss_ttvn
+- tt_request_rx_miss_other
+- tt_request_rx_fulltable
+
+Signed-off-by: Leonardo Mörlein <git@irrelefant.net>
+---
+ net/batman-adv/soft-interface.c    |  4 ++++
+ net/batman-adv/translation-table.c | 31 +++++++++++++++++++++++-------
+ net/batman-adv/types.h             |  6 ++++++
+ 3 files changed, 34 insertions(+), 7 deletions(-)
+
+diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
+index edeffcb9..3388a4a4 100644
+--- a/net/batman-adv/soft-interface.c
++++ b/net/batman-adv/soft-interface.c
+@@ -989,6 +989,10 @@ static const struct {
+ 	{ "nc_decode_failed" },
+ 	{ "nc_sniffed" },
+ #endif
++	{ "tt_request_rx_miss_crc" },
++	{ "tt_request_rx_miss_ttvn" },
++	{ "tt_request_rx_miss_other" },
++	{ "tt_request_rx_fulltable" },
+ };
+ 
+ static void batadv_get_strings(struct net_device *dev, u32 stringset, u8 *data)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 0225616d..dc63ce39 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -3184,22 +3184,32 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 
+ 	/* Let's get the orig node of the REAL destination */
+ 	req_dst_orig_node = batadv_orig_hash_find(bat_priv, req_dst);
+-	if (!req_dst_orig_node)
++	if (!req_dst_orig_node) {
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+ 		goto out;
++	}
+ 
+ 	res_dst_orig_node = batadv_orig_hash_find(bat_priv, req_src);
+-	if (!res_dst_orig_node)
++	if (!res_dst_orig_node) {
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+ 		goto out;
++	}
+ 
+ 	orig_ttvn = (u8)atomic_read(&req_dst_orig_node->last_ttvn);
+ 	req_ttvn = tt_data->ttvn;
+ 
+ 	tt_vlan = (struct batadv_tvlv_tt_vlan_data *)(tt_data + 1);
+ 	/* this node doesn't have the requested data */
+-	if (orig_ttvn != req_ttvn ||
+-	    !batadv_tt_global_check_crc(req_dst_orig_node, tt_vlan,
+-					ntohs(tt_data->num_vlan)))
++	if (orig_ttvn != req_ttvn) {
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_TTVN);
+ 		goto out;
++	}
++
++	if (!batadv_tt_global_check_crc(req_dst_orig_node, tt_vlan,
++					ntohs(tt_data->num_vlan))) {
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_CRC);
++		goto out;
++	}
+ 
+ 	/* If the full table has been explicitly requested */
+ 	if (tt_data->flags & BATADV_TT_FULL_TABLE ||
+@@ -3219,8 +3229,10 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 							      &tvlv_tt_data,
+ 							      &tt_change,
+ 							      &tt_len);
+-		if (!tt_len)
++		if (!tt_len) {
++			batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+ 			goto unlock;
++		}
+ 
+ 		/* Copy the last orig_node's OGM buffer */
+ 		memcpy(tt_change, req_dst_orig_node->tt_buff,
+@@ -3235,8 +3247,10 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 							      &tvlv_tt_data,
+ 							      &tt_change,
+ 							      &tt_len);
+-		if (!tt_len)
++		if (!tt_len) {
++			batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+ 			goto out;
++		}
+ 
+ 		/* fill the rest of the tvlv with the real TT entries */
+ 		batadv_tt_tvlv_generate(bat_priv, bat_priv->tt.global_hash,
+@@ -3251,6 +3265,7 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 		net_ratelimited_function(batadv_info, bat_priv->soft_iface,
+ 					 "Ignoring TT_REQUEST from %pM; Response size exceeds max packet size.\n",
+ 					 res_dst_orig_node->orig);
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+ 		goto out;
+ 	}
+ 
+@@ -4227,6 +4242,8 @@ static int batadv_tt_tvlv_unicast_handler_v1(struct batadv_priv *bat_priv,
+ 	switch (tt_data->flags & BATADV_TT_DATA_TYPE_MASK) {
+ 	case BATADV_TT_REQUEST:
+ 		batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX);
++		if (tt_data->flags & BATADV_TT_FULL_TABLE)
++			batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_FULLTABLE);
+ 
+ 		/* If this node cannot provide a TT response the tt_request is
+ 		 * forwarded
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index 476b052a..e6639182 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -922,6 +922,12 @@ enum batadv_counters {
+ 	BATADV_CNT_NC_SNIFFED,
+ #endif
+ 
++	BATADV_CNT_TT_REQUEST_RX_MISS_CRC,
++	BATADV_CNT_TT_REQUEST_RX_MISS_TTVN,
++	BATADV_CNT_TT_REQUEST_RX_MISS_OTHER,
++
++	BATADV_CNT_TT_REQUEST_RX_FULLTABLE,
++
+ 	/** @BATADV_CNT_NUM: number of traffic counters */
+ 	BATADV_CNT_NUM,
+ };
+-- 
+2.20.1
+
+
+From 85aa03e8dd23dca75b59ed7e985d9825e60f1ba4 Mon Sep 17 00:00:00 2001
+From: root <root@sn07.s.ffh.zone>
+Date: Mon, 23 Apr 2018 02:24:43 +0200
+Subject: [PATCH 2/4] batman-adv: fix bug when vlan crc is 0x00000000
+
+---
+ net/batman-adv/translation-table.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index dc63ce39..10aa6e1d 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -2996,8 +2996,12 @@ static bool batadv_tt_global_check_crc(struct batadv_orig_node *orig_node,
+ 
+ 		vlan = batadv_orig_node_vlan_get(orig_node,
+ 						 ntohs(tt_vlan_tmp->vid));
+-		if (!vlan)
+-			return false;
++		if (!vlan) {
++			if (tt_vlan_tmp->crc == 0x00000000)
++				continue;
++			else
++				return false;
++		}
+ 
+ 		crc = vlan->tt.crc;
+ 		batadv_orig_node_vlan_put(vlan);
+-- 
+2.20.1
+
+
+From db34e3e24c11d68db4176cb1dc6adf1093aff942 Mon Sep 17 00:00:00 2001
+From: lemoer <git@irrelefant.net>
+Date: Fri, 8 Jun 2018 13:14:42 +0200
+Subject: [PATCH 3/4] batman-adv: debug counters for crc
+
+---
+ net/batman-adv/soft-interface.c    |  7 +++++++
+ net/batman-adv/translation-table.c | 31 ++++++++++++++++++++++++++++--
+ net/batman-adv/types.h             |  9 +++++++++
+ 3 files changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
+index 3388a4a4..89f7bffd 100644
+--- a/net/batman-adv/soft-interface.c
++++ b/net/batman-adv/soft-interface.c
+@@ -971,6 +971,13 @@ static const struct {
+ 	{ "tt_response_rx" },
+ 	{ "tt_roam_adv_tx" },
+ 	{ "tt_roam_adv_rx" },
++	{ "tt_mcast_temp_rx" },
++	{ "tt_mcast_roam_rx" },
++	{ "tt_mcast_temp_flush1" },
++	{ "tt_mcast_temp_flush2" },
++	{ "tt_mcast_roam_flush1" },
++	{ "tt_mcast_roam_flush2" },
++	{ "tt_mcast_roam_flush3" },
+ #ifdef CONFIG_BATMAN_ADV_DAT
+ 	{ "dat_get_tx" },
+ 	{ "dat_get_rx" },
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 10aa6e1d..09fe41da 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -1664,6 +1664,14 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
+ 	struct batadv_tt_common_entry *common;
+ 	u16 local_flags;
+ 
++	if (is_multicast_ether_addr(tt_addr) &&
++	    flags & BATADV_TT_CLIENT_TEMP)
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_TEMP_RX);
++
++	if (is_multicast_ether_addr(tt_addr) &&
++	    flags & BATADV_TT_CLIENT_ROAM)
++		batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_ROAM_RX);
++
+ 	/* ignore global entries from backbone nodes */
+ 	if (batadv_bla_is_backbone_gw_orig(bat_priv, orig_node->orig, vid))
+ 		return true;
+@@ -1734,6 +1742,10 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
+ 							    orig_node))
+ 				goto out_remove;
+ 			batadv_tt_global_del_orig_list(tt_global_entry);
++
++			if (is_multicast_ether_addr(tt_addr))
++				batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_TEMP_FLUSH1);
++
+ 			goto add_orig_entry;
+ 		}
+ 
+@@ -1745,6 +1757,10 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
+ 		 */
+ 		if (common->flags & BATADV_TT_CLIENT_TEMP) {
+ 			batadv_tt_global_del_orig_list(tt_global_entry);
++
++			if (is_multicast_ether_addr(tt_addr))
++				batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_TEMP_FLUSH2);
++
+ 			common->flags &= ~BATADV_TT_CLIENT_TEMP;
+ 		}
+ 
+@@ -1763,6 +1779,10 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
+ 		 */
+ 		if (common->flags & BATADV_TT_CLIENT_ROAM) {
+ 			batadv_tt_global_del_orig_list(tt_global_entry);
++
++			if (is_multicast_ether_addr(tt_addr))
++				batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_ROAM_FLUSH1);
++
+ 			common->flags &= ~BATADV_TT_CLIENT_ROAM;
+ 			tt_global_entry->roam_at = 0;
+ 		}
+@@ -2369,6 +2389,10 @@ static void batadv_tt_global_del(struct batadv_priv *bat_priv,
+ 	if (local_entry) {
+ 		/* local entry exists, case 2: client roamed to us. */
+ 		batadv_tt_global_del_orig_list(tt_global_entry);
++
++		if (is_multicast_ether_addr(addr))
++			batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_ROAM_FLUSH2);
++
+ 		batadv_tt_global_free(bat_priv, tt_global_entry, message);
+ 	} else {
+ 		/* no local entry exists, case 1: check for roaming */
+@@ -2443,7 +2467,7 @@ void batadv_tt_global_del_orig(struct batadv_priv *bat_priv,
+ }
+ 
+ static bool batadv_tt_global_to_purge(struct batadv_tt_global_entry *tt_global,
+-				      char **msg)
++				      char **msg, struct batadv_priv *bat_priv)
+ {
+ 	bool purge = false;
+ 	unsigned long roam_timeout = BATADV_TT_CLIENT_ROAM_TIMEOUT;
+@@ -2451,6 +2475,9 @@ static bool batadv_tt_global_to_purge(struct batadv_tt_global_entry *tt_global,
+ 
+ 	if ((tt_global->common.flags & BATADV_TT_CLIENT_ROAM) &&
+ 	    batadv_has_timed_out(tt_global->roam_at, roam_timeout)) {
++		if (is_multicast_ether_addr(tt_global->common.addr))
++			batadv_inc_counter(bat_priv, BATADV_CNT_TT_MCAST_ROAM_FLUSH3);
++
+ 		purge = true;
+ 		*msg = "Roaming timeout\n";
+ 	}
+@@ -2486,7 +2513,7 @@ static void batadv_tt_global_purge(struct batadv_priv *bat_priv)
+ 						 struct batadv_tt_global_entry,
+ 						 common);
+ 
+-			if (!batadv_tt_global_to_purge(tt_global, &msg))
++			if (!batadv_tt_global_to_purge(tt_global, &msg, bat_priv))
+ 				continue;
+ 
+ 			batadv_dbg(BATADV_DBG_TT, bat_priv,
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index e6639182..aee8a657 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -844,6 +844,15 @@ enum batadv_counters {
+ 	 */
+ 	BATADV_CNT_TT_ROAM_ADV_RX,
+ 
++	BATADV_CNT_TT_MCAST_TEMP_RX,
++	BATADV_CNT_TT_MCAST_ROAM_RX,
++
++	BATADV_CNT_TT_MCAST_TEMP_FLUSH1,
++	BATADV_CNT_TT_MCAST_TEMP_FLUSH2,
++	BATADV_CNT_TT_MCAST_ROAM_FLUSH1,
++	BATADV_CNT_TT_MCAST_ROAM_FLUSH2,
++	BATADV_CNT_TT_MCAST_ROAM_FLUSH3,
++
+ #ifdef CONFIG_BATMAN_ADV_DAT
+ 	/**
+ 	 * @BATADV_CNT_DAT_GET_TX: transmitted dht GET traffic packet counter
+-- 
+2.20.1
+
+
+From 7c6bf841faac6d258537797e9ebdf80532924678 Mon Sep 17 00:00:00 2001
+From: Sven Eckelmann <sven@narfation.org>
+Date: Thu, 20 Apr 2017 17:50:51 +0200
+Subject: [PATCH 4/4] batman-adv: Filter isolate and wifi flag from TT
+ responses of mcast addresses
+
+Some device introduced this flag in the global table. Every device which now
+does an intermediate response will sent this flag - even when the actual
+device would not respond with it. This breaks the CRC calculation on the
+receiver side and therefore introduces extra (unneeded) full table TT
+requests.
+---
+ net/batman-adv/translation-table.c | 34 +++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 19 deletions(-)
+
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 09fe41da..d9293fc5 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -1683,6 +1683,10 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
+ 	 * for a roaming advertisement instead of manually messing up the global
+ 	 * table
+ 	 */
++
++	if (is_multicast_ether_addr(tt_addr) || is_zero_ether_addr(tt_addr))
++		flags &= ~BATADV_TT_SYNC_MASK;
++
+ 	if ((flags & BATADV_TT_CLIENT_TEMP) && tt_local_entry &&
+ 	    !(tt_local_entry->common.flags & BATADV_TT_CLIENT_NEW))
+ 		goto out;
+@@ -2949,13 +2953,14 @@ static bool batadv_tt_global_valid(const void *entry_ptr,
+  * @tvlv_buff: pointer to the buffer to fill with the TT data
+  * @valid_cb: function to filter tt change entries
+  * @cb_data: data passed to the filter function as argument
++ * @intermediate: is it intermediate response
+  */
+ static void batadv_tt_tvlv_generate(struct batadv_priv *bat_priv,
+ 				    struct batadv_hashtable *hash,
+ 				    void *tvlv_buff, u16 tt_len,
+ 				    bool (*valid_cb)(const void *,
+ 						     const void *),
+-				    void *cb_data)
++				    void *cb_data, bool intermediate)
+ {
+ 	struct batadv_tt_common_entry *tt_common_entry;
+ 	struct batadv_tvlv_tt_change *tt_change;
+@@ -2980,6 +2985,12 @@ static void batadv_tt_tvlv_generate(struct batadv_priv *bat_priv,
+ 
+ 			ether_addr_copy(tt_change->addr, tt_common_entry->addr);
+ 			tt_change->flags = tt_common_entry->flags;
++
++			if (intermediate &&
++			    (is_multicast_ether_addr(tt_common_entry->addr) ||
++			     is_zero_ether_addr(tt_common_entry->addr)))
++				tt_change->flags &= ~BATADV_TT_SYNC_MASK;
++
+ 			tt_change->vid = htons(tt_common_entry->vid);
+ 			memset(tt_change->reserved, 0,
+ 			       sizeof(tt_change->reserved));
+@@ -3253,22 +3264,7 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 	 * TT entries fit a single packet as possible only
+ 	 */
+ 	if (!full_table) {
+-		spin_lock_bh(&req_dst_orig_node->tt_buff_lock);
+-		tt_len = req_dst_orig_node->tt_buff_len;
+-
+-		tvlv_len = batadv_tt_prepare_tvlv_global_data(req_dst_orig_node,
+-							      &tvlv_tt_data,
+-							      &tt_change,
+-							      &tt_len);
+-		if (!tt_len) {
+-			batadv_inc_counter(bat_priv, BATADV_CNT_TT_REQUEST_RX_MISS_OTHER);
+-			goto unlock;
+-		}
+-
+-		/* Copy the last orig_node's OGM buffer */
+-		memcpy(tt_change, req_dst_orig_node->tt_buff,
+-		       req_dst_orig_node->tt_buff_len);
+-		spin_unlock_bh(&req_dst_orig_node->tt_buff_lock);
++		goto out;
+ 	} else {
+ 		/* allocate the tvlv, put the tt_data and all the tt_vlan_data
+ 		 * in the initial part
+@@ -3287,7 +3283,7 @@ static bool batadv_send_other_tt_response(struct batadv_priv *bat_priv,
+ 		batadv_tt_tvlv_generate(bat_priv, bat_priv->tt.global_hash,
+ 					tt_change, tt_len,
+ 					batadv_tt_global_valid,
+-					req_dst_orig_node);
++					req_dst_orig_node, true);
+ 	}
+ 
+ 	/* Don't send the response, if larger than fragmented packet. */
+@@ -3416,7 +3412,7 @@ static bool batadv_send_my_tt_response(struct batadv_priv *bat_priv,
+ 		/* fill the rest of the tvlv with the real TT entries */
+ 		batadv_tt_tvlv_generate(bat_priv, bat_priv->tt.local_hash,
+ 					tt_change, tt_len,
+-					batadv_tt_local_valid, NULL);
++					batadv_tt_local_valid, NULL, false);
+ 	}
+ 
+ 	tvlv_tt_data->flags = BATADV_TT_RESPONSE;
+-- 
+2.20.1
+
