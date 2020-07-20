@@ -20,6 +20,7 @@
     - fping
     - git
     - sudo
+    - jo
 
 - name: Create ferm directory if necessary
   file:
@@ -49,6 +50,9 @@
   copy:
     src: "etc/"
     dest: "/etc/"
+
+- name: Set x attribute on /etc/zabbix/bin/
+  command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
 
 - name: Deploy zabbix-agent psk file
   notify: reload zabbix-agent

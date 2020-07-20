@@ -1,0 +1,2 @@
+zabbix ALL=(ALL) NOPASSWD: /etc/zabbix/bin/export_batman.sh
+Defaults:zabbix        !requiretty
