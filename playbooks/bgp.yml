@@ -1,0 +1,8 @@
+---
+
+- hosts: bgp
+  roles:
+    - { name: ffh.bird2, tags: bird2 }
+
+  vars_files:
+    - ../secrets.yml
