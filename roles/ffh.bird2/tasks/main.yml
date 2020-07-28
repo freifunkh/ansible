@@ -22,6 +22,9 @@
     name: "bird2"
     state: latest
 
+- name: "Install statistics export"
+  include_tasks: bird_exporter.yml
+
 #- name: Generate config file
 #  template:
 #    src: bird.conf.j2
