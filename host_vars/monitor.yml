@@ -21,6 +21,9 @@ zabbix_server_create_dbname: "true"
 zabbix_server_create_dbuser: "true"
 zabbix_server_host: "localhost"
 
+zabbix_agent_server: "127.0.0.1"
+zabbix_agent_server_active: "127.0.0.1"
+
 mysql_root_password: "{{ log_mysql_root_password }}"
 mysql_databases:
 - name: "{{ zabbix_server_dbname }}"
