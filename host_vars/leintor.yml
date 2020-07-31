@@ -5,3 +5,19 @@ apinger_targets2:
   ips:
     - 2a02:790::1
 
+servername: leintor
+en: 3
+
+networkd_configures:
+- iface: eth0
+  addresses:
+    - 81.3.6.94/29
+    - 2a02:790:1:ff::1001/64
+  gateway4: 81.3.6.89
+  gateway6: fe80::1
+  dns_server: [81.3.3.81, 8.8.8.8]
+- iface: lo
+  addresses:
+    - 100.100.0.1/32 # anycast for ping tests
+
+babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
