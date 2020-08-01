@@ -5,7 +5,6 @@ TLSConnect=psk
 TLSAccept=psk
 TLSPSKFile=/etc/zabbix/zabbix_agentd.d/secret.psk
 TLSPSKIdentity={{ zabbix_agent_psk_id | default("none") }}
-UserParameter=dhcpd.all.used,dhcpd-pools -f j | jq ".summary.used"
 UserParameter=fastd.version,/usr/bin/fastd --version
 UserParameter=fastd.peers[*],/usr/bin/ffh_peer_counter.sh $1
 UserParameter=ff.defaultrouter,ip r s t 42 | grep 'default via' | cut -d. -f 2
