@@ -12,7 +12,7 @@
 }
 
 
-domain (ip) {
+domain (ip ip6) {
   table nat {
     chain POSTROUTING {
 # WE PREFER SNAT HERE TO SET IP EXPLICITLY (needed on sn01)
@@ -42,20 +42,14 @@ domain (ip) {
       &PRIV_NET_DEST_ONLY(224.0.0.0/4);
       &PRIV_NET_DEST_ONLY(240.0.0.0/4);
 
+      # Blocked Ports:
+      proto tcp dport 25 REJECT reject-with icmp-admin-prohibited;
+      proto tcp sport 25 REJECT reject-with icmp-admin-prohibited;
+
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
 
       outerface $DEV_EXIT interface $DEV_EXIT DROP;
       outerface $DEV_EXIT ACCEPT;
-    }
-  }
-}
-
-domain (ip ip6) {
-  table filter {
-    chain FORWARD {
-
-      ACCEPT;
-
     }
   }
 }
