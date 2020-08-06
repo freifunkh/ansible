@@ -49,7 +49,7 @@ domain (ip ip6) {
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
 
       outerface $DEV_EXIT interface $DEV_EXIT DROP;
-      outerface $DEV_EXIT ACCEPT;
+      ACCEPT;
     }
   }
 }
