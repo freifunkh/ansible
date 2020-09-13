@@ -46,7 +46,31 @@ domain (ip ip6) {
       proto tcp dport 25 REJECT reject-with icmp-admin-prohibited;
       proto tcp sport 25 REJECT reject-with icmp-admin-prohibited;
 
-      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+    }
+  }
+}
+
+domain (ip) {
+  table filter {
+    chain FORWARD {
+
+      # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
+      # 1394 (fastd mtu) - 32 (batman header) - 20 (ipv4 header) - 20 (tcp header) = 1322
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1322;
+
+      outerface $DEV_EXIT interface $DEV_EXIT DROP;
+      ACCEPT;
+    }
+  }
+}
+
+domain (ip6) {
+  table filter {
+    chain FORWARD {
+
+      # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
+      # 1394 (fastd mtu) - 32 (batman header) - 40 (ipv6 header) - 20 (tcp header) = 1302
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1302;
 
       outerface $DEV_EXIT interface $DEV_EXIT DROP;
       ACCEPT;

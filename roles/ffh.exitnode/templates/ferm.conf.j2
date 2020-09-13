@@ -45,7 +45,10 @@ domain (ip) {
       &PRIV_NET(224.0.0.0/4);
       &PRIV_NET(240.0.0.0/4);
 
-      outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+      # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
+      # 1394 (fastd mtu) - 32 (batman header) - 20 (ipv4 header) - 20 (tcp header) = 1322
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1322;
+
       outerface eth0 interface eth0 DROP;
       ACCEPT;
     }
@@ -65,7 +68,10 @@ domain (ip6) {
       &PRIV_NET(fec0::/10);
       &PRIV_NET(ff00::/8);
 
-      outerface eth0 proto tcp tcp-flags (SYN RST) SYN TCPMSS clamp-mss-to-pmtu;
+      # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
+      # 1394 (fastd mtu) - 32 (batman header) - 40 (ipv6 header) - 20 (tcp header) = 1302
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1302;
+
       outerface eth0 interface eth0 DROP;
       ACCEPT;
     }
