@@ -1,0 +1,51 @@
+---
+
+- name: Create nodesTk directory
+  file:
+    path: /opt/nodesTk
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Clone nodesTk
+  become: yes
+  become_user: www-data
+  git:
+    repo: "https://github.com/freifunkh/nodesTk.git"
+    dest: /opt/nodesTk
+
+- name: Create burginfo directory
+  file:
+    path: /opt/burginfo
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Clone burginfo
+  become: yes
+  become_user: www-data
+  git:
+    repo: "https://github.com/freifunkh/burginfo.git"
+    dest: /opt/burginfo
+
+- name: Shitty symlink
+  become: yes
+  become_user: www-data
+  file:
+    src: "/opt/nodesTk/nodesTk/nodesTk.py"
+    dest: "/opt/burginfo/nodesTk.py"
+    state: link
+
+- name: Copy config
+  become: yes
+  become_user: www-data
+  copy:
+    src: "files/config.json"
+    dest: "/opt/burginfo/"
+
+- name: Make cronjob
+  become: yes
+  become_user: www-data
+  cron:
+    name: "update burginfo"
+    job: "cd /opt/burginfo && ./burginfo.py"

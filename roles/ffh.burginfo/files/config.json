@@ -1,0 +1,6 @@
+{
+    "known_hosts": ["0018714dc817", "444e6d11a051", "f0b0144bc43a"],
+    "nodes_json": "https://hannover.freifunk.net/api/nodes.json",
+    "graph_json": "https://hannover.freifunk.net/api/graph.json",
+    "output": "/var/www/web/api/burg.json"
+}
