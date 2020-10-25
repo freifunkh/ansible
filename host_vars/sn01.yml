@@ -49,5 +49,5 @@ babeld_interface_penalty:
 
 legacy_dom0: true
 radv_announce_default: false
-exit_ip: 185.197.132.141
+exit_ip: 45.12.203.12
 fix_netifnames: true
