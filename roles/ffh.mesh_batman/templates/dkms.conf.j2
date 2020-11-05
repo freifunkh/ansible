@@ -3,7 +3,12 @@ PACKAGE_VERSION={{ batman_build_version }}
 
 DEST_MODULE_LOCATION=/extra
 BUILT_MODULE_NAME=batman-adv
+{% if batman_build_version == "v2018.4" %}
 BUILT_MODULE_LOCATION=build/net/batman-adv/
+{% else %}
+BUILT_MODULE_LOCATION=net/batman-adv/
+{% endif %}
+
 
 MAKE="'make' all"
 CLEAN="'make' clean"

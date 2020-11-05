@@ -25,9 +25,9 @@
   set_fact: 
     batman_in_dkms: "{{ dkmsstatus.stdout_lines | first | default('nobatman') }}"
 
-- name: Remove from dkms
-  command: "dkms remove batman-adv/{{ batman_build_version }} --all"
-  when: batman_in_dkms is not match("nobatman")
+#- name: Remove from dkms
+#  command: "dkms remove batman-adv/{{ batman_build_version }} --all"
+#  when: batman_in_dkms is not match("nobatman")
 
 - name: Reset batman
   command: "git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}"
@@ -68,6 +68,29 @@
   register: installedversion
   command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
   when: batman_version_status is not search("installed")
+
+- name: Install dev dependencies of batctl
+  apt:
+    pkg:
+      - libnl-3-dev
+      - libnl-genl-3-dev
+
+- name: Clone batctl sources
+  git:
+    repo: https://git.open-mesh.org/batctl.git
+    dest: /usr/src/batctl-{{ batman_build_version }}/
+    version: "{{ batman_build_version }}"
+
+- name: Reset batctl
+  command: "git -C /usr/src/batctl-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}"
+
+- name: Build and install batctl
+  shell: "cd /usr/src/batctl-{{ batman_build_version }}/ && make && make install"
+
+- name: Remove legagy batctl
+  apt:
+    name: batctl
+    state: absent
 
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again

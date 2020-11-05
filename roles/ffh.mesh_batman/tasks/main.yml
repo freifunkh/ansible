@@ -11,6 +11,7 @@
 
 - name: Install batctl
   apt: name=batctl
+  when: not batman_build_from_source
 
 - name: Install autostart batman_adv on boot
   lineinfile: dest=/etc/modules line=batman_adv
