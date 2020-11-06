@@ -35,6 +35,10 @@ supernodes:
     sn08:
     sn09:
     sn10:
+ 
+superexitnodes:
+  hosts:
+    sn01:
 
 exitnodes:
   hosts:

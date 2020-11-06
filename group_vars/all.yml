@@ -7,6 +7,8 @@ exitnodes:
   # clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
   # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
   # bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
+superexitnodes:
+  sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
 supernodes:
   sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
   # sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}" }
@@ -153,3 +155,7 @@ apinger_targets:
   ips:
   - 193.99.144.80
   - "2a02:2e0:3fe:1001:302::"
+# defaults
+is_supernode: false
+is_exitnode: false
+is_superexitnode: false
