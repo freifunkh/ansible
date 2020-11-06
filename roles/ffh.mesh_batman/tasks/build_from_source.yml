@@ -92,6 +92,9 @@
     name: batctl
     state: absent
 
+- name: Link to binary old location to new location
+  shell: ln -s /usr/local/sbin/batctl /usr/sbin/batctl
+
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
   modprobe: name=batman_adv state=absent

@@ -1,29 +1,24 @@
 #!/bin/sh
 
-GW_MODE=/sys/class/net/bat%/mesh/gw_mode
-GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
+# DEPRECATED in batman v2020.4
+#GW_MODE=/sys/class/net/bat%/mesh/gw_mode
+#GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
-	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
-		[ -f $(echo $GW_MODE | sed "s_%_${i}_") ] || continue
-		echo off > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: off"
-	done
+	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X batctl meshif batX gw off
 	systemctl stop dhcpd
 }
 
 on() {
-	for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
-		[ -f $(echo $GW_MODE | sed "s_%_${i}_") ] || continue
-		echo server > $(echo $GW_MODE | sed "s_%_${i}_") || logger -p local3.error "batman gw mode failed: server"
-	done
+	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X batctl meshif batX gw server
 	systemctl start dhcpd
 }
 
-# ensure that we announce the highest bandwidth
-for i in {% if legacy_dom0 == true %}0 {% endif %}{% for d in domains | default( [] ) %}{{ d.id }} {% endfor %}; do
-	[ -f $(echo $GW_BANDWIDTH | sed "s_%_${i}_") ] || continue
-	echo "96MBit/96MBit" > $(echo $GW_BANDWIDTH | sed "s_%_${i}_")
-done
+## ensure that we announce the highest bandwidth
+#for i in 0 10 11 12 13 14 15 16 17 18 19 20 21 22 23 99 ; do
+#	[ -f $(echo $GW_BANDWIDTH | sed "s_%_${i}_") ] || continue
+#	echo "96MBit/96MBit" > $(echo $GW_BANDWIDTH | sed "s_%_${i}_")
+#done
 
 if [ "$1" = '--force-off' ]; then
 	off
