@@ -76,3 +76,10 @@ nginx_sites:
       type: proxy
       proxy_forward_url: http://localhost:3000/
       allow_connection_upgrade: true
+- domain: keepitup.ffh.zone
+  tls: true
+  tls_redirect_to_https: true
+  locations:
+    - location: /
+      type: proxy
+      proxy_forward_url: http://localhost:8132/
