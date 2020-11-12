@@ -3,7 +3,7 @@ Name=bat0
 
 [Network]
 Address=10.2.{{ sn }}0.1/16
-Address=2a02:790:ff:{{ sn }}::{{ "%x" | format(sn) }}001/64
+Address={{ mesh_prefix }}:{{ sn }}::{{ "%x" | format(sn) }}001/64
 Address=fdca:ffee:8::{{ "%x" | format(sn) }}001/64
 IPv6AcceptRouterAdvertisements=false
 
@@ -22,6 +22,6 @@ Table=42
 Destination=fdca:ffee:8::/64
 Table=42
 [Route]
-Destination=2a02:790:ff:{{sn}}::/64
+Destination={{ mesh_prefix }}:{{sn}}::/64
 Table=42
 
