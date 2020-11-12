@@ -17,13 +17,14 @@ server:
 
 {% for domain in domains | default( [] ) %}
   interface: fdca:ffee:8:{{ domain.id }}::{{ "%x" | format(sn) }}001
-  interface: 2a02:790:ff:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001
+  interface: {{ mesh_prefix }}:{{ sn }}{{ domain.id }}::{{ "%x" | format(sn) }}001
   interface: 10.{{ domain.id }}.{{ sn * 10 }}.1
 {% endfor %}
 
   access-control: 10.0.0.0/8 allow
   access-control: fdca:ffee:8::/48 allow
   access-control: 2a02:790:ff::/48 allow
+  access-control: 2001:678:978::/48 allow
 
   private-domain: ffh.zone.
   private-address: fdca:ffee:8::/48
