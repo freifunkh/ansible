@@ -17,6 +17,7 @@
       register: pre_result
       changed_when: pre_result.stdout.find('nothing to commit') == -1
       tags: [always]
+      check_mode: no
   roles:
     # General
     - { name: ffh.devname, tags: devname }
@@ -52,6 +53,7 @@
       register: post_result
       changed_when: post_result.stdout.find('nothing to commit') == -1
       tags: [always]
+      check_mode: no
 
   vars_files:
     - ../secrets.yml
@@ -74,6 +76,7 @@
       register: pre_result
       changed_when: pre_result.stdout.find('nothing to commit') == -1
       tags: [always]
+      check_mode: no
   roles:
     - { name: ffh.superexitnode, tags: superexitnode }
   post_tasks:
@@ -82,3 +85,4 @@
       register: post_result
       changed_when: post_result.stdout.find('nothing to commit') == -1
       tags: [always]
+      check_mode: no
