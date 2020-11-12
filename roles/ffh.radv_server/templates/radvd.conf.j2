@@ -10,7 +10,7 @@ interface bat0
  MaxRtrAdvInterval 60;
  AdvRASolicitedUnicast on;
 
- prefix 2a02:790:ff:{{ sn }}::/64 {
+ prefix {{ mesh_prefix }}:{{ sn }}::/64 {
    AdvValidLifetime 300;
    AdvPreferredLifetime 150;
  };
@@ -39,7 +39,7 @@ interface bat{{ domain.id }}
  MaxRtrAdvInterval 60;
  AdvRASolicitedUnicast on;
 
- prefix 2a02:790:ff:{{ sn }}{{ domain.id }}::/64 {
+ prefix {{ mesh_prefix }}:{{ sn }}{{ domain.id }}::/64 {
    AdvValidLifetime 300;
    AdvPreferredLifetime 150;
  };
