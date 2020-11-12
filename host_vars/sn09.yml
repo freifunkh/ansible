@@ -13,6 +13,8 @@ networkd_configures:
   no_radv_accept: true
   dns_server: [81.3.3.81, 83.246.106.204]
 
+mesh_prefix: "2a02:790:ff"
+
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
   gre-aegidientor: 666

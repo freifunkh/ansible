@@ -12,6 +12,8 @@ networkd_configures:
   dhcp: true
   dns_server: [9.9.9.9, 1.1.1.1]
 
+mesh_prefix: "2a02:790:ff"
+
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
   gre-aegidientor: 666

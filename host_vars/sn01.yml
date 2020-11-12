@@ -13,6 +13,7 @@ networkd_configures:
     - 45.12.203.11/29
     - 45.12.203.12/29
     - 2001:678:978:ff01::2/64
+  gateway6: 2001:678:978:ff01::1
   static_routes:
     - gw: 100.120.0.1
       dest: 0.0.0.0/0
@@ -21,9 +22,6 @@ networkd_configures:
       dest: 0.0.0.0/0
       pref_src: 185.197.132.141
       table: 42
-    - gw: 2001:678:978:ff01::1
-      dest: "::/0"
-      pref_src: 2001:678:978:ff01::2
     - gw: 2001:678:978:ff01::1
       dest: "::/0"
       pref_src: 2001:678:978:ff01::2
@@ -38,6 +36,8 @@ networkd_configures:
    - 100.121.0.2/24
   no_radv_accept: true
 
+mesh_prefix: "2001:678:978"
+
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
   gre-aegidientor: 666
@@ -48,6 +48,6 @@ babeld_interface_penalty:
   gre-bruehltor: 100
 
 legacy_dom0: true
-radv_announce_default: false
+radv_announce_default: true
 exit_ip: 45.12.203.12
 fix_netifnames: true
