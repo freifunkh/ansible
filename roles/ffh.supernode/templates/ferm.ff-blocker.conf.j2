@@ -1,7 +1,8 @@
 domain (ip6) {
   table filter {
     chain INPUT {
-       saddr 2a02:790:ff::/48 proto udp dport 10000:10100 DROP; 
+       saddr 2a02:790:ff::/48 proto udp dport 10000:10100 DROP;
+       saddr 2001:678:978::/48 proto udp dport 10000:10100 DROP;
     }
   }
 }
