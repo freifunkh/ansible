@@ -11,6 +11,7 @@
   register: ssmtp_check_deb
   failed_when: ssmtp_check_deb.rc > 1
   changed_when: ssmtp_check_deb.rc == 1
+  check_mode: no
 
 - name: "Sideload ssmtp if necessary"
   when: ssmtp_check_deb.rc == 1

@@ -20,6 +20,7 @@
   register: dkmsstatus
   command: "dkms status -m batman-adv"
   changed_when: false
+  check_mode: no
 
 - name: Get dkms status for batman-adv
   set_fact: 
@@ -53,6 +54,7 @@
   register: dkmsstatus
   command: "dkms status -m batman-adv -v {{ batman_build_version }}"
   changed_when: false
+  check_mode: no
 
 - name: Get dkms status for batman-adv version {{ batman_build_version }}
   set_fact: 
