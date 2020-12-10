@@ -6,6 +6,12 @@
     dest: /etc/fastd/peers
     owner: auto
 
+- name: Create the peers' activity directory
+  file:
+    state: directory
+    dest: /var/fastd_peers
+    owner: auto
+
 - name: Clone the peers git
   become: yes
   become_user: auto
@@ -29,6 +35,22 @@
       /etc/fastd/peers
       && (sudo /usr/bin/killall -HUP fastd
       || echo "Reload of mesh_fastd instance failed")
+
+- name: Install crontab for peer activity monitoring
+  cron:
+    name: "saves last access time of a peer"
+    user: auto
+    minute: "23"
+    hour: "*/11"
+    job: |
+      /bin/bash -c ' \
+      for i in $(for j in $(for k in /var/run/*.sock; \
+                                do echo $k; \
+                            done | grep "/var/run/fastd";); \
+                     do nc -U "$j" | jq -r ".peers[] | select(.connection != null) | .name"; \
+                 done;); \
+          do touch "/var/fastd_peers/$i"; \
+      done;'
 
 - name: dom0 peers config
   include_tasks: dom0.yml
