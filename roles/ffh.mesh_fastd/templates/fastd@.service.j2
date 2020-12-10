@@ -14,7 +14,7 @@ PartOf=fastd.service
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/fastd --syslog-level info --syslog-ident fastd@%I -c /etc/fastd/%I/fastd.conf
+ExecStart=/usr/bin/fastd --syslog-level info --syslog-ident fastd@%I -c /etc/fastd/%I/fastd.conf --status-socket /tmp/fastd%I.sock
 ExecReload=/bin/kill -HUP $MAINPID
 
 [Install]
