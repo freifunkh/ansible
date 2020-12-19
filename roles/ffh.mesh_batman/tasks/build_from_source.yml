@@ -95,7 +95,10 @@
     state: absent
 
 - name: Link to binary old location to new location
-  shell: ln -s /usr/local/sbin/batctl /usr/sbin/batctl
+  file:
+    src: /usr/local/sbin/batctl
+    dest: /usr/sbin/batctl
+    state: link
 
 - name: Unload batman_adv module when installed version has changed
   # The module will be loaded by "Load batman_adv module" again
