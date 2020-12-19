@@ -89,7 +89,7 @@
 - name: Build and install batctl
   shell: "cd /usr/src/batctl-{{ batman_build_version }}/ && make && make install"
 
-- name: Remove legagy batctl
+- name: Remove legacy batctl
   apt:
     name: batctl
     state: absent
