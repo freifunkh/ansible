@@ -56,3 +56,10 @@
   with_fileglob:
     - "files/bin/*"
 
+- name: ensure some basic locales
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - de_DE.UTF-8
+    - en_GB.UTF-8
