@@ -9,6 +9,7 @@
     - dkms
     - git
     - linux-headers-amd64
+    - pkg-config
 
 - name: Clone batman sources
   git:
