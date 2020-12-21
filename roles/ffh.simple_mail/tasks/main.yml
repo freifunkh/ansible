@@ -16,6 +16,12 @@
 - name: "Sideload ssmtp if necessary"
   when: ssmtp_check_deb.rc == 1
   block:
+  - name: "Purge MTAs other than ssmtp"
+    apt:
+      state: "absent"
+      pkg:
+      - "postfix"
+      - "exim4"
   - name: "Download ssmtp"
     get_url: 
       url: "http://ftp.de.debian.org/debian/pool/main/s/ssmtp/ssmtp_2.64-8+b2_amd64.deb"
