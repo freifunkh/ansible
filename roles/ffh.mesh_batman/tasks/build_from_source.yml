@@ -67,6 +67,10 @@
   command: "dkms add -m batman-adv -v {{ batman_build_version }}"
   when: batman_version_status is match("noversion")
 
+- name: Build version {{ batman_build_version }} using dkms
+  command: "dkms build -m batman-adv -v {{ batman_build_version }}"
+  when: batman_version_status is not search("installed")
+
 - name: Install version {{ batman_build_version }} using dkms
   register: installedversion
   command: "dkms install --force -m batman-adv -v {{ batman_build_version }}"
