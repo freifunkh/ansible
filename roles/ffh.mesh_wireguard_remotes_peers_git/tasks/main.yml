@@ -1,0 +1,44 @@
+---
+
+- name: Allow other users to read /etc/wireguard
+  file:
+    dest: /etc/wireguard
+    state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Create the peers directory
+  file:
+    state: directory
+    dest: /etc/wireguard/peers-wg
+    owner: auto
+
+- name: Clone the peers git
+  become: yes
+  become_user: auto
+  git:
+    repo: "{{ git_addr }}/peers-wg"
+    dest: /etc/wireguard/peers-wg
+    accept_hostkey: true
+
+- name: Install autoupdate peer script
+  template:
+    src: autoupdate_wg.py.j2
+    dest: /home/auto/autoupdate_wg.py
+    mode: 744
+    owner: auto
+    group: auto
+
+- name: Allow reloading the wireguard instance for user auto
+  template:
+    src: user-auto-reload-wireguard
+    dest: /etc/sudoers.d/user-auto-reload-wireguard
+
+- name: Install crontab for autoupdate
+  cron:
+    name: "autoupdate wireguard peers from git"
+    user: auto
+    minute: "*/1"
+    job: >
+      sudo /home/auto/autoupdate_wg.py > /dev/null 2>&1
