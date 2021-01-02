@@ -1,0 +1,2 @@
+Cmnd_Alias RELOAD_WG_CMD = /home/auto/autoupdate_wg.py
+%auto ALL=(ALL) NOPASSWD: RELOAD_WG_CMD

@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+import os
+import re
+import subprocess
+from calc import calc_ll
+from pyroute2 import WireGuard
+
+wgintf_base="wgtest-"
+
+REPO="/etc/wireguard/peers-wg"
+wg_domains=[{{ domains | map(attribute='id') | join(', '|safe) }}]
+
+regex = r"peer: ([a-zA-Z0-9+\/]{43}=)"
+
+def pull_repo(repo):
+    s = subprocess.check_output(["git", "-C", REPO, "pull"])
+    print("s = " + s.decode('utf8'))
+
+def read_repo_keys():
+    repokeys=[]
+    directory = os.fsencode(REPO)
+
+    for file in os.scandir(directory):
+        if file.is_file():
+            filename = os.fsdecode(file)
+            with open(filename) as keyfile:
+                repokeys.append(keyfile.readline().strip())
+    return repokeys
+
+def read_interface_keys(intf):
+    ignore_dummy_key="0"*43+"="
+
+    found_keys=[]
+    s = subprocess.check_output(["wg", "show", intf])
+
+    matches = re.finditer(regex, s.decode('utf8'), re.MULTILINE)
+
+    for match in matches:
+        found_keys.append(match.group(1))
+
+    try:
+        found_keys.remove(ignore_dummy_key)
+    except:
+        print("Warning: iface {} did not contain dummy key.".format(intf))
+
+    return found_keys
+
+def create_diff(repo_peers, iface_peers, iface):
+    to_remove=[]
+    s_repo_peers=set(repo_peers)
+    s_iface_peers=set(iface_peers)
+
+    if len(s_repo_peers) < len(repo_peers):
+        print("Warning: duplicate keys in repo")
+    if len(s_iface_peers) < len(iface_peers):
+        print("Warning: duplicate keys in iface {}".format(iface))
+
+    to_add=s_repo_peers-s_iface_peers
+    to_remove=s_iface_peers-s_repo_peers
+
+    print("Info: {} keys to add, {} keys to remove from {}.".format(len(to_add), len(to_remove), iface))
+    return to_add, to_remove
+
+def wg_modify_peer(pubkey, iface, remove=False):
+    # this could become global
+    wg = WireGuard()
+    if remove:
+        peer = {'public_key': pubkey,
+                'remove': True}
+        wg.set(iface, peer=peer)
+    else:
+        allowed=calc_ll(pubkey)
+        peer = {'public_key': pubkey,
+                'persistent_keepalive': 25,
+                'allowed_ips': [allowed]}
+        wg.set(iface, peer=peer)
+        print("Info: Added key to {}.".format(iface))
+
+
+if "__main__" == __name__:
+    pull_repo( REPO )
+
+    l_repo_keys=read_repo_keys()
+    for dom in wg_domains:
+        iface="{}{}".format(wgintf_base, dom)
+        l_iface_keys=read_interface_keys(iface)
+        a, r = create_diff(l_repo_keys, l_iface_keys, iface)
+        for key in a:
+            wg_modify_peer(key, iface)
+        for key in r:
+            wg_modify_peer(key, iface, remove=True)
+
