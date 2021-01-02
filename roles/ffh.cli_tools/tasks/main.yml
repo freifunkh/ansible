@@ -42,6 +42,11 @@
     path: /root/.bashrc
     line: 'alias dr="ip r s t 0 | grep \"default via\" && ip -6 r s t 0 | grep \"default via\""'
 
+- name: Set ll alias
+  lineinfile:
+    path: /root/.bashrc
+    line: 'alias ll="ls -al --color"'
+
 - name: Set traceraute alias
   lineinfile:
     path: /root/.bashrc
