@@ -6,6 +6,9 @@
     update_cache: yes
     cache_valid_time: 3600
 
+- name: Install helpers
+  include_tasks: helper.yml
+
 #- name: Generate secret if necessary
 #  include_tasks: secret.yml
 #
