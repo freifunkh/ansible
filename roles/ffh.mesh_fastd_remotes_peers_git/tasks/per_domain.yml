@@ -1,12 +1,9 @@
 - name: Enable peers-git remotes in fastd (dom {{ domain.id }})
   notify: Restart mesh_fastd
-  blockinfile:
+  template:
+    src: "remotes.conf.j2"
     dest: /etc/fastd/mesh_fastd_{{ domain.id }}/remotes.conf
-    marker: "# {mark} PEERS GIT (ANSIBLE)"
-    content: |
-     peer group "peers-grp" {
-        include peers from "peers";
-      }
+    mode: "0644"
 
 - name: Generate peers symlink
   file:
