@@ -27,7 +27,7 @@ all:
       ansible_host: 94.130.213.34
       ansible_port: 22
     pve-ffnw:
-      ansible_host: sn01.maint.ffh.zone
+      ansible_host: 45.12.203.1
 
 supernodes:
   hosts:
