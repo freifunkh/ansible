@@ -2,12 +2,12 @@
 
 - name: Create directory for wireguard helpers
   file:
-    path: /opt/wireguard_helper
+    path: "{{ wg_helper_dir }}"
     state: directory
 
 - name: Install vx.py
   template:
-    dest: "/opt/wireguard_helper/vx.py"
+    dest: "{{ wg_helper_dir }}/vx.py"
     src: "vx.py.j2"
     mode: "u=rwx,g=rx,o=rx"
 
