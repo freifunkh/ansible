@@ -51,6 +51,13 @@
     src: "etc/"
     dest: "/etc/"
 
+- name: Deploy additional configurataion files in /usr/bin
+  notify: reload zabbix-agent
+  copy:
+    src: "usr/bin/"
+    dest: "/usr/bin"
+    mode: 0755
+
 - name: Set x attribute on /etc/zabbix/bin/
   command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
 
@@ -61,7 +68,7 @@
     dest: "/etc/zabbix/zabbix_agentd.d/secret.psk"
     owner: "zabbix"
     group: "zabbix"
-    mode: "0640"
+    mode: "0755"
 
 - name: Enable and start zabbix-agent
   systemd:
