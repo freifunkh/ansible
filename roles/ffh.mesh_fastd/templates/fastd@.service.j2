@@ -10,7 +10,6 @@ After=sys-subsystem-net-devices-mesh_fastd.device
 After=sys-subsystem-net-devices-mesh_fastd_{{ domain.id }}.device
 # Requires=sys-subsystem-net-devices-mesh_fastd_{{ domain.id }}.device
 {% endfor %}
-PartOf=fastd.service
 
 [Service]
 Type=notify
