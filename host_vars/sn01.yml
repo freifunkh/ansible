@@ -24,7 +24,6 @@ networkd_configures:
       table: 42
     - gw: 2001:678:978:ff01::1
       dest: "::/0"
-      pref_src: 2001:678:978:ff01::2
       table: 42
 
 
