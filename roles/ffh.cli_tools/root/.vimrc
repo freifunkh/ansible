@@ -1,1 +1,2 @@
 set mouse=
+syntax on
