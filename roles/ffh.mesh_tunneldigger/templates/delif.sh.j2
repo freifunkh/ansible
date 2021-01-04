@@ -1,0 +1,7 @@
+#!/bin/bash
+TEMPFILE=/tmp/tunneldigger_peers_dom{{ domain.id }}.cnt
+touch $TEMPFILE
+echo $[$(cat $TEMPFILE) - 1] > $TEMPFILE
+
+INTERFACE="$3"
+brctl delif br-l2tp{{ domain.id }} $INTERFACE

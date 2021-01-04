@@ -1,0 +1,61 @@
+[broker]
+; IP address the broker will listen and accept tunnels on
+address={{ ansible_eth0.ipv4.address }}
+
+; Interface with that IP address
+interface=eth0
+
+; Ports where the broker will listen on
+port={{ 11000 + domain.id | int }}
+
+; Maximum number of tunnels that will be allowed by the broker
+max_tunnels={{ mesh_tunneldigger_peerlimit }}
+
+; Tunnel id base
+tunnel_id_base={{ domain.id }}000
+
+; Namespace (for running multiple brokers); note that you must also
+; configure disjunct ports, and tunnel identifiers in order for
+; namespacing to work
+namespace=l2tp_dom{{ domain.id }}
+
+; check if all kernel modules are loaded. Do not check for built-ins.
+check_modules=true
+
+max_cookies=100
+
+pmtu={{ mesh_tunneldigger_pmtu }}
+
+connection_rate_limit={{ mesh_tunneldigger_conn_rate_limit }}
+
+[log]
+; Log filename
+filename=/var/log/tunneldigger_dom{{ domain.id }}.log
+
+; Verbosity
+verbosity=DEBUG
+
+; Should IP addresses be logged or not
+log_ip_addresses=false
+
+[hooks]
+; Arguments to the session.{up,pre-down,down} hooks are as follows:
+;
+;    <tunnel_id> <session_id> <interface> <mtu> <endpoint_ip> <endpoint_port> <local_port>
+;
+; Arguments to the session.mtu-changed hook are as follows:
+;
+;    <tunnel_id> <session_id> <interface> <old_mtu> <new_mtu>
+;
+
+; Called after the tunnel interface goes up
+session.up=/srv/tunneldigger/scripts/addif_dom{{ domain.id }}.sh
+
+; Called just before the tunnel interface goes down
+session.pre-down=/srv/tunneldigger/scripts/delif_dom{{ domain.id }}.sh
+
+; Called after the tunnel interface goes down
+session.down=
+
+; Called after the tunnel MTU gets changed because of PMTU discovery
+session.mtu-changed=

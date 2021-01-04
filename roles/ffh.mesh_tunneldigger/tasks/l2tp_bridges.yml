@@ -1,0 +1,46 @@
+# IT IS VERY IMPORTANT TO RELOAD THE FIREWALL BEFORE STARTING THE DEVICES
+# BECAUSE OTHERWISE THE BRIDGE FORWARDING WILL CAUSE PACKET STORMS
+- name: Prohibit forwarding on the L2TP bridges
+  notify: reload ferm
+  template:
+    src: ferm.bridge.conf.j2
+    dest: /etc/ferm/conf.d/10-br-l2tp-noforward.conf
+
+- name: Already restart ferm here
+  meta: flush_handlers
+
+- name: Create L2TP bridges per domain in networkd
+  notify: Restart networkd
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  template:
+    src: l2tp-bridge.j2
+    dest: /etc/systemd/network/40-br-l2tp{{ domain.id }}.netdev
+
+- name: Create br-l2tp* network
+  notify: Restart networkd
+  template:
+    src: l2tp-bridge-network.j2
+    dest: /etc/systemd/network/40-br-l2tp.network
+
+- name: Create systemd service to add br-l2tp* devices into bat*
+  template:
+    src: addbrl2tptobatX@.service.j2
+    dest: /etc/systemd/system/addbrl2tptobatX@.service
+
+- name: Systemd daemon-reload
+  command: systemctl daemon-reload
+
+- name: Enable systemd services
+  command: systemctl enable addbrl2tptobatX@{{ item.id }}
+  with_items:
+    - "{{ domains }}"
+
+- name: Restart networkd
+  command: systemctl restart systemd-networkd
+
+- name: Start systemd services
+  command: systemctl start addbrl2tptobatX@{{ item.id }}.service
+  with_items:
+    - "{{ domains }}"

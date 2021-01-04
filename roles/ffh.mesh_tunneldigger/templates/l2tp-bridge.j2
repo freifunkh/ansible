@@ -1,0 +1,5 @@
+[NetDev]
+Name=br-l2tp{{ domain.id }}
+Kind=bridge
+MTUBytes={{ mesh_tunneldigger_bridge_mtu }}
+MACAddress=02:c0:de:fe:{{ '%02d' % sn | int }}:{{ '%02d' % domain.id | int }}

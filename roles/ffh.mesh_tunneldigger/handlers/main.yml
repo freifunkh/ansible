@@ -1,0 +1,8 @@
+- name: Restart domain tunneldiggers
+  service: name=tunneldigger@dom{{ item.id }} state=restarted
+  with_items: "{{ domains }}"
+  when: domains is defined and sn is defined
+
+- name: Load kernel modules
+  shell: /etc/init.d/kmod start || true
+  when: domains is defined and sn is defined

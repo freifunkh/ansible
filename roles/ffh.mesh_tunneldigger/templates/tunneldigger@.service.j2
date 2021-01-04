@@ -1,0 +1,17 @@
+[Unit]
+Description=Tunneldigger L2TPv3 broker (%I)
+After=network.target auditd.service
+{% for domain in domains %}
+After=sys-subsystem-net-devices-br\x2dl2tp{{ domain.id }}.device
+# Requires=sys-subsystem-net-devices-br\x2dl2tp{{ domain.id }}.device
+{% endfor %}
+
+[Service]
+Type=simple
+KillMode=process
+Restart=on-failure
+ExecStart=/srv/tunneldigger/tunneldigger_env/bin/python -m tunneldigger_broker.main /srv/tunneldigger/conf/%I.cfg
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,33 @@
+- name: Install tunneldigger
+  include_tasks: install_tunneldigger.yml
+  when: domains is defined and sn is defined
+
+- name: Setup L2TP bridges
+  include_tasks: l2tp_bridges.yml
+  when: domains is defined and sn is defined
+
+- name: Enable all tunneldigger instances
+  service: name="tunneldigger@dom{{ item.id }}.service" enabled=yes
+  with_items: "{{ domains }}"
+  when: domains is defined and sn is defined
+
+- name: Deploy tunneldigger.cfg
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  template: src="tunneldigger.cfg.j2" dest="/srv/tunneldigger/conf/dom{{ domain.id }}.cfg"
+  notify: Restart domain tunneldiggers
+  when: domains is defined and sn is defined
+
+- name: Reread networkd config for new l2tp devices
+  systemd:
+    name: systemd-networkd
+    state: restarted
+  when: domains is defined and sn is defined
+
+- name: Open up ports for L2TP
+  notify: reload ferm
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-mesh_l2tp.conf
+  when: domains is defined and sn is defined

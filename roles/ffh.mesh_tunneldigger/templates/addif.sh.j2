@@ -1,0 +1,20 @@
+#!/bin/bash
+if grep -Fq "$8" "/srv/tunneldigger/scripts/blacklist.cfg"
+then
+	echo "Node $8 is blacklisted. Access denied."
+	exit 1
+fi
+
+TEMPFILE=/tmp/tunneldigger_peers_dom{{ domain.id }}.cnt
+touch $TEMPFILE
+PEERCNT=$[$(cat $TEMPFILE) + 1]
+if [ $PEERCNT -gt {{ mesh_tunneldigger_peerlimit }} ]
+then
+	echo "Peer limit reached. Access denied."
+  exit 1
+fi
+echo $PEERCNT > $TEMPFILE
+
+INTERFACE="$3"
+ip link set dev $INTERFACE up mtu {{ mesh_tunneldigger_l2tp_mtu }}
+brctl addif br-l2tp{{ domain.id }} $INTERFACE
