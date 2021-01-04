@@ -3,3 +3,4 @@ Name=wgtest-{{ '%02d' % domain.id | int }}
 
 [Network]
 Address = fe80::1/64
+VXLAN=mesh-vpn-{{ '%02d' % domain.id | int }}

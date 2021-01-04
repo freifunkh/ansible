@@ -1,0 +1,19 @@
+- name: "Generate networkd wg netdev (dom {{ domain.id }})"
+  template:
+    src: wgtest.netdev.j2
+    dest: "/etc/systemd/network/30-wgtest-{{ domain.id }}.netdev"
+
+- name: "Generate networkd wg network (dom {{ domain.id }})"
+  template:
+    src: wgtest.conf.j2
+    dest: "/etc/systemd/network/30-wgtest-{{ domain.id }}.network"
+
+- name: "Generate networkd vxlan netdev (dom {{ domain.id }})"
+  template:
+    src: mesh-vpn.netdev.j2
+    dest: "/etc/systemd/network/30-mesh-vpn-{{ domain.id }}.netdev"
+
+- name: "Generate networkd vxlan network (dom {{ domain.id }})"
+  template:
+    src: mesh-vpn.conf.j2
+    dest: "/etc/systemd/network/30-mesh-vpn-{{ domain.id }}.network"
