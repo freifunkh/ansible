@@ -25,6 +25,9 @@
   loop_control:
     loop_var: domain
   when: domains is defined and sn is defined
+
+- name: setup batctl service
+  include_tasks: batctl.yml
 #
 #- name: Generate config for dom0 (non-supernode)
 #  include_tasks: dom0_non_sn.yml

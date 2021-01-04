@@ -1,0 +1,11 @@
+[Unit]
+After=sys-subsystem-net-devices-mesh\x2dvpn\x2d%i.device
+
+[Service]
+Type=oneshot
+#ExecStart=/bin/sh /usr/bin/wait_for_iface.sh mesh-vpn-%i
+ExecStart=/sbin/ip link show mesh-vpn-%i
+ExecStart=/usr/sbin/batctl -m bat%I if add mesh-vpn-%i
+
+[Install]
+WantedBy=sys-subsystem-net-devices-mesh\x2dvpn\x2d%i.device

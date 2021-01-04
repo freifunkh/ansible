@@ -1,0 +1,22 @@
+---
+
+- name: Create systemd service to add mesh-vpn-* devices into bat*
+  template:
+    src: addtobatX.j2
+    dest: /etc/systemd/system/add-vxwg-to-batX@.service
+
+- name: Systemd daemon-reload
+  command: systemctl daemon-reload
+
+- name: Enable systemd services
+  command: systemctl enable add-vxwg-to-batX@{{ item.id }}
+  with_items:
+    - "{{ domains }}"
+
+- name: Restart networkd
+  command: systemctl restart systemd-networkd
+
+- name: Start systemd services
+  command: systemctl start add-vxwg-to-batX@{{ item.id }}.service
+  with_items:
+    - "{{ domains }}"
