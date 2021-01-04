@@ -61,6 +61,13 @@
   with_fileglob:
     - "files/bin/*"
 
+- name: Install .vimrc
+  copy:
+    src: "root/.vimrc"
+    dest: "/root"
+    owner: "root"
+    mode: 0755
+
 - name: ensure some basic locales
   locale_gen:
     name: "{{ item }}"
