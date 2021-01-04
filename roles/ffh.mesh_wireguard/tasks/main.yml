@@ -19,12 +19,12 @@
 #  include_tasks: dom0.yml
 #  when: legacy_dom0 == true and sn is defined
 #
-#- name: Domain configs (supernode)
-#  include_tasks: per_domain.yml
-#  with_items: "{{domains}}"
-#  loop_control:
-#    loop_var: domain
-#  when: domains is defined and sn is defined
+- name: Domain configs (supernode)
+  include_tasks: per_domain.yml
+  with_items: "{{domains}}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined and sn is defined
 #
 #- name: Generate config for dom0 (non-supernode)
 #  include_tasks: dom0_non_sn.yml
