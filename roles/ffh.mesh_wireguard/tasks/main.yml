@@ -45,6 +45,6 @@
 #    name: systemd-networkd
 #    state: restarted
 #
-#- name: Firewalling mesh_fastd for all domains
-#  include_tasks: ferm.yml
-#
+- name: Firewalling mesh_wireguard for all domains
+  include_tasks: ferm.yml
+
