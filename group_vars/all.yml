@@ -3,12 +3,23 @@ ansible_port: 1337
 exitnodes:
   # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
-  leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}" }
+  leintor:
+    id: 3
+    ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}"
+    ip6: "{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}"
+    exit_ip_ranges:
+    - 2a02:790:ff::/48
+    - 81.3.6.94/32
   # clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
   # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
   # bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
 superexitnodes:
-  sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
+  sn01:
+    id: 1
+    ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}"
+    exit_ip_ranges:
+    - 2001:678:978::/48
+    - 45.12.203.1/24
 supernodes:
   sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
   # sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}" }
@@ -140,7 +151,7 @@ apinger_targets:
   - 10.10.10.1
   - 185.197.132.140
   - fdca:ffee:8:18::1001
-- description: sn09 
+- description: sn09
   ips:
   - 10.10.90.1
   - 81.3.6.92
