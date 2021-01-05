@@ -7,7 +7,7 @@ git clone git@github.com:freifunkh/ansible.git ansible
 cd ansible
 ```
 
-Do not forget to place your secrets.yml into the main dir.
+Obtain the **.vaultpassphrase** from someone in the core team and place it into the main directory.
 
 **deploy all supernodes:**
 ``` shell
