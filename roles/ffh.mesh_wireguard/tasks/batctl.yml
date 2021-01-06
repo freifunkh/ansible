@@ -4,10 +4,12 @@
   template:
     src: addtobatX.j2
     dest: /etc/systemd/system/add-vxwg-to-batX@.service
+  register: addtobatX
 
 - name: Systemd daemon-reload
   systemd:
     daemon_reload: yes
+  when: addtobatX.changed
 
 - name: Enable systemd services
   systemd:
@@ -20,10 +22,13 @@
   systemd:
     state: restarted
     name: systemd-networkd
+  when: addtobatX.changed
+  register: networkd
 
-- name: Start systemd services
+- name: "Start 'attach batctl'systemd oneshot services"
   systemd:
     state: started
     name: add-vxwg-to-batX@{{ item.id }}.service
   with_items:
     - "{{ domains }}"
+  when: networkd.changed
