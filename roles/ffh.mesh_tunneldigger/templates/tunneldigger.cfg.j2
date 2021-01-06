@@ -8,12 +8,14 @@ interface=eth0
 ; Ports where the broker will listen on
 {% set ports = [] %}
 {% for domain in domains %}
-{% if ports.append(mesh_tunneldigger_port_start + (domain.id | int)) %}{% endif %}
+{% if ports.append(mesh_tunneldigger_broker_port_start + (domain.id | int)) %}{% endif %}
 {% endfor %}
 port={{ ports | join(',') }}
 
 ; Maximum number of tunnels that will be allowed by the broker
 max_tunnels={{ mesh_tunneldigger_peerlimit }}
+
+port_base={{ mesh_tunneldigger_tunnel_port_start }}
 
 ; Tunnel id base
 tunnel_id_base=100

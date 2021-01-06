@@ -16,13 +16,7 @@
 
 - name: Deploy tunneldigger.cfg
   template: src="tunneldigger.cfg.j2" dest="/srv/tunneldigger/conf/tunneldigger.cfg"
-  notify: Restart domain tunneldiggers
-  when: domains is defined and sn is defined
-
-- name: Reread networkd config for new l2tp devices
-  systemd:
-    name: systemd-networkd
-    state: restarted
+  notify: Restart tunneldigger
   when: domains is defined and sn is defined
 
 - name: Open up ports for L2TP

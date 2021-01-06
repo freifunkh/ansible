@@ -1,7 +1,9 @@
 ---
 
-mesh_tunneldigger_port_start: 11000
-mesh_tunneldigger_port_count: 100
+mesh_tunneldigger_broker_port_start: 11000
+mesh_tunneldigger_broker_port_count: 99
+mesh_tunneldigger_tunnel_port_start: 11100
+mesh_tunneldigger_tunnel_port_count: 899
 mesh_tunneldigger_peerlimit: 450
 mesh_tunneldigger_peerlimit_domain: 100
 mesh_tunneldigger_pmtu: 1406

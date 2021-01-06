@@ -1,6 +1,6 @@
 #!/bin/bash
 PORT="$9"
-DOM=${PORT#{{ (mesh_tunneldigger_port_start | string)[:-2] }}}
+DOM=${PORT#{{ (mesh_tunneldigger_broker_port_start | string)[:-2] }}}
 
 if grep -Fq "$8" "/srv/tunneldigger/blacklist.cfg"
 then

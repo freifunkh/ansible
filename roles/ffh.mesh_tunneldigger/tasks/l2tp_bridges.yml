@@ -52,7 +52,7 @@
     name: systemd-networkd
   when: l2tpbr.changed or l2tpbrnet.changed or l2tpbrserv.changed
 
-- name: Start systemd services
+- name: Start addbrl2tptobatX@ systemd services
   command: systemctl start addbrl2tptobatX@{{ item.id }}.service
   with_items:
     - "{{ domains }}"

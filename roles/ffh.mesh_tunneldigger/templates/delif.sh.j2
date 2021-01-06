@@ -1,6 +1,6 @@
 #!/bin/bash
 PORT="$9"
-DOM=${PORT#{{ (mesh_tunneldigger_port_start | string)[:-2] }}}
+DOM=${PORT#{{ (mesh_tunneldigger_broker_port_start | string)[:-2] }}}
 
 TEMPFILE={{ mesh_tunneldigger_tmp_file_prefix }}$DOM.cnt
 touch $TEMPFILE
