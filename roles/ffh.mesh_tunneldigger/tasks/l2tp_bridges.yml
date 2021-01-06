@@ -1,3 +1,5 @@
+---
+
 # IT IS VERY IMPORTANT TO RELOAD THE FIREWALL BEFORE STARTING THE DEVICES
 # BECAUSE OTHERWISE THE BRIDGE FORWARDING WILL CAUSE PACKET STORMS
 - name: Prohibit forwarding on the L2TP bridges
@@ -17,28 +19,38 @@
   template:
     src: l2tp-bridge.j2
     dest: /etc/systemd/network/40-br-l2tp{{ domain.id }}.netdev
+  register: l2tpbr
 
 - name: Create br-l2tp* network
   notify: Restart networkd
   template:
     src: l2tp-bridge-network.j2
     dest: /etc/systemd/network/40-br-l2tp.network
+  register: l2tpbrnet
 
 - name: Create systemd service to add br-l2tp* devices into bat*
   template:
     src: addbrl2tptobatX@.service.j2
     dest: /etc/systemd/system/addbrl2tptobatX@.service
+  register: l2tpbrserv
 
 - name: Systemd daemon-reload
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+  when: l2tpbrserv.changed
 
-- name: Enable systemd services
-  command: systemctl enable addbrl2tptobatX@{{ item.id }}
+- name: Enable addbrl2tptobatX@ services
+  systemd:
+    name: addbrl2tptobatX@{{ item.id }}
+    enabled: yes
   with_items:
     - "{{ domains }}"
 
 - name: Restart networkd
-  command: systemctl restart systemd-networkd
+  systemd:
+    state: restarted
+    name: systemd-networkd
+  when: l2tpbr.changed or l2tpbrnet.changed or l2tpbrserv.changed
 
 - name: Start systemd services
   command: systemctl start addbrl2tptobatX@{{ item.id }}.service

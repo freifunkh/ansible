@@ -1,3 +1,5 @@
+---
+
 - name: Install https for apt
   apt:
     update_cache: yes
@@ -63,6 +65,7 @@
   template: src=tunneldigger.service.j2 dest=/etc/systemd/system/tunneldigger.service
   register: servicefile
 
-- name: Reload systemd
-  command: systemctl daemon-reload
-  when: servicefile is changed
+- name: Systemd daemon-reload
+  systemd:
+    daemon_reload: yes
+  when: servicefile.changed

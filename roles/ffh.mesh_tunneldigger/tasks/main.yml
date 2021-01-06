@@ -1,3 +1,5 @@
+---
+
 - name: Install tunneldigger
   include_tasks: install_tunneldigger.yml
   when: domains is defined and sn is defined
@@ -7,7 +9,9 @@
   when: domains is defined and sn is defined
 
 - name: Enable all tunneldigger instances
-  service: name="tunneldigger.service" enabled=yes
+  systemd:
+    name: tunneldigger
+    enabled: yes
   when: domains is defined and sn is defined
 
 - name: Deploy tunneldigger.cfg

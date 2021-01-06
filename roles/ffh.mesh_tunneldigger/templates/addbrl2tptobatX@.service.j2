@@ -5,7 +5,7 @@ After=sys-subsystem-net-devices-br\x2dl2tp%i.device
 Type=oneshot
 ExecStart=/bin/sh /usr/bin/wait_for_iface.sh br-l2tp%i skip_operstate_check
 ExecStart=/sbin/ip link show br-l2tp%i
-ExecStart=/usr/sbin/batctl -m bat%I if add br-l2tp%i
+ExecStart=/usr/sbin/batctl meshif bat%I if add br-l2tp%i
 
 [Install]
 WantedBy=sys-subsystem-net-devices-br\x2dl2tp%i.device

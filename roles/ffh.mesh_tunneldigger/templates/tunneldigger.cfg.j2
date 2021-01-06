@@ -8,7 +8,7 @@ interface=eth0
 ; Ports where the broker will listen on
 {% set ports = [] %}
 {% for domain in domains %}
-{% if ports.append(mesh_tunneldigger_port_start + domain.id) %}{% endif %}
+{% if ports.append(mesh_tunneldigger_port_start + (domain.id | int)) %}{% endif %}
 {% endfor %}
 port={{ ports | join(',') }}
 
