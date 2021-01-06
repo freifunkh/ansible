@@ -6,7 +6,7 @@ import subprocess
 from calc import calc_ll
 from pyroute2 import WireGuard
 
-wgintf_base="wgtest-"
+wgintf_base="wg-"
 
 REPO="/etc/wireguard/peers-wg"
 wg_domains=[{{ domains | map(attribute='id') | join(', '|safe) }}]
