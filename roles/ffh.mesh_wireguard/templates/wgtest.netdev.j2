@@ -3,7 +3,7 @@ Name=wgtest-{{ '%02d' % domain.id | int }}
 Kind=wireguard
 
 [WireGuard]
-PrivateKey=+Em7sJnqJMYIgv+bwPdcxXcqVcnDqF5TQJh8q/5cT3Q=
+PrivateKey={{ wireguard_keys[servername].secret }}
 ListenPort=518{{ '%02d' % domain.id | int }}
 
 [WireGuardPeer]
