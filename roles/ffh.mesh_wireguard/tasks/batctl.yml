@@ -6,17 +6,24 @@
     dest: /etc/systemd/system/add-vxwg-to-batX@.service
 
 - name: Systemd daemon-reload
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
 
 - name: Enable systemd services
-  command: systemctl enable add-vxwg-to-batX@{{ item.id }}
+  systemd:
+    name: add-vxwg-to-batX@{{ item.id }}
+    enabled: yes
   with_items:
     - "{{ domains }}"
 
 - name: Restart networkd
-  command: systemctl restart systemd-networkd
+  systemd:
+    state: restarted
+    name: systemd-networkd
 
 - name: Start systemd services
-  command: systemctl start add-vxwg-to-batX@{{ item.id }}.service
+  systemd:
+    state: started
+    name: add-vxwg-to-batX@{{ item.id }}.service
   with_items:
     - "{{ domains }}"
