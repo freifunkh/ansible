@@ -5,7 +5,7 @@ After=sys-subsystem-net-devices-vlan\x2dgt\x2d2%i.device
 Type=oneshot
 ExecStart=/bin/sh /usr/bin/wait_for_iface.sh vlan-gt-2%i
 ExecStart=/sbin/ip link show vlan-gt-2%i
-ExecStart=/usr/sbin/batctl -m bat%I if add vlan-gt-2%i
+ExecStart=/usr/sbin/batctl meshif bat%I if add vlan-gt-2%i
 
 [Install]
 WantedBy=sys-subsystem-net-devices-vlan\x2dgt\x2d2%i.device
