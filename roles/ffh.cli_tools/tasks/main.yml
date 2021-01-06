@@ -61,6 +61,15 @@
   with_fileglob:
     - "files/bin/*"
 
+- name: Install bin files by templates
+  template:
+    src: "{{ item }}"
+    dest: "/usr/bin/{{ item[:-3] | basename }}"
+    owner: "root"
+    mode: 0755
+  with_fileglob:
+    - "templates/bin/*"
+
 - name: Install .vimrc
   copy:
     src: "root/.vimrc"
