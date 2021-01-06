@@ -1,0 +1,12 @@
+---
+
+- name: ensure wireguard config directory
+  file:
+    path: /etc/wireguard
+    state: directory
+
+- name: place netlink config
+  template:
+    src: netlink_cfg.json.j2
+    dest: /etc/wireguard/netlink_cfg.json
+
