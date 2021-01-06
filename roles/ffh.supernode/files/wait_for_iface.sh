@@ -6,7 +6,7 @@ do
     sleep 1
 done
 
-if [$# -eq 1]
+if [ $# -eq 1 ]
 then
     while ! [ "$(cat /sys/class/net/$1/operstate)" = "up" ]
     do
