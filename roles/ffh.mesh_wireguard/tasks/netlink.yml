@@ -10,3 +10,31 @@
     src: netlink_cfg.json.j2
     dest: /etc/wireguard/netlink_cfg.json
 
+- name: ensure wireguard srv directory
+  file:
+    path: /srv/wireguard
+    state: directory
+
+- name: Fetch wireguard-vxlan-glue
+  git:
+    repo: 'https://github.com/freifunkh/wireguard-vxlan-glue.git'
+    dest: /srv/wireguard/vxlan-glue
+  register: repo
+
+- name: install wg_netlink service
+  template:
+    src: netlink.service.j2
+    dest: /etc/systemd/system/wg_netlink.service
+  register: servicefile
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+  when: servicefile.changed
+
+- name: Enable netlink service
+  systemd:
+    name: wg_netlink.service
+    state: started
+    enabled: yes
+  when: servicefile.changed or repo.changed
