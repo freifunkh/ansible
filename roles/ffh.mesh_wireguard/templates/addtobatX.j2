@@ -4,7 +4,7 @@ After=sys-subsystem-net-devices-{{ vxlan_iface }}\x2d%i.device
 [Service]
 Type=oneshot
 ExecStart=/sbin/ip link show {{ vxlan_iface }}-%i
-ExecStart=/usr/sbin/batctl -m bat%I if add {{ vxlan_iface }}-%i
+ExecStart=/usr/sbin/batctl meshif bat%I if add {{ vxlan_iface }}-%i
 
 [Install]
 WantedBy=sys-subsystem-net-devices-{{ vxlan_iface }}\x2d%i.device
