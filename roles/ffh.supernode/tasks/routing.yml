@@ -6,11 +6,11 @@
     src: ferm.mark.conf.j2
     dest: /etc/ferm/conf.d/02-mark.conf
 
-- name: Generate firewall config stanza for Freifunk-Blocker (ferm)
+- name: (Maybe) Remove deprecated firewall config stanza for Freifunk-Blocker (ferm)
   notify: reload ferm
-  template:
-    src: ferm.ff-blocker.conf.j2
-    dest: /etc/ferm/conf.d/09-ff-blocker.conf
+  file:
+    state: absent
+    path: /etc/ferm/conf.d/09-ff-blocker.conf
 
 - name: Generate firewall config stanza for FORWARD (ferm)
   notify: reload ferm
@@ -33,5 +33,3 @@
 - name: Apply changes in /etc/rc.local
   command: /etc/rc.local
   when: rclocal is changed
-
-

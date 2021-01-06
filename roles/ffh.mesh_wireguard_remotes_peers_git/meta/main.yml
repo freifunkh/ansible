@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: ffh.git_autoupdate }

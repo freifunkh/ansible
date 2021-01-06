@@ -24,6 +24,21 @@ domain (ip ip6) {
             proto tcp dport ssh ACCEPT;
             proto tcp dport 1337 ACCEPT;
 
+            # Every input packet will traverse this chain, except it if is from
+            # one of our own exitnode ips. This chain is used to block ff in ff.
+            jump INPUT_SOURCE_IS_NOT_FFH_EXIT interface eth0 {
+{% for exitnode in exitnodes.values() %}
+{% for exit_range in exitnode.exit_ip_ranges %}
+                saddr ! {{ exit_range }};
+{% endfor %}
+{% endfor %}
+{% for superexitnode in superexitnodes.values() %}
+{% for exit_range in superexitnode.exit_ip_ranges %}
+                saddr ! {{ exit_range }};
+{% endfor %}
+{% endfor %}
+            }
+
 {%if batman is defined and legacy_dom0 == true %}
             interface (mesh_fastd) jump MESH_INPUT;
 {% endif %}
@@ -54,6 +69,11 @@ domain (ip ip6) {
         }
 
         chain MESH_INPUT {
+        }
+
+        # Every input packet will traverse this chain, except it is from one of
+        # our own exitnode ips. This chain is used to block ff in ff.
+        chain INPUT_SOURCE_IS_NOT_FFH_EXIT {
         }
     }
 }

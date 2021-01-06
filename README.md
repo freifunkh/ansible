@@ -7,11 +7,16 @@ git clone git@github.com:freifunkh/ansible.git ansible
 cd ansible
 ```
 
-Do not forget to place your secrets.yml into the main dir.
+Obtain the **.vaultpassphrase** from someone in the core team and place it into the main directory.
 
 **deploy all supernodes:**
 ``` shell
 ansible-playbook playbooks/supernodes.yml
+```
+
+**deploy all supernodes with only a specific role "networkd":**
+``` shell
+ansible-playbook playbooks/supernodes.yml -t networkd
 ```
 
 **deploy a single supernode:**

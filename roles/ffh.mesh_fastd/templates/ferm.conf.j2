@@ -1,7 +1,7 @@
 domain (ip ip6) {
   table filter {
-    chain INPUT {
-      interface eth0 proto udp dport 10000:10100 ACCEPT;
+    chain INPUT_SOURCE_IS_NOT_FFH_EXIT {
+      proto udp dport 10000:10100 ACCEPT;
     }
   }
   table nat {

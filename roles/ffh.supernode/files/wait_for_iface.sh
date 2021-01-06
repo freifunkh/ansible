@@ -7,6 +7,7 @@ do
 done
 
 if [$# -eq 1]
+then
     while ! [ "$(cat /sys/class/net/$1/operstate)" = "up" ]
     do
         echo  "waiting for $1 to be up"

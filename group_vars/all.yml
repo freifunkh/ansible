@@ -3,12 +3,23 @@ ansible_port: 1337
 exitnodes:
   # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
-  leintor: { id: 3, ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}" }
+  leintor:
+    id: 3
+    ip4: "{{ lookup('dig', 'leintor.e.ffh.zone./A') }}"
+    ip6: "{{ lookup('dig', 'leintor.e.ffh.zone./AAAA') }}"
+    exit_ip_ranges:
+    - 2a02:790:ff::/48
+    - 81.3.6.94/32
   # clevertor: { id: 4, ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}" }
   # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
   # bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
 superexitnodes:
-  sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
+  sn01:
+    id: 1
+    ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}"
+    exit_ip_ranges:
+    - 2001:678:978::/48
+    - 45.12.203.1/24
 supernodes:
   sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
   # sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}" }
@@ -16,7 +27,7 @@ supernodes:
   # sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone./A') }}" }
   # sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}" }
   # sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}" }
-  # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}" }
+  sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
   sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
   sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
@@ -84,6 +95,8 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAgEAigKfQI2+hpITSVCqnz/UcQyldjE6Qjud3GvQfkr7sfG1PqdVpsh0UogWjsejWDwpdi4IIgGyrk9rlLdvFFl10V474T2/dgKrpD6+tyZ0GLgP8LFMlH/cX7Y+TVLNm0HiLSFp9pd2T0pAneKP7eDxKn9E6MvFMTMcULkQGwLBxrkdLaPYzVKkUV7/Jh0Yi91CzMIR3IPK9/Y0ZDbhocdLv5ROztHki0MnWu/E/VIDZZkFmNdCo2IkuyYX3Gg1WIb8aEsa00+PFjIuYbwz8+QssogWHMHeWcCG2uEWqxbNiREMLiLRCcS/ItGQ9RddF209rgSMPNyJg9EwZ/hRv6utCdaSn8Bu+mTQFeTWxSw/9RACx3PanHXIUhgfGcC3Flsrb7hfTDzmVZa3pq/1+suwQdVkZ32t4ZWg43QiaO1ER/m7LOvBWtIKBEYX/fygv7gepfv1eKBFTAIWm+0dwGIR1J8R8S+m1pZCb2U/bZxXKAk4XGfmwurXaRu9Ca3UYWBh37dcaZQrvz+LuDrMwb4MWjLLvai81MoNpmLMYVOa8Djk/gvojL6iP1covUUI2MVF1PrSna/JJ5QfDz1ZDNcnW7AS06xm2FuyigY2MCgwKKSX1yfIeqy8tZR9xyJdLoLCa4D8/b2ifY39VtmJ04BlFfUTeI3i0jn/dXnfSn6UWmU= leon
 - name: codefetch
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM8uhJ9Qin1Bnt1gVkhQEocIK+ziP4Ht0uCP1QPaTPza8hXxLrf5pizAxWpjM7Jnr3UFc/IpOMUII7B67MPlcUvlryQGESNQqGUDEoDbTww1wh79G86x4Q7xMS1q35H6E9KX0WUGMhdcHCOn4XQbIeNB6BY1NL27JgNE4I84oMhWbDdUnR36ZPCWvkm+7PKr92MacCZU/z7lBRHcW0zfCug4YuO3vOqtv1UQl3z2dsgK1VkyuDxyNXSeRufKyJJveqURzx1A5wZVQ3Qc7nIj00yx3GVsYMZH3oX6PuPiu+fu4nzvwiiWaqf/PFqa9Rfof1hQJy29Be8ggfbKZwEF4dCBGhydTF66hm729OzWry7XN49aZAmjHEe84ivDL16SjQjGWPFygMQdpQSovIT8t0vzfuNKRElhMEBAM4BxvLiWtaKFOhxXhMlK7rTmGBzouarFcR5ka1OFYD36z1rv8REEviUMv1QbFtIx1TD3HrliNt18lJE5d5AyDxadWy6Lf7WlPpVZnxydTneyE7UwtSt9vwx2zdNEOG6ygxOjY9JbiO12/kkyLeTyMq7+o0uY5oV2xo+I3aVYVS0jv3VHrTqtb/1nDWTb7Y9TTe8b0nOZOkOnnzOxWBvSms7MOh0NOA2I3ZpkIhKcWqdCvyKFfeUaita4sYKOrIwelYhyGQmQ== codefetch
+- name: codefetch_cockroach
+  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH0d6bNTktg95xUdeQpy7xw6qdfYFRG6UZKccu0eiTe7DoiGxDjShcRiktrB5CwiV74GRX/yQg6MkmF7K/uD535risam5qY9NjT2uFqfr7TI/UcCB0rDfZDHoBQUhot5/AqXxgSYp1uz12+Yeabr3ayCw3BIiZgQLPCRDxwIStbyFnh4wwmqEiVXnTbYgxt4nPIwf1M2AhqDzVSss9E1kmlEPRWVcdCG2NcQOn+n3MkKrW4KLirOzxSd991FvzRuJIUVgFF9xPNxNp2WDijN687zeFifoGqsNSOIWzugNmA48zEmKNE/i0Q6TlqBy1Z0e1meAzMGdmT3wAIrbe1KiD codefetch@cockroach
 - name: DarkAMD
   key: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhx0r/mvxf4YZd+cK/JAQJyNo2fubv7K60UAWWFG8sCIAzg1U8ORoidAJax16nmNpe4iXeyrzXDHoLWHfANKOzlf4peDwaZWOHHlfUQ6kV2S10ndHJOQ4isFj+hT7qU50vWknV2IdCwgRPjL5kMU8R1Kux7b9kJz41VPocJcZNQbqQsvuTUrsFSCHw2nZvglX5tScyNIyU9EC1Ee0LY9KCA4STx84WHyAoGN7m/D1XtPEczIJXuRzmDWErqPXV0sZXoMJ860anUZqRZSXTumH6Z20nzGWD4iYX5kuuDPba4cuOmtHisDyGVhle2xnI/qUAF5u2abYRlBI6DHWXWnNmw== DarkAMD
 - name: s_2
@@ -92,7 +105,7 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6f4GU51qSPSDM98KB7joDAzWXf7jbbZi9a7KfTsYBaT1nqlcCsltPBTKUa6cjgUYVrDL3QnKA8nsa24ZSROZA4X9b1TUBNKhdR6CldoOtr+QRjEfmRJ+qDrDJD9yjX//9D4sKmhGZ7JX/5xTGgqUW9OlMudvxOXof11KDeJk+X4jmvUmsQS+GF5+YOg7UI+2vsxbDJK9kgkryzWRl7+7uSmd4e3UJn+P2NeHf85JReZnelYyWzqDRykc0IuwtuvHvgDMOo1xArveWC/dmGJ/HGWti0JJ5SJSOsaSVD4tEA7Cyp8lmeEYE2JmGrC07izLglc/YrCB/UdEbMkY/5st7 ctandi
 - name: awx
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDI/IcNE1nswKJaKIQ3EWNeC/MUXxE6JESTmy2VIAXR26exqqyK0P5vN+JXLE9Xb6VXkjrIEQNrRgAXcVsB/V57tTX/tECMCsIDshU5vYVJZuTk1ThA2mThTdFadejT0Dnh0XTxSlWKdSwQtqw8Z9p0jST1zBDiqEFo7LRyDZWBJngoMTEYvfJOfuObxhuFoo26IAAGE0y+2VN9AXllLLAzEI98RaYE9fZkBNQ4lP4bwvGBsAMCEQuZPRjqS+b/yccuBcDcgTRoB323uSoR3D3AT/vI4vXFzD+xCjcPUCoEbiVn/zgp7Kau2NjGRN8kQt7kuCzp9ea+y9fVzaHO466yjPEQtIZJ6gkmn2rfSpNXKk7acrDs+mehddNRlH/jQvTh7+4+/6fuYs2BhQH2tF/VGaIkQkmursi6GaCfY2NrjG2z834O/Zn9NCjpk1/RQ+k5JqG5yqEYfAJopeqpS7kct5T3NsRNvLEuGFvnu0IpioEEan9OPhzdcVC6wIs9Ph8= ffh awx key
-admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, beschelm, awx]
+admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, beschelm, awx, codefetch_cockroach]
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
@@ -138,7 +151,7 @@ apinger_targets:
   - 10.10.10.1
   - 185.197.132.140
   - fdca:ffee:8:18::1001
-- description: sn09 
+- description: sn09
   ips:
   - 10.10.90.1
   - 81.3.6.92
