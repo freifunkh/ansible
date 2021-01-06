@@ -1,36 +1,8 @@
 {"interfaces":
   {"wireguard": [
-    "wgtest-10",
-    "wgtest-11",
-    "wgtest-12",
-    "wgtest-13",
-    "wgtest-14",
-    "wgtest-15",
-    "wgtest-16",
-    "wgtest-17",
-    "wgtest-18",
-    "wgtest-19",
-    "wgtest-20",
-    "wgtest-21",
-    "wgtest-22",
-    "wgtest-23",
-    "wgtest-99"]
+    "{{ mesh_wireguard_iface }}-{{ domains | map(attribute='id') | join('",\n    "' + mesh_wireguard_iface +'-') }}"]
   ,
   "vxlan": [
-    "mesh-vpn-10",
-    "mesh-vpn-11",
-    "mesh-vpn-12",
-    "mesh-vpn-13",
-    "mesh-vpn-14",
-    "mesh-vpn-15",
-    "mesh-vpn-16",
-    "mesh-vpn-17",
-    "mesh-vpn-18",
-    "mesh-vpn-19",
-    "mesh-vpn-20",
-    "mesh-vpn-21",
-    "mesh-vpn-22",
-    "mesh-vpn-23",
-    "mesh-vpn-99"]
+    "{{ vxlan_iface }}-{{ domains | map(attribute='id') | join('",\n    "'+ vxlan_iface + '-') }}"]
   }
 }

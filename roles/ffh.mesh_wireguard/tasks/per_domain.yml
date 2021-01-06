@@ -2,20 +2,20 @@
 
 - name: "Generate networkd wg netdev (dom {{ domain.id }})"
   template:
-    src: wgtest.netdev.j2
-    dest: "/etc/systemd/network/30-wgtest-{{ domain.id }}.netdev"
+    src: wireguard.netdev.j2
+    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface }}-{{ domain.id }}.netdev"
 
 - name: "Generate networkd wg network (dom {{ domain.id }})"
   template:
-    src: wgtest.conf.j2
-    dest: "/etc/systemd/network/30-wgtest-{{ domain.id }}.network"
+    src: wireguard.conf.j2
+    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface }}-{{ domain.id }}.network"
 
 - name: "Generate networkd vxlan netdev (dom {{ domain.id }})"
   template:
-    src: mesh-vpn.netdev.j2
-    dest: "/etc/systemd/network/30-mesh-vpn-{{ domain.id }}.netdev"
+    src: vxlan.netdev.j2
+    dest: "/etc/systemd/network/30-{{ vxlan_iface }}-{{ domain.id }}.netdev"
 
 - name: "Generate networkd vxlan network (dom {{ domain.id }})"
   template:
-    src: mesh-vpn.conf.j2
-    dest: "/etc/systemd/network/30-mesh-vpn-{{ domain.id }}.network"
+    src: vxlan.conf.j2
+    dest: "/etc/systemd/network/30-{{ vxlan_iface }}-{{ domain.id }}.network"

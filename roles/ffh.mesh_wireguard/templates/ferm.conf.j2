@@ -1,7 +1,7 @@
 domain (ip6) {
   table filter {
     chain INPUT {
-      interface (wgtest-10 wgtest-11 wgtest-12 wgtest-13 wgtest-14 wgtest-15 wgtest-16 wgtest-17 wgtest-18 wgtest-19 wgtest-20 wgtest-21 wgtest-22 wgtest-23 wgtest-99) proto udp dport 4789 ACCEPT;
+      interface ({{ mesh_wireguard_iface }}-{{ domains | map(attribute='id') | join(' '+ mesh_wireguard_iface + '-') }}) proto udp dport {{ vxlan_port }} ACCEPT;
     }
   }
 }

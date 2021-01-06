@@ -1,3 +1,5 @@
 ---
 
-wg_helper_dir: "/opt/wireguard_helper"
+mesh_wireguard_iface: "wg"
+vxlan_iface: "vx"
+vxlan_port: 4789
