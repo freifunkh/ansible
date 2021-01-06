@@ -7,7 +7,7 @@ domain (ip6) {
 }
 domain (ip ip6) {
   table filter {
-    chain INPUT {
+    chain INPUT_SOURCE_IS_NOT_FFH_EXIT {
       interface eth0 proto udp dport 51810:51823 ACCEPT;
       interface eth0 proto udp dport 51899 ACCEPT;
     }
