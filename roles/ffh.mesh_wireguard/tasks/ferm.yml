@@ -1,3 +1,5 @@
+---
+
 - name: Generate firewall config stanza (ferm)
   notify: reload ferm
   template:

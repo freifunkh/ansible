@@ -1,3 +1,5 @@
+---
+
 - name: "Generate networkd wg netdev (dom {{ domain.id }})"
   template:
     src: wgtest.netdev.j2
