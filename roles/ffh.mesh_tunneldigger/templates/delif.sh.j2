@@ -1,7 +1,10 @@
 #!/bin/bash
-TEMPFILE=/tmp/tunneldigger_peers_dom{{ domain.id }}.cnt
+PORT="$9"
+DOM=${PORT#{{ (mesh_tunneldigger_port_start | string)[:-2] }}}
+
+TEMPFILE={{ mesh_tunneldigger_tmp_file_prefix }}$DOM.cnt
 touch $TEMPFILE
 echo $[$(cat $TEMPFILE) - 1] > $TEMPFILE
 
 INTERFACE="$3"
-brctl delif br-l2tp{{ domain.id }} $INTERFACE
+brctl delif br-l2tp$DOM $INTERFACE

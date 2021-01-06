@@ -1,6 +1,10 @@
+mesh_tunneldigger_port_start: 11000
+mesh_tunneldigger_port_count: 100
 mesh_tunneldigger_peerlimit: 450
+mesh_tunneldigger_peerlimit_domain: 100
 mesh_tunneldigger_pmtu: 1406
 mesh_tunneldigger_l2tp_mtu: 1364
 mesh_tunneldigger_bridge_mtu: 1380
 # Setting it to 0 disables new connection rate limiting
 mesh_tunneldigger_conn_rate_limit: 0
+mesh_tunneldigger_tmp_file_prefix: "/tmp/tunneldigger_peers_dom"

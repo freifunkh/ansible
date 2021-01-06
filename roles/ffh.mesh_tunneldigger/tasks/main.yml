@@ -7,15 +7,11 @@
   when: domains is defined and sn is defined
 
 - name: Enable all tunneldigger instances
-  service: name="tunneldigger@dom{{ item.id }}.service" enabled=yes
-  with_items: "{{ domains }}"
+  service: name="tunneldigger.service" enabled=yes
   when: domains is defined and sn is defined
 
 - name: Deploy tunneldigger.cfg
-  with_items: "{{domains}}"
-  loop_control:
-    loop_var: domain
-  template: src="tunneldigger.cfg.j2" dest="/srv/tunneldigger/conf/dom{{ domain.id }}.cfg"
+  template: src="tunneldigger.cfg.j2" dest="/srv/tunneldigger/conf/tunneldigger.cfg"
   notify: Restart domain tunneldiggers
   when: domains is defined and sn is defined
 
