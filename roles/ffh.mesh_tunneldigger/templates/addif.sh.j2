@@ -1,14 +1,17 @@
 #!/bin/bash
-if grep -Fq "$8" "/srv/tunneldigger/scripts/blacklist.cfg"
+PORT="$9"
+DOM=${PORT#{{ (mesh_tunneldigger_port_start | string)[:-2] }}}
+
+if grep -Fq "$8" "/srv/tunneldigger/blacklist.cfg"
 then
 	echo "Node $8 is blacklisted. Access denied."
 	exit 1
 fi
 
-TEMPFILE=/tmp/tunneldigger_peers_dom{{ domain.id }}.cnt
+TEMPFILE={{ mesh_tunneldigger_tmp_file_prefix }}$DOM.cnt
 touch $TEMPFILE
 PEERCNT=$[$(cat $TEMPFILE) + 1]
-if [ $PEERCNT -gt {{ mesh_tunneldigger_peerlimit }} ]
+if [ $PEERCNT -gt {{ mesh_tunneldigger_peerlimit_domain }} ]
 then
 	echo "Peer limit reached. Access denied."
   exit 1
@@ -17,4 +20,4 @@ echo $PEERCNT > $TEMPFILE
 
 INTERFACE="$3"
 ip link set dev $INTERFACE up mtu {{ mesh_tunneldigger_l2tp_mtu }}
-brctl addif br-l2tp{{ domain.id }} $INTERFACE
+brctl addif br-l2tp$DOM $INTERFACE

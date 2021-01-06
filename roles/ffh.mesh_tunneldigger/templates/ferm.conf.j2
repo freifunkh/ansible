@@ -1,7 +1,7 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
-      interface eth0 proto udp dport 11000:11100 ACCEPT;
+      interface eth0 proto udp dport {{ mesh_tunneldigger_port_start }}:{{ mesh_tunneldigger_port_start + mesh_tunneldigger_port_count }} ACCEPT;
     }
   }
 }

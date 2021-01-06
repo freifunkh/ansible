@@ -1,6 +1,5 @@
 - name: Restart domain tunneldiggers
-  service: name=tunneldigger@dom{{ item.id }} state=restarted
-  with_items: "{{ domains }}"
+  service: name=tunneldigger state=restarted
   when: domains is defined and sn is defined
 
 - name: Load kernel modules

@@ -30,17 +30,11 @@
      path: /srv/tunneldigger/scripts
      state: directory
 
-- name: Deploy addif.sh per domain
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  template: src=addif.sh.j2 dest="/srv/tunneldigger/scripts/addif_dom{{ domain.id }}.sh" mode=0755
+- name: Deploy addif.sh
+  template: src=addif.sh.j2 dest="/srv/tunneldigger/scripts/addif.sh" mode=0755
 
-- name: Deploy delif.sh per domain
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  template: src=delif.sh.j2 dest="/srv/tunneldigger/scripts/delif_dom{{ domain.id }}.sh" mode=0755
+- name: Deploy delif.sh
+  template: src=delif.sh.j2 dest="/srv/tunneldigger/scripts/delif.sh" mode=0755
 
 - name: Clone tunneldigger
   git: repo=https://github.com/wlanslovenija/tunneldigger dest=/srv/tunneldigger/tunneldigger force=yes update=yes version=25854b7af14d54f0164f06d18289278ff0082a2a
@@ -65,8 +59,8 @@
       l2tp_core
       l2tp_eth
 
-- name: Install service file tunneldigger@.service
-  template: src=tunneldigger@.service.j2 dest=/etc/systemd/system/tunneldigger@.service
+- name: Install service file tunneldigger.service
+  template: src=tunneldigger.service.j2 dest=/etc/systemd/system/tunneldigger.service
   register: servicefile
 
 - name: Reload systemd
