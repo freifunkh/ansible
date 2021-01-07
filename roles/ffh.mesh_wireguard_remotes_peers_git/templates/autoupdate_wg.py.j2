@@ -3,7 +3,9 @@
 import os
 import re
 import subprocess
-from calc import calc_ll
+from hashlib import md5
+from ipaddress import ip_network
+from textwrap import wrap
 from pyroute2 import WireGuard
 
 wgintf_base="wg-"
@@ -14,7 +16,9 @@ wg_domains=[{{ domains | map(attribute='id') | join(', '|safe) }}]
 regex = r"peer: ([a-zA-Z0-9+\/]{43}=)"
 
 def pull_repo(repo):
-    s = subprocess.check_output(["git", "-C", REPO, "pull"])
+    d = dict(os.environ)
+    d["GIT_SSH_COMMAND"] = 'ssh -i /home/auto/.ssh/id_rsa'
+    s = subprocess.check_output(["git", "-C", REPO, "pull"], env=d)
     print("s = " + s.decode('utf8'))
 
 def read_repo_keys():
@@ -61,6 +65,37 @@ def create_diff(repo_peers, iface_peers, iface):
 
     print("Info: {} keys to add, {} keys to remove from {}.".format(len(to_add), len(to_remove), iface))
     return to_add, to_remove
+
+def mac2eui64(mac, prefix=None):
+    """
+    Convert a MAC address to a EUI64 identifier
+    or, with prefix provided, a full IPv6 address
+    """
+    # http://tools.ietf.org/html/rfc4291#section-2.5.1
+    eui64 = re.sub(r"[.:-]", "", mac).lower()
+    eui64 = eui64[0:6] + "fffe" + eui64[6:]
+    eui64 = hex(int(eui64[0:2], 16) | 2)[2:].zfill(2) + eui64[2:]
+
+    if prefix is None:
+        return ":".join(re.findall(r".{4}", eui64))
+    else:
+        try:
+            net = ip_network(prefix, strict=False)
+            euil = int("0x{}".format(eui64), 16)
+            return "{}/{}".format(net[euil], net.prefixlen)
+        except Exception:  # pylint: disable=broad-except
+            return
+
+def calc_ll(pubkey) -> str:
+    m = md5()
+    m.update(pubkey.encode("ascii"))
+    hashed_key = m.hexdigest()
+    hash_as_list = wrap(hashed_key, 2)
+    temp_mac = ":".join(["02"] + hash_as_list[:5])
+    print(temp_mac)
+    print(mac2eui64(mac=temp_mac, prefix="fe80::/10"))
+    lladdr = re.sub(r"/\d+$", "/128", mac2eui64(mac=temp_mac, prefix="fe80::/10"))
+    return lladdr
 
 def wg_modify_peer(pubkey, iface, remove=False):
     # this could become global
