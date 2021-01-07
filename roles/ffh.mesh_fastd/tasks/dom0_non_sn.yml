@@ -31,5 +31,16 @@
     dest: "/etc/fastd/mesh_fastd/secret.conf"
     state: link
 
+- name: set fastd port variable
+  set_fact:
+    mesh_fastd_port: "10000"
+
+- name: Install backbone file
+  notify: Restart mesh_fastd
+  template:
+    src: "backbone.conf.j2"
+    dest: "/etc/fastd/mesh_fastd/backbone.conf"
+    mode: "0644"
+
 - name: Start mesh_fastd on boot (dom0)
   service: name=fastd@mesh_fastd enabled=yes state=started

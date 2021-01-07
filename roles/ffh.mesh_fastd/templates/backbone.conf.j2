@@ -1,7 +1,50 @@
 peer group "backbone" {
 
+{% if sn is not defined %}
+  peer "sn01" {
+    key "c02dccaec12dd0ac430e3a7ec3601e1fbf04d018d6cec0d061bac042e635ce8a";
+    remote "sn01.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn02" {
+    key "f17feb4e71d11038edb1d4f50b3edc2a2ee856deb5f9fe022ef004f877dc8653";
+    remote "sn02.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn03" {
+    key "643e42f527f459a1be897ab43174c4fc7d1f1dff497a203f487d567368e37f3d";
+    remote "sn03.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn04" {
+    key "88c16554cc3adbc871e6dd79e237139586b1933b07b71409280677b92d888d44";
+    remote "sn04.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn05" {
+    key "2909c134477bed6556dd7577a751a303f5a5aec7e43de576987de175c23fd840";
+    remote "sn05.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn06" {
+    key "52b6a37bf738610736863577a663da10c195dfd79e4fc0f75a6e1b4b3454d66c";
+    remote "sn06.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn07" {
+    key "d85cb4f5a0711a97e10dbba206bea5e4a16034126b1cea920673beb7744fcd6f";
+    remote "sn07.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn08" {
+    key "30b128461084e45c4f8ee9bc50d93cf4a93b12652e31487492c05f764057567d";
+    remote "sn08.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn09" {
+    key "993f94b586f91a0a678db904fc26a3e60c23c513a0bfd4451954408e89d00dda";
+    remote "sn09.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+  peer "sn10" {
+    key "1b9a4d020316aa4a6d7c5dcc15f054afff010309b75ff6721dc8a66c20270b01";
+    remote "sn10.s.ffh.zone" port {{ mesh_fastd_port }};
+  }
+{% else %}
   peer "harvester" {
     key "65312133d5eec58accbaeec207ec6189b46f0862e194d744ac3220dfc6f4736e";
   }
+{% endif %}
 
 }

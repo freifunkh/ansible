@@ -9,12 +9,6 @@
 - name: Set network buffers
   include_tasks: buffers.yml
 
-- name: Generate backbone.conf
-  template:
-    src: backbone.conf.j2
-    dest: /etc/fastd/backbone.conf
-    mode: 0644
-
 - name: Generate config for dom0 (supernode)
   include_tasks: dom0.yml
   when: legacy_dom0 == true and sn is defined
