@@ -20,6 +20,8 @@ include "secret.conf";
 mtu {{ mesh_fastd_mtu }};
 
 include "remotes.conf";
+include "backbone.conf";
+
 peer limit {{ mesh_fastd_peerlimit }};
 
 # enable fastd to run without another peers configured

@@ -18,12 +18,19 @@
 - name: Ensure mesh_fastd remotes file exits (dom0)
   when: not remotes.stat.exists
   file: path=/etc/fastd/mesh_fastd/remotes.conf state=touch
-  notify: Restart domain fastds
+  notify: Restart mesh_fastd
 
 - name: Generate secret.conf link (dom0)
   file:
     src: "/etc/fastd/secret.conf"
     dest: "/etc/fastd/mesh_fastd/secret.conf"
+    state: link
+
+- name: Generate backbone.conf link (dom0)
+  notify: Restart mesh_fastd
+  file:
+    src: "/etc/fastd/backbone.conf"
+    dest: "/etc/fastd/mesh_fastd/backbone.conf"
     state: link
 
 - name: Start mesh_fastd on boot (dom0)

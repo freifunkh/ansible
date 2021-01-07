@@ -16,9 +16,17 @@
   notify: Restart domain fastds
 
 - name: Generate secret.conf link
+  notify: Restart domain fastds
   file:
     src: "/etc/fastd/secret.conf"
     dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/secret.conf"
+    state: link
+
+- name: Generate backbone.conf link
+  notify: Restart domain fastds
+  file:
+    src: "/etc/fastd/backbone.conf"
+    dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/backbone.conf"
     state: link
 
 - name: set variables
@@ -28,6 +36,7 @@
     mesh_fastd_batdev: "{{ domain.id }}"
 
 - name: Generate fastd config
+  notify: Restart domain fastds
   template:
     src: fastd.conf.j2
     dest: "/etc/fastd/mesh_fastd_{{ domain.id }}/fastd.conf"
