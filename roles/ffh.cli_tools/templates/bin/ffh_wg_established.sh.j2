@@ -5,7 +5,7 @@ REPO="/etc/wireguard/peers-wg"
 wg_domains="{{ domains | map(attribute='id') | join(' ') }}"
 
 for domain in $wg_domains; do
-        wgshow="$(echo "$wgshow"; wg show wgtest-$domain latest-handshakes | awk '{ if ($2 != 0) print "dom'$domain'\t"$0 }')"
+        wgshow="$(echo "$wgshow"; wg show wg-$domain latest-handshakes | awk '{ if ($2 != 0) print "dom'$domain'\t"$0 }')"
 done
 
 for p in $REPO/*; do
