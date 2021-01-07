@@ -26,7 +26,7 @@
   template:
     src: autoupdate_wg.py.j2
     dest: /home/auto/autoupdate_wg.py
-    mode: 744
+    mode:  u=rwx,g=r,o=r
     owner: auto
     group: auto
 
