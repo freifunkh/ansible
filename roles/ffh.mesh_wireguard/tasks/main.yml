@@ -1,11 +1,24 @@
 ---
 
-- name: add backports repository
+- name: add backports repository (buster)
   apt_repository:
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
     state: present
     update_cache: yes
   when: ' ansible_distribution_release == "buster"'
+
+- name: limit unstable repository (stretch)
+  template:
+    src: limit-unstable.j2
+    dest: /etc/apt/preferences.d/limit-unstable
+  when: ' ansible_distribution_release == "stretch"'
+
+- name: add unstable repository (stretch)
+  apt_repository:
+    repo: deb http://deb.debian.org/debian/ unstable main
+    state: present
+    update_cache: yes
+  when: ' ansible_distribution_release == "stretch"'
 
 - name: Install wireguard
   apt:
