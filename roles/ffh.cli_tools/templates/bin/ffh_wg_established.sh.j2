@@ -1,0 +1,28 @@
+#!/bin/sh
+
+REPO="/etc/wireguard/peers-wg"
+
+wg_domains="{{ domains | map(attribute='id') | join(' ') }}"
+
+for domain in $wg_domains; do
+        wgshow="$(echo "$wgshow"; wg show wg-$domain latest-handshakes | awk '{ if ($2 != 0) print "dom'$domain'\t"$0 }')"
+done
+
+for p in $REPO/*; do
+        found=0
+        key="$(cat "$p")"
+
+        echo "$wgshow" | awk '
+                {
+                        if ($2 == "'$key'") {
+                                print (systime()-$3)"\t"$1"\t'$p'"
+                                found=1
+                        }
+                }
+                END {
+                        if (found != 1)
+                                print "no\t---\t'$p'"
+                }
+        '
+
+done
