@@ -15,6 +15,15 @@
     path: /srv/wireguard
     state: directory
 
+- name: install pip3
+  apt:
+    name: python3-pip
+    state: present
+
+- name: install pyroute2
+  pip:
+    name: pyroute2
+
 - name: Fetch wireguard-vxlan-glue
   git:
     repo: 'https://github.com/freifunkh/wireguard-vxlan-glue.git'
