@@ -4,6 +4,12 @@ REPO="/etc/wireguard/peers-wg"
 
 wg_domains="{{ domains | map(attribute='id') | join(' ') }}"
 
+color=0
+if [ -t 1 ] ; then
+        # this is a posix terminal, start with colors
+        color=1
+fi
+
 for domain in $wg_domains; do
         wgshow="$(echo "$wgshow"; wg show wg-$domain latest-handshakes | awk '{ if ($2 != 0) print "dom'$domain'\t"$0 }')"
 done
@@ -13,16 +19,26 @@ for p in $REPO/*; do
         key="$(cat "$p")"
 
         echo "$wgshow" | awk '
+                function colorize(s, col) {
+                        printf ( '$color'==1 ) ? "\033["col"m" s "\033[0m " : s;
+                }
+                function red(s) {colorize(s,"0;31")}
+                function green(s) {colorize(s,"1;32")}
+                function cyan(s) {colorize(s,"0;36")}
+                function colorize_valid(seconds) {
+                        (seconds <= 120) ? green(seconds) : red(seconds);
+                }
                 {
                         if ($2 == "'$key'") {
-                                print (systime()-$3)"\t"$1"\t'$p'"
+                                lastseen=systime()-$3
+                                print colorize_valid(lastseen)"\t"$1"\t'$p'"
                                 found=1
                         }
                 }
                 END {
                         if (found != 1)
-                                print "no\t---\t'$p'"
+                                print cyan("never\t---\t'$p'")
                 }
         '
-
 done
+
