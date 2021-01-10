@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import pwd
 import re
 import subprocess
 from hashlib import md5
@@ -15,11 +16,26 @@ wg_domains=[{{ domains | map(attribute='id') | join(', '|safe) }}]
 
 regex = r"peer: ([a-zA-Z0-9+\/]{43}=)"
 
+def demote(user_uid, user_gid):
+    def result():
+        print("{}:{}".format(user_uid, user_gid))
+        os.setgid(user_gid)
+        os.setuid(user_uid)
+    return result
+
 def pull_repo(repo):
-    d = dict(os.environ)
-    d["GIT_SSH_COMMAND"] = 'ssh -i /home/auto/.ssh/id_rsa'
-    s = subprocess.check_output(["git", "-C", REPO, "pull"], env=d)
-    print("s = " + s.decode('utf8'))
+    # WARNING this is NOT threadsafe.
+    autouser='auto'
+    pw_record = pwd.getpwnam(autouser)
+    homedir = pw_record.pw_dir
+    user_uid = pw_record.pw_uid
+    user_gid = pw_record.pw_gid
+    env = os.environ.copy()
+    env.update({'HOME': homedir, 'LOGNAME': autouser, 'USER': autouser})
+
+    s = subprocess.Popen(["git -C {} pull".format(REPO)], shell=True, env=env,
+                         preexec_fn=demote(user_uid, user_gid), stdout=subprocess.PIPE)
+    #print("s = " + s)
 
 def read_repo_keys():
     repokeys=[]
