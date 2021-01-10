@@ -47,7 +47,13 @@ domain (ip) {
 
       # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
       # 1394 (fastd mtu) - 32 (batman header) - 20 (ipv4 header) - 20 (tcp header) = 1322
-      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1322;
+      # as to https://github.com/freifunkh/ansible/pull/95/#issuecomment-7552886421
+      # the clamping needs to be even thinner to pass a VXLAN in WireGuard in Batman encapsulated frames
+      #   1460 (dslite mtu) - 20 (ipv4 header) - 40 (wireguard) - 40 (ipv6 header)
+      #   - 16 (vxlan header) - 14 (ethernet header) - 18 (batman header) - 14 (ethernet header)
+      #   - 20 (ipv4 header) - 20 (tcp header)
+      #  = 1258
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1258;
 
       outerface eth0 interface eth0 DROP;
       ACCEPT;
@@ -68,9 +74,8 @@ domain (ip6) {
       &PRIV_NET(fec0::/10);
       &PRIV_NET(ff00::/8);
 
-      # https://gluon.readthedocs.io/en/latest/user/faq.html#what-is-a-good-mtu-on-the-mesh-vpn
-      # 1394 (fastd mtu) - 32 (batman header) - 40 (ipv6 header) - 20 (tcp header) = 1302
-      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1302;
+      # see the explanation above and subtract 20 to account for the 20 bytes bigger IPv6 header
+      outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1238;
 
       outerface eth0 interface eth0 DROP;
       ACCEPT;
