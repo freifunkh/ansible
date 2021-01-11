@@ -1,24 +1,27 @@
 ---
 
-- name: "Build from source if necessary"
-  include_tasks: "build_from_source.yml"
-  when: (ansible_local['babeld_built_version'] | default(None)) != babeld_build_version
+- name: "Check no_babel"
+  when: (not no_babel | default(False))
+  block:
+    - name: "Build from source if necessary"
+      include_tasks: "build_from_source.yml"
+      when: (ansible_local['babeld_built_version'] | default(None)) != babeld_build_version
 
-- name: "Configure system if necessary"
-  include_tasks: "configure.yml"
-  when: not (ansible_local['babeld_system_configured'] | default(False))
+    - name: "Configure system if necessary"
+      include_tasks: "configure.yml"
+      when: not (ansible_local['babeld_system_configured'] | default(False))
 
-- name: "Install babeld supernode config"
-  notify: "Restart babeld"
-  template:
-    src: "supernode.conf.j2"
-    dest: "/etc/babeld.conf"
-  when: sn is defined
+    - name: "Install babeld supernode config"
+      notify: "Restart babeld"
+      template:
+        src: "supernode.conf.j2"
+        dest: "/etc/babeld.conf"
+      when: sn is defined
 
-- name: "Install babeld exitnode config"
-  notify: "Restart babeld"
-  template:
-    src: "exitnode.conf.j2"
-    dest: "/etc/babeld.conf"
-  when: en is defined
+    - name: "Install babeld exitnode config"
+      notify: "Restart babeld"
+      template:
+        src: "exitnode.conf.j2"
+        dest: "/etc/babeld.conf"
+      when: en is defined
 
