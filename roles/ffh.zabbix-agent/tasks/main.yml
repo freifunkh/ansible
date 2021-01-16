@@ -12,7 +12,7 @@
     state: present
     filename: zabbix
 
-- name: Install zabbix-agent and dependencies via apt
+- name: Install zabbix-agent and its dependencies via apt
   apt:
     update_cache: yes
     pkg:
@@ -45,13 +45,13 @@
     group: "zabbix"
     mode: "0644"
 
-- name: Deploy additional configurataion files in /etc
+- name: Deploy additional configuration files in /etc
   notify: reload zabbix-agent
   copy:
     src: "etc/"
     dest: "/etc/"
 
-- name: Deploy additional configurataion files in /usr/bin
+- name: Deploy additional configuration files in /usr/bin
   notify: reload zabbix-agent
   copy:
     src: "usr/bin/"
@@ -61,7 +61,7 @@
 - name: Set x attribute on /etc/zabbix/bin/
   command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
 
-- name: Deploy zabbix-agent psk file
+- name: Deploy zabbix-agent PSK file
   notify: reload zabbix-agent
   template:
     src: zabbix_agentd.psk.j2
