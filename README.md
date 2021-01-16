@@ -1,5 +1,12 @@
 # ansible configs for freifunkh
 
+## prerequisites
+
+Ansible v2.7.7 or newer and dnspython are required for operation. Both can be installed using pip3:
+```
+pip3 install ansible dnspython
+```
+
 ## how to use:
 
 ``` shell
