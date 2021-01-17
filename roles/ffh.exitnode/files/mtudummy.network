@@ -1,0 +1,15 @@
+[Match]
+Name=mtudummy
+
+[Network]
+Address=192.0.0.2/29
+
+[Route]
+Destination=81.3.6.94/32
+Gateway=192.0.0.1
+Table=43
+
+[Route]
+Destination=10.0.0.0/8
+Gateway=192.0.0.1
+Table=43

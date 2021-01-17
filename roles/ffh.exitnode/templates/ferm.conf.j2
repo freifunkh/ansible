@@ -6,13 +6,18 @@
       outerface $DEV_EXIT saddr $net REJECT reject-with icmp-host-unreachable;
 }
 
-
 @def &PRIV_NET_DEST_ONLY($net) = {
       outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
 }
 
 domain (ip) {
   table nat {
+    #chain PREROUTING {
+      # Route QUIC UDP packets which would exceed our MTU to the "mtudummy" interface
+      # to generate ICMP "too big" messages which trigger PMTU on the other side
+    #  interface eth0 proto udp sport 443 mod length length 1299:1500 DNAT to 192.0.0.1;
+    #}
+
     chain POSTROUTING {
       # Alternativly to MASQUERADE use SNAT to <addr>;
       saddr 10.0.0.0/8 outerface eth0 MASQUERADE;
@@ -86,10 +91,36 @@ domain (ip6) {
 domain (ip ip6) {
   table filter {
     chain FORWARD {
+      interface eth0 outerface mtudummy ACCEPT;
 {% for name,node in supernodes.items() %}
       interface eth0 outerface gre-{{ name }} ACCEPT;
       interface gre-{{ name }} outerface eth0 ACCEPT;
 {% endfor %}
+    }
+  }
+}
+
+#domain (ip ip6) {
+#  table raw {
+#    chain PREROUTING {
+      # Disable tracking for oversized QUIC UDP packets to allow processing
+      # by DNAT even if the connection was initiated using masquerading
+#      interface eth0 proto udp sport 443 mod length length 1299:1500 NOTRACK;
+#    }
+#    chain OUTPUT {
+      # Disable tracking for packets that leave on the dummy interface to
+      # avoid blackholing of traffic that is not oversized
+#      outerface mtudummy NOTRACK;
+#    }
+#  }
+#}
+
+domain (ip ip6) {
+  table mangle {
+    chain PREROUTING {
+      # Add a packet mark to oversized QUIC traffic to let it use routing
+      # table 43 so that it is being routed to the dummy interface
+      interface eth0 proto udp sport 443 mod length length 1299:1500 MARK set-xmark 0x2b/0xffffffff;
     }
   }
 }
