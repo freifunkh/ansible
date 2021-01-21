@@ -35,7 +35,6 @@ def pull_repo(repo):
 
     s = subprocess.Popen(["git -C {} pull".format(REPO)], shell=True, env=env,
                          preexec_fn=demote(user_uid, user_gid), stdout=subprocess.PIPE)
-    #print("s = " + s)
 
 def read_repo_keys():
     repokeys=[]
