@@ -3,7 +3,7 @@ After=sys-subsystem-net-devices-{{ vxlan_iface }}\x2d%i.device
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh /usr/bin/wait_for_iface.sh {{ vxlan_iface }}-%i unknownisfine
+ExecStart=/bin/sh /usr/bin/wait_for_iface.sh {{ vxlan_iface }}-%i unknown_is_fine
 ExecStart=/bin/sh /usr/bin/wait_for_iface.sh bat%I unknownisfine
 ExecStart=/usr/sbin/ip link set dev {{ vxlan_iface }}-%i master bat%I
 
