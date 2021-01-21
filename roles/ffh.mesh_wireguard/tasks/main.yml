@@ -1,6 +1,6 @@
 ---
 
-- name: add backports repository
+- name: Add backports repository
   apt_repository:
     repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
     state: present
@@ -23,7 +23,7 @@
 - name: setup batctl service
   include_tasks: batctl.yml
 
-- name: Firewalling mesh_wireguard for all domains
+- name: Firewall mesh_wireguard for all domains
   include_tasks: ferm.yml
 
 - name: Establish netlink worker

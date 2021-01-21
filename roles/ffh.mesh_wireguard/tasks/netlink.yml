@@ -1,26 +1,26 @@
 ---
 
-- name: ensure wireguard config directory
+- name: Ensure wireguard config directory
   file:
     path: /etc/wireguard
     state: directory
 
-- name: place netlink config
+- name: Place netlink config
   template:
     src: netlink_cfg.json.j2
     dest: /etc/wireguard/netlink_cfg.json
 
-- name: ensure wireguard srv directory
+- name: Ensure wireguard srv directory
   file:
     path: /srv/wireguard
     state: directory
 
-- name: install pip3
+- name: Install pip3
   apt:
     name: python3-pip
     state: present
 
-- name: install pyroute2
+- name: Install pyroute2
   pip:
     name: pyroute2
 
@@ -30,7 +30,7 @@
     dest: /srv/wireguard/vxlan-glue
   register: repo
 
-- name: install wg_netlink service
+- name: Install wg_netlink service
   template:
     src: netlink.service.j2
     dest: /etc/systemd/system/wg_netlink.service
