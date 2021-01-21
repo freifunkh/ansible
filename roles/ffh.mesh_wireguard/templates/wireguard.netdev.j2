@@ -1,5 +1,5 @@
 [NetDev]
-Name={{ mesh_wireguard_iface }}-{{ '%02d' % domain.id | int }}
+Name={{ mesh_wireguard_iface_prefix }}-{{ '%02d' % domain.id | int }}
 Kind=wireguard
 
 [WireGuard]

@@ -3,19 +3,19 @@
 - name: "Generate networkd wg netdev (dom {{ domain.id }})"
   template:
     src: wireguard.netdev.j2
-    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface }}-{{ domain.id }}.netdev"
+    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface_prefix }}-{{ domain.id }}.netdev"
 
 - name: "Generate networkd wg network (dom {{ domain.id }})"
   template:
     src: wireguard.conf.j2
-    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface }}-{{ domain.id }}.network"
+    dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface_prefix }}-{{ domain.id }}.network"
 
 - name: "Generate networkd vxlan netdev (dom {{ domain.id }})"
   template:
     src: vxlan.netdev.j2
-    dest: "/etc/systemd/network/30-{{ vxlan_iface }}-{{ domain.id }}.netdev"
+    dest: "/etc/systemd/network/30-{{ vxlan_iface_prefix }}-{{ domain.id }}.netdev"
 
 - name: "Generate networkd vxlan network (dom {{ domain.id }})"
   template:
     src: vxlan.conf.j2
-    dest: "/etc/systemd/network/30-{{ vxlan_iface }}-{{ domain.id }}.network"
+    dest: "/etc/systemd/network/30-{{ vxlan_iface_prefix }}-{{ domain.id }}.network"
