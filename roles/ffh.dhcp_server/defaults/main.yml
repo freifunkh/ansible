@@ -2,7 +2,7 @@
 legacy_dom0: true
 dhcp_interface: "bat0"
 dhcp_default_leasetime: 600
-dhcp_max_leasetime: 7200
+dhcp_max_leasetime: 600
 dhcp_domain_name: "ffh.zone"
 dhcp_net:
   net: 10.2.0.0
