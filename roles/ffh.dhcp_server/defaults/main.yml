@@ -1,15 +1,7 @@
 ---
+
 legacy_dom0: true
-dhcp_interface: "bat0"
-dhcp_default_leasetime: 600
-dhcp_max_leasetime: 600
+dhcp_valid_leasetime: 600
+dhcp_rebind_timer: 300
+dhcp_renew_timer: 150
 dhcp_domain_name: "ffh.zone"
-dhcp_net:
-  net: 10.2.0.0
-  mask: 255.255.0.0
-dhcp_range:
-  from: 10.2.0.2
-  to: 10.2.0.254
-dhcp_options:
-  gateway: 10.2.0.1
-  dns_server: 10.2.0.1

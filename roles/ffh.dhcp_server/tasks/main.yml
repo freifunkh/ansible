@@ -1,25 +1,31 @@
 ---
-- name: Install isc-dhcp-server
-  apt: name=isc-dhcp-server update_cache=yes
 
-- name: Install dhcpd-pools
-  apt: name=dhcpd-pools
+- name: Install kea-dhcp4-server as dhcpd
+  apt: name=kea-dhcp4-server update_cache=yes
+
+- name: Remove artifact kea-dhcp4-server sysv script
+  file:
+    path: /etc/init.d/kea-dhcp4-server
+    state: absent
+
+- name: Remove artifact kea-dhcp4-server rc entries
+  command: update-rc.d kea-dhcp4-server remove
   
-- name: Ramdisk in fstab eintragen
-  notify: Restart isc-dhcp-server
-  mount: name=/var/lib/dhcp src=tmpfs fstype=tmpfs opts='defaults,size=100M' state=mounted
+- name: Add a ramdisk entry in fstab
+  notify: Restart dhcpd
+  mount: name=/var/lib/kea src=tmpfs fstype=tmpfs opts='defaults,size=10M' state=mounted
 
-- name: Generate dhcpd master config
-  notify: Restart isc-dhcp-server
+- name: Generate kea-dhcp4.conf config
+  notify: Restart dhcpd
   template:
     src: dhcpd.conf.j2
-    dest: /etc/dhcp/dhcpd.conf
+    dest: /etc/kea/kea-dhcp4.conf
 
 - name: Generate dhcpd bat0 config
-  notify: Restart isc-dhcp-server
+  notify: Restart dhcpd
   template:
     src: bat0.conf.j2
-    dest: /etc/dhcp/bat0.conf
+    dest: /etc/kea/bat0.conf
   when: legacy_dom0 == true
 
 - name: Domain configs
@@ -41,17 +47,12 @@
     src: dhcpd.service.j2
     dest: /etc/systemd/system/dhcpd.service
 
-- name: Stop isc-dhcp-server via systemd
+- name: Stop dhcpd via systemd
   systemd:
-    name: isc-dhcp-server
+    name: dhcpd
     state: stopped
     enabled: no
   ignore_errors: yes
-
-- name: Disable isc-dhcp-server sysv scripts
-  file:
-    path: /etc/init.d/isc-dhcp-server
-    state: absent
 
 - name: Reload systemd daemon
   command: systemctl daemon-reload

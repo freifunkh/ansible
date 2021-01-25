@@ -1,21 +1,20 @@
 [Unit]
-Description=ISC DHCP Server for IPv4 (dhcpd.conf)
+Description=Kea DHCP Server for IPv4 (kea-dhcp4.conf)
 After=network.target
-ConditionPathExists=/etc/dhcp/dhcpd.conf
+ConditionPathExists=/etc/kea/kea-dhcp4.conf
 {% if legacy_dom0 == true %}
 After=sys-subsystem-net-devices-bat0.device
-# Requires=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% for domain in domains | default([]) %}
 After=sys-subsystem-net-devices-bat{{ domain.id }}.device
-# Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
 {% endfor %}
 
 [Service]
-Environment="DHCPD_CONF=/etc/dhcp/dhcpd.conf"
-ExecStartPre=/usr/bin/touch /var/lib/dhcp/dhcpd.leases
-ExecStartPre=/usr/sbin/dhcpd -f -t -4 -q $OPTIONS -cf "$DHCPD_CONF"
-ExecStart=/usr/sbin/dhcpd -f -4 -q $OPTIONS -cf "$DHCPD_CONF"
+Environment="DHCPD_CONF=/etc/kea/kea-dhcp4.conf"
+ExecStartPre=/usr/bin/touch /var/lib/kea/kea-leases4.csv
+# Testing the config file will work in the future
+#ExecStartPre=/usr/sbin/kea-dhcp4 $OPTIONS -t "$DHCPD_CONF"
+ExecStart=/usr/sbin/kea-dhcp4 $OPTIONS -c "$DHCPD_CONF"
 
 [Install]
 WantedBy=multi-user.target

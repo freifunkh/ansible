@@ -1,12 +1,15 @@
-shared-network dom{{ domain.id }} {
-
-subnet {{ dhcp_net.net }} netmask {{ dhcp_net.mask }} {
-   authoritative;
-   interface {{ dhcp_interface }};
-   range {{ dhcp_range.from }} {{ dhcp_range.to }};
-
-   option domain-name-servers {{ dhcp_options.dns_server }};
-   option routers {{ dhcp_options.gateway }};
-}
-
-}
+{
+	"interface": "{{ dhcp_interface }}",
+	"subnet": "{{ dhcp_subnet }}",
+	"pools": [{ "pool":  "{{ dhcp_range.from }} - {{ dhcp_range.to }}" }],
+	"option-data": [
+		{
+			"name": "domain-name-servers",
+			"data": "{{ dhcp_options.dns_server }}"
+		},
+		{
+			"name": "routers",
+			"data": "{{ dhcp_options.gateway }}"
+		}
+	],
+},
