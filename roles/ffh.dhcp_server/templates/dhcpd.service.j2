@@ -1,21 +1,26 @@
 [Unit]
-Description=ISC DHCP Server for IPv4 (dhcpd.conf)
+Description=dnsmasq DHCP Server for IPv4
 After=network.target
-ConditionPathExists=/etc/dhcp/dhcpd.conf
+ConditionPathExists=/etc/dnsmasq.conf
 {% if legacy_dom0 == true %}
 After=sys-subsystem-net-devices-bat0.device
-# Requires=sys-subsystem-net-devices-bat0.device
+Requires=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% for domain in domains | default([]) %}
 After=sys-subsystem-net-devices-bat{{ domain.id }}.device
-# Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
+Requires=sys-subsystem-net-devices-bat{{ domain.id }}.device
 {% endfor %}
 
 [Service]
-Environment="DHCPD_CONF=/etc/dhcp/dhcpd.conf"
-ExecStartPre=/usr/bin/touch /var/lib/dhcp/dhcpd.leases
-ExecStartPre=/usr/sbin/dhcpd -f -t -4 -q $OPTIONS -cf "$DHCPD_CONF"
-ExecStart=/usr/sbin/dhcpd -f -4 -q $OPTIONS -cf "$DHCPD_CONF"
+ExecStartPre=/usr/bin/touch /var/lib/dnsmasq/dnsmasq.leases
+ExecStartPre=/usr/sbin/dnsmasq --test --keep-in-foreground --log-facility=local7 --port=0 --no-hosts --bind-interfaces --except-interface=lo
+{% if legacy_dom0 == true %}
+ExecStart=/bin/sh /usr/bin/wait_for_iface.sh bat0 unknownisfine
+{% endif %}
+{% for domain in domains | default([]) %}
+ExecStart=/bin/sh /usr/bin/wait_for_iface.sh bat{{ domain.id }} unknownisfine
+{% endif %}
+ExecStart=/usr/sbin/dnsmasq --keep-in-foreground --log-facility=local7 --port=0 --no-hosts --bind-interfaces --except-interface=lo
 
 [Install]
 WantedBy=multi-user.target

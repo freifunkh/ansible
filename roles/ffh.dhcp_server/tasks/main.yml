@@ -1,33 +1,30 @@
 ---
-- name: Install isc-dhcp-server
-  apt: name=isc-dhcp-server update_cache=yes
 
-- name: Install dhcpd-pools
-  apt: name=dhcpd-pools
+- name: Install dnsmasq as dhcpd
+  apt: name=dnsmasq update_cache=yes
+
+- name: Remove dpkg artifact dnsmasq sysv script
+  file:
+    path: /etc/init.d/dnsmasq
+    state: absent
+
+- name: Remove dpkg artifact dnsmasq rc entries
+  command: update-rc.d dnsmasq remove
+
+- name: Remove dpkg artifact dnsmasq insserv script
+  file:
+    path: /etc/insserv.conf.d/dnsmasq
+    state: absent
   
-- name: Ramdisk in fstab eintragen
-  notify: Restart isc-dhcp-server
-  mount: name=/var/lib/dhcp src=tmpfs fstype=tmpfs opts='defaults,size=100M' state=mounted
+- name: Add a ramdisk entry in fstab
+  notify: Restart dhcpd
+  mount: name=/var/lib/dnsmasq src=tmpfs fstype=tmpfs opts='defaults,size=30M' state=mounted
 
-- name: Generate dhcpd master config
-  notify: Restart isc-dhcp-server
+- name: Generate dnsmasq.conf config
+  notify: Restart dhcpd
   template:
     src: dhcpd.conf.j2
-    dest: /etc/dhcp/dhcpd.conf
-
-- name: Generate dhcpd bat0 config
-  notify: Restart isc-dhcp-server
-  template:
-    src: bat0.conf.j2
-    dest: /etc/dhcp/bat0.conf
-  when: legacy_dom0 == true
-
-- name: Domain configs
-  include_tasks: per_domain.yml
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  when: domains is defined
+    dest: /etc/dnsmasq.conf
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -41,17 +38,12 @@
     src: dhcpd.service.j2
     dest: /etc/systemd/system/dhcpd.service
 
-- name: Stop isc-dhcp-server via systemd
+- name: Stop dhcpd via systemd
   systemd:
-    name: isc-dhcp-server
+    name: dhcpd
     state: stopped
     enabled: no
   ignore_errors: yes
-
-- name: Disable isc-dhcp-server sysv scripts
-  file:
-    path: /etc/init.d/isc-dhcp-server
-    state: absent
 
 - name: Reload systemd daemon
   command: systemctl daemon-reload
