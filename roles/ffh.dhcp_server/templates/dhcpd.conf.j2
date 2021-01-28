@@ -5,7 +5,7 @@
 
 		"interfaces-config": {
 			// Set to UDP to avoid raw socket performance penalty
-			"dhcp-socket-type": "udp",
+			"dhcp-socket-type": "udp"
 		},
 
 		"sanity-checks": {
@@ -42,7 +42,7 @@
 
 		"loggers": [{
 			"name": "kea-dhcp4",
-			"output_options": [{ "output": "syslog:dhcpd", }],
+			"output_options": [{ "output": "syslog:dhcpd" }],
 			"severity": "WARN"
 		}],
 
@@ -53,9 +53,9 @@
 			},
 			{
 				"name": "interface-mtu",
-				"data": 1280,
+				"data": "1280",
 				"always-send": true
-			},
+			}
 		],
 
 		"subnet4": [
@@ -65,6 +65,6 @@
 			{% for domain in domains | default( [] ) %}
 			<?include "/etc/kea/bat{{ domain.id }}.conf"?>
 			{% endfor %}
-		],
+		]
 	}
 }

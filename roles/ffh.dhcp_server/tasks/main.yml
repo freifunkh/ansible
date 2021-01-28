@@ -1,15 +1,31 @@
 ---
 
-- name: Install kea-dhcp4-server as dhcpd
-  apt: name=kea-dhcp4-server update_cache=yes
+- name: Add repo key
+  apt_key:
+    url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
+    state: present
 
-- name: Remove artifact kea-dhcp4-server sysv script
+- name: Add isc repo
+  register: iscrepositoryadded
+  apt_repository:
+    repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
+
+- name: Update apt chache to get isc packages
+  apt: update_cache=yes
+  when: iscrepositoryadded is changed
+
+- name: Install kea dhcpd from repo
+  register: keainstall
+  apt:
+    name: "isc-kea-dhcp4-server"
+
+- name: Remove artifact isc-kea-dhcp4-server sysv script
   file:
-    path: /etc/init.d/kea-dhcp4-server
+    path: /etc/init.d/isc-kea-dhcp4-server
     state: absent
 
-- name: Remove artifact kea-dhcp4-server rc entries
-  command: update-rc.d kea-dhcp4-server remove
+- name: Remove artifact isc-kea-dhcp4-server rc entries
+  command: update-rc.d isc-kea-dhcp4-server remove
   
 - name: Add a ramdisk entry in fstab
   notify: Restart dhcpd
