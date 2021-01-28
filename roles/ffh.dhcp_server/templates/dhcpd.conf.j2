@@ -59,12 +59,41 @@
 		],
 
 		"subnet4": [
-			{% if legacy_dom0 == true %}
-			<?include "/etc/kea/bat0.conf"?>
-			{% endif %}
-			{% for domain in domains | default( [] ) %}
-			<?include "/etc/kea/bat{{ domain.id }}.conf"?>
-			{% endfor %}
+{% if legacy_dom0 == true %}
+			{
+				"interface": "bat0",
+				"subnet": "10.2.0.0/16",
+				"pools": [{ "pool":  "10.2.{{ sn }}0.2 - 10.2.{{ sn }}9.254" }],
+				"option-data": [
+					{
+						"name": "domain-name-servers",
+						"data": "10.2.{{ sn }}0.1"
+					},
+					{
+						"name": "routers",
+						"data": "10.2.{{ sn }}0.1"
+					}
+				],
+			},
+{% endif %}
+
+{% for domain in domains | default( [] ) %}
+			{
+				"interface": "bat{{ domain.id }}",
+				"subnet": "10.{{ domain.id }}.0.0/16",
+				"pools": [{ "pool":  "10.{{ domain.id }}.{{ sn }}0.2 - 10.{{ domain.id }}.{{ sn }}8.254" }],
+				"option-data": [
+					{
+						"name": "domain-name-servers",
+						"data": "10.{{ domain.id }}.0.1"
+					},
+					{
+						"name": "routers",
+						"data": "10.{{ domain.id }}.{{ sn }}0.1"
+					}
+				]
+			}{% if not loop.last %},{% endif %}
+{% endfor %}
 		]
 	}
 }

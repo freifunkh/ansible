@@ -1,80 +1,70 @@
 ---
 
-- name: Add repo key
+- name: "Add repo key"
   apt_key:
     url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
-    state: present
+    state: "present"
 
-- name: Add isc repo
-  register: iscrepositoryadded
+- name: "Add isc repo"
+  register: "iscrepositoryadded"
   apt_repository:
     repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
 
-- name: Update apt chache to get isc packages
-  apt: update_cache=yes
-  when: iscrepositoryadded is changed
+- name: "Update apt chache to get isc packages"
+  apt:
+    update_cache: "yes"
+  when: "iscrepositoryadded is changed"
 
-- name: Install kea dhcpd from repo
-  register: keainstall
+- name: "Install kea dhcpd from repo"
   apt:
     name: "isc-kea-dhcp4-server"
 
-- name: Remove artifact isc-kea-dhcp4-server sysv script
+- name: "Remove artifact isc-kea-dhcp4-server sysv script"
   file:
-    path: /etc/init.d/isc-kea-dhcp4-server
-    state: absent
+    path: "/etc/init.d/isc-kea-dhcp4-server"
+    state: "absent"
 
-- name: Remove artifact isc-kea-dhcp4-server rc entries
-  command: update-rc.d isc-kea-dhcp4-server remove
+- name: "Remove artifact isc-kea-dhcp4-server rc entries"
+  command: "update-rc.d isc-kea-dhcp4-server remove"
   
-- name: Add a ramdisk entry in fstab
-  notify: Restart dhcpd
-  mount: name=/var/lib/kea src=tmpfs fstype=tmpfs opts='defaults,size=10M' state=mounted
+- name: "Add a ramdisk entry in fstab"
+  notify: "Restart dhcpd"
+  mount: 
+    name: "/var/lib/kea"
+    src: "tmpfs" 
+    fstype: "tmpfs" 
+    opts: "defaults,size=10M" 
+    state: "mounted"
 
-- name: Generate kea-dhcp4.conf config
-  notify: Restart dhcpd
+- name: "Generate kea-dhcp4.conf config"
+  notify: "Restart dhcpd"
   template:
-    src: dhcpd.conf.j2
-    dest: /etc/kea/kea-dhcp4.conf
+    src: "dhcpd.conf.j2"
+    dest: "/etc/kea/kea-dhcp4.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
 
-- name: Generate dhcpd bat0 config
-  notify: Restart dhcpd
+- name: "Generate firewall config stanza (ferm)"
+  notify: "reload ferm"
   template:
-    src: bat0.conf.j2
-    dest: /etc/kea/bat0.conf
-  when: legacy_dom0 == true
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-dhcpd.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
 
-- name: Domain configs
-  include_tasks: per_domain.yml
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  when: domains is defined
-
-- name: Generate firewall config stanza (ferm)
-  register: ferm_changed
+- name: "Deploy systemd service file"
   template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-dhcpd.conf
-  notify: reload ferm
+    src: "dhcpd.service.j2"
+    dest: "/etc/systemd/system/dhcpd.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
 
-- name: Deploy systemd service file
-  template:
-    src: dhcpd.service.j2
-    dest: /etc/systemd/system/dhcpd.service
-
-- name: Stop dhcpd via systemd
+- name: "Start service"
   systemd:
-    name: dhcpd
-    state: stopped
-    enabled: no
-  ignore_errors: yes
-
-- name: Reload systemd daemon
-  command: systemctl daemon-reload
-
-- name: Enable dhcpd
-  command: systemctl enable dhcpd
-
-- name: Start dhcpd
-  command: systemctl start dhcpd
+    name: "dhcpd"
+    state: "started"
+    enabled: "yes"
+    daemon_reload: "yes"
