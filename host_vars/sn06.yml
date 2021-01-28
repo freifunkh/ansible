@@ -1,0 +1,33 @@
+---
+
+servername: sn06
+sn: 6
+fqdn: "sn06.s.ffh.zone"
+
+networkd_configures:
+- iface: eth0
+  addresses:
+    - 81.95.11.105/26
+    - 2a01:4a0:72:7::29ce/48
+  gateway6: 2a01:4a0:72::1
+  static_routes:
+    - gw: 81.95.11.65
+      dest: 0.0.0.0/0
+      pref_src: 81.95.11.105
+  no_radv_accept: false
+  dhcp: false
+  dns_server: [9.9.9.9, 1.1.1.1]
+
+mesh_prefix: "2a02:790:ff"
+
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interface_penalty:
+  gre-aegidientor: 666
+  gre-steintor: 120
+  gre-leintor: 130
+  gre-clevertor: 110
+  gre-listertor: 100
+  gre-bruehltor: 666
+
+legacy_dom0: false
+radv_announce_default: false
