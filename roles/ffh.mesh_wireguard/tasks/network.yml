@@ -1,0 +1,6 @@
+---
+
+- name: "Generate networkd vxlan network (wildcard)"
+  template:
+    src: vxlan.conf.j2
+    dest: "/etc/systemd/network/30-{{ vxlan_iface_prefix }}.network"

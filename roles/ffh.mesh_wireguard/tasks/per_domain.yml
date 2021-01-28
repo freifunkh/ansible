@@ -14,8 +14,3 @@
   template:
     src: vxlan.netdev.j2
     dest: "/etc/systemd/network/30-{{ vxlan_iface_prefix }}-{{ domain.id }}.netdev"
-
-- name: "Generate networkd vxlan network (dom {{ domain.id }})"
-  template:
-    src: vxlan.conf.j2
-    dest: "/etc/systemd/network/30-{{ vxlan_iface_prefix }}-{{ domain.id }}.network"

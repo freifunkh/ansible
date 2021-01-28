@@ -20,6 +20,9 @@
     loop_var: domain
   when: domains is defined and sn is defined
 
+- name: setup network wildcards
+  include_tasks: network.yml
+
 - name: setup batctl service
   include_tasks: batctl.yml
 
