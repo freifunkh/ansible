@@ -16,16 +16,25 @@
   when: "iscrepositoryadded is changed"
 
 - name: "Install kea dhcpd from repo"
+  register: "keainstall"
   apt:
     name: "isc-kea-dhcp4-server"
+
+- name: "Stop service after initial installation"
+  service:
+    name: "isc-kea-dhcp4-server"
+    state: "stopped"
+  when: "keainstall is changed"
 
 - name: "Remove artifact isc-kea-dhcp4-server sysv script"
   file:
     path: "/etc/init.d/isc-kea-dhcp4-server"
     state: "absent"
+  when: "keainstall is changed"
 
 - name: "Remove artifact isc-kea-dhcp4-server rc entries"
   command: "update-rc.d isc-kea-dhcp4-server remove"
+  when: "keainstall is changed"
   
 - name: "Add a ramdisk entry in fstab"
   notify: "Restart dhcpd"

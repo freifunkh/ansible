@@ -5,7 +5,8 @@
 
 		"interfaces-config": {
 			// Set to UDP to avoid raw socket performance penalty
-			"dhcp-socket-type": "udp"
+			// "dhcp-socket-type": "udp",
+                        "interfaces": [ {% if legacy_dom0 == true %}"bat0",{% endif %} {% for domain in domains | default( [] ) %} "bat{{ domain.id }}"{% if not loop.last %}, {% endif %}{% endfor %} ]
 		},
 
 		"sanity-checks": {
@@ -53,7 +54,7 @@
 			},
 			{
 				"name": "interface-mtu",
-				"data": "1280",
+				"data": "1280"
 				// "always-send": true
 			}
 		],
@@ -73,7 +74,7 @@
 						"name": "routers",
 						"data": "10.2.{{ sn }}0.1"
 					}
-				],
+				]
 			},
 {% endif %}
 
