@@ -1,0 +1,34 @@
+---
+
+- name: Create systemd service to add {{ vxlan_iface_prefix }}-* devices into bat*
+  template:
+    src: addtobatX.j2
+    dest: /etc/systemd/system/add-{{ vxlan_iface_prefix }}-to-batX@.service
+  register: addtobatX
+
+- name: Systemd daemon-reload
+  systemd:
+    daemon_reload: yes
+  when: addtobatX.changed
+
+- name: Enable systemd services
+  systemd:
+    name: add-{{ vxlan_iface_prefix }}-to-batX@{{ item.id }}
+    enabled: yes
+  with_items:
+    - "{{ domains }}"
+
+- name: Restart networkd
+  systemd:
+    state: restarted
+    name: systemd-networkd
+  when: addtobatX.changed
+  register: networkd
+
+- name: "Start 'attach batctl'systemd oneshot services"
+  systemd:
+    state: started
+    name: add-{{ vxlan_iface_prefix }}-to-batX@{{ item.id }}.service
+  with_items:
+    - "{{ domains }}"
+  when: networkd.changed

@@ -1,0 +1,5 @@
+---
+
+mesh_wireguard_iface_prefix: "wg"
+vxlan_iface_prefix: "vx"
+vxlan_port: 4789

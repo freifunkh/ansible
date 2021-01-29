@@ -1,0 +1,13 @@
+[NetDev]
+Name={{ vxlan_iface_prefix }}-{{ '%02d' % domain.id | int }}
+Kind=vxlan
+MACAddress=02:a1:71:04:{{ '%02d' % sn | int }}:{{ '%02d' % domain.id | int }}
+
+[VXLAN]
+Id={{ domain.vxlanid }}
+# this changed on aiyions arch, so someday this will be correct in debian...
+#VNI={{ domain.vxlanid }}
+DestinationPort={{ vxlan_port }}
+UDP6ZeroChecksumRx=true
+UDP6ZeroChecksumTx=true
+Local=fe80::1

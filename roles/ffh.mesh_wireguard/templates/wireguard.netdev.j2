@@ -1,0 +1,11 @@
+[NetDev]
+Name={{ mesh_wireguard_iface_prefix }}-{{ '%02d' % domain.id | int }}
+Kind=wireguard
+
+[WireGuard]
+PrivateKey={{ wireguard_keys[servername].secret }}
+ListenPort=518{{ '%02d' % domain.id | int }}
+
+[WireGuardPeer]
+PublicKey = 0000000000000000000000000000000000000000000=
+AllowedIPs = fe80::260:99ff:fe7c:c8ae/128

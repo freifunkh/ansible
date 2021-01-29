@@ -1,0 +1,8 @@
+{"interfaces":
+  {"wireguard": [
+    "{{ mesh_wireguard_iface_prefix }}-{{ domains | map(attribute='id') | join('",\n    "' + mesh_wireguard_iface_prefix +'-') }}"]
+  ,
+  "vxlan": [
+    "{{ vxlan_iface_prefix }}-{{ domains | map(attribute='id') | join('",\n    "'+ vxlan_iface_prefix + '-') }}"]
+  }
+}

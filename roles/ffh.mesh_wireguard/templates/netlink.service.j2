@@ -1,0 +1,14 @@
+[Unit]
+Description=A worker to generate routes for upcoming and leaving wireguard peers
+Wants=network.target
+After=network.target
+{% for domain in domains %}
+After=sys-subsystem-net-devices-{{ vxlan_iface_prefix }}_{{ domain.id }}.device
+{% endfor %}
+
+[Service]
+ExecStart=/usr/bin/python3 /srv/wireguard/vxlan-glue/netlink.py -c /etc/wireguard/netlink_cfg.json
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

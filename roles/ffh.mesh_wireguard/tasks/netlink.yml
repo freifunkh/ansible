@@ -1,0 +1,49 @@
+---
+
+- name: Ensure wireguard config directory
+  file:
+    path: /etc/wireguard
+    state: directory
+
+- name: Place netlink config
+  template:
+    src: netlink_cfg.json.j2
+    dest: /etc/wireguard/netlink_cfg.json
+
+- name: Ensure wireguard srv directory
+  file:
+    path: /srv/wireguard
+    state: directory
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install pyroute2
+  pip:
+    name: pyroute2
+
+- name: Fetch wireguard-vxlan-glue
+  git:
+    repo: 'https://github.com/freifunkh/wireguard-vxlan-glue.git'
+    dest: /srv/wireguard/vxlan-glue
+  register: repo
+
+- name: Install wg_netlink service
+  template:
+    src: netlink.service.j2
+    dest: /etc/systemd/system/wg_netlink.service
+  register: servicefile
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+  when: servicefile.changed
+
+- name: Enable netlink service
+  systemd:
+    name: wg_netlink.service
+    state: started
+    enabled: yes
+  when: servicefile.changed or repo.changed

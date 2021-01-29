@@ -1,0 +1,6 @@
+[Match]
+Name={{ mesh_wireguard_iface_prefix }}-{{ '%02d' % domain.id | int }}
+
+[Network]
+Address = fe80::1/64
+VXLAN={{ vxlan_iface_prefix }}-{{ '%02d' % domain.id | int }}
