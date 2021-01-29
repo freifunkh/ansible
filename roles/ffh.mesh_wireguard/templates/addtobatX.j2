@@ -5,7 +5,7 @@ After=sys-subsystem-net-devices-{{ vxlan_iface_prefix }}\x2d%i.device
 Type=oneshot
 ExecStart=/bin/sh /usr/bin/wait_for_iface.sh {{ vxlan_iface_prefix }}-%i unknown_is_fine
 ExecStart=/bin/sh /usr/bin/wait_for_iface.sh bat%I unknownisfine
-ExecStart=/usr/sbin/ip link set dev {{ vxlan_iface_prefix }}-%i master bat%I
+ExecStart=/sbin/ip link set dev {{ vxlan_iface_prefix }}-%i master bat%I
 
 [Install]
 WantedBy=sys-subsystem-net-devices-{{ vxlan_iface_prefix }}\x2d%i.device
