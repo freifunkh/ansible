@@ -1,63 +1,79 @@
 ---
-- name: Install isc-dhcp-server
-  apt: name=isc-dhcp-server update_cache=yes
 
-- name: Install dhcpd-pools
-  apt: name=dhcpd-pools
-  
-- name: Ramdisk in fstab eintragen
-  notify: Restart isc-dhcp-server
-  mount: name=/var/lib/dhcp src=tmpfs fstype=tmpfs opts='defaults,size=100M' state=mounted
+- name: "Add repo key"
+  apt_key:
+    url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
+    state: "present"
 
-- name: Generate dhcpd master config
-  notify: Restart isc-dhcp-server
-  template:
-    src: dhcpd.conf.j2
-    dest: /etc/dhcp/dhcpd.conf
+- name: "Add isc repo"
+  register: "iscrepositoryadded"
+  apt_repository:
+    repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
 
-- name: Generate dhcpd bat0 config
-  notify: Restart isc-dhcp-server
-  template:
-    src: bat0.conf.j2
-    dest: /etc/dhcp/bat0.conf
-  when: legacy_dom0 == true
+- name: "Update apt chache to get isc packages"
+  apt:
+    update_cache: "yes"
+  when: "iscrepositoryadded is changed"
 
-- name: Domain configs
-  include_tasks: per_domain.yml
-  with_items: "{{ domains }}"
-  loop_control:
-    loop_var: domain
-  when: domains is defined
+- name: "Install kea dhcpd from repo"
+  register: "keainstall"
+  apt:
+    name: "isc-kea-dhcp4-server"
 
-- name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-dhcpd.conf
-  notify: reload ferm
+- name: "Stop service after initial installation"
+  service:
+    name: "isc-kea-dhcp4-server"
+    state: "stopped"
+  when: "keainstall is changed"
 
-- name: Deploy systemd service file
-  template:
-    src: dhcpd.service.j2
-    dest: /etc/systemd/system/dhcpd.service
-
-- name: Stop isc-dhcp-server via systemd
-  systemd:
-    name: isc-dhcp-server
-    state: stopped
-    enabled: no
-  ignore_errors: yes
-
-- name: Disable isc-dhcp-server sysv scripts
+- name: "Remove artifact isc-kea-dhcp4-server sysv script"
   file:
-    path: /etc/init.d/isc-dhcp-server
-    state: absent
+    path: "/etc/init.d/isc-kea-dhcp4-server"
+    state: "absent"
+  when: "keainstall is changed"
 
-- name: Reload systemd daemon
-  command: systemctl daemon-reload
+- name: "Remove artifact isc-kea-dhcp4-server rc entries"
+  command: "update-rc.d isc-kea-dhcp4-server remove"
+  when: "keainstall is changed"
+  
+- name: "Add a ramdisk entry in fstab"
+  notify: "Restart dhcpd"
+  mount: 
+    name: "/var/lib/kea"
+    src: "tmpfs" 
+    fstype: "tmpfs" 
+    opts: "defaults,size=10M" 
+    state: "mounted"
 
-- name: Enable dhcpd
-  command: systemctl enable dhcpd
+- name: "Generate kea-dhcp4.conf config"
+  notify: "Restart dhcpd"
+  template:
+    src: "dhcpd.conf.j2"
+    dest: "/etc/kea/kea-dhcp4.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
 
-- name: Start dhcpd
-  command: systemctl start dhcpd
+- name: "Generate firewall config stanza (ferm)"
+  notify: "reload ferm"
+  template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-dhcpd.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Deploy systemd service file"
+  template:
+    src: "dhcpd.service.j2"
+    dest: "/etc/systemd/system/dhcpd.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Start service"
+  systemd:
+    name: "dhcpd"
+    state: "started"
+    enabled: "yes"
+    daemon_reload: "yes"

@@ -1,17 +1,100 @@
-ddns-update-style none;
+{
+	"Dhcp4": {
+		// Reply with NACK to requests with false networks
+		"authoritative": true,
 
-option domain-name "{{ dhcp_domain_name }}";
-option domain-name-servers ns1.example.org, ns2.example.org;
+		"interfaces-config": {
+			// Set to UDP to avoid raw socket performance penalty
+			// "dhcp-socket-type": "udp",
+                        "interfaces": [ {% if legacy_dom0 == true %}"bat0",{% endif %} {% for domain in domains | default( [] ) %} "bat{{ domain.id }}"{% if not loop.last %}, {% endif %}{% endfor %} ]
+		},
 
-default-lease-time {{ dhcp_default_leasetime }};
-max-lease-time {{ dhcp_max_leasetime}};
+		"sanity-checks": {
+			// Delete leases that have incorrect subnet-id values
+			"lease-checks": "del"
+		},
 
-log-facility local7;
+		"lease-database": {
+			// Store leases in memory
+			"type": "memfile",
+			"lfc-interval": 900
+		},
 
+		"control-socket": {
+			"socket-type": "unix",
+			"socket-name": "/tmp/kea4-ctrl-socket"
+		},
+
+		// Addresses will be assigned with a lifetime of {{ dhcp_valid_leasetime }} seconds.
+		// The client is told to start renewing after {{ dhcp_renew_timer }} seconds. If the server
+		// does not respond within {{ dhcp_rebind_timer }} seconds of the lease being granted, client
+		// is supposed to start REBIND procedure (emergency renewal that allows switching to a different server).
+		"valid-lifetime": {{ dhcp_valid_leasetime }},
+		"renew-timer": {{ dhcp_renew_timer }},
+		"rebind-timer": {{ dhcp_rebind_timer }},
+
+		// RFC6842 says that the server is supposed to echo back client-id option.
+		// However, some older clients do not support this and are getting confused
+		// when they get their own client-id. Kea can disable RFC6842 support.
+		"echo-client-id": false,
+
+		// use MAC address for IP address calculation
+		"match-client-id": false,
+
+		"loggers": [{
+			"name": "kea-dhcp4",
+			"output_options": [{ "output": "syslog:dhcpd" }],
+			"severity": "WARN"
+		}],
+
+		"option-data": [
+			{
+				"name": "domain-name",
+				"data": "{{ dhcp_domain_name }}"
+			},
+			{
+				"name": "interface-mtu",
+				"data": "1280"
+				// "always-send": true
+			}
+		],
+
+		"subnet4": [
 {% if legacy_dom0 == true %}
-include "/etc/dhcp/bat0.conf";
+			{
+				"interface": "bat0",
+				"subnet": "10.2.0.0/16",
+				"pools": [{ "pool":  "10.2.{{ sn }}0.2 - 10.2.{{ sn }}9.254" }],
+				"option-data": [
+					{
+						"name": "domain-name-servers",
+						"data": "10.2.{{ sn }}0.1"
+					},
+					{
+						"name": "routers",
+						"data": "10.2.{{ sn }}0.1"
+					}
+				]
+			},
 {% endif %}
-{% for domain in domains | default( [] ) %}
-include "/etc/dhcp/bat{{ domain.id }}.conf";
-{% endfor %}
 
+{% for domain in domains | default( [] ) %}
+			{
+				"interface": "bat{{ domain.id }}",
+				"subnet": "10.{{ domain.id }}.0.0/16",
+				"pools": [{ "pool":  "10.{{ domain.id }}.{{ sn }}0.2 - 10.{{ domain.id }}.{{ sn }}8.254" }],
+				"option-data": [
+					{
+						"name": "domain-name-servers",
+						"data": "10.{{ domain.id }}.0.1"
+					},
+					{
+						"name": "routers",
+						"data": "10.{{ domain.id }}.{{ sn }}0.1"
+					}
+				]
+			}{% if not loop.last %},{% endif %}
+{% endfor %}
+		]
+	}
+}
