@@ -13,4 +13,4 @@ fi
 
 echo
 echo
-/usr/bin/git -C /etc log "$@" "${EXTRA_ARGS[@]}" -- . ":(exclude).etckeeper" ":(exclude)fastd/peers"
+/usr/bin/git -C /etc log "$@" "${EXTRA_ARGS[@]}" -- . ":(exclude).etckeeper" ":(exclude)fastd/peers" ":(exclude)fastd/peers" ":(exclude)wireguard/peers-wg"
