@@ -22,6 +22,7 @@
 
 - name: Install pyroute2
   pip:
+    executable: pip3
     name: pyroute2
 
 - name: Fetch wireguard-vxlan-glue
