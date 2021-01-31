@@ -1,0 +1,3 @@
+[[inputs.exec]]
+  commands = ["/usr/bin/ffh_wg_stats.py -f influx -i{% for domain in domains | default( [] ) %} wg-{{ domain.id }}{% endfor %}"]
+  data_format = "influx"

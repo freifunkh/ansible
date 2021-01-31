@@ -1,0 +1,25 @@
+---
+
+- name: Install ffh_wg_stats.py files
+  copy:
+    src: "bin/ffh_wg_stats.py"
+    dest: "/usr/bin/"
+    owner: "root"
+    mode: 0755
+
+- name: Check telegraf path
+  stat:
+    path: /etc/telegraf/telegraf.d/
+  register: telegraf_path
+
+- name: Ensure telegraf path exists
+  shell: mkdir -p /etc/telegraf/telegraf.d/
+  when: telegraf_path is defined and telegraf_path.stat.exists==false
+
+# We do not care whether telegraf is really installed. So it could be installed
+# later (or also never).
+- name: Set /etc/telegraf/telegraf.d/mesh_wg_stats.conf
+  notify: Maybe restart telegraf # handler from ffh.routingnode
+  template:
+    src: telegraf_mesh_wg_stats.conf.j2
+    dest: /etc/telegraf/telegraf.d/mesh_wg_stats.conf

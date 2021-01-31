@@ -31,3 +31,6 @@
 
 - name: Establish netlink worker
   include_tasks: netlink.yml
+
+- name: Setup statistics export
+  include_tasks: stats.yml
