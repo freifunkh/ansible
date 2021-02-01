@@ -3,3 +3,4 @@
   systemd: 
     name: zabbix-agent
     state: "restarted"
+  when: ansible_service_mgr == "systemd"

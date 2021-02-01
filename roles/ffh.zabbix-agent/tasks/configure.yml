@@ -1,0 +1,26 @@
+---
+
+- name: Deploy zabbix-agent config file
+  notify: reload zabbix-agent
+  template:
+    src: "zabbix_agentd.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.conf"
+    owner: "zabbix"
+    group: "zabbix"
+    mode: "0644"
+
+- name: Deploy zabbix-agent PSK file
+  notify: reload zabbix-agent
+  template:
+    src: "zabbix_agentd.psk.j2"
+    dest: "/etc/zabbix/zabbix_agentd.psk"
+    owner: "zabbix"
+    group: "zabbix"
+    mode: "0755"
+
+- name: Enable and start zabbix-agent
+  systemd:
+    name: "zabbix-agent"
+    enabled: yes
+    state: "started"
+  when: ansible_service_mgr == "systemd"

@@ -1,0 +1,24 @@
+---
+
+- name: Add Zabbix Repo Key
+  apt_key:
+    url: "https://repo.zabbix.com/zabbix-official-repo.key"
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/zabbix.gpg
+
+- name: Add Zabbix Repo
+  apt_repository:
+    repo: "deb http://repo.zabbix.com/zabbix/5.0/debian {{ ansible_distribution_release }} main"
+    state: present
+    filename: zabbix
+
+- name: Install zabbix-agent and its dependencies via apt
+  apt:
+    update_cache: yes
+    pkg:
+    - zabbix-agent
+    - fping
+    - git
+    - sudo
+    - jo
+
