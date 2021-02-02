@@ -50,7 +50,7 @@
   file:
     path: "{{ yanic_nodes_path }}"
     state: directory
-    owner: yanic
+    owner: www-data
   when: yanic_nodes_enabled
 
 - name: Configure yanic
