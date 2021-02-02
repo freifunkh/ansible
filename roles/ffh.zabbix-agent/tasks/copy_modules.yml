@@ -1,0 +1,17 @@
+---
+
+- name: Deploy additional configuration files in /etc
+  notify: reload zabbix-agent
+  copy:
+    src: "etc/"
+    dest: "/etc/"
+
+- name: Deploy additional configuration files in /usr/bin
+  notify: reload zabbix-agent
+  copy:
+    src: "usr/bin/"
+    dest: "/usr/bin"
+    mode: 0755
+
+- name: Set x attribute on /etc/zabbix/bin/
+  command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"

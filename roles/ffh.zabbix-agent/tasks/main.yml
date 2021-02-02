@@ -1,77 +1,19 @@
 ---
 
-- name: Add Zabbix Repo Key
-  apt_key:
-    url: "https://repo.zabbix.com/zabbix-official-repo.key"
-    state: present
-    keyring: /etc/apt/trusted.gpg.d/zabbix.gpg
+- name: "Install packages (Debian)"
+  include_tasks: "install_apt.yml"
+  when: ansible_distribution == "Debian"
 
-- name: Add Zabbix Repo
-  apt_repository:
-    repo: "deb http://repo.zabbix.com/zabbix/5.0/debian {{ ansible_distribution_release }} main"
-    state: present
-    filename: zabbix
+- name: "Install packages (OpenWRT)"
+  include_tasks: "install_openwrt.yml"
+  when: ansible_distribution == "OpenWRT" # TODO: replace string
 
-- name: Install zabbix-agent and its dependencies via apt
-  apt:
-    update_cache: yes
-    pkg:
-    - zabbix-agent
-    - fping
-    - git
-    - sudo
-    - jo
+- name: "Configure firewall with ferm"
+  include_tasks: "ferm.yml"
+  when: ansible_distribution == "Debian"
 
-- name: Create ferm directory if necessary
-  file:
-    path: /etc/ferm/conf.d
-    state: directory
+- name: "Configure zabbix-agent"
+  include_tasks: "configure.yml"
 
-- name: Open zabbix-agent port in firewall (ferm)
-  notify: reload ferm
-  template:
-    src: ferm.conf.j2
-    dest: "/etc/ferm/conf.d/50-zabbix-agent.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-
-- name: Deploy zabbix-agent config file
-  notify: reload zabbix-agent
-  template:
-    src: agent.conf.j2
-    dest: "/etc/zabbix/zabbix_agentd.d/ansible.conf"
-    owner: "zabbix"
-    group: "zabbix"
-    mode: "0644"
-
-- name: Deploy additional configuration files in /etc
-  notify: reload zabbix-agent
-  copy:
-    src: "etc/"
-    dest: "/etc/"
-
-- name: Deploy additional configuration files in /usr/bin
-  notify: reload zabbix-agent
-  copy:
-    src: "usr/bin/"
-    dest: "/usr/bin"
-    mode: 0755
-
-- name: Set x attribute on /etc/zabbix/bin/
-  command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
-
-- name: Deploy zabbix-agent PSK file
-  notify: reload zabbix-agent
-  template:
-    src: zabbix_agentd.psk.j2
-    dest: "/etc/zabbix/zabbix_agentd.d/secret.psk"
-    owner: "zabbix"
-    group: "zabbix"
-    mode: "0755"
-
-- name: Enable and start zabbix-agent
-  systemd:
-    name: "zabbix-agent"
-    enabled: yes
-    state: "started"
+- name: "Copy modules (UserParameter)"
+  include_tasks: "copy_modules.yml"
