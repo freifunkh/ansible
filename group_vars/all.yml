@@ -58,6 +58,7 @@ journald_watch_filter_regexes:
 - '/sshd.*error: Received disconnect from.*no authentication methods available \[preauth\]/'
 - '/sshd.*error: Received disconnect from.*No supported authentication methods available \[preauth\]/'
 - '/kea-dhcp4.*: ERROR \[kea-dhcp4.bad-packets.*\] DHCP4_PACKET_NAK_.*failed to select a subnet for incoming packet/'
+- '/kea-dhcp4.*: ERROR \[kea-dhcp4.packets.*\] DHCP4_BUFFER_RECEIVE_FAIL error on attempt to receive packet: Value of the length of the IP header must not be lower than 5 words. The length of the received header is/'
 - '/kea-dhcp4.*: ERROR \[kea-dhcp4.packets.*\] DHCP4_BUFFER_RECEIVE_FAIL error on attempt to receive packet: Truncated DHCPv4 packet/'
 - '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
 - '/dhcpd.*Failed to send.*byte long packet over fallback interface./'
