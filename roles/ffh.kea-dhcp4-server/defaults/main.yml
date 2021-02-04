@@ -1,0 +1,7 @@
+---
+
+legacy_dom0: true
+dhcp_valid_leasetime: 600
+dhcp_rebind_timer: 300
+dhcp_renew_timer: 150
+dhcp_domain_name: "ffh.zone"

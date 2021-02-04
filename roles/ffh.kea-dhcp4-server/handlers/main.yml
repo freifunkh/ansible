@@ -1,0 +1,4 @@
+---
+
+- name: Restart isc-kea-dhcp4-server
+  systemd: name=isc-kea-dhcp4-server state=restarted

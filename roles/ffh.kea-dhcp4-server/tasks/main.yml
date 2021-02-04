@@ -1,0 +1,71 @@
+---
+
+- name: "Add repo key"
+  apt_key:
+    url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
+    state: "present"
+
+- name: "Add isc repo"
+  register: "iscrepositoryadded"
+  apt_repository:
+    repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
+
+- name: "Update apt chache to get isc packages"
+  apt:
+    update_cache: "yes"
+  when: "iscrepositoryadded is changed"
+
+- name: "Install kea dhcpd from repo"
+  register: "keainstall"
+  apt:
+    name: "isc-kea-dhcp4-server"
+ 
+- name: "Add a ramdisk entry in fstab"
+  notify: "Restart isc-kea-dhcp4-server"
+  mount: 
+    name: "/var/lib/kea"
+    src: "tmpfs" 
+    fstype: "tmpfs" 
+    opts: "defaults,size=10M" 
+    state: "mounted"
+
+- name: "Generate kea-dhcp4.conf config"
+  notify: "Restart isc-kea-dhcp4-server"
+  template:
+    src: "kea-dhcp4.conf.j2"
+    dest: "/etc/kea/kea-dhcp4.conf"
+    mode: "0644"
+    owner: "_kea"
+    group: "_kea"
+
+- name: "Generate firewall config stanza (ferm)"
+  notify: "reload ferm"
+  template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-dhcpd.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Create /etc/systemd/system/isc-kea-dhcp4-server.service.d directory if it does not exist"
+  file:
+    state: "directory"
+    path: "/etc/systemd/system/isc-kea-dhcp4-server.service.d"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: "Deploy unit file sniplet"
+  template:
+    src: "50-bat-device.conf.j2"
+    dest: "/etc/systemd/system/isc-kea-dhcp4-server.service.d/50-bat-devices.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Start service"
+  systemd:
+    name: "isc-kea-dhcp4-server"
+    state: "started"
+    enabled: "yes"
+    daemon_reload: "yes"
