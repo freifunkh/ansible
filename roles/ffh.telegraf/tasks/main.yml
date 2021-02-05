@@ -13,3 +13,8 @@
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
   notify: Restart telegraf
+
+- name: Allow querying kea for user telegraf
+  template:
+    src: sudoers-telegraf-query-kea
+    dest: /etc/sudoers.d/sudoers-telegraf-query-kea
