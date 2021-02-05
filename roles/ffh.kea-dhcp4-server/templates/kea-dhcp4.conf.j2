@@ -41,11 +41,18 @@
 		// use MAC address for IP address calculation
 		"match-client-id": false,
 
-		"loggers": [{
+		"loggers": [
+		  {
 			"name": "kea-dhcp4",
 			"output_options": [{ "output": "syslog:dhcpd" }],
 			"severity": "WARN"
-		}],
+		  },
+		  {
+			"name": "kea-dhcp4.packets",
+			"output_options": [{ "output": "/dev/null" }],
+			"severity": "WARN"
+		  }
+		],
 
 		"option-data": [
 			{
