@@ -1,0 +1,50 @@
+---
+
+- name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
+  file:
+    path: "/etc/zabbix/zabbix_agentd.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy userparameter file"
+  notify: "reload zabbix-agent"
+  template:
+    src: "userparameter_kea.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.d/userparameter_kea.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: Create /etc/sudoers.d if necessary"
+  file:
+    path: "/etc/sudoers.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy sudoers file"
+  template:
+    src: "zabbix-kea-socket.j2"
+    dest: "/etc/sudoers.d/zabbix-kea-socket"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: Create /etc/izabbix/bin if necessary"
+  file:
+    path: "/etc/zabbix/bin"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy kea-dhcp4-server.master.sh"
+  template:
+    src: "zabbix-kea-dhcp4-server.master.sh.j2"
+    dest: "/etc/zabbix/bin/kea-dhcp4-server.master.sh"
+    owner: "root"
+    group: "root"
+    mode: "0755"

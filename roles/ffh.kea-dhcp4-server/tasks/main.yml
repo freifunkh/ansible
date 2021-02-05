@@ -70,3 +70,6 @@
     state: "started"
     enabled: "yes"
     daemon_reload: "yes"
+
+- name: "Include Zabbix-agent stuff"
+  include_tasks: "zabbix.yml"
