@@ -7,12 +7,12 @@ BATCTL=/usr/sbin/batctl
 #GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
-	ip -o link show | awk -F': ' '$2 ~ /^bat/ {print $2}' | sort | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw off
+	ip -o link show | awk -F': ' '$2 ~ /^bat/ {print $2}' | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw off
 	systemctl stop isc-kea-dhcp4-server
 }
 
 on() {
-	ip -o link show | awk -F': ' '$2 ~ /^bat/ {print $2}' | sort | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw server
+	ip -o link show | awk -F': ' '$2 ~ /^bat/ {print $2}' | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw server
 	systemctl start isc-kea-dhcp4-server
 }
 
