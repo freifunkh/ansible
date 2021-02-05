@@ -1,38 +1,49 @@
-Role Name
+kea-dhcp4-server
 =========
 
-A brief description of the role goes here.
+This role sets up an ISC-KEA-Dhcp4 server in the context of a supernode (as in there is BATMAN).
+
+- Installs KEA server via apt from ISC repository
+- Creates ramdisk for lease-file
+- Configures server for every batman domain / interface
+- Updates FERM firewalling
+- Extends systemd unitfile to wait for batman devices
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Assumes a working batman environment. Assumes the usage of ferm for firewalling. __Assumes existing dhcp servers to be non-existing.__
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- `domains`: defaults to `[]`
+- `legacy_dom0`: defaults to `true`, controls the handling of `bat0` device
+- `dhcp_valid_leasetime`: defaults to `600` seconds
+- `dhcp_rebind_timer`: defaults to `300` seconds
+- `dhcp_renew_timer`: defaults to `150` seconds
+- `dhcp_domain_name`: defaults to `"ffh.zone"`
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+See requirements.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Just add the role to the playbook.
 
-    - hosts: servers
+    - hosts: supernodes
       roles:
-         - { role: username.rolename, x: 42 }
+         - { name: ffh.kea-dhcp4-server, tags: kea-dhcp4-server }
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Freifunk Hannover community, https://hannover.freifunk.net/

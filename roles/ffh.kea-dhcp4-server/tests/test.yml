@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ffh.kea-dhcpd
+    - ffh.kea-dhcp4-server
