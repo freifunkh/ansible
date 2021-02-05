@@ -1,11 +1,11 @@
 ---
 
-- name: "Add repo key"
+- name: "Add ISC Kea repository key"
   apt_key:
     url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
     state: "present"
 
-- name: "Add isc repo"
+- name: "Add ISC Kea repository"
   register: "iscrepositoryadded"
   apt_repository:
     repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
@@ -15,11 +15,12 @@
     update_cache: "yes"
   when: "iscrepositoryadded is changed"
 
-- name: "Install kea dhcpd from repo"
+- name: "Install isc-kea-dhcp4-server"
   register: "keainstall"
   apt:
     name: "isc-kea-dhcp4-server"
- 
+  when: not ansible_check_mode
+
 - name: "Add a ramdisk entry in fstab"
   notify: "Restart isc-kea-dhcp4-server"
   mount: 
@@ -63,7 +64,7 @@
     owner: "root"
     group: "root"
 
-- name: "Start service"
+- name: "Start isc-kea-dhcp4-server service"
   systemd:
     name: "isc-kea-dhcp4-server"
     state: "started"
