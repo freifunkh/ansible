@@ -2,9 +2,7 @@
 
 BATCTL=/usr/sbin/batctl
 
-for batdev in /sys/class/net/bat*; do
-	test -d ${batdev} || exit 0
-	batdev=$(basename $batdev)
+for batdev in $(ip -o link show | awk -F': ' '$2 ~ /^bat/ {print $2}'); do
 	/sbin/ethtool -S ${batdev} | awk -v batdev=${batdev} '
 		/^     .*:/ {
 			gsub(":", "");
