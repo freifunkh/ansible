@@ -8,12 +8,12 @@ BATCTL=/usr/sbin/batctl
 
 off() {
 	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw off
-	systemctl stop dhcpd
+	systemctl stop isc-kea-dhcp4-server
 }
 
 on() {
 	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw server
-	systemctl start dhcpd
+	systemctl start isc-kea-dhcp4-server
 }
 
 ## ensure that we announce the highest bandwidth
