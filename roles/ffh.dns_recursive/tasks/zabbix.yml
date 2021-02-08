@@ -1,0 +1,42 @@
+---
+
+- name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
+  file:
+    path: "/etc/zabbix/zabbix_agentd.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy userparameter file"
+  notify: "reload zabbix-agent"
+  template:
+    src: "userparameter_unbound.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.d/userparameter_unbound.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: Create /etc/sudoers.d if necessary"
+  file:
+    path: "/etc/sudoers.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy sudoers file"
+  template:
+    src: "zabbix-unbound.j2"
+    dest: "/etc/sudoers.d/zabbix-unbound"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: Create /etc/zabbix/bin if necessary"
+  file:
+    path: "/etc/zabbix/bin"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"

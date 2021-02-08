@@ -28,3 +28,6 @@
 
 - name: Enable unbound
   command: systemctl enable unbound
+
+- name: "Add Zabbix components"
+  include_tasks: "zabbix.yml"
