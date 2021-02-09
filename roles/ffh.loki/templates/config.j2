@@ -26,10 +26,10 @@ schema_config:
 
 storage_config:
   boltdb:
-    directory: /srv/loki/index
+    directory: "{{ ffh_loki_datadir }}/index"
 
   filesystem:
-    directory: /srv/loki/chunks
+    directory: "{{ ffh_loki_datadir }}/chunks"
 
 limits_config:
   enforce_metric_name: false

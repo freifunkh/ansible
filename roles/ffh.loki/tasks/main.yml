@@ -4,7 +4,6 @@
   apt:
     name: "unzip"
 
-# TODO: only install if it doesn't exist
 - name: "Download and install Loki"
   unarchive:
     remote_src: yes
@@ -13,6 +12,7 @@
     owner: "root"
     group: "root"
     mode: "0755"
+    creates: "/usr/local/bin/loki-linux-amd64"
 
 - name: "Write loki.yml config file"
   notify: reload loki
@@ -30,6 +30,14 @@
     mode: "0644"
     owner: "root"
     group: "root"
+
+- name: "Create data directory"
+  file:
+    path: "{{ ffh_loki_datadir }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
 
 - name: "Start loki service and enable it on startup"
   service:
