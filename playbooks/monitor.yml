@@ -20,6 +20,3 @@
     - { role: ffh.nginx, tags: nginx }
     - { role: ffh.loki, tags: loki }
     - { role: ffh.promtail, tags: promtail }
-
-  vars_files:
-    - ../secrets.yml

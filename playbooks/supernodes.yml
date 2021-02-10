@@ -56,10 +56,6 @@
       changed_when: post_result.stdout.find('nothing to commit') == -1
       tags: [always]
 
-  vars_files:
-    - ../secrets.yml
-
-
 - hosts: sn01,sn10
   pre_tasks:
     - name: install etckeeper

@@ -8,6 +8,3 @@
     - { name: ffh.bird2, tags: bird2 }
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-
-  vars_files:
-    - ../secrets.yml

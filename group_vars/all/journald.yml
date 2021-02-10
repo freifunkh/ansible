@@ -1,0 +1,28 @@
+---
+journald_watch_enabled: true
+journald_watch_mailto: "monitoring@hannover.freifunk.net"
+journald_watch_filter_regexes:
+- '/kernel: do_IRQ:.*No irq handler for vector \(irq -1\)/'
+- '/sshd.*fatal: no matching cipher found/'
+- '/sshd.*fatal: no hostkey alg \[preauth\]/'
+- '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
+- '/sshd.*fatal: Unable to negotiate a key exchange method \[preauth\]/'
+- '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: Auth fail \[preauth\]/'
+- '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. \[preauth\]/'
+- '/sshd.*error: Received disconnect from.*Handshake failed \[preauth\]/'
+- '/sshd.*error: Received disconnect from.*no authentication methods available \[preauth\]/'
+- '/sshd.*error: Received disconnect from.*No supported authentication methods available \[preauth\]/'
+- '/kea-dhcp4.*: ERROR \[kea-dhcp4.bad-packets.*\] DHCP4_PACKET_NAK_.*failed to select a subnet for incoming packet/'
+- '/kea-dhcp4.*: ERROR \[kea-dhcp4.packets.*\] DHCP4_BUFFER_RECEIVE_FAIL error on attempt to receive packet: Value of the length of the IP header must not be lower than 5 words. The length of the received header is/'
+- '/kea-dhcp4.*: ERROR \[kea-dhcp4.packets.*\] DHCP4_BUFFER_RECEIVE_FAIL error on attempt to receive packet: Truncated DHCPv4 packet/'
+- '/dhcpd.*parse_option_buffer: malformed option dhcp.*(code.*): option length exceeds option buffer length./'
+- '/dhcpd.*Failed to send.*byte long packet over fallback interface./'
+- '/dhcpd.*: send_packet: Operation not permitted/'
+- '/dhcpd.*: icmp_echorequest .*: Operation not permitted/'
+- '/dhcpd.*: uid lease .* for client .* is duplicate on/'
+- '/dhcpd.*: client .* has duplicate leases on /'  # client requests a new (different) address/lease without releasing the old one
+- '/dhcpd.*: Abandoning IP address 10.*: pinged before offer$/'
+- '/dhcpd.*: Abandoning IP address 10.*: declined.$/'
+- '/systemd[.*]: phpsessionclean.service: Failed at step NETWORK spawning.*Permission denied/'
+- '/systemd[.*]: Failed to start Clean php session files./'
+- '/fastd@mesh.*: .*dump status: write: Broken pipe/'

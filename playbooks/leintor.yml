@@ -16,6 +16,3 @@
     - { name: ffh.promtail, tags: promtail }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.telegraf, tags: telegraf }
-
-  vars_files:
-    - ../secrets.yml

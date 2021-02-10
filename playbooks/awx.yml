@@ -11,9 +11,6 @@
     - { name: ffh.awx, tags: awx }
     - { name: ffh.nginx, tags: nginx }
 
-  vars_files:
-    - ../secrets.yml
-
   vars:
     nginx_sites:
     - domain: awx.ffh.zone

@@ -5,6 +5,3 @@
     # General
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-
-  vars_files:
-      - ../secrets.yml

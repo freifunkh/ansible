@@ -18,6 +18,3 @@
     # - { role: ffh.taskserver, tags: taskserver }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.burginfo, tags: burginfo }
-
-  vars_files:
-    - ../secrets.yml

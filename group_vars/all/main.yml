@@ -1,0 +1,27 @@
+---
+ansible_user: "root"
+ansible_port: 1337
+
+simple_mail:
+  root_email: "monitoring@hannover.freifunk.net"
+  mail_server: "mail.ffh.zone"
+
+git_addr: "ssh://git@git.ffh.zone:1337"
+
+stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
+stats_pushgateway:
+  host: "[fdca:ffee:8::108]:9091"
+
+reboot_on_kernelpanic: true
+
+dns_recursive_allowed_private_rdns_zones:
+- "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
+
+babeld_build_version: "babeld-1.9.1"
+
+zabbix_agent_server: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') }},{{ lookup('dig', 'zabbix.ffh.zone./A') }}"
+zabbix_agent_server_active: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') }},{{ lookup('dig', 'zabbix.ffh.zone./A') }}"
+
+is_supernode: false
+is_exitnode: false
+is_superexitnode: false

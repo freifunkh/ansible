@@ -15,6 +15,3 @@
     - { name: ffh.ntp, tags: ntp }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.promtail, tags: promtail }
-
-  vars_files:
-    - ../secrets.yml
