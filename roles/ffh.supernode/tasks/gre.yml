@@ -1,11 +1,17 @@
 ---
 
 - name: Create network interface for each gre endpoint
-  notify: Restart networkd
   template:
     src: gre-network.j2
     dest: /etc/systemd/network/10-gre-{{ item.key }}.network
   with_dict: "{{ exitnodes }}"
+  register: greconfig
+
+- name: Delete old gre interfaces
+  when: greconfig.changed
+  with_dict: "{{ exitnodes }}"
+  command: "ip link set down gre-{{ item.key }}; ip link del dev gre-{{ item.key }};"
+  notify: Restart networkd
 
 - name: Create /etc/systemd/network/10-eth0.network.d directory
   notify: Restart networkd
