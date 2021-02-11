@@ -6,8 +6,9 @@
 
 - name: Check if bat0 exists
   register: bat0_exists
-  stat:
-    path: /sys/class/net/bat0
+  cmd:
+    ip a show bat0
+  ignore_errors: yes
 
 - name: Install batctl
   apt: name=batctl
@@ -21,7 +22,7 @@
 
 - name: Restart mesh_fastd
   service: name=fastd@mesh_fastd state=restarted
-  when: installedversion is changed and bat0_exists.stat.exists
+  when: installedversion is changed and bat0_exists.cmd.rc == 0
 
 # SMELL: Should not depend on bat0 (legacy_dom0 may be false)
 - name: Restart domain fastds
@@ -29,4 +30,4 @@
   with_items: "{{ domains }}"
   loop_control:
     loop_var: domain
-  when: domains is defined and installedversion is changed and bat0_exists.stat.exists
+  when: domains is defined and installedversion is changed and bat0_exists.cmd.rc == 0
