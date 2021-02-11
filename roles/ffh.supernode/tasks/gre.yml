@@ -10,6 +10,7 @@
 - name: Delete old gre interfaces
   when: greconfig.changed
   with_dict: "{{ exitnodes }}"
+  ignore_errors: yes
   shell: "ip link set down gre-{{ item.key }}; ip link del dev gre-{{ item.key }};"
   notify: Restart networkd
 
