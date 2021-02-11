@@ -1,6 +1,10 @@
 domain (ip ip6) {
   table filter {
+{% if iperf3_is_public_server | default(False) %}
+    chain INPUT {
+{% else %}
     chain MESH_INPUT {
+{% endif %}
       proto tcp dport (5201) ACCEPT;
       proto udp dport (5201) ACCEPT;
     }

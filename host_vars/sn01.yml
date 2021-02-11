@@ -51,3 +51,4 @@ radv_announce_default: true
 exit_ip: 45.12.203.12
 fix_netifnames: true
 no_babel: true
+iperf3_is_public_server: true
