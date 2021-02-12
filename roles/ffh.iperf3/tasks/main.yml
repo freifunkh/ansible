@@ -12,6 +12,11 @@
     dest: /etc/systemd/system/iperf3.service
   register: iperf_service_file
 
+- name: Reload services in case service file changed
+  systemd:
+    daemon_reload: yes
+  when: iperf_service_file.changed
+
 - name: Install iperf3
   apt: name=iperf3 update_cache=yes
 
@@ -25,11 +30,6 @@
     state: started
     name: iperf3
   register: iperf3_just_started
-
-- name: Reload services in case service file changed
-  systemd:
-    daemon_reload: yes
-  when: iperf_service_file.changed
 
 - name: Restart iperf service
   systemd:
