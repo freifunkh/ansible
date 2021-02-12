@@ -1,7 +1,7 @@
 ---
 
 - name: Install ferm
-  apt: 
+  apt:
     name: ferm
     update_cache: yes
 
@@ -32,9 +32,14 @@
   template:
     src: ferm.service.j2
     dest: /etc/systemd/system/ferm.service
+  register: ferm_service_file
 
-# Obviously a workaround, but neither the systemd 
-# nor the service module is able to enable the service.
+- name: Reload services in case service file changed
+  systemd:
+    daemon_reload: yes
+  when: ferm_service_file.changed
+
 - name: Enable ferm service
-  command: systemctl enable ferm
-
+  systemd:
+    enabled: yes
+    name: ferm
