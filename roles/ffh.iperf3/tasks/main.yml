@@ -10,12 +10,12 @@
   template:
     src: iperf3.service.j2
     dest: /etc/systemd/system/iperf3.service
-  register: iperf_service_file
+  register: iperf3_service_file
 
 - name: Reload services in case service file changed
   systemd:
     daemon_reload: yes
-  when: iperf_service_file.changed
+  when: iperf3_service_file.changed
 
 - name: Install iperf3
   apt: name=iperf3 update_cache=yes
@@ -31,11 +31,11 @@
     name: iperf3
   register: iperf3_just_started
 
-- name: Restart iperf service
+- name: Restart iperf3 service
   systemd:
     restarted: yes
     name: iperf3
-  when: iperf_service_file.changed and not iperf3_just_started.changed
+  when: iperf3_service_file.changed and not iperf3_just_started.changed
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
