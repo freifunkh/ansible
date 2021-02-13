@@ -21,6 +21,11 @@
     name: "isc-kea-dhcp4-server"
   when: not ansible_check_mode
 
+- name: "Remove SYSV init script"
+  file:
+    path: "/etc/init.d/isc-kea-dhcp4-server"
+    state: "absent"
+
 - name: "Add a ramdisk entry in fstab"
   notify: "Restart isc-kea-dhcp4-server"
   mount: 
