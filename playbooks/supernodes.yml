@@ -28,6 +28,7 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.wait-for, tags: wait-for }
     # Batman
     - { name: ffh.mesh_batman, tags: mesh_batman }
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
