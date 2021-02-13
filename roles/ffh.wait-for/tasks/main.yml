@@ -1,0 +1,30 @@
+---
+
+- name: "Install wait-for-ip"
+  copy:
+    src: "wait-for-ip"
+    dest: "/usr/bin/wait-for-ip"
+    mode: "0755"
+
+- name: "Install wait-for-iface"
+  copy:
+    src: "wait-for-iface"
+    dest: "/usr/bin/wait-for-iface"
+    mode: "0755"
+
+- name: "Install wait_for_iface.sh legacy link"
+  file:
+    src: "/usr/bin/wait-for-iface"
+    path: "/usr/bin/wait_for_iface.sh"
+    state: "link"
+    force: "yes"
+
+- name: "Install wait-for-ip system service file"
+  notify: "systemd daemon-reload"
+  template:
+    src: "wait-for-ip.service.j2"
+    dest: "/etc/systemd/system/wait-for-ip@.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
