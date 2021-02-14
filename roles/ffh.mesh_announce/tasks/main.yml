@@ -34,6 +34,16 @@
     accept_hostkey=true
   register: code
 
+- name: Create configpath
+  file:
+    path: "{{ mesh_announce_cfg_path }}"
+    state: directory
+
+- name: Copy configuration file
+  template:
+    src: "respondd.conf.j2"
+    dest: "{{ mesh_announce_cfg_path }}/respondd.conf"
+
 - name: Copy systemd service
   template:
     src: "respondd.service.j2"
