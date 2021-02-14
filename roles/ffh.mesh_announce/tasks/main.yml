@@ -19,7 +19,6 @@
     system: yes
     generate_ssh_key: yes
 
-  become: true
 - name: Create mesh_announce directory
   file:
     state: directory
@@ -36,7 +35,6 @@
   register: code
 
 - name: Copy systemd service
-  become: true
   template:
     src: "respondd.service.j2"
     dest: "/lib/systemd/system/respondd.service"
@@ -59,7 +57,6 @@
 
 - name: Restart respondd if something changed
   when: code.changed
-  become: true
   service:
     name: respondd.service
     state: restarted
