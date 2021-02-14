@@ -1,7 +1,6 @@
 [Unit]
 Description=Wait for interfaces %I to get an IPv4 address
 After=sys-subsystem-net-devices-%I.device
-Requires=sys-subsystem-net-devices-%I.device
 Before=network-online.target
 
 [Service]
