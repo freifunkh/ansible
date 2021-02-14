@@ -1,0 +1,1 @@
+getty|autovt|unbound-resolvconf|selinux-autorelabel|systemd-fsck-root|appamor|rsync|zabbix-agent
