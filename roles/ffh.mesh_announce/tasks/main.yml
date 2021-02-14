@@ -50,6 +50,7 @@
   template:
     src: "respondd.service.j2"
     dest: "/lib/systemd/system/respondd.service"
+  register: service
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -59,6 +60,7 @@
   notify: reload ferm
 
 - name: Systemd daemon-reload
+  when: service.changed
   systemd:
     daemon_reload: yes
 
@@ -71,9 +73,10 @@
   systemd:
     name: respondd
     state: started
+  register: just_started
 
 - name: Restart respondd if something changed
-  when: code.changed
+  when: not just_started.changed and (code.changed or service.changed)
   systemd:
     name: respondd
     state: restarted
