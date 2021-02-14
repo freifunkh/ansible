@@ -25,11 +25,13 @@
     dest: /opt/mesh-announce
     owner: auto
 
+# repo=https://github.com/ffnord/mesh-announce.git
+# change back when https://github.com/ffnord/mesh-announce/pull/64 got merged
 - name: Clone mesh_announce
   become: yes
   become_user: auto
   git: >
-    repo=https://github.com/ffnord/mesh-announce.git
+    repo=https://github.com/freifunkh/mesh-announce.git
     dest=/opt/mesh-announce
     accept_hostkey=true
   register: code
