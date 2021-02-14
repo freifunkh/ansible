@@ -59,17 +59,22 @@
   notify: reload ferm
 
 - name: Systemd daemon-reload
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
 
 - name: Enable systemd service
-  command: systemctl enable respondd
+  systemd:
+    name: respondd
+    enabled: yes
 
 - name: Start systemd service
-  command: systemctl start respondd
+  systemd:
+    name: respondd
+    state: started
 
 - name: Restart respondd if something changed
   when: code.changed
-  service:
-    name: respondd.service
+  systemd:
+    name: respondd
     state: restarted
 
