@@ -19,14 +19,14 @@
     system: yes
     generate_ssh_key: yes
 
-- name: create mesh_announce directory
   become: true
+- name: Create mesh_announce directory
   file:
     state: directory
     dest: /opt/mesh-announce
     owner: auto
 
-- name: clone mesh_announce
+- name: Clone mesh_announce
   become: yes
   become_user: auto
   git: >
@@ -35,7 +35,7 @@
     accept_hostkey=true
   register: code
 
-- name: copy systemd service
+- name: Copy systemd service
   become: true
   template:
     src: "respondd.service.j2"
@@ -57,7 +57,7 @@
 - name: Start systemd service
   command: systemctl start respondd
 
-- name: restart respondd if something changed
+- name: Restart respondd if something changed
   when: code.changed
   become: true
   service:
