@@ -19,27 +19,38 @@
     system: yes
     generate_ssh_key: yes
 
-- name: create mesh_announce directory
-  become: true
+- name: Create mesh_announce directory
   file:
     state: directory
     dest: /opt/mesh-announce
     owner: auto
 
-- name: clone mesh_announce
+# repo=https://github.com/ffnord/mesh-announce.git
+# change back when https://github.com/ffnord/mesh-announce/pull/64 got merged
+- name: Clone mesh_announce
   become: yes
   become_user: auto
   git: >
-    repo=https://github.com/ffnord/mesh-announce.git
+    repo=https://github.com/freifunkh/mesh-announce.git
     dest=/opt/mesh-announce
     accept_hostkey=true
   register: code
 
-- name: copy systemd service
-  become: true
+- name: Create configpath
+  file:
+    path: "{{ mesh_announce_cfg_path }}"
+    state: directory
+
+- name: Copy configuration file
+  template:
+    src: "respondd.conf.j2"
+    dest: "{{ mesh_announce_cfg_path }}/respondd.conf"
+
+- name: Copy systemd service
   template:
     src: "respondd.service.j2"
     dest: "/lib/systemd/system/respondd.service"
+  register: service
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -49,18 +60,24 @@
   notify: reload ferm
 
 - name: Systemd daemon-reload
-  command: systemctl daemon-reload
+  when: service.changed
+  systemd:
+    daemon_reload: yes
 
 - name: Enable systemd service
-  command: systemctl enable respondd
+  systemd:
+    name: respondd
+    enabled: yes
 
 - name: Start systemd service
-  command: systemctl start respondd
+  systemd:
+    name: respondd
+    state: started
+  register: just_started
 
-- name: restart respondd if something changed
-  when: code.changed
-  become: true
-  service:
-    name: respondd.service
+- name: Restart respondd if something changed
+  when: not just_started.changed and (code.changed or service.changed)
+  systemd:
+    name: respondd
     state: restarted
 

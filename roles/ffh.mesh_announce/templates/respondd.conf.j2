@@ -1,0 +1,29 @@
+# Default settings
+[Defaults]
+# Listen port
+# optional, default: 1001
+Port: 1001
+# Default link local listen addresses
+# optional, default: ff02::2:1001
+MulticastLinkAddress: ff02::2:1001
+# Default site local listen addresses
+# optional, default: ff05::2:1001
+MulticastSiteAddress: ff05::2:1001
+# Default domain to use
+# optional, if specified incoming requests that can not be mapped to a domain
+# are mapped to this domain
+DefaultDomain: ffh
+# Default domain type
+# optional, default: simple
+# supported domain types are: simple, batadv
+DomainType: batadv
+# Default ddhcpd IPv4 gateway address
+# optional
+# IPv4Gateway: 10.116.128.8
+
+{% for domain in domains_with_dom0 | default( [] ) %}
+[dom{{ domain.id }}]
+BatmanInterface: bat{{ domain.id }}
+Interfaces: mesh_fastd_{{ domain.id }}
+
+{% endfor %}
