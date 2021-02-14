@@ -78,6 +78,12 @@
     loop_var: "domain"
   when: "domains is defined"
 
+- name: "Enable wait-for servicefile for dom0"
+  systemd:
+    name: "wait-for-ip@bat0.service"
+    enabled: "yes"
+  when: "legacy_dom0 == true"
+
 - name: "Start isc-kea-dhcp4-server service"
   systemd:
     name: "isc-kea-dhcp4-server"
