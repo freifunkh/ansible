@@ -2,5 +2,11 @@
 
 - hosts: all
   roles:
-    - { name: ffh.promtail, tags: promtail }
+    - { name: ffh.ferm, tags: ferm }
     - { name: ffh.admin, tags: admin }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.simple_mail, tags: simple_mail }
+    - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.promtail, tags: promtail }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }

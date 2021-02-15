@@ -1,7 +1,0 @@
----
-
-- hosts: build
-  roles:
-    # General
-    - { name: ffh.ferm, tags: ferm }
-    - { name: ffh.zabbix-agent, tags: zabbix-agent }
