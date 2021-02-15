@@ -6,7 +6,4 @@ TLSAccept=psk
 TLSPSKFile=/etc/zabbix/zabbix_agentd.d/secret.psk
 TLSPSKIdentity={{ zabbix_agent_psk_id | default("none") }}
 AllowKey=system.run[systemctl list-units --failed -l --no-legend --no-pager]
-UserParameter=fastd.version,/usr/bin/fastd --version
-UserParameter=fastd.peers[*],/usr/bin/ffh_peer_counter.sh $1
-UserParameter=ff.defaultrouter,ip r s t 42 | grep 'default via' | cut -d. -f 2
 UserParameter=localping[*],fping -q $1; test $? -eq 0  && echo 1 || echo 0
