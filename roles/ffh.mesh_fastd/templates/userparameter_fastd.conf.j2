@@ -1,0 +1,3 @@
+UserParameter=ff.fastd.version,/usr/bin/fastd --version
+UserParameter=ff.fastd.discovery,ls -1 /var/run/fastd.mesh_fastd_*.sock | sed -e 's/[^0-9]//g' | awk '// { print "{\"value\": \""$1"\"}" }' | jo -a
+UserParameter=ff.fastd.num_peers[*],nc -U /run/fastd.mesh_fastd_$1.sock 2>/dev/null | jq '.peers[] | select(.connection != null ) | .name | select( test("^(?!sn\\d+|harvester)"))' | wc -l

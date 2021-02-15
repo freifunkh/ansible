@@ -39,3 +39,5 @@
 - name: Firewalling mesh_fastd for all domains
   include_tasks: ferm.yml
 
+- name: Install Zabbix components
+  include_tasks: zabbix.yml

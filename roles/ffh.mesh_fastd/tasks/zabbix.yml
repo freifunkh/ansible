@@ -1,0 +1,18 @@
+---
+
+- name: "Create Zabbix-Agent config drop-in directory"
+  file:
+    path: "/etc/zabbix/zabbix_agentd.d"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+    state: "directory"
+
+- name: "Install Zabbix userparameter file"
+  notify: "reload zabbix-agent"
+  template:
+    src: "userparameter_fastd.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.d/userparameter_fastd.conf"
+    mode: "0644"
+    owner: "zabbix"
+    group: "zabbix"
