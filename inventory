@@ -49,7 +49,6 @@ helpernodes:
     ns1:
     harvester:
     web:
-    observer:
     monitor:
     awx:
 
