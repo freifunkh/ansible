@@ -1,5 +1,8 @@
 # Default settings
 [Defaults]
+# Contact information of Owner
+# optional, default is None
+Contact: fnorden.net
 # Listen port
 # optional, default: 1001
 Port: 1001
@@ -17,9 +20,23 @@ DefaultDomain: ffh
 # optional, default: simple
 # supported domain types are: simple, batadv
 DomainType: batadv
+# Hostname to advertise
+# optional, default is the System Hostname
+Hostname: {{ servername }}
 # Default ddhcpd IPv4 gateway address
 # optional
 # IPv4Gateway: 10.116.128.8
+# Is the System considered an Gateway
+# optional, default is True
+VPN: {{ is_supernode or is_superexitnode }}
+# Default vpn protocols to use
+# may contain csv if more than one protocol is used
+# optional, default is fastd
+# supported protocols are: fastd, None
+VPNProtocols: fastd
+# Default fastd-public-key to use
+# optional, default is None
+VPNPublicKey: {{ fastd_keys[servername].public }}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
