@@ -29,6 +29,14 @@ Hostname: {{ servername }}
 # Is the System considered an Gateway
 # optional, default is True
 VPN: {{ is_supernode or is_superexitnode }}
+# Default vpn protocols to use
+# may contain csv if more than one protocol is used
+# optional, default is fastd
+# supported protocols are: fastd, None
+VPNProtocols: fastd
+# Default fastd-public-key to use
+# optional, default is None
+VPNPublicKey: {{ fastd_keys[servername].public }}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
