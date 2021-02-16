@@ -45,6 +45,7 @@
   template:
     src: "respondd.conf.j2"
     dest: "{{ mesh_announce_cfg_path }}/respondd.conf"
+  register: config
 
 - name: Copy systemd service
   template:
@@ -76,7 +77,7 @@
   register: just_started
 
 - name: Restart respondd if something changed
-  when: not just_started.changed and (code.changed or service.changed)
+  when: not just_started.changed and (code.changed or config.changed or service.changed)
   systemd:
     name: respondd
     state: restarted
