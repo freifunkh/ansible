@@ -1,6 +1,6 @@
 ---
 
-- name: Install python3, lsb-release, ethtool, git
+- name: Install python3, python3-psutil, lsb-release, ethtool, git
   apt:
     update_cache: yes
     cache_valid_time: 3600
@@ -8,6 +8,7 @@
   vars:
     packages:
     - python3
+    - python3-psutil
     - lsb-release
     - ethtool
     - git
