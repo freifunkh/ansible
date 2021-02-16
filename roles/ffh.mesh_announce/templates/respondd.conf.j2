@@ -26,6 +26,9 @@ Hostname: {{ servername }}
 # Default ddhcpd IPv4 gateway address
 # optional
 # IPv4Gateway: 10.116.128.8
+# Is the System considered an Gateway
+# optional, default is True
+VPN: {{ is_supernode or is_superexitnode }}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
