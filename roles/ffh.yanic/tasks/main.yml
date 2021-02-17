@@ -5,6 +5,11 @@
     name: git
     update_cache: yes
 
+- name: Ensure rsync
+  apt:
+    name: rsync
+    update_cache: yes
+
 - name: Ensure ansible dir
   file:
       dest: /var/lib/ansible
@@ -46,16 +51,40 @@
     force: yes
   register: yanic_repo
 
+- name: Create patch directory
+  file:
+    path: "{{ yanic_source_path }}/patches"
+    state: directory
+  when: yanic_repo.changed
+
+- name: Transfer local patches
+  synchronize:
+    archive: no
+    checksum: yes
+    src: files/patches/
+    dest: "{{ yanic_source_path }}/patches"
+    recursive: yes
+    delete: yes
+  when: yanic_repo.changed
+
+- name: Apply patches
+  script:
+    cmd: files/apply_patches.sh
+    chdir: "{{ yanic_source_path }}"
+  register: patches
+  when: yanic_repo.changed
+
 - name: Get all project dependencies
   command:
     chdir: "{{ yanic_source_path }}"
     cmd: "{{ go_bin_path }}/go get ./..."
   when: yanic_repo.changed
 
-- name: Build yanic
+- name: Build yanic with applied patches
   command: "{{ go_bin_path }}/go build {{ yanic_repo_path }}"
   environment:
     GOPATH: /opt/go
+  when: patches.changed
 
 - name: Install built yanic
   command: "{{ go_bin_path }}/go install {{ yanic_repo_path }}"
