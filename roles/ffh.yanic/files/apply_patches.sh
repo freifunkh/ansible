@@ -11,8 +11,6 @@ cleanup() {
 }
 trap 'cleanup' ERR
 
-echo > aiyion
 for file in patches/* ; do
 	git am $file
-	echo $file $? >> aiyion
 done
