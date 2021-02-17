@@ -98,11 +98,11 @@
   when: patches.changed
 
 - name: Install built yanic
+  notify: Restart yanic
   command: "{{ go_bin_path }}/go install {{ yanic_repo_path }}"
   environment:
     GOPATH: /opt/go
   when: patches.changed
-  register: yanic_installation
 
 - name: Create yanic user
   user:
@@ -147,12 +147,6 @@
     name: yanic
     state: started
     enabled: yes
-
-- name: Restart yanic
-  systemd:
-    name: yanic
-    state: restarted
-  when: yanic_installation.changed
 
 - name: Set neigh gc_thresh1 IPv6
   sysctl:
