@@ -42,14 +42,25 @@
 - name: Install yanic if not yet installed
   command: "{{ go_bin_path }}/go install yanic"
   when: not yanic_source_dir.stat.exists
+  register: fresh_install
 
-- name: Update to latest master
+- name: Check if target commit exists in git tree
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "git cat-file -e {{ yanic_commit }}^{commit}"
+  register: commit_search
+  changed_when: commit_search.rc!=0
+  failed_when: commit_search.rc != 0 and commit_search.rc != 128
+
+- name: Update yanic to "{{ yanic_commit }}"
   git:
     repo: "https://{{ yanic_repo_path }}.git"
     dest: "{{ yanic_source_path }}"
     update: yes
     force: yes
+    version: "{{ yanic_commit }}"
   register: yanic_repo
+  when: fresh_install.changed or commit_search.rc==128
 
 - name: Create patch directory
   file:
