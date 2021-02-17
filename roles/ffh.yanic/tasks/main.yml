@@ -31,7 +31,14 @@
     dest: /etc/profile.d/go.sh
     mode: 755
 
-# TODO: install yanic
+- name: Check if yanic is already installed
+  stat:
+    path: "{{ yanic_source_path }}"
+  register: yanic_source_dir
+
+- name: Install yanic if not yet installed
+  command: "{{ go_bin_path }}/go install yanic"
+  when: not yanic_source_dir.stat.exists
 
 - name: Create yanic user
   user:
