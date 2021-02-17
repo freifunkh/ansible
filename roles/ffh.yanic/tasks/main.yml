@@ -38,6 +38,32 @@
   command: "{{ go_bin_path }}/go install yanic"
   when: not yanic_source_dir.stat.exists
 
+- name: Update to latest master
+  git:
+    repo: "https://{{ yanic_repo_path }}.git"
+    dest: "{{ yanic_source_path }}"
+    update: yes
+    force: yes
+  register: yanic_repo
+
+- name: Get all project dependencies
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "{{ go_bin_path }}/go get ./..."
+  when: yanic_repo.changed
+
+- name: Build yanic
+  command: "{{ go_bin_path }}/go build {{ yanic_repo_path }}"
+  environment:
+    GOPATH: /opt/go
+
+- name: Install built yanic
+  command: "{{ go_bin_path }}/go install {{ yanic_repo_path }}"
+  environment:
+    GOPATH: /opt/go
+  when: patches.changed
+  register: yanic_installation
+
 - name: Create yanic user
   user:
     name: "{{ yanic_user }}"
@@ -81,6 +107,12 @@
     name: yanic
     state: started
     enabled: yes
+
+- name: restart yanic
+  systemd:
+    name: yanic
+    state: restarted
+  when: yanic_installation.changed
 
 - name: neigh gc_thresh1 IPv6
   sysctl:
