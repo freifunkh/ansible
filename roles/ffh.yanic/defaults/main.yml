@@ -2,6 +2,7 @@
 
 go_version: "1.13.1"
 go_bin_path: "/usr/local/go/bin/"
+go_path: "/opt/go/"
 yanic_user: yanic
 yanic_group: www-data
 yanic_port: 10001
@@ -11,6 +12,6 @@ yanic_nodes_path: /var/www/html/meshviewer/data
 yanic_state_path: /var/lib/yanic/state.json
 yanic_influxdb_enabled: false
 yanic_repo_path: "github.com/FreifunkBremen/yanic"
-yanic_source_path: "/opt/go/src/{{ yanic_repo_path }}"
+yanic_source_path: "{{ go_path }}/src/{{ yanic_repo_path }}"
 yanic_commit: "aff906d734cdff279c7c7cfd17ccc54f70c6c45f"
 legacy_dom0: true
