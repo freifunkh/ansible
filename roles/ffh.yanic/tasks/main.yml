@@ -131,6 +131,7 @@
     dest: /etc/yanic.conf
 
 - name: Copy systemd service
+  notify: Daemon reload
   template:
     src: yanic.service.j2
     dest: /lib/systemd/system/yanic.service

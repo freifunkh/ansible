@@ -1,4 +1,9 @@
 ---
 
+- name: Daemon reload
+  notify: Restart yanic
+  systemd:
+    daemon_reload: yes
+
 - name: Restart yanic
   service: name=yanic state=restarted
