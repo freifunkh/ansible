@@ -5,6 +5,11 @@
     name: git
     update_cache: yes
 
+- name: Ensure rsync
+  apt:
+    name: rsync
+    update_cache: yes
+
 - name: Ensure ansible dir
   file:
       dest: /var/lib/ansible
@@ -24,14 +29,80 @@
   when: goversion is changed
 
 - name: Install path to go stuff
-  copy:
-    content: |
-      export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-      export GOPATH=/opt/go
+  template:
+    src: go.sh.j2
     dest: /etc/profile.d/go.sh
     mode: 755
 
-# TODO: install yanic
+- name: Check if yanic is already installed
+  stat:
+    path: "{{ yanic_source_path }}"
+  register: yanic_source_dir
+
+- name: Install yanic if not yet installed
+  command: "{{ go_bin_path }}/go install yanic"
+  when: not yanic_source_dir.stat.exists
+  register: fresh_install
+
+- name: Check if target commit exists in git tree
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "git cat-file -e {{ yanic_commit }}^{commit}"
+  register: commit_search
+  changed_when: commit_search.rc!=0
+  failed_when: commit_search.rc != 0 and commit_search.rc != 128
+
+- name: Update yanic to "{{ yanic_commit }}"
+  git:
+    repo: "https://{{ yanic_repo_path }}.git"
+    dest: "{{ yanic_source_path }}"
+    update: yes
+    force: yes
+    version: "{{ yanic_commit }}"
+  register: yanic_repo
+  when: fresh_install.changed or commit_search.rc==128
+
+- name: Create patch directory
+  file:
+    path: "{{ yanic_source_path }}/patches"
+    state: directory
+  when: yanic_repo.changed
+
+- name: Transfer local patches
+  synchronize:
+    archive: no
+    checksum: yes
+    src: files/patches/
+    dest: "{{ yanic_source_path }}/patches"
+    recursive: yes
+    delete: yes
+  when: yanic_repo.changed
+
+- name: Apply patches
+  script:
+    cmd: files/apply_patches.sh
+    chdir: "{{ yanic_source_path }}"
+  register: patches
+  when: yanic_repo.changed
+
+- name: Get all project dependencies
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "{{ go_bin_path }}/go get ./..."
+  when: yanic_repo.changed
+
+- name: Build yanic with applied patches
+  command: "{{ go_bin_path }}/go build {{ yanic_repo_path }}"
+  environment:
+    GOPATH: "{{ go_path }}"
+  when: patches.changed
+
+- name: Install built yanic
+  notify: Restart yanic
+  command: "{{ go_bin_path }}/go install {{ yanic_repo_path }}"
+  environment:
+    GOPATH: "{{ go_path }}"
+  when: patches.changed
 
 - name: Create yanic user
   user:
@@ -60,6 +131,7 @@
     dest: /etc/yanic.conf
 
 - name: Copy systemd service
+  notify: Daemon reload
   template:
     src: yanic.service.j2
     dest: /lib/systemd/system/yanic.service
@@ -77,21 +149,21 @@
     state: started
     enabled: yes
 
-- name: neigh gc_thresh1 IPv6
+- name: Set neigh gc_thresh1 IPv6
   sysctl:
     name: net.ipv6.neigh.default.gc_thresh1
     value: "32768"
     sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
     reload: yes
 
-- name: neigh gc_thresh2 IPv6
+- name: Set neigh gc_thresh2 IPv6
   sysctl:
     name: net.ipv6.neigh.default.gc_thresh2
     value: "65536"
     sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
     reload: yes
 
-- name: neigh gc_thresh3 IPv6
+- name: Set neigh gc_thresh3 IPv6
   sysctl:
     name: net.ipv6.neigh.default.gc_thresh3
     value: "131072"
