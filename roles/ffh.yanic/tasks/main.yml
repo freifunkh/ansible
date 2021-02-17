@@ -24,10 +24,8 @@
   when: goversion is changed
 
 - name: Install path to go stuff
-  copy:
-    content: |
-      export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-      export GOPATH=/opt/go
+  template:
+    src: go.sh.j2
     dest: /etc/profile.d/go.sh
     mode: 755
 

@@ -1,6 +1,7 @@
 ---
 
 go_version: "1.13.1"
+go_bin_path: "/usr/local/go/bin/"
 yanic_user: yanic
 yanic_group: www-data
 yanic_port: 10001
