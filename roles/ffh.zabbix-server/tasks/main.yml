@@ -50,7 +50,7 @@
     name: "{{ zabbix_server_dbname }}"
     login_unix_socket: "{{ zabbix_server_db_socket }}"
     target: "/usr/share/doc/zabbix-server-mysql/create.sql.gz"
-  when: "preexistingtables.rowcount == 0"
+  when: "preexistingtables.rowcount is defined and preexistingtables.rowcount == 0"
 
 - name: "Deploy zabbix-server config"
   notify: "restart zabbix-server"
