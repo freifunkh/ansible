@@ -1,4 +1,4 @@
-From 1e5618a618641911a784a57b1d8817926a9b7d28 Mon Sep 17 00:00:00 2001
+From 745f2e26469b169336462d44d730ff4aff1d16c2 Mon Sep 17 00:00:00 2001
 From: "aiyion.prime" <git@aiyionpri.me>
 Date: Thu, 18 Feb 2021 14:22:56 +0100
 Subject: [PATCH] data: add WGPeerselector struct
@@ -9,7 +9,7 @@ Subject: [PATCH] data: add WGPeerselector struct
  2 files changed, 8 insertions(+)
 
 diff --git a/data/nodeinfo.go b/data/nodeinfo.go
-index 86cff15..c3ef95b 100644
+index d81ce2c..f607a44 100644
 --- a/data/nodeinfo.go
 +++ b/data/nodeinfo.go
 @@ -80,6 +80,10 @@ type Software struct {
@@ -20,24 +20,24 @@ index 86cff15..c3ef95b 100644
 +		Enabled   bool   `json:"enabled,omitempty"`
 +		Version   string `json:"version,omitempty"`
 +	} `json:"wgpeerselector,omitempty"`
- }
- 
- // Hardware struct
+ 	WireGuard struct {
+ 		Enabled   bool   `json:"enabled,omitempty"`
+ 		PublicKey string `json:"public_key,omitempty"`
 diff --git a/data/testdata/nodeinfo.json b/data/testdata/nodeinfo.json
-index bdd1e11..f917fcf 100644
+index ef39de9..c74a38a 100644
 --- a/data/testdata/nodeinfo.json
 +++ b/data/testdata/nodeinfo.json
-@@ -18,6 +18,10 @@
-     },
+@@ -19,6 +19,10 @@
      "status-page": {
        "api": 1
-+    },
+     },
 +    "wgpeerselector": {
 +      "version": "v1",
 +      "enabled": true
-     }
-   },
-   "network": {
++    },
+     "wireguard": {
+       "enabled": true,
+       "public_key": "0000000000000000000000000000000000000000000=",
 -- 
-2.30.1
+2.20.1
 
