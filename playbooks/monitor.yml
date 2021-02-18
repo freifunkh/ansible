@@ -12,7 +12,6 @@
     - { name: ffh.cron-apt, tags: cron-apt }
     # special
     - { name: DavidWittman.redis, tags: redis }
-    - { name: geerlingguy.mysql, tags: mysql }
     - { name: geerlingguy.postgresql, tags: postgresql }
     - { name: lae.netbox, tags: netbox }
     - { name: ffh.zabbix-server, tags: zabbix-server }
