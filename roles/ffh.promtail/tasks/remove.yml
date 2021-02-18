@@ -1,0 +1,33 @@
+---
+
+- name: "Stop and disable promtail service"
+  systemd:
+    name: "promtail"
+    enabled: "no"
+    state: "stopped"
+    daemon_reload: "yes"
+
+- name: "Remove systemd unitfile"
+  file:
+    path: "/etc/systemd/system/promtail.service"
+    state: "absent"
+
+- name: "Systemd: daemon-reload"
+  systemd:
+    daemon_reload: "yes"
+
+- name: "Remove Promtail binary"
+  file:
+    path: "/usr/local/bin/promtail-linux-amd64"
+    state: "absent"
+
+- name: "Remove config file"
+  file:
+    path: "/etc/promtail.yml"
+    state: "absent"
+
+- name: "Remove firewall config for promtail (ferm)"
+  notify: "reload ferm"
+  file:
+    path: "/etc/ferm/conf.d/50-promtail.conf"
+    state: "absent"
