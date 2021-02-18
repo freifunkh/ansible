@@ -1,0 +1,60 @@
+---
+
+- name: "Install unzip"
+  apt:
+    name: "unzip"
+
+- name: "Download and install Loki"
+  unarchive:
+    remote_src: yes
+    src: "https://github.com/grafana/loki/releases/download/v1.3.0/loki-linux-amd64.zip"
+    dest: "/usr/local/bin"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+    creates: "/usr/local/bin/loki-linux-amd64"
+
+- name: "Write loki.yml config file"
+  notify: reload loki
+  template:
+    src: "config.j2"
+    dest: "/etc/loki.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Write systemd unitfile"
+  template:
+    src: "service.j2"
+    dest: "/etc/systemd/system/loki.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Create data directory"
+  file:
+    path: "{{ ffh_loki_datadir }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Start loki service and enable it on startup"
+  service:
+    name: "loki"
+    enabled: yes
+    state: "started"
+
+- name: "Create ferm directory if necessary"
+  file:
+    path: "/etc/ferm/conf.d"
+    state: directory
+
+- name: "Open loki port in firewall (ferm)"
+  notify: "reload ferm"
+  template:
+    src: "ferm.j2"
+    dest: "/etc/ferm/conf.d/50-loki.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
