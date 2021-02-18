@@ -1,0 +1,14 @@
+---
+
+zabbix_server_dbname: "zabbix"
+zabbix_server_dbhost: "localhost"
+zabbix_server_dbport: "3306"
+# zabbix_server_dbuser: "set in vault"
+# zabbix_server_dbpassword: "set in vault"
+zabbix_server_db_login_host: "monitor.ffh.zone"
+zabbix_server_db_login_port: "3306"
+# zabbix_server_db_login_user: "set in vault"
+# zabbix_server_db_login_password: "set in vault" 
+
+zabbix_agent_server: "127.0.0.1"
+zabbix_agent_server_active: "127.0.0.1"

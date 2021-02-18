@@ -1,0 +1,20 @@
+---
+
+netbox_stable: true
+netbox_stable_version: 2.8.9
+netbox_socket: "0.0.0.0:8011"
+netbox_superuser_password: "netbox"
+netbox_config:
+  ALLOWED_HOSTS:
+    - "*"
+  MEDIA_ROOT: "{{ netbox_shared_path }}/media"
+  REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
+  SCRIPTS_ROOT: "{{ netbox_shared_path }}/scripts"
+netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
+netbox_webhooks_enabled: true
+
+postgresql_users:
+  - name: "{{ netbox_database_user }}"
+    role_attr_flags: CREATEDB,NOSUPERUSER
+
+redis_bind: 127.0.0.1
