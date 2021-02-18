@@ -6,7 +6,6 @@
     - { name: ffh.ferm, tags: ferm }
     - { role: ffh.dns_authoritative, tags: dns_authoritative }
     - { role: ffh.dns_zonenodes, tags: dns_zonenodes }
-    - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
