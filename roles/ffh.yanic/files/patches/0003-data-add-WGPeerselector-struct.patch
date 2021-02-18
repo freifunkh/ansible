@@ -1,0 +1,43 @@
+From 1e5618a618641911a784a57b1d8817926a9b7d28 Mon Sep 17 00:00:00 2001
+From: "aiyion.prime" <git@aiyionpri.me>
+Date: Thu, 18 Feb 2021 14:22:56 +0100
+Subject: [PATCH] data: add WGPeerselector struct
+
+---
+ data/nodeinfo.go            | 4 ++++
+ data/testdata/nodeinfo.json | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/data/nodeinfo.go b/data/nodeinfo.go
+index 86cff15..c3ef95b 100644
+--- a/data/nodeinfo.go
++++ b/data/nodeinfo.go
+@@ -80,6 +80,10 @@ type Software struct {
+ 	StatusPage struct {
+ 		API int `json:"api"`
+ 	} `json:"status-page,omitempty"`
++	WGPeerselector struct {
++		Enabled   bool   `json:"enabled,omitempty"`
++		Version   string `json:"version,omitempty"`
++	} `json:"wgpeerselector,omitempty"`
+ }
+ 
+ // Hardware struct
+diff --git a/data/testdata/nodeinfo.json b/data/testdata/nodeinfo.json
+index bdd1e11..f917fcf 100644
+--- a/data/testdata/nodeinfo.json
++++ b/data/testdata/nodeinfo.json
+@@ -18,6 +18,10 @@
+     },
+     "status-page": {
+       "api": 1
++    },
++    "wgpeerselector": {
++      "version": "v1",
++      "enabled": true
+     }
+   },
+   "network": {
+-- 
+2.30.1
+
