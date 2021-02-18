@@ -47,7 +47,6 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
-    - { name: ffh.promtail, tags: promtail }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.bpfcount, tags: bpfcount }
   post_tasks:

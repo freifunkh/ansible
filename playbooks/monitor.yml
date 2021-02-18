@@ -18,5 +18,3 @@
     - { name: ffh.zabbix-server, tags: zabbix-server }
     - { name: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { role: ffh.nginx, tags: nginx }
-    - { role: ffh.loki, tags: loki }
-    - { role: ffh.promtail, tags: promtail }

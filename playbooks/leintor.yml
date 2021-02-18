@@ -13,6 +13,5 @@
     - { name: ffh.babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
-    - { name: ffh.promtail, tags: promtail }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.telegraf, tags: telegraf }
