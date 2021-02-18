@@ -44,6 +44,21 @@
   when: not yanic_source_dir.stat.exists
   register: fresh_install
 
+- name: Create patch directory
+  file:
+    path: "{{ yanic_source_path }}/patches"
+    state: directory
+
+- name: Transfer local patches
+  synchronize:
+    archive: no
+    checksum: yes
+    src: files/patches/
+    dest: "{{ yanic_source_path }}/patches"
+    recursive: yes
+    delete: yes
+  register: patch_sync
+
 - name: Check if target commit exists in git tree
   command:
     chdir: "{{ yanic_source_path }}"
@@ -60,30 +75,14 @@
     force: yes
     version: "{{ yanic_commit }}"
   register: yanic_repo
-  when: fresh_install.changed or commit_search.rc==128
-
-- name: Create patch directory
-  file:
-    path: "{{ yanic_source_path }}/patches"
-    state: directory
-  when: yanic_repo.changed
-
-- name: Transfer local patches
-  synchronize:
-    archive: no
-    checksum: yes
-    src: files/patches/
-    dest: "{{ yanic_source_path }}/patches"
-    recursive: yes
-    delete: yes
-  when: yanic_repo.changed
+  when: fresh_install.changed or commit_search.rc==128 or patch_sync.changed
 
 - name: Apply patches
   script:
     cmd: files/apply_patches.sh
     chdir: "{{ yanic_source_path }}"
   register: patches
-  when: yanic_repo.changed
+  when: patch_sync.changed or yanic_repo.changed
 
 - name: Get all project dependencies
   command:
