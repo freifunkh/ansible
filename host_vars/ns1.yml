@@ -96,10 +96,6 @@ dns_authoritative_toplevel:
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
        "prometheus.ffh.zone. IN CNAME harvester.ffh.zone.",
        "webdebug.ffh.zone. IN A 10.2.80.1",
-       "observer.ffh.zone. IN A 37.120.178.19",
-       "observer.ffh.zone. IN AAAA 2a03:4000:6:82c8::1",
-       "observer.ffh.zone. IN MX 1 observer.ffh.zone.",
-       "observer.ffh.zone. IN TXT \"v=spf1 a mx ~all\"",
        "git.ffh.zone. IN A 37.120.176.252",
        "git.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "mail.ffh.zone. IN A 37.120.176.252",
@@ -142,5 +138,3 @@ postfix_mynetworks:
 - "[{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}]/128"
 - "{{ lookup('dig', 'harvester.ffh.zone./A') }}/32"
 - "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}]/128"
-- "{{ lookup('dig', 'observer.ffh.zone./A') }}/32"
-- "[{{ lookup('dig', 'observer.ffh.zone./AAAA') }}]/128"

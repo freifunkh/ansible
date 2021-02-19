@@ -32,7 +32,6 @@ supernodes:
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
 helpernodes:
   harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}" }
-  observer: { id: 2, ip4: "{{ lookup('dig', 'observer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'observer.ffh.zone./AAAA') }}" }
   ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'ns1.ffh.zone./AAAA') }}" }
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
   monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}" }
