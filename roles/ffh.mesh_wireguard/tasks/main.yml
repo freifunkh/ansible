@@ -1,36 +1,15 @@
 ---
 
-- name: Add backports repository
-  apt_repository:
-    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
-    state: present
-    update_cache: yes
-  when: 'ansible_distribution_release == "buster"'
+# this needs to stay, until we do not consider stretch hosts supernode material anymore.
+# *aiyion* eyes sn08 critically...
 
-- name: Install wireguard
-  apt:
-    name: wireguard
-    update_cache: yes
-    cache_valid_time: 3600
+- name: Do not setup wireguard on incompatible debian releases
+  include_tasks: setup_wg.yml
+  when: 'ansible_distribution_release in ["buster", "bullseye"]'
+  register: setup
 
-- name: Domain configs (supernode)
-  include_tasks: per_domain.yml
-  with_items: "{{domains}}"
-  loop_control:
-    loop_var: domain
-  when: domains is defined and sn is defined
-
-- name: Setup network wildcards
-  include_tasks: network.yml
-
-- name: Setup batctl service
-  include_tasks: batctl.yml
-
-- name: Firewall mesh_wireguard for all domains
-  include_tasks: ferm.yml
-
-- name: Establish netlink worker
-  include_tasks: netlink.yml
-
-- name: Setup statistics export
-  include_tasks: stats.yml
+- name: Warn about incompatible Debian release
+  fail:
+    msg: "The distribution release {{ ansible_distribution_release }} is not a supported release for wireguard."
+  ignore_errors: True
+  when: setup.skipped | default(false)
