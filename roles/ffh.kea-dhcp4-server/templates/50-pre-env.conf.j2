@@ -1,0 +1,6 @@
+[Service]
+PermissionsStartOnly=true
+ExecStartPre=-/bin/mkdir -p /run/kea
+ExecStartPre=/bin/chown _kea:_kea /run/kea
+ExecStartPre=-/bin/mkdir -p /run/lock/kea
+ExecStartPre=/bin/chown _kea:_kea /run/lock/kea
