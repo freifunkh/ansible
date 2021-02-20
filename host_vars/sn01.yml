@@ -17,7 +17,7 @@ networkd_configures:
   static_routes:
     - gw: 100.120.0.1
       dest: 0.0.0.0/0
-      pref_src: 185.197.132.140
+      pref_src: 45.12.203.11
     - gw: 100.120.0.1
       dest: 0.0.0.0/0
       pref_src: 185.197.132.141
