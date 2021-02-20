@@ -59,6 +59,7 @@ dns_authoritative_toplevel:
        "sn01.maint.ffh.zone. 120 IN A 194.50.19.34",
        "sn08.maint.ffh.zone. IN A 176.9.100.177",
        "sn01.s.ffh.zone. 120 IN A 45.12.203.11",
+       "sn01.s.ffh.zone. IN AAAA 2001:678:978:ff01::2",
        "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone.",
        "sn07.s.ffh.zone. IN A 85.214.168.26",
        "sn07.s.ffh.zone. IN AAAA 2a01:238:42d1:b400:113d:19eb:99f1:1cbb",
