@@ -8,7 +8,6 @@ simple_mail:
 
 git_addr: "ssh://git@git.ffh.zone:1337"
 
-stats_address: "{{ lookup('dig', 'stats.ffh.zone.') }}"
 stats_pushgateway:
   host: "[fdca:ffee:8::108]:9091"
 
