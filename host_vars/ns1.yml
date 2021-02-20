@@ -119,7 +119,7 @@ postfix_mynetworks:
 - "[::ffff:127.0.0.0]/104"
 - "[::1]/128"
 - "{{ lookup('dig', 'sn01.s.ffh.zone./A') or '127.0.0.1' }}/32"
-# - "[{{ lookup('dig', 'sn01.s.ffh.zone./AAAA') or '::1' }}]/128"
+- "[{{ lookup('dig', 'sn01.s.ffh.zone./AAAA') or '::1' }}]/128"
 - "{{ lookup('dig', 'sn07.s.ffh.zone./A') or '127.0.0.1' }}/32"
 - "[{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') or '::1' }}]/128"
 - "{{ lookup('dig', 'sn08.s.ffh.zone./A') or '127.0.0.1' }}/32"
