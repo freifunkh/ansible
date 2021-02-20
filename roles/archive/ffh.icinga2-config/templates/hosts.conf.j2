@@ -1,0 +1,309 @@
+/*
+ * Host definitions with object attributes
+ * used for apply rules for Service, Notification,
+ * Dependency and ScheduledDowntime objects.
+ *
+ * Tip: Use `icinga2 object list --type Host` to
+ * list all host objects after running
+ * configuration validation (`icinga2 daemon -C`).
+ */
+
+/*
+ * This is an example host based on your
+ * local host's FQDN. Specify the NodeName
+ * constant in `constants.conf` or use your
+ * own description, e.g. "db-host-1".
+ */
+
+object Host NodeName {
+  display_name = "Observer"
+
+  /* Import the default host template defined in `templates.conf`. */
+  import "generic-host"
+
+  /* Specify the address attributes for checks e.g. `ssh` or `http`. */
+  address  = "127.0.0.1"
+  address6 = "::1"
+
+  vars.type = "monitor"
+  vars.ssh_port = 1337
+
+  /* Define http vhost attributes for service apply rules in `services.conf`. */
+  vars.http_vhosts["http"] = {
+    http_uri = "/"
+  }
+
+  vars.http_vhosts["https"] = {
+    http_uri = "/"
+    http_ssl = true
+    http_sni = true
+  }
+
+  vars.http_vhosts["cert"] = {
+    http_ssl = true
+    http_sni = true
+    http_certificate = "7"
+  }
+
+  /* Define disks and attributes for service apply rules in `services.conf`. */
+  vars.disks["disk"] = {
+    /* No parameters. */
+  }
+  vars.disks["disk /"] = {
+    disk_partitions = "/"
+  }
+
+  /* Define notification mail attributes for notification apply rules in `notifications.conf`. */
+  vars.notification["mail"] = {
+    /* The UserGroup `ffhadmins` is defined in `users.conf`. */
+    groups = [ "ffhadmins" ]
+  }
+}
+
+object Host "harvester" {
+  display_name = "Harvester"
+  import "generic-host"
+
+  address  = "88.99.88.12"
+  address6 = "2a01:4f8:221:100c::1001"
+
+  vars.type = "web"
+  vars.ssh_port = 1337
+
+  vars.http_vhosts["http nodes"] = {
+    http_vhost = "harvester.ffh.zone"
+  }
+
+  vars.http_vhosts["https nodes"] = {
+    http_vhost = "harvester.ffh.zone"
+    http_uri   = "/nodes.json"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert nodes"] = {
+    http_vhost = "harvester.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.http_vhosts["http prometheus"] = {
+    http_vhost = "prometheus.ffh.zone"
+  }
+
+  vars.http_vhosts["https prometheus"] = {
+    http_vhost = "prometheus.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert prometheus"] = {
+    http_vhost = "prometheus.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.http_vhosts["http stats"] = {
+    http_vhost = "stats.ffh.zone"
+  }
+
+  vars.http_vhosts["https stats"] = {
+    http_vhost = "stats.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert stats"] = {
+    http_vhost = "stats.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+object Host "ns1" {
+  display_name = "DNS & Mail"
+  import "generic-host"
+
+  address  = "37.120.176.252"
+  address6 = "2a03:4000:6:8277::1"
+
+  vars.type = "dnsmail"
+  vars.ssh_port = 1337
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+object Host "webserver" {
+  display_name = "Webserver"
+  import "generic-host"
+
+  address  = "88.99.88.13"
+  address6 = "2a01:4f8:221:100c::443"
+
+  vars.type = "web"
+  vars.ssh_port = 1337
+
+  vars.http_vhosts["http web"] = {
+    http_vhost = "hannover.freifunk.net"
+  }
+
+  vars.http_vhosts["https web"] = {
+    http_vhost = "hannover.freifunk.net"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert web"] = {
+    http_vhost = "hannover.freifunk.net"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.http_vhosts["http firmware"] = {
+    http_vhost = "firmware.ffh.zone"
+  }
+
+  vars.http_vhosts["https firmware"] = {
+    http_vhost = "firmware.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert firmware"] = {
+    http_vhost = "firmware.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.http_vhosts["http fnorden"] = {
+    http_vhost = "fnorden.net"
+  }
+
+  vars.http_vhosts["https fnorden"] = {
+    http_vhost = "fnorden.net"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert fnorden"] = {
+    http_vhost = "fnorden.net"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+object Host "build" {
+  display_name = "Build"
+  import "generic-host"
+
+  address  = "130.75.178.26"
+  address6 = "2001:470:775a:42:1000::115"
+
+  vars.type = "web"
+  vars.ssh_port = 22
+
+  vars.http_vhosts["http build"] = {
+    http_vhost = "build.ffh.zone"
+  }
+
+  vars.http_vhosts["https build"] = {
+    http_vhost = "build.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert build"] = {
+    http_vhost = "build.ffh.zone"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+object Host "fet" {
+  display_name = "Fachrat Elektrotechnik (Leo)"
+  import "generic-host"
+
+  address = "130.75.81.163"
+
+  vars.type = "fet"
+  vars.ssh_port = 22
+
+  vars.http_vhosts["http fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+  }
+
+  vars.http_vhosts["https fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+    http_ssl   = true
+    http_sni   = true
+  }
+
+  vars.http_vhosts["cert fet"] = {
+    http_vhost = "www.fet.uni-hannover.de"
+    http_ssl   = true
+    http_sni   = true
+    http_certificate = "7"
+  }
+
+  vars.notification["mail"] = {
+    users = [ "leo" ]
+  }
+}
+
+
+{% for name,node in supernodes.items() %}
+object Host "{{ name }}" {
+  display_name = "{{ name }}"
+  import "generic-host"
+
+  address  = "{{ lookup('dig', name+'.s.ffh.zone./A') }}"
+  address6 = "{{ lookup('dig', name+'.s.ffh.zone./AAAA') }}"
+
+  vars.type = "super"
+  vars.ssh_port = 1337
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+{% endfor %}
+
+{% for name,node in exitnodes.items() %}
+object Host "{{ name }}" {
+  display_name = "{{ name }}"
+  import "generic-host"
+
+  address  = "{{ lookup('dig', name+'.e.ffh.zone./A') }}"
+  address6 = "{{ lookup('dig', name+'.e.ffh.zone./AAAA') }}"
+
+  vars.type = "exit"
+  vars.ssh_port = 1337
+
+  vars.notification["mail"] = {
+    groups = [ "ffhadmins" ]
+  }
+}
+
+{% endfor %}
