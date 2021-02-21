@@ -17,10 +17,12 @@
     update_cache: yes
     pkg:
     - zabbix-agent
+    - zabbix-sender
     - fping
     - git
     - sudo
     - jo
+    - jq
 
 - name: Create ferm directory if necessary
   file:
