@@ -3,3 +3,4 @@
   systemd: 
     name: zabbix-agent
     state: "restarted"
+  ignore_errors: true
