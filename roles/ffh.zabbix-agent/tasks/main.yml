@@ -23,6 +23,7 @@
     - sudo
     - jo
     - jq
+    - dbus-user-session # let normal users execute systemctl
 
 - name: Create ferm directory if necessary
   file:
