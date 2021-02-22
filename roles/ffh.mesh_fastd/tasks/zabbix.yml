@@ -14,5 +14,5 @@
     src: "userparameter_fastd.conf.j2"
     dest: "/etc/zabbix/zabbix_agentd.d/userparameter_fastd.conf"
     mode: "0644"
-    owner: "zabbix"
-    group: "zabbix"
+    owner: "root"
+    group: "root"
