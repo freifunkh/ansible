@@ -1,0 +1,3 @@
+UserParameter=ff.wireguard.iface.discovery,ip -j link show type wireguard | jq "[ .[] | { value: .ifname } ]"
+UserParameter=ff.wireguard.num_peers[*],sudo /usr/bin/ffh_wg_stats.py -i $1 | jq ".[] | .established_peers_count"
+UserParameter=ff.wireguard.total_peers,sudo /usr/bin/ffh_wg_stats.py -i `ip -j link show type wireguard | jq -r ".[] | .ifname" | xargs` | jq ".[] | .established_peers_count" | awk '{s+=$1} END {print s}'

@@ -34,3 +34,6 @@
 
 - name: Setup statistics export
   include_tasks: stats.yml
+
+- name: Install Zabbix components
+  include_tasks: zabbix.yml
