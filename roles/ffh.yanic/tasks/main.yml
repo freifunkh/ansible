@@ -65,6 +65,7 @@
     cmd: "git cat-file -e {{ yanic_commit }}^{commit}"
   register: commit_search
   changed_when: commit_search.rc!=0
+  check_mode: no
   failed_when: commit_search.rc != 0 and commit_search.rc != 128
 
 - name: Update yanic to "{{ yanic_commit }}"
