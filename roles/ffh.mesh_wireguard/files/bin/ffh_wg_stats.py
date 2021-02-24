@@ -6,9 +6,10 @@ import argparse, os
 
 TIMEOUT = timedelta(minutes=3)
 
-def get_stats(format, interface):
+def get_stats(format, interface, extended=True):
     clients = WireGuard().info(interface)[0].WGDEVICE_A_PEERS.value
 
+    combined = {"interface": interface}
     peers = []
     established_peers_count = 0
     for client in clients:
@@ -23,20 +24,21 @@ def get_stats(format, interface):
         if datetime.now() - datetime.fromtimestamp(latest_handshake) < TIMEOUT:
             established = True
             established_peers_count += 1
+        if extended:
+            peers.append({
+                "public_key" : public_key,
+                "latest_handshake" : latest_handshake,
+                "is_established" : established,
+                "rx_bytes" : int(client.WGPEER_A_RX_BYTES['value']),
+                "tx_bytes" : int(client.WGPEER_A_TX_BYTES['value']),
+            })
 
-        peers.append({
-            "public_key" : public_key,
-            "latest_handshake" : latest_handshake,
-            "is_established" : established,
-            "rx_bytes" : int(client.WGPEER_A_RX_BYTES['value']),
-            "tx_bytes" : int(client.WGPEER_A_TX_BYTES['value']),
-        })
+    if extended:
+        combined["peers"] = peers
 
-    return {
-        "interface" : interface,
-        "peers" : peers,
-        "established_peers_count" : established_peers_count
-        }
+    combined["established_peers_count"] = established_peers_count
+
+    return combined
 
 def print_influx_format(stats):
     timestamp = str(round(datetime.now().timestamp())) + "0" * 9
@@ -72,6 +74,8 @@ if __name__ == '__main__':
                     help='allowed formats are: "json", "influx"')
     parser.add_argument('-i', '--interface', metavar='IFACE', type=str, nargs='+',
                     help='the WireGuard interfaces', default=[])
+    parser.add_argument('-e', '--extended', action='store_true',
+                        help='show extended information about each node')
     args = parser.parse_args()
 
     if len(args.interface) == 0:
@@ -81,7 +85,7 @@ if __name__ == '__main__':
     iface_stats = []
     for i in range(len(args.interface)):
         check_iface_type(args.interface[i], 'wireguard')
-        iface_stats.append(get_stats(args.format, args.interface[i]))
+        iface_stats.append(get_stats(args.format, args.interface[i], extended=args.extended))
 
     if args.format == "influx":
         for stats in iface_stats:
