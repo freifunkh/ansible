@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+from argparse import ArgumentParser as ArgParser
 from datetime import datetime, timedelta
 from json import dumps as json_dumps
+from os import path
 from pyroute2 import WireGuard
-import argparse, os
 
 TIMEOUT = timedelta(minutes=3)
+
 
 def get_stats(format, interface, extended=True):
     clients = WireGuard().info(interface)[0].WGDEVICE_A_PEERS.value
@@ -26,11 +28,11 @@ def get_stats(format, interface, extended=True):
             established_peers_count += 1
         if extended:
             peers.append({
-                "public_key" : public_key,
-                "latest_handshake" : latest_handshake,
-                "is_established" : established,
-                "rx_bytes" : int(client.WGPEER_A_RX_BYTES['value']),
-                "tx_bytes" : int(client.WGPEER_A_TX_BYTES['value']),
+                "public_key": public_key,
+                "latest_handshake": latest_handshake,
+                "is_established": established,
+                "rx_bytes": int(client.WGPEER_A_RX_BYTES['value']),
+                "tx_bytes": int(client.WGPEER_A_TX_BYTES['value']),
             })
 
     if extended:
@@ -39,6 +41,7 @@ def get_stats(format, interface, extended=True):
     combined["established_peers_count"] = established_peers_count
 
     return combined
+
 
 def print_influx_format(stats):
     timestamp = str(round(datetime.now().timestamp())) + "0" * 9
@@ -50,30 +53,33 @@ def print_influx_format(stats):
           "i " + timestamp)
     for peer in stats['peers']:
         print("wireguard_peer,device=" + stats['interface'] +
-               ",public_key=" + peer['public_key'] +
-               " last_handshake=" + str(peer['latest_handshake']) +
-               "i,rx_bytes=" + str(peer['rx_bytes']) +
-               "i,tx_bytes=" + str(peer['tx_bytes']) +
-               "i " + timestamp)
+              ",public_key=" + peer['public_key'] +
+              " last_handshake=" + str(peer['latest_handshake']) +
+              "i,rx_bytes=" + str(peer['rx_bytes']) +
+              "i,tx_bytes=" + str(peer['tx_bytes']) +
+              "i " + timestamp)
+
 
 def check_iface_type(iface, type):
-    if not os.path.exists(f'/sys/class/net/{iface}'):
+    if not path.exists(f'/sys/class/net/{iface}'):
         print(f'Iface {iface} does not exist! Exiting...')
         exit(1)
 
     with open(f'/sys/class/net/{iface}/uevent', 'r') as f:
         for line in f.readlines():
-            l = line.replace('\n', '').split('=')
-            if l[0] == 'DEVTYPE' and l[1] != type:
-                print(f'Iface {iface} is wrong type! Should be {type}, but is {l[1]}. Exiting...')
+            device_tuple = line.replace('\n', '').split('=')
+            if device_tuple[0] == 'DEVTYPE' and device_tuple[1] != type:
+                print(f'Iface {iface} is wrong type! Should be {type},\
+                        but is {device_tuple[1]}. Exiting...')
                 exit(1)
 
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Dump statistics of WireGuard interfaces')
+    parser = ArgParser(description='Dump statistics of WireGuard interfaces')
     parser.add_argument('-f', '--format', metavar='FORMAT', type=str,
-                    help='allowed formats are: "json", "influx"')
-    parser.add_argument('-i', '--interface', metavar='IFACE', type=str, nargs='+',
-                    help='the WireGuard interfaces', default=[])
+                        help='allowed formats are: "json", "influx"')
+    parser.add_argument('-i', '--interface', metavar='IFACE', type=str,
+                        help='the WireGuard interfaces', default=[], nargs='+')
     parser.add_argument('-e', '--extended', action='store_true',
                         help='show extended information about each node')
     args = parser.parse_args()
@@ -85,11 +91,11 @@ if __name__ == '__main__':
     iface_stats = []
     for i in range(len(args.interface)):
         check_iface_type(args.interface[i], 'wireguard')
-        iface_stats.append(get_stats(args.format, args.interface[i], extended=args.extended))
+        iface_stats.append(get_stats(args.format, args.interface[i],
+                                     extended=args.extended))
 
     if args.format == "influx":
         for stats in iface_stats:
-            print_influx_format(stats);
+            print_influx_format(stats)
     else:
         print(json_dumps(iface_stats))
-
