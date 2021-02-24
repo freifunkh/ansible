@@ -1,7 +1,6 @@
 ---
 
 # this needs to stay, until we do not consider stretch hosts supernode material anymore.
-# *aiyion* eyes sn08 critically...
 
 - name: Do not setup wireguard on incompatible debian releases
   include_tasks: setup_wg.yml
