@@ -15,3 +15,5 @@
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.telegraf, tags: telegraf }
+    # Backups
+    - { name: ffh.restic, tags: restic }

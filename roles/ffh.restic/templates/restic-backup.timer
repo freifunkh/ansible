@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup with restic daily
+[Timer]
+OnCalendar=daily
+[Install]
+WantedBy=timers.target

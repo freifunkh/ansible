@@ -1,0 +1,7 @@
+[Unit]
+Description=Restic backup service
+[Service]
+Type=oneshot
+ExecStart=/etc/restic.sh backup --verbose --one-file-system --tag systemd.timer $BACKUP_EXCLUDES $BACKUP_PATHS
+ExecStartPost=/etc/restic.sh forget --verbose --tag systemd.timer --group-by "paths,tags" --keep-daily $RETENTION_DAYS --keep-weekly $RETENTION_WEEKS --keep-monthly $RETENTION_MONTHS --keep-yearly $RETENTION_YEARS
+EnvironmentFile=/etc/restic-backup.conf

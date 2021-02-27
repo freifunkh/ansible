@@ -1,0 +1,123 @@
+---
+
+- name: add server to known_hosts
+  known_hosts:
+    path: /etc/ssh/ssh_known_hosts
+    name: "{{ item }}"
+    key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
+  loop: "{{ restic_backup_server_ips }}"
+
+- name: Check if passwords/{{ansible_hostname}} exists
+  local_action: stat path=passwords/{{ansible_hostname}}
+  register: passwordfile
+
+- name: Generate and store password
+  local_action: shell pwgen -y -1 20 | ansible-vault encrypt - > passwords/{{ansible_hostname}}
+  when: not passwordfile.stat.exists
+
+- name: Get password
+  local_action: shell ansible-vault view passwords/{{ansible_hostname}} | base64
+  changed_when: False
+  register: password
+
+- name: Create user on {{ restic_backup_server_ansible_host }}
+  user:
+    name: "{{ ansible_hostname }}"
+    groups: ["sftponly"]
+    force: no
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+
+- name: Create ssh-key
+  user:
+    name: "{{ansible_user}}"
+    generate_ssh_key: yes
+    ssh_key_type: rsa
+    ssh_key_bits: 4096
+    force: no
+
+- name: Obtain ssh-key
+  command: cat ~/.ssh/id_rsa.pub
+  changed_when: False
+  register: ssh_key
+
+- name: Create ssh folder on backups for user
+  file: path=/home/{{ansible_hostname}}/.ssh state=directory
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+
+- name: Add ssh-key
+  copy:
+    content: "{{ ssh_key.stdout }}"
+    dest: /home/{{ansible_hostname}}/.ssh/authorized_keys
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+
+- name: Check if restic data path exists
+  stat: path=/home/{{ansible_hostname}}/restic
+  register: restic_datapath
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+
+- name: Create folders and set permissions
+  shell: "cd /home/{{ansible_hostname}} && mkdir -p restic && chown root:root . && chown {{ansible_hostname}}:{{ansible_hostname}} restic"
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+  when: not restic_datapath.stat.exists
+
+- name: Check if restic is installed
+  stat: path=/usr/local/bin/restic
+  register: resticpath
+
+- name: Ensure restic is installed
+  block:
+  - get_url:
+      url: "https://github.com/restic/restic/releases/download/v{{restic_version}}/restic_{{restic_version}}_linux_amd64.bz2"
+      dest: /usr/local/bin/restic.bz2
+  - shell: "bzip2 -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
+  when: not resticpath.stat.exists
+
+- name: Install backups ssh host host
+  blockinfile:
+    path: /etc/ssh/ssh_config
+    block: |
+      Host backups
+          HostName {{ restic_backup_server_hostname }}
+          User {{ ansible_hostname }}
+          Port {{ restic_backup_server_port }}
+
+- name: Install restic config
+  template:
+    dest: /etc/restic.sh
+    src: backup.sh.j2
+    mode: 755
+
+- name: Install restic conf
+  template:
+    dest: /etc/restic-backup.conf
+    src: "restic-backup.conf.j2"
+
+- name: Init repo
+  command: /etc/restic.sh init
+  when: not restic_datapath.stat.exists
+
+- name: Install restic systemd units
+  template:
+    dest: /etc/systemd/system/{{ item }}
+    src: "{{ item }}"
+  with_items:
+    - restic-backup.service
+    - restic-backup.timer
+    - restic-prune.service
+    - restic-prune.timer
+  register: systemdunits
+
+- name: Enable systemd units
+  shell: >
+    set -e
+    systemctl daemon-reload
+    systemctl enable restic-backup
+    systemctl enable restic-prune
+    systemctl enable --now restic-backup.timer
+    systemctl enable --now restic-prune.timer
+    systemctl start restic-backup.timer # for legacy systemd where --now does not work
+    systemctl start restic-prune.timer # for legacy systemd where --now does not work
+  when: systemdunits.changed
+
+- name: Install fuse (for mounting)
+  apt: name=fuse state=present

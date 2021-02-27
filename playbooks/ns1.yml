@@ -13,3 +13,5 @@
     - { name: ffh.postfix, tags: postfix }
     - { name: ffh.ntp, tags: ntp }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    # Backups
+    - { name: ffh.restic, tags: restic }

@@ -49,6 +49,8 @@
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.bpfcount, tags: bpfcount }
+    # Backups
+    - { name: ffh.restic, tags: restic }
   post_tasks:
     - name: etckeeper post-commit
       shell: 'etckeeper commit "post-commit changes after Ansible run ({{local_username.stdout}}, tags: {{ansible_run_tags | join(",")}})" || echo "nothing to commit"'

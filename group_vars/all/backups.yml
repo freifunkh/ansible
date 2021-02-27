@@ -1,0 +1,14 @@
+---
+# This is overwritten for some hosts in host_vars/
+restic_backup_paths:
+- /etc/
+restic_backup_server_ips:
+  - 2a01:4f8:141:1464::666
+# TODO: change this ssh_figerprint to the correct one...
+#       use "cat /etc/ssh/ssh_host_ecdsa_key.pub" on the backup machine to find it...
+restic_backup_server_ssh_fingerprint: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCymC74C0M/JV1sJLjxiYV10yEyJe99UF3x4u4eAAk35ZuaxCh6qjQ6Stjui/RhKgMVppgtp1HC/B/Ix10YMoDk=
+# TODO: give me a better name
+restic_backup_server_ansible_host: backups
+restic_backup_server_hostname: 2a01:4f8:141:1464::666
+restic_backup_server_port: 1337
+restic_version: 0.9.6

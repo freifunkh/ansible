@@ -99,3 +99,7 @@ git2cal:
   calendar_dir: /tmp/calendar
   ics_file: /var/www/web/api/meetings.ics
   json_file: /var/www/web/api/meetings.json
+
+restic_backup_paths:
+- /etc/
+- /var/www/ # wiki (and other probably not so important stuff)

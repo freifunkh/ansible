@@ -1,0 +1,6 @@
+[Unit]
+Description=Restic backup service (data pruning)
+[Service]
+Type=oneshot
+ExecStart=/etc/restic.sh prune
+EnvironmentFile=/etc/restic-backup.conf
