@@ -23,7 +23,7 @@ elif [ -f /usr/sbin/kea-dhcp4 ]; then
 	# KEA DHCP SERVER
 
 	lease_count=$(sudo /etc/zabbix/bin/kea-dhcp4-server.master.sh | \
-		jq '.arguments["cumulative-assigned-addresses"][0][0]')
+		jq '.arguments["cumulative-assigned-addresses"][0][0]-.arguments["reclaimed-leases"][0][0]')
 
 	echo [
 	echo '     { "domain": "all", "state": "used", "count": '"$lease_count"' }'
