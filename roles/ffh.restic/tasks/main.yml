@@ -7,6 +7,12 @@
     key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
   loop: "{{ restic_backup_server_ips }}"
 
+- name: "Create local passwords directory"
+  file:
+    path: "passwords"
+    state: "directory"
+  delegate_to: "localhost"
+
 - name: "Check if passwords/{{ ansible_hostname }} exists"
   stat:
     path: "passwords/{{ ansible_hostname }}"
