@@ -26,6 +26,8 @@ all:
       ansible_port: 22
     pve-ffnw:
       ansible_host: 45.12.203.1
+    archive:
+      ansible_host: archive.ffh.zone
 
 supernodes:
   hosts:
@@ -49,6 +51,7 @@ helpernodes:
     web:
     monitor:
     awx:
+    archive:
 
 batmannodes:
   hosts:
