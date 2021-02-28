@@ -29,7 +29,6 @@ all:
     archive:
       ansible_host: archive.ffh.zone
 
-
 supernodes:
   hosts:
     sn01:
@@ -52,6 +51,7 @@ helpernodes:
     web:
     monitor:
     awx:
+    archive:
 
 batmannodes:
   hosts:
