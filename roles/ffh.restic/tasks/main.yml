@@ -5,34 +5,53 @@
     path: "/etc/ssh/ssh_known_hosts"
     name: "{{ item }}"
     key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
-  loop: "{{ restic_backup_server_ips }}"
-
-- name: "Create local passwords directory"
-  file:
-    path: "passwords"
-    state: "directory"
-  delegate_to: "localhost"
+  loop: "{{ restic_backup_server_ips + [ restic_backup_server_hostname ] }}"
 
 - name: "Check if passwords/{{ ansible_hostname }} exists"
-  stat:
-    path: "passwords/{{ ansible_hostname }}"
+  local_action: stat path=../passwords/{{ ansible_hostname }}
   register: "passwordfile"
-  delegate_to: "localhost"
 
 - name: "Generate random"
   set_fact:
     restic_tmp_secret: "{{ lookup('password', '/dev/null length=20') }}"
 
 - name: "Generate and store password"
-  shell: "ansible-vault encrypt '{{ restic_tmp_secret }}' > passwords/{{ ansible_hostname }}"
+  local_action: shell cd ..; echo {{ restic_tmp_secret }} | ansible-vault encrypt - > passwords/{{ ansible_hostname }}
   when: "not passwordfile.stat.exists"
-  delegate_to: "localhost"
 
 - name: "Get password"
-  shell: "ansible-vault view passwords/{{ ansible_hostname }} | base64"
+  local_action: shell cd ..; ansible-vault view passwords/{{ ansible_hostname }} | base64
   changed_when: False
   register: "password"
-  delegate_to: "localhost"
+
+- name: "Create group sftponly on backup host"
+  group:
+    name: "sftponly"
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+  run_once: true
+
+- name: "Insert/Update 'Match Group sftponly' configuration block in /etc/ssh/sshd_config"
+  register: "sftp"
+  blockinfile:
+    path: "/etc/ssh/sshd_config"
+    block: |
+      Match Group sftponly
+        ChrootDirectory %h
+        ForceCommand internal-sftp
+        AllowTcpForwarding no
+        X11Forwarding no
+        PasswordAuthentication no
+        PermitTunnel no
+        AuthorizedKeysFile /etc/ssh/authorized_keys/%u .ssh/authorized_keys
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+  run_once: true
+
+- name: "Restart sshd on backup server"
+  systemd:
+    name: "sshd"
+    state: "restarted"
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
+  when: "sftp is changed"
 
 - name: "Create user on {{ restic_backup_server_ansible_host }}"
   user:
@@ -43,7 +62,7 @@
 
 - name: "Create ssh-key"
   user:
-    name: "{{ansible_user}}"
+    name: "{{ ansible_user }}"
     generate_ssh_key: "yes"
     ssh_key_type: "rsa"
     ssh_key_bits: 4096
@@ -56,13 +75,20 @@
 
 - name: "Create ssh folder on backups for user"
   file:
-    path: "/home/{{ ansible_hostname }}/.ssh state=directory"
+    path: "/home/{{ ansible_hostname }}/.ssh"
+    state: "directory"
+    owner: "{{ ansible_hostname }}"
+    group: "{{ ansible_hostname }}"
+    mode: "0755"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Add ssh-key"
   copy:
     content: "{{ ssh_key.stdout }}"
     dest: "/home/{{ ansible_hostname }}/.ssh/authorized_keys"
+    owner: "{{ ansible_hostname }}"
+    group: "{{ ansible_hostname }}"
+    mode: "0644"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Check if restic data path exists"
@@ -72,9 +98,21 @@
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Create folders and set permissions"
-  shell: "cd /home/{{ ansible_hostname }} && mkdir -p restic && chown root:root . && chown {{ ansible_hostname }}:{{ ansible_hostname }} restic"
+  file:
+    path: "/home/{{ ansible_hostname }}/restic"
+    owner: "{{ ansible_hostname }}"
+    group: "{{ ansible_hostname }}"
+    mode: "0775"
+    state: "directory"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "not restic_datapath.stat.exists"
+
+- name: "Assure root ownership on /home/{{ ansible_hostname }} for chroot to work"
+  file:
+    path: "/home/{{ ansible_hostname }}"
+    state: "directory"
+    owner: "root"
+  delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Check if restic is installed"
   stat:
@@ -98,18 +136,18 @@
           User {{ ansible_hostname }}
           Port {{ restic_backup_server_port }}
 
-- name: "Install restic config"
+- name: "Install restic shell script"
   template:
     dest: "/etc/restic.sh"
     src: "backup.sh.j2"
     mode: "0755"
 
-- name: "Install restic conf"
+- name: "Install restic config"
   template:
     dest: "/etc/restic-backup.conf"
     src: "restic-backup.conf.j2"
 
-- name: "Init repo"
+- name: "Init restic repository"
   command: "/etc/restic.sh init"
   when: "not restic_datapath.stat.exists"
 
@@ -125,15 +163,14 @@
   register: "systemdunits"
 
 - name: "Enable systemd units"
-  shell: >
-    set -e
-    systemctl daemon-reload
-    systemctl enable restic-backup
-    systemctl enable restic-prune
-    systemctl enable --now restic-backup.timer
-    systemctl enable --now restic-prune.timer
-    systemctl start restic-backup.timer # for legacy systemd where --now does not work
-    systemctl start restic-prune.timer # for legacy systemd where --now does not work
+  systemd:
+    name: "{{ item }}"
+    daemon_reload: "yes"
+    enabled: "yes"
+    state: "started"
+  with_items:
+    - "restic-backup.timer"
+    - "restic-prune.timer"
   when: "systemdunits.changed"
 
 - name: "Install fuse (for mounting)"
