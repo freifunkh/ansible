@@ -12,4 +12,4 @@ restic_backup_server_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItb
 restic_backup_server_ansible_host: "archive"
 restic_backup_server_hostname: "archive.ffh.zone"
 restic_backup_server_port: 1337
-restic_version: "0.9.6"
+restic_version: "0.12.0"
