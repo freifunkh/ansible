@@ -150,3 +150,7 @@ postfix_mynetworks:
 - "[{{ lookup('dig', 'monitor.ffh.zone./AAAA') or '::1' }}]/128"
 - "{{ lookup('dig', 'harvester.ffh.zone./A') or '127.0.0.1' }}/32"
 - "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') or '::1' }}]/128"
+
+restic_backup_paths:
+- /etc/
+- /home/git # gitolite

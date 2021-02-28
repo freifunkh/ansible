@@ -1,0 +1,6 @@
+[Unit]
+Description=Prune data from the restic repository monthly
+[Timer]
+OnCalendar=monthly
+[Install]
+WantedBy=timers.target
