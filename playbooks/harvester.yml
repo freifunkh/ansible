@@ -1,6 +1,10 @@
 ---
 
 - hosts: harvester
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]  
   roles:
     # General
     - { name: ffh.networkd, tags: networkd }

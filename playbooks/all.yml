@@ -1,6 +1,10 @@
 ---
 
 - hosts: all
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
   roles:
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.admin, tags: admin }
@@ -10,3 +14,4 @@
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.restic, tags: restic }
+

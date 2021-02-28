@@ -1,0 +1,10 @@
+---
+
+- name: "Check for /var/run/reboot-required"
+  stat:
+    path: "/var/run/reboot-required"
+  register: "rebootrequired"
+
+- pause:
+    prompt: "WARNING: Do you really want to play this book although the host requires a reboot? Ctrl-C to quit."
+  when: "rebootrequired.stat.exists"

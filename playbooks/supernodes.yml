@@ -2,6 +2,9 @@
 
 - hosts: supernodes
   pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
     - name: install etckeeper
       package:
         name: etckeeper
