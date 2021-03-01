@@ -1,5 +1,9 @@
 ---
 
+- name: Add gpg dependency for apt_key
+  apt:
+    name: "gpg"
+
 - name: Add Zabbix Repo Key
   apt_key:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
