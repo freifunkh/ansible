@@ -120,7 +120,7 @@ dns_authoritative_toplevel:
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1001",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
-       "aegidientor.e.ffh.zone. IN A 45.12.203.13",
+       "aegidientor.e.ffh.zone. IN A 45.12.203.12",
        "aegidientor.e.ffh.zone. IN AAAA 2001:678:978:ff01::2",
        "pve-ffnw.ffh.zone. IN A 45.12.203.1",
        "pve-ffnw.ffh.zone. 120 IN AAAA 2001:678:978:ff01::1",
