@@ -1,0 +1,19 @@
+---
+- name: Ensure all-knowing-dns is installed
+  apt:
+    name: all-knowing-dns
+    state: present
+
+- name: Ensure all-knowing-dns is configured
+  template:
+    src: etc/all-knowing-dns.conf.j2
+    dest: /etc/all-knowing-dns.conf
+    mode: 0644
+  notify: Restart all-knowing-dns
+
+# Handle service
+- name: Ensure all-knowing-dns service is enabled and started
+  service:
+    name: all-knowing-dns
+    enabled: yes
+    state: started
