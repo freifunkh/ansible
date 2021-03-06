@@ -1,0 +1,5 @@
+---
+- name: Restart all-knowing-dns
+  service:
+    name: all-knowing-dns
+    state: restarted

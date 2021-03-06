@@ -1,0 +1,5 @@
+---
+- name: Ensure all_knowing_dns is installed
+  import_tasks:
+    file: all_knowing_dns.yml
+  tags: all_knowing_dns

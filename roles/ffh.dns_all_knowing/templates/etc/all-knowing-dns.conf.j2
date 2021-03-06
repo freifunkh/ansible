@@ -1,0 +1,18 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "true"
+# Configuration file for AllKnowingDNS v1.3
+
+{% for rdns_ip in all_knowing_dns.listen %}
+listen {{ rdns_ip }}
+{% endfor %}
+
+{%- for mesh_prefix in all_knowing_dns.mesh_prefixes | default( [] ) %}
+	{%- for snname,sn in supernodes.items() | default( [] ) %}
+		{% for domain in domains | default( [] ) %}
+
+network {{ mesh_prefix }}:{{ sn.id }}{{ domain.id }}::/64
+	resolves to client-%DIGITS%.sn{{ '%02d' % sn.id }}.d{{ domain.id }}.c.ffh.zone
+	with upstream 2a03:4000:6:8277::1
+		{%- endfor %}
+	{%- endfor %}
+{%- endfor %}
+
