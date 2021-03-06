@@ -6,13 +6,17 @@ listen {{ rdns_ip }}
 {% endfor %}
 
 {%- for mesh_prefix in all_knowing_dns.mesh_prefixes | default( [] ) %}
+
+network {{ mesh_prefix }}::/48
+	resolves to unknown-%DIGITS%.c.ffh.zone
+	with upstream {{ helpernodes.ns1.ip6 }}
+
 	{%- for snname,sn in supernodes.items() | default( [] ) %}
 		{% for domain in domains | default( [] ) %}
 
 network {{ mesh_prefix }}:{{ sn.id }}{{ domain.id }}::/64
 	resolves to client-%DIGITS%.sn{{ '%02d' % sn.id }}.d{{ domain.id }}.c.ffh.zone
-	with upstream 2a03:4000:6:8277::1
+	with upstream {{ helpernodes.ns1.ip6 }}
 		{%- endfor %}
 	{%- endfor %}
 {%- endfor %}
-
