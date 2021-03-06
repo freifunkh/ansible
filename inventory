@@ -32,6 +32,8 @@ all:
       ansible_host: 45.12.203.1
     archive:
       ansible_host: archive.ffh.zone
+    rdns:
+      ansible_host: rdns.ffh.zone
 
 supernodes:
   hosts:
