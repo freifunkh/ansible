@@ -1,0 +1,2 @@
+#!/bin/bash
+ip -br link show type batadv | cut -d" " -f1 | xargs -I "{}" batctl meshif {} if | sort | cut -d: -f1
