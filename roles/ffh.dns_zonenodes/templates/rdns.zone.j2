@@ -2,6 +2,13 @@
 
 {% for zone in dns_authoritative_zones %}
     {% if ':' in zone.to %}
-{{ zone.to|ipaddr("revdns") }} IN  PTR {{ zone.zone }}.{{ dns_zonenodes_toplevel }}
+{{ zone.to|ipaddr("revdns") }}upstream. IN PTR {{ zone.zone }}.{{ dns_zonenodes_toplevel }}
     {% endif %}
 {% endfor %}
+
+{%- for snname,sn in supernodes.items() | default( [] ) %}
+	{% for domain in domains | default( [] ) %}
+{% set ipv6 = dns_zonenodes_rdnsnetwork ~ ":" ~ sn.id ~ domain.id ~ "::1001" %}
+{{ ipv6|ipaddr("revdns") }}upstream. IN PTR sn{{ '%02d' % sn.id }}.d{{ domain.id }}.c.{{ dns_zonenodes_toplevel }}
+	{% endfor %}
+{%- endfor %}
