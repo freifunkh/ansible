@@ -29,27 +29,26 @@ dns_authoritative_listen_on:
 dns_authoritative_external:
 - domain: "n.ffh.zone"
   zonefile: "n.ffh.zone.zone"
+- domain:  "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
+  zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
 - domain: "ffh"
   zonefile: "ffh.zone"
 - domain: "hannover.freifunk.net"
   zonefile: "hannover.freifunk.net.zone"
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
-#dns_zonenodes_toplevel: "ffh.zone."
-#dns_zonenodes_nodedomain: "n.ffh.zone"
-#dns_zonenodes_rdnsdomain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
-#dns_zonenodes_matchIP: "/^2a02/"
-#dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
+dns_zonenodes_toplevel: "ffh.zone."
+dns_zonenodes_nodedomain: "n.ffh.zone"
+dns_zonenodes_rdnsdomain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
+dns_zonenodes_rdnsnetwork: "2001:678:978"
+dns_zonenodes_matchIP: "/^2001/"
+dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
 
 dns_authoritative_toplevel:
    - domain: "203.12.45.in-addr.arpa."
      records: [
       "13.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
       "12.203.12.45.in-addr.arpa. IN PTR aegidientor.e.ffh.zone."
-     ]
-   - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream."
-     records: [
-      "2.4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.f.f.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream. 3600 IN PTR ns1-test.ffh.zone."
      ]
    - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
      records: [
@@ -163,9 +162,12 @@ dns_authoritative_toplevel:
      ]
 
 dns_authoritative_zones:
-- zone: "hightower"
-  to: "fdca:ffee:8::1337"
-
+- zone: "pve-ffnw"
+  to: "2001:678:978:ff01::1"
+- zone: "sn01.s"
+  to: "2001:678:978:ff01::2"
+- zone: "rdns"
+  to: "2001:678:978:ff01::3"
 
 postfix_myhostname: "mail.ffh.zone"
 postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"
