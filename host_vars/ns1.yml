@@ -29,21 +29,69 @@ dns_authoritative_listen_on:
 dns_authoritative_external:
 - domain: "n.ffh.zone"
   zonefile: "n.ffh.zone.zone"
-- domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
-  zonefile: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.zone"
 - domain: "ffh"
   zonefile: "ffh.zone"
 - domain: "hannover.freifunk.net"
   zonefile: "hannover.freifunk.net.zone"
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
-dns_zonenodes_toplevel: "ffh.zone."
-dns_zonenodes_nodedomain: "n.ffh.zone"
-dns_zonenodes_rdnsdomain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
-dns_zonenodes_matchIP: "/^2a02/"
-dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
+#dns_zonenodes_toplevel: "ffh.zone."
+#dns_zonenodes_nodedomain: "n.ffh.zone"
+#dns_zonenodes_rdnsdomain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa"
+#dns_zonenodes_matchIP: "/^2a02/"
+#dns_zonenodes_nodeurl: "https://harvester.ffh.zone/nodes.json"
 
 dns_authoritative_toplevel:
+   - domain: "203.12.45.in-addr.arpa."
+     records: [
+      "13.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
+      "12.203.12.45.in-addr.arpa. IN PTR aegidientor.e.ffh.zone."
+     ]
+   - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream."
+     records: [
+      "2.4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.f.f.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream. 3600 IN PTR ns1-test.ffh.zone."
+     ]
+   - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
+     records: [
+      "0.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "1.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "2.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "3.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "4.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "5.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "6.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "7.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "8.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "9.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "a.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "b.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "c.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "d.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "e.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "f.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
+     ]
+   - domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.upstream."
+     records: [
+     ]
+   - domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa."
+     records: [
+      "0.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "1.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "2.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "3.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "4.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "5.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "6.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "7.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "8.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "9.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "a.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "b.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "c.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "d.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "e.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "f.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
+     ]
    - domain: "ffh.zone."
      records: [
        "sn01.ffh.zone. IN CNAME sn01.s.ffh.zone.",
@@ -73,6 +121,8 @@ dns_authoritative_toplevel:
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1001",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
+       "aegidientor.e.ffh.zone. IN A 45.12.203.13",
+       "aegidientor.e.ffh.zone. IN AAAA 2001:678:978:ff01::2",
        "pve-ffnw.ffh.zone. IN A 45.12.203.1",
        "pve-ffnw.ffh.zone. 120 IN AAAA 2001:678:978:ff01::1",
        # "pve-ffnw.ffh.zone. IN A 194.50.19.34",
@@ -84,6 +134,7 @@ dns_authoritative_toplevel:
        "awx.ffh.zone. IN AAAA 2a01:4f8:221:100c::1005",
        "rdns.ffh.zone. 120 IN A 45.12.203.13",
        "rdns.ffh.zone. 120 IN AAAA 2001:678:978:ff01::3",
+       "c.ffh.zone. IN NS rdns.ffh.zone.",
        "zabbix.ffh.zone. IN CNAME monitor.ffh.zone.",
        "netbox.ffh.zone. IN CNAME monitor.ffh.zone.",
        "ntp.ffh.zone. IN A 37.120.176.252",
