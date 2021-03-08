@@ -110,8 +110,8 @@ dns_authoritative_toplevel:
        "iperf3.ffh.zone. IN CNAME sn01.s.ffh.zone.",
        "sn05.s.ffh.zone. IN A 176.9.100.220",
        "sn05.s.ffh.zone. IN AAAA 2a01:4f8:151:42a1::2001",
-       "sn07.s.ffh.zone. IN A 85.214.168.26",
-       "sn07.s.ffh.zone. IN AAAA 2a01:238:42d1:b400:113d:19eb:99f1:1cbb",
+       # "sn07.s.ffh.zone. IN A 85.214.168.26",
+       # "sn07.s.ffh.zone. IN AAAA 2a01:238:42d1:b400:113d:19eb:99f1:1cbb", # gone since vH21.11
        "sn09.s.ffh.zone. IN A 81.3.6.92",
        "sn09.s.ffh.zone. IN AAAA 2a02:790:1:ff::9001",
        "sn10.s.ffh.zone. IN A 81.3.6.91",
