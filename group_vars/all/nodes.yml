@@ -1,6 +1,6 @@
 ---
 exitnodes:
-  # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
+  # aegidientor: used for superexitnode sn01
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
   leintor:
     id: 3
@@ -35,3 +35,4 @@ helpernodes:
   ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'ns1.ffh.zone./AAAA') }}" }
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
   monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}" }
+  rdns: { id: 6, ip4: "{{ lookup('dig', 'rdns.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'rdns.ffh.zone./AAAA') }}" }
