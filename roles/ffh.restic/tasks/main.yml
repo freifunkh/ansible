@@ -90,6 +90,7 @@
     group: "{{ ansible_hostname }}"
     mode: "0644"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
+  when: "not ansible_check_mode"
 
 - name: "Check if restic data path exists"
   stat:
@@ -141,11 +142,13 @@
     dest: "/etc/restic.sh"
     src: "backup.sh.j2"
     mode: "0755"
+  when: "not ansible_check_mode"
 
 - name: "Install restic config"
   template:
     dest: "/etc/restic-backup.conf"
     src: "restic-backup.conf.j2"
+  when: "not ansible_check_mode"
 
 - name: "Init restic repository"
   command: "/etc/restic.sh init"
