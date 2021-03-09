@@ -56,7 +56,7 @@ helpernodes:
     monitor:
     awx:
     archive:
-    rnds:
+    rdns:
 
 batmannodes:
   hosts:
