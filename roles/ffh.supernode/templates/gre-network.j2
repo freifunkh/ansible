@@ -3,3 +3,38 @@ Name=gre-{{ item.key }}
 
 [Network]
 Address=100.{{ 100 + exitnodes[item.key].id }}.{{ sn }}.2/24
+
+{% for hostname, exitnode in exitnodes.items() %}
+{% if hostname == item.key %}
+{% for ip_range in exitnode.exit_ip_ranges %}
+{% if ":" in ip_range %}
+# The following lines add source specific routes. These routes are necessary
+# since we announce multiple ipv6 prefixes via radvd into our network. Announcing
+# multiple ipv6 prefixes leads to problems with gluon nodes discussed here:
+# - https://github.com/freifunk-gluon/gluon/issues/2180
+# - https://github.com/freifunkh/ansible/issues/155
+[Route]
+Destination=::/0
+Source={{ ip_range }}
+Table=42
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% for hostname, exitnode in superexitnodes.items() %}
+{% if hostname == item.key %}
+{% for ip_range in exitnode.exit_ip_ranges %}
+{% if ":" in ip_range %}
+# The following lines add source specific routes. These routes are necessary
+# since we announce multiple ipv6 prefixes via radvd into our network. Announcing
+# multiple ipv6 prefixes leads to problems with gluon nodes discussed here:
+# - https://github.com/freifunk-gluon/gluon/issues/2180
+# - https://github.com/freifunkh/ansible/issues/155
+[Route]
+Destination=::/0
+Source={{ ip_range }}
+Table=42
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
