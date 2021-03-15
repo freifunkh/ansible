@@ -1,0 +1,9 @@
+---
+
+# taken from ssh_host_ecdsa_key.pub
+git_autoupdate_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCZyJ0vambDgPjYouLNG7pfJ6DtKojiP/N6fvR0kqdpGQEh/oeeTGs8dOp8Z9CAxwJAK2YffNwzB6LtJK9uHvMA= root@git.ffh.zone"
+
+git_autoupdate_servers:
+  - "git.ffh.zone"
+  - "{{ lookup('dig', 'git.ffh.zone./A') | regex_replace('NXDOMAIN', '# failed dns lookup for git.ffh.zone/A') }}"
+  - "{{ lookup('dig', 'git.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '# failed dns lookup for git.ffh.zone/AAAA') }}"
