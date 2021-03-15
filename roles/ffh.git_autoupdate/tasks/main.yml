@@ -35,7 +35,9 @@
     group: auto
     mode: "u=rwx,g=r,o=r"
 
-- name: Install global ssh known_hosts file
-  template:
-    src: known_hosts.j2
-    dest: /etc/ssh/ssh_known_hosts
+- name: "Add keys to global known_hosts"
+  known_hosts:
+    path: "/etc/ssh/ssh_known_hosts"
+    name: "{{ item }}"
+    key: "{{ item }} {{ git_autoupdate_ssh_fingerprint }}"
+  loop: "{{ git_autoupdate_servers }}"
