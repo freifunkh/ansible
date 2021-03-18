@@ -1,7 +1,10 @@
 domain (ip ip6) {
   table filter {
     chain MESH_INPUT {
-      proto udp dport (1001) ACCEPT;
+      proto udp {
+        dport (1001) ACCEPT;
+        saddr fe80::/64 sport 1001 dport 32768:61000 mod comment comment "mesh_respondd_reply" ACCEPT;
+      }
     }
   }
 }
