@@ -41,6 +41,6 @@ VPNPublicKey: {{ fastd_keys[servername].public }}
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
 BatmanInterface: bat{{ domain.id }}
-Interfaces: mesh_fastd_{{ domain.id }}
+Interfaces: mesh_fastd_{{ domain.id }},vlan-gt-2{{ domain.id }},vx-{{ domain.id }}
 
 {% endfor %}
