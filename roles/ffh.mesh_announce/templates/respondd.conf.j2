@@ -33,10 +33,13 @@ VPN: {{ is_supernode or is_superexitnode }}
 # may contain csv if more than one protocol is used
 # optional, default is fastd
 # supported protocols are: fastd, None
-VPNProtocols: fastd
+VPNProtocols: fastd,wireguard
 # Default fastd-public-key to use
 # optional, default is None
 FastdPublicKey: {{ fastd_keys[servername].public }}
+# Default WireGuard-public-key to use
+# optional, default is None
+WireGuardPublicKey: {{ wireguard_keys[servername].public }}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
