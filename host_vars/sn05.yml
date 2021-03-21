@@ -30,3 +30,4 @@ babeld_interface_penalty:
 
 legacy_dom0: true
 radv_announce_default: false
+coordinates: ['50.478069651', '12.334529757']

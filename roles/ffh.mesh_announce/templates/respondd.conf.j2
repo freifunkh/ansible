@@ -40,6 +40,14 @@ FastdPublicKey: {{ fastd_keys[servername].public }}
 # Default WireGuard-public-key to use
 # optional, default is None
 WireGuardPublicKey: {{ wireguard_keys[servername].public }}
+{% if coordinates is defined %}
+# Latitude of the system
+# optional, default: @Latitude
+Latitude: {{ coordinates[0] }}
+# Longitude of the system
+# optional, default: @Longitude
+Longitude: {{ coordinates[1] }}
+{% endif %}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
