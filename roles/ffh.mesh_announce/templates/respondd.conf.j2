@@ -36,7 +36,7 @@ VPN: {{ is_supernode or is_superexitnode }}
 VPNProtocols: fastd
 # Default fastd-public-key to use
 # optional, default is None
-VPNPublicKey: {{ fastd_keys[servername].public }}
+FastdPublicKey: {{ fastd_keys[servername].public }}
 
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
