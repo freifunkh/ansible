@@ -33,4 +33,4 @@ apinger_targets2:
 - description: hostway router
   ips:
     - 2a02:790::1
-
+coordinates: ['52.327599348', '9.784306884']

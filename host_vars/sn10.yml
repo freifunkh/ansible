@@ -35,3 +35,4 @@ apinger_targets2:
     - "2a02:790::1"
 exit_ip: "81.3.6.91" 
 fix_netifnames: true
+coordinates: ['52.327422312', '9.783974290']
