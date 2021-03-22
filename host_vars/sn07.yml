@@ -1,0 +1,30 @@
+---
+
+servername: "sn07"
+sn: 7
+fqdn: "sn07.s.ffh.zone"
+
+networkd_configures:
+- iface: "eth0"
+  addresses:
+    - "135.125.190.100/32"
+    - "2001:41d0:701:1100::47f1/64"
+  gateway6: "2001:41d0:701:1100::1"
+  no_radv_accept: false
+  dhcp: true
+  dns_server: [9.9.9.9, 1.1.1.1]
+
+mesh_prefix: "2a02:790:ff"
+
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interface_penalty:
+  gre-aegidientor: 666
+  gre-steintor: 120
+  gre-leintor: 130
+  gre-clevertor: 110
+  gre-listertor: 100
+  gre-bruehltor: 666
+
+legacy_dom0: true
+radv_announce_default: false
+coordinates: ['50.408633770', '8.062720299']
