@@ -1,39 +1,38 @@
-From 34074f6295be30747024f2e7e5e5129c62b2be5c Mon Sep 17 00:00:00 2001
+From 9696eb208183628c8328bf104a0b49c0cc4c3a76 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Leonardo=20M=C3=B6rlein?= <git@irrelefant.net>
 Date: Sat, 27 Feb 2021 17:46:37 +0100
-Subject: [PATCH] [WIP] Add source.hostname/target.hostname to influx output
+Subject: [PATCH] Add source.hostname/target.hostname to influx output
 
 Grafana is currently not able to resolve the target.id or source.id
 into a human readable hostname. Therefore reading the neighbour
 graphs is quite difficult for humans. To resolve this, we add the
 additional tags source.hostname and target.hostname to the influx
 link measurements.
-
-This is just a very first draft, which probably needs some more
-var != nil checks or so. It's intended as a basis for discussion.
 ---
- database/influxdb/link.go | 2 ++
- runtime/node.go           | 2 ++
- runtime/nodes.go          | 4 ++++
- 3 files changed, 8 insertions(+)
+ database/influxdb/link.go |  6 ++++++
+ runtime/node.go           |  2 ++
+ runtime/nodes.go          | 15 +++++++++++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/database/influxdb/link.go b/database/influxdb/link.go
-index 1d642bab..ea221fe7 100644
+index 1d642ba..37c2bd9 100644
 --- a/database/influxdb/link.go
 +++ b/database/influxdb/link.go
-@@ -12,8 +12,10 @@ func (conn *Connection) InsertLink(link *runtime.Link, t time.Time) {
- 	tags := models.Tags{}
- 	tags.SetString("source.id", link.SourceID)
+@@ -14,6 +14,12 @@ func (conn *Connection) InsertLink(link *runtime.Link, t time.Time) {
  	tags.SetString("source.addr", link.SourceAddress)
-+	tags.SetString("source.hostname", link.SourceHostname)
  	tags.SetString("target.id", link.TargetID)
  	tags.SetString("target.addr", link.TargetAddress)
-+	tags.SetString("target.hostname", link.TargetHostname)
++	if link.SourceHostname != "" {
++		tags.SetString("source.hostname", link.SourceHostname)
++	}
++	if link.TargetHostname != "" {
++		tags.SetString("target.hostname", link.TargetHostname)
++	}
  
  	conn.addPoint(MeasurementLink, tags, models.Fields{"tq": link.TQ * 100}, t)
  }
 diff --git a/runtime/node.go b/runtime/node.go
-index cb557382..d0486398 100644
+index cb55738..d048639 100644
 --- a/runtime/node.go
 +++ b/runtime/node.go
 @@ -22,9 +22,11 @@ type Node struct {
@@ -49,22 +48,36 @@ index cb557382..d0486398 100644
  }
  
 diff --git a/runtime/nodes.go b/runtime/nodes.go
-index 3dae12dd..e0814a60 100644
+index 3dae12d..069e804 100644
 --- a/runtime/nodes.go
 +++ b/runtime/nodes.go
-@@ -117,11 +117,15 @@ func (nodes *Nodes) NodeLinks(node *Node) (result []Link) {
+@@ -117,13 +117,24 @@ func (nodes *Nodes) NodeLinks(node *Node) (result []Link) {
  	for sourceMAC, batadv := range neighbours.Batadv {
  		for neighbourMAC, link := range batadv.Neighbours {
  			if neighbourID := nodes.ifaceToNodeID[neighbourMAC]; neighbourID != "" {
-+				sourceHostname := nodes.List[neighbours.NodeID].Nodeinfo.Hostname
-+				targetHostname := nodes.List[neighbourID].Nodeinfo.Hostname
- 				result = append(result, Link{
+-				result = append(result, Link{
++				neighbour := nodes.List[neighbours.NodeID]
++
++				link := Link{
  					SourceID:      neighbours.NodeID,
-+					SourceHostname:sourceHostname,
  					SourceAddress: sourceMAC,
  					TargetID:      neighbourID,
  					TargetAddress: neighbourMAC,
-+					TargetHostname:targetHostname,
  					TQ:            float32(link.Tq) / 255.0,
- 				})
+-				})
++				}
++
++				if neighbour.Nodeinfo != nil {
++					link.SourceHostname = neighbour.Nodeinfo.Hostname
++				}
++				if node.Nodeinfo != nil {
++					link.TargetHostname = node.Nodeinfo.Hostname
++				}
++
++				result = append(result, link)
  			}
+ 		}
+ 	}
+-- 
+2.30.1
+
