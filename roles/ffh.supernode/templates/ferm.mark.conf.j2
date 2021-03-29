@@ -14,5 +14,12 @@ domain (ip ip6) {
 {% endfor %}
 
     }
+
+    table mangle {
+      chain OUTPUT {
+        saddr {{ mesh_prefix }}:{{ sn }}00::/56 MARK set-xmark 0x2a/0xffffffff;
+      }
+    }
+
   }
 }
