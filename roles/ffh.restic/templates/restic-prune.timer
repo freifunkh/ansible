@@ -1,6 +1,6 @@
 [Unit]
 Description=Prune data from the restic repository monthly
 [Timer]
-OnCalendar=monthly
+OnCalendar=*-*-1 4:00:00
 [Install]
 WantedBy=timers.target
