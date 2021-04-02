@@ -33,8 +33,6 @@ dns_authoritative_external:
   zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
 - domain: "ffh"
   zonefile: "ffh.zone"
-- domain: "hannover.freifunk.net"
-  zonefile: "hannover.freifunk.net.zone"
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
 dns_zonenodes_toplevel: "ffh.zone."
@@ -90,6 +88,11 @@ dns_authoritative_toplevel:
       "d.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
       "e.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
       "f.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
+     ]
+   - domain: "hannover.freifunk.net."
+     records: [
+      "hannover.freifunk.net. 60 IN  A 88.99.88.13",
+      "hannover.freifunk.net. 60 IN  AAAA 2a01:4f8:221:100c::443"
      ]
    - domain: "ffh.zone."
      records: [
