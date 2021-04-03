@@ -1,2 +1,2 @@
 telegraf ALL=(ALL) NOPASSWD: /etc/zabbix/bin/kea-dhcp4-server.master.sh
-Defaults:telegraf        !requiretty
+Defaults:telegraf        !requiretty, !logfile, !syslog
