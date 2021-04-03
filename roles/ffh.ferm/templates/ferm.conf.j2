@@ -40,7 +40,7 @@ domain (ip ip6) {
             }
 
 {%if batman is defined and legacy_dom0 == true %}
-{% for intf in ["mesh_fastd", "bat0"] %}
+{% for intf in ["mesh_fastd", "bat0", "vlan-gt-20"] %}
             interface ({{intf}}) jump MESH_INPUT;
 {% endfor %}
 {% endif %}
