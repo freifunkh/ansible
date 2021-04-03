@@ -45,13 +45,9 @@ domain (ip ip6) {
 {% endfor %}
 {% endif %}
 {%if batman is defined and domains is defined %}
-{% for intf_prefix in ["mesh_fastd_", "vlan-gt-2", "vx-"] %}
+{% for intf_prefix in ["mesh_fastd_", "bat", "vlan-gt-2", "vx-"] %}
             interface ({% for d in domains %}{{intf_prefix}}{{d.id}} {% endfor %}) jump MESH_INPUT;
 {% endfor %}
-{% endif %}
-
-{%if batman is defined and domains is defined %}
-            interface ({% for d in domains %}bat{{d.id}} {% endfor %}) jump MESH_INPUT;
 {% endif %}
         }
         chain OUTPUT {
