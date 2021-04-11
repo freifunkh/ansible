@@ -83,3 +83,8 @@ nginx_sites:
     - location: /
       type: proxy
       proxy_forward_url: http://localhost:8132/
+restic_backup_paths:
+- /etc/
+- /media/data/grafana # current grafana data location (might be changed later) - currently this consumes ~110MB
+- /var/lib/grafana/   # maybe used in future, so I'll add it here already
+
