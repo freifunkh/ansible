@@ -149,6 +149,7 @@ dns_authoritative_toplevel:
        "harvester.ffh.zone. IN A 88.99.88.12",
        "harvester.ffh.zone. IN AAAA 2a01:4f8:221:100c::1001",
        "archive.ffh.zone. IN AAAA 2a01:4f8:141:1464::7001",
+       "sql.ffh.zone. IN AAAA 2a01:4f8:141:1464::7002",
        "keepitup.ffh.zone. IN CNAME harvester.ffh.zone.",
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
