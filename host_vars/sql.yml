@@ -1,0 +1,22 @@
+---
+
+fqdn: "sql.ffh.zone"
+servername: "sql"
+
+restic_backup_paths:
+- /etc/
+
+mysql_root_password: "swee9t67"
+mysql_datadir: "/media/mysql/data"
+mysql_key_buffer_size: "256M"
+mysql_max_allowed_packet: "64M"
+mysql_table_open_cache: "256"
+mysql_packages: ['mariadb-server', 'python-pymysql', 'python3-pymysql']
+
+mysql_bind_address: '::'
+mysql_innodb_buffer_pool_size: "6144M"
+mysql_innodb_log_file_size: "1024M"
+mysql_log: False
+
+zabbix_agent_server: "zbx-hetzner.ffh.zone"
+zabbix_agent_server_active: "zbx-hetzner.ffh.zone"

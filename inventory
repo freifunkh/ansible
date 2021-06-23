@@ -34,6 +34,8 @@ all:
       ansible_host: archive.ffh.zone
     rdns:
       ansible_host: rdns.ffh.zone
+    sql:
+      ansible_host: sql.ffh.zone
 
 supernodes:
   hosts:
