@@ -25,7 +25,7 @@
 - name: "Install statistics export"
   include_tasks: bird_exporter.yml
 
-#- name: Generate config file
-#  template:
-#    src: bird.conf.j2
-#    dest: /etc/bird/bird.conf
+- name: Generate config file
+  template:
+   src: "bird_{{ ansible_hostname }}.conf.j2"
+   dest: /etc/bird/bird.conf
