@@ -1,0 +1,7 @@
+domain eb chain FORWARD {
+    policy ACCEPT;
+
+{% for domain in domains | default([]) %}
+    logical-in br-l2tp{{ domain.id }} logical-out br-l2tp{{ domain.id }} DROP;
+{% endfor %}
+}
