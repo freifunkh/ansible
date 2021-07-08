@@ -5,8 +5,8 @@
 
 - name: Deploy /etc/rc.local
   register: rclocal
-  template:
-    src: rc.local.j2
+  copy:
+    src: rc.local
     dest: /etc/rc.local
     mode: u=rwx,g=rx,o=rx
 

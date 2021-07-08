@@ -16,6 +16,7 @@ networkd_configures:
   gateway4: 81.3.6.89
   gateway6: fe80::1
   dns_server: [81.3.3.81, 8.8.8.8]
+  static_routes: [{ gw: 81.3.6.89, dest: 0.0.0.0/0, table: 43}]
 - iface: lo
   addresses:
     - 100.100.0.1/32 # anycast for ping tests

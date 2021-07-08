@@ -1,0 +1,5 @@
+[NetDev]
+Name=mtudummy
+Kind=dummy
+MTUBytes=1298
+

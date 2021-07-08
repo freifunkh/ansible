@@ -1,0 +1,19 @@
+---
+
+- name: Ensure alternative routing table 43 is existing
+  lineinfile:
+    dest: /etc/iproute2/rt_tables
+    line: "43 mtudummyrt"
+
+- name: Create mtudummy.network
+  notify: Restart networkd
+  copy:
+    src: mtudummy.network
+    dest: /etc/systemd/network/10-mtudummy.network
+
+- name: Create mtudummy.netdev
+  notify: Restart networkd
+  copy:
+    src: mtudummy.netdev
+    dest: /etc/systemd/network/10-mtudummy.netdev
+

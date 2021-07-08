@@ -1,5 +1,8 @@
 ---
 
+- name: MTU workaround
+  include_tasks: mtudummy.yml
+
 - name: GRE stuff
   include_tasks: gre.yml
 

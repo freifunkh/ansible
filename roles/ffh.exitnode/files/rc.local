@@ -14,4 +14,8 @@
 /sbin/ip rule add from all fwmark 0x17 table ffnw priority 242
 # /sbin/ip -6 rule add from all fwmark 0x17 table ffnw priority 242
 
+# Route QUIC UDP packets which would exceed our MTU to the "mtudummy" interface
+# to generate ICMP "too big" messages which trigger PMTU on the other side
+/sbin/ip rule add from all fwmark 0x2b table mtudummyrt priority 243
+
 exit 0
