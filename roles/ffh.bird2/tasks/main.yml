@@ -22,8 +22,9 @@
     name: "bird2"
     state: latest
 
-- name: "Install statistics export"
-  include_tasks: bird_exporter.yml
+# Depends on outdated libs. Disabled for now.
+#- name: "Install statistics export"
+#  include_tasks: bird_exporter.yml
 
 - name: Generate config file
   template:

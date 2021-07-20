@@ -5,6 +5,11 @@
     name: "golang"
     state: latest
 
+- name: "Install git"
+  apt:
+    name: "git"
+    state: latest
+
 - name: "Check if already installed"
   stat:
     path: /usr/local/bin/bird_exporter
