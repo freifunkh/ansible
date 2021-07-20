@@ -29,6 +29,14 @@ DHCP=ipv4
 {% if item.1.no_radv_accept is defined and item.1.no_radv_accept %}
 IPv6AcceptRouterAdvertisements=false
 {% endif %}
+{% if networkd_vlans is defined %}
+{% for vlan in networkd_vlans %}
+{% if vlan.iface == item.1.iface %}
+VLAN=vlan{{ vlan.id }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
 
 {% if item.1.macaddress is defined %}
 [Link]
