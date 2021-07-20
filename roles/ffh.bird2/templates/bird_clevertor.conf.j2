@@ -1,5 +1,5 @@
 log syslog all;
-router id 45.12.203.1;
+router id 194.50.19.34;
 define my_asn = 209347;
 timeformat protocol iso long;
 
@@ -7,113 +7,105 @@ protocol device {
 }
 
 protocol direct {
-	disabled;		# Disable by default
-	# ipv4;			# Connect to default IPv4 table
-	ipv6;			# ... and to default IPv6 table
-	interface "dummy0";
+        disabled;               # Disable by default
+        # ipv4;                 # Connect to default IPv4 table
+        ipv6;                   # ... and to default IPv6 table
+        interface "dummy0";
 }
 
 protocol kernel {
-	ipv4 {
-		export filter {
-			krt_prefsrc = 45.12.203.1;
-			if source ~ [RTS_BGP] then accept; else reject;
-		};
-		import none;
-	};
-	kernel table 2000;	# Kernel table to synchronize with (default: main)
+        ipv4 {                  # Connect protocol to IPv4 table by channel
+                export filter {
+                        krt_prefsrc = 45.12.203.1;
+                        if source ~ [RTS_BGP] then accept; else reject;
+                };
+                import none;
+        };
+        kernel table 2000;      # Kernel table to synchronize with (default: main)
+}
+
+filter test {
+        if net ~ [2001:678:978::/48] then reject;
+        if net ~ [::/0] then reject;
+        if source ~ [RTS_BGP] then accept;
+
+        reject;
 }
 
 protocol kernel {
-	ipv6 {
-		export where source ~ [RTS_BGP]; # we do not want to export the
-		                                 # static unreachable route, so
-		                                 # we do it like this as of now
-		import none;
-	};
-	kernel table 2000;	# Kernel table to synchronize with (therealcix)
+        ipv6 {
+#               export where source ~ [RTS_BGP]; # we do not want to export the
+#                                                 # static unreachable route, so
+#                                                 # we do it like this as of now
+                export filter test;
+                import none;
+        };
+        kernel table 2000;      # Kernel table to synchronize with (therealcix)
 }
 
 protocol static {
-	ipv6;
-	route 2001:678:978::/48 unreachable;
+        ipv6;
+        route 2001:678:978::/48 unreachable;
 }
 
 protocol static {
-	ipv4;
-	route 45.12.203.0/24 unreachable;
+        ipv4;
+        route 45.12.203.0/24 unreachable;
 }
 
 filter to_upstream6 {
-	# CIX uses this community 57555:921:X = zu Region X announcen
-	# DE-BER: X = 100
-	# DE-FRA: X = 200
-	bgp_large_community.add((57555, 921, 100));
-	bgp_large_community.add((57555, 921, 200));
-
-	if net ~ [2001:678:978::/48]
-	then accept;
-	else reject;
+        bgp_large_community.add((57555, 921, 100));
+        bgp_large_community.add((57555, 921, 200));
+        #bgp_large_community.add((57555, 0, 29670));
+        #bgp_community.add((0, 29670));
+        #bgp_community.add((0, 24679));
+        if net ~ [2001:678:978::/48]
+        then accept;
+        else reject;
 }
 
 filter to_upstream4 {
-	# CIX uses this community 57555:921:X = zu Region X announcen
-	# DE-BER: X = 100
-	# DE-FRA: X = 200
-	bgp_large_community.add((57555, 921, 100));
-	bgp_large_community.add((57555, 921, 200));
-
-	if net ~ [45.12.203.0/24]
-	then accept;
-	else reject;
+        bgp_large_community.add((57555, 921, 100));
+        bgp_large_community.add((57555, 921, 200));
+        if net ~ [45.12.203.0/24]
+        then accept;
+        else reject;
 }
 
 filter no_1und1 {
-	if bgp_path.first = 8560
-	then reject;
-	else accept;
+        if bgp_path.first = 8560
+        then reject;
+        else accept;
 }
 
 template bgp cix_peer6 {
-	local 2001:7f8:a5::20:9347:1 as my_asn;
-	hold time 90;
-	password "eyohroK8uV2b";
-	ipv6 {
-		import keep filtered;
-		import all; #filter no_1und1;
-		#export none;
-		export filter to_upstream6;
-	};
+        local 2001:7f8:f2:e1:0:a520:9347:1 as my_asn;
+        hold time 90;
+        ipv6 {
+                import keep filtered;
+                import all; #filter no_1und1;
+                #export none;
+                export filter to_upstream6;
+        };
 }
 
 template bgp cix_peer4 {
-	local 185.1.74.56 as my_asn;
-	hold time 90;
-	password "eyohroK8uV2b";
-	ipv4 {
-		import keep filtered;
-		import all; #filter no_1und1;
-		#export none;
-		export filter to_upstream4;
-	};
+        local 185.1.167.96 as my_asn;
+        hold time 90;
+        ipv4 {
+                import keep filtered;
+                import all; #filter no_1und1;
+                #export none;
+                export filter to_upstream4;
+        };
 }
 
-protocol bgp cix1_ip4 from cix_peer4 {
-	description "CIX Route Server 1 (IPv4)";
-	neighbor 185.1.74.1 as 57555;
+protocol bgp stefan4 from cix_peer4 {
+        description "Stefan (IPv4)";
+        neighbor 185.1.166.111 as 48646;
 }
 
-protocol bgp cix2_ip4 from cix_peer4 {
-	description "CIX Route Server 2 (IPv4)";
-	neighbor 185.1.74.2 as 57555;
-}
-
-protocol bgp cix1 from cix_peer6 {
-	description "CIX Route Server 1 (IPv6)";
-	neighbor 2001:7f8:a5::5:7555:1 as 57555;
-}
-
-protocol bgp cix2 from cix_peer6 {
-	description "CIX Route Server 2 (IPv6)";
-	neighbor 2001:7f8:a5::5:7555:2 as 57555;
+protocol bgp stefan6 from cix_peer6 {
+        description "Stefan (IPv6)";
+        neighbor 2001:7f8:f2:e1:0:a124:8646:1 as 48646;
 }
