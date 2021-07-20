@@ -1,0 +1,24 @@
+---
+
+- hosts: clevertor
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
+  roles:
+    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.exitnode, tags: exitnode }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.networkd, tags: networkd }
+    - { name: ffh.bird2, tags: bird2 }
+    - { name: ffh.simple_mail, tags: simple_mail }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.cron-apt, tags: cron-apt }
+    # - { name: ffh.babeld, tags: babeld }
+    # - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    # - { name: ffh.apinger, tags: apinger }
+    # - { name: ffh.routingnode, tags: routingnode }
+    # - { name: ffh.telegraf, tags: telegraf }
+    # Backups
+    - { name: ffh.restic, tags: restic }

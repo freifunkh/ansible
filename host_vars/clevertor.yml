@@ -1,0 +1,29 @@
+---
+fqdn: "clevertor.e.ffh.zone"
+apinger_targets2:
+- description: clevertor
+  ips:
+    - 2a02:790::1
+
+servername: clevertor
+en: 4
+
+networkd_configures:
+- iface: ens18
+  addresses:
+    - 194.50.19.35
+  gateway4: 194.50.19.1
+  dns_server: [9.9.9.9, 1.1.1.1]
+- iface: ens18.600
+  addresses:
+    - 185.1.167.96/23
+    - 2001:7f8:f2:e1:0:a520:9347:1/64
+- iface: lo
+  addresses:
+    - 100.100.0.1/32 # anycast for ping tests
+
+networkd_vlans:
+- id: 600
+  iface: "ens18"
+
+babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]

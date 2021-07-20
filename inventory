@@ -15,6 +15,8 @@ all:
       ansible_host: sn10.s.ffh.zone
     leintor:
       ansible_host: leintor.e.ffh.zone
+    clevertor:
+      ansible_host: 194.50.19.35
     ns1:
       ansible_host: ns1.fnorden.net
     harvester:
@@ -28,8 +30,6 @@ all:
     perf-test:
       ansible_host: 94.130.213.34
       ansible_port: 22
-    pve-ffnw:
-      ansible_host: 45.12.203.1
     archive:
       ansible_host: archive.ffh.zone
     rdns:
@@ -52,6 +52,7 @@ superexitnodes:
 exitnodes:
   hosts:
     leintor:
+    clevertor:
 
 helpernodes:
   hosts:
