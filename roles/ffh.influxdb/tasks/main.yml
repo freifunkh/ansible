@@ -1,5 +1,9 @@
 ---
 
+- name: This role needs to be migrated to influx2!
+  command: /bin/false
+  failed_when: "true"
+
 - name: Add repo key
   apt_key:
     url: https://repos.influxdata.com/influxdb.key
