@@ -31,8 +31,8 @@
 
 - name: Install VLAN devices
   notify: Restart networkd
-  template: src=vlan.netdev.j2 dest=/etc/systemd/network/{{ item.1.iface }}.{{ item.1.id }}.netdev
-  with_indexed_items: "{{ networkd_vlans }}"
+  template: src=vlan.netdev.j2 dest=/etc/systemd/network/vlan{{ item.1.id }}.netdev
+  with_indexed_items: "{{ networkd_vlans | default( [] ) }}"
 
 - name: Install gre devices
   notify: Restart networkd
