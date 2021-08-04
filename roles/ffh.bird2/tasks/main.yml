@@ -26,7 +26,13 @@
 #- name: "Install statistics export"
 #  include_tasks: bird_exporter.yml
 
-- name: Generate config file
+- name: "Add named routing table"
+  copy:
+    dest: "/etc/iproute2/rt_tables.d/cix.conf"
+    content: |
+      2000 cix
+
+- name: "Generate config file"
   template:
    src: "bird_{{ ansible_hostname }}.conf.j2"
    dest: /etc/bird/bird.conf
