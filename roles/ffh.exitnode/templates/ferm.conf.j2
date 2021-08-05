@@ -1,5 +1,5 @@
 
-@def $DEV_EXIT = eth0;
+@def $DEV_EXIT = {{ exit_device | default('eth0') }};
 
 @def &PRIV_NET($net) = {
       outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
@@ -15,7 +15,7 @@ domain (ip) {
   table nat {
     chain POSTROUTING {
       # Alternativly to MASQUERADE use SNAT to <addr>;
-      saddr 10.0.0.0/8 outerface eth0 MASQUERADE;
+      saddr 10.0.0.0/8 outerface $DEV_EXIT MASQUERADE;
     }
   }
   table filter {
@@ -55,7 +55,7 @@ domain (ip) {
       #  = 1258
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1258;
 
-      outerface eth0 interface eth0 DROP;
+      outerface $DEV_EXIT interface $DEV_EXIT DROP;
       ACCEPT;
     }
   }
@@ -77,7 +77,7 @@ domain (ip6) {
       # see the explanation above and subtract 20 to account for the 20 bytes bigger IPv6 header
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1238;
 
-      outerface eth0 interface eth0 DROP;
+      outerface $DEV_EXIT interface $DEV_EXIT DROP;
       ACCEPT;
     }
   }
@@ -87,8 +87,8 @@ domain (ip ip6) {
   table filter {
     chain FORWARD {
 {% for name,node in supernodes.items() %}
-      interface eth0 outerface gre-{{ name }} ACCEPT;
-      interface gre-{{ name }} outerface eth0 ACCEPT;
+      interface $DEV_EXIT outerface gre-{{ name }} ACCEPT;
+      interface gre-{{ name }} outerface $DEV_EXIT ACCEPT;
 {% endfor %}
     }
   }
