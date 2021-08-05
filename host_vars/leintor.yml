@@ -20,4 +20,7 @@ networkd_configures:
   addresses:
     - 100.100.0.1/32 # anycast for ping tests
 
+gre_lower_ifaces:
+  default: eth0
+
 babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]

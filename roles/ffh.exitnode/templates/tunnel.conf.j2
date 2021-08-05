@@ -1,8 +1,19 @@
+{% macro get_lower_iface(gre_iface) -%}
+{%- if gre_lower_ifaces[gre_iface] is defined -%}
+{{ gre_lower_ifaces[gre_iface] }}
+{%- else -%}
+{{ gre_lower_ifaces.default }}
+{%- endif -%}
+{%- endmacro -%}
+
 [Network]
 {% for supernode in supernodes %}
+{% if get_lower_iface('gre-' + supernode) == item.value -%}
 Tunnel=gre-{{ supernode }}
+{% endif %}
 {% endfor %}
 {% for exitnode in exitnodes %}
-{% if exitnode != servername %}Tunnel=gre-{{ exitnode }}
+{% if exitnode != servername and get_lower_iface('gre-' + exitnode) == item.value -%}
+Tunnel=gre-{{ exitnode }}
 {% endif %}
 {% endfor %}
