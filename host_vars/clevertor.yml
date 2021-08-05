@@ -8,18 +8,18 @@ apinger_targets2:
 servername: clevertor
 en: 4
 
-fix_netifnames: true
+fix_netifnames: false
 
 networkd_configures:
-- iface: eth0
+- iface: ens18
   addresses:
     - 194.50.19.35/24
   gateway4: 194.50.19.1
   dns_server: [9.9.9.9, 1.1.1.1]
-- iface: eth1
+- iface: ens16
 - iface: vlan2000
   addresses:
-    - 185.1.74.56/23
+    - 185.1.74.56/25
     - 2001:7f8:a5::20:9347:1/64
 - iface: lo
   addresses:
@@ -27,8 +27,10 @@ networkd_configures:
     - 45.12.203.1/32
     - 2001:678:978::1/128
 
+exit_device: "ens19"
+
 networkd_vlans:
 - id: 2000
-  iface: "eth1"
+  iface: "ens16"
 
 babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
