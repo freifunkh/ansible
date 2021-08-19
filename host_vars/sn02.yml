@@ -1,39 +1,19 @@
 ---
-servername: sn01
-sn: 1
-fqdn: "sn01.s.ffh.zone"
+servername: sn02
+sn: 2
+fqdn: "sn02.s.ffh.zone"
 
 networkd_configures:
-- iface: eth0
+- iface: ens18
   addresses:
-    - 100.120.0.2/24
-    - 185.197.132.140/32
-    - 185.197.132.141/32
-    - 185.197.132.142/32
     - 45.12.203.11/29
     - 45.12.203.12/29
     - 2001:678:978:ff01::2/64
   gateway6: 2001:678:978:ff01::1
-  static_routes:
-    - gw: 100.120.0.1
-      dest: 0.0.0.0/0
-      pref_src: 45.12.203.11
-    - gw: 100.120.0.1
-      dest: 0.0.0.0/0
-      pref_src: 185.197.132.141
-      table: 42
-    - gw: 2001:678:978:ff01::1
-      dest: "::/0"
-      table: 42
-
+  gateway4: 45.12.203.10
 
   no_radv_accept: true
   dns_server: [1.1.1.1, 8.8.8.8]
-
-- iface: eth1
-  addresses:
-   - 100.121.0.2/24
-  no_radv_accept: true
 
 mesh_prefix: "2001:678:978"
 
@@ -41,14 +21,14 @@ babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listert
 babeld_interface_penalty:
   gre-aegidientor: 666
   gre-steintor: 666
-  gre-leintor: 110
-  gre-clevertor: 120
+  gre-leintor: 120
+  gre-clevertor: 110
   gre-listertor: 666
-  gre-bruehltor: 100
+  gre-bruehltor: 666
 
 legacy_dom0: true
 radv_announce_default: true
 exit_ip: 45.12.203.12
-fix_netifnames: true
-no_babel: true
+fix_netifnames: false
+no_babel: false
 iperf3_is_public_server: true

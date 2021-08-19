@@ -61,7 +61,7 @@
       changed_when: post_result.stdout.find('nothing to commit') == -1
       tags: [always]
 
-- hosts: sn01,sn10
+- hosts: sn10
   pre_tasks:
     - name: install etckeeper
       package:
