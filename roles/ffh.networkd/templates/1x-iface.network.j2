@@ -62,3 +62,7 @@ Table={{ route.table }}
 PreferredSource={{ route.pref_src }}
 {% endif %}
 {% endfor %}
+
+{% if item.1.additional_config is defined -%}
+{{ item.1.additional_config }}
+{% endif %}

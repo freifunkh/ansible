@@ -21,6 +21,17 @@ networkd_configures:
   addresses:
     - 185.1.74.56/25
     - 2001:7f8:a5::20:9347:1/64
+- iface: ens19
+  addresses:
+    - 45.12.203.10/29
+    - 2001:678:978:ff01::1/64
+  additional_config: |
+    [RoutingPolicyRule]
+    From=45.12.203.0/24
+    Table=2000
+    [RoutingPolicyRule]
+    From=2001:678:978::/48
+    Table=2000
 - iface: lo
   addresses:
     - 100.100.0.1/32 # anycast for ping tests
