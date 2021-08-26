@@ -1,8 +1,5 @@
 ---
 
-- name: Apinger Changed
-  command: /usr/bin/ffh_apinger_conf_changed
-
 # We do not rely on telegraf being installed here, so it doesn't matter whether
 # it is installed later or already installed.
 - name: Maybe restart telegraf
