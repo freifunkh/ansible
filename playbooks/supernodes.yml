@@ -37,6 +37,7 @@
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
     - { name: ffh.mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
     - { name: ffh.mesh_wireguard_remotes_peers_git, tags: mesh_wireguard_remotes_peers_git }
+    - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.mesh_wireguard, tags: mesh_wireguard }
     - { name: ffh.mesh_announce, tags: mesh_announce }
     - { name: ffh.supernode, tags: supernode }
@@ -50,7 +51,6 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
-    - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.bpfcount, tags: bpfcount }
     # Backups
     - { name: ffh.restic, tags: restic }
