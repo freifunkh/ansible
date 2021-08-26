@@ -39,7 +39,7 @@ networkd_configures:
     - 2001:678:978::1/128
 
 gre_lower_ifaces:
-  gre-sn01: ens19
+  gre-sn02: ens19
   default: vlan2000
 
 exit_device: "ens19"
