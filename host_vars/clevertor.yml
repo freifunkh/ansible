@@ -16,6 +16,7 @@ networkd_configures:
     - 194.50.19.35/24
   gateway4: 194.50.19.1
   dns_server: [9.9.9.9, 1.1.1.1]
+  no_radv_accept: true
 - iface: ens16
 - iface: vlan2000
   addresses:
