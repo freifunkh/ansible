@@ -28,6 +28,7 @@
   template:
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
+  diff: false
 
 - name: Permissions on data directory
   file:

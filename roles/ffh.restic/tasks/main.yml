@@ -10,6 +10,7 @@
 - name: "Check if passwords/{{ ansible_hostname }} exists"
   local_action: stat path=../passwords/{{ ansible_hostname }}
   register: "passwordfile"
+  diff: false
 
 - name: "Generate random"
   set_fact:

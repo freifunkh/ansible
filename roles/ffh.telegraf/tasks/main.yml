@@ -13,6 +13,7 @@
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
   notify: Restart telegraf
+  diff: false
 
 - name: Allow querying kea for user telegraf
   template:
