@@ -2,7 +2,7 @@ domain (ip ip6) {
   table mangle {
     chain PREROUTING {
 
-{% for name,node in exitnodes.items() %}
+{% for name in exitnodes.keys() | sort %}
        interface gre-{{ name }} MARK set-xmark 0x2a/0xffffffff;
 {% endfor %}
 

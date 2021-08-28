@@ -1,4 +1,4 @@
 [Network]
-{% for exitnode in exitnodes %}
+{% for exitnode in exitnodes.keys() | sort %}
 Tunnel=gre-{{ exitnode }}
 {% endfor %}

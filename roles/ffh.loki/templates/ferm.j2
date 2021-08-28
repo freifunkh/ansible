@@ -1,17 +1,17 @@
 domain (ip ip6) {
   table filter {
     chain INPUT {
-{% for name,node in supernodes.items() %}
-      saddr {{ node.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ name }}
-      saddr {{ node.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;      # {{ name }}
+{% for item in supernodes | dict2items %}
+      saddr {{ item.value.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ item.key }}
+      saddr {{ item.value.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;          # {{ item.key }}
 {% endfor %}
-{% for name,node in exitnodes.items() %}
-      saddr {{ node.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ name }}
-      saddr {{ node.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;      # {{ name }}
+{% for item in exitnodes | dict2items %}
+      saddr {{ item.value.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ item.key }}
+      saddr {{ item.value.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;          # {{ item.key }}
 {% endfor %}
-{% for name,node in helpernodes.items() %}
-      saddr {{ node.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ name }}
-      saddr {{ node.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;      # {{ name }}
+{% for item in helpernodes | dict2items %}
+      saddr {{ item.value.ip4 | default("127.0.0.1") }}/32 proto tcp dport (3100) ACCEPT;     # {{ item.key }}
+      saddr {{ item.value.ip6 | default("::1") }}/128 proto tcp dport (3100) ACCEPT;          # {{ item.key }}
 {% endfor %}
     }
   }

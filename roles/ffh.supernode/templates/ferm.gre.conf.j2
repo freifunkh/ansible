@@ -4,12 +4,12 @@ domain (ip) {
 
     {#  TODO: whitespace cosmetics  #}
 
-    {%- for name,node in supernodes.items() -%}
-       saddr {{ node.ip4 }}/32 proto gre ACCEPT; # {{ name }}
+    {%- for item in supernodes | dict2items -%}
+       saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
     {% endfor %}
 
-    {%- for name,node in exitnodes.items() -%}
-       saddr {{ node.ip4 }}/32 proto gre ACCEPT; # {{ name }}
+    {%- for item in exitnodes | dict2items -%}
+       saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
     {% endfor %}
     }
   }

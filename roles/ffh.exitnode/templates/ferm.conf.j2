@@ -20,8 +20,8 @@ domain (ip) {
   }
   table filter {
     chain INPUT {
-{% for name,node in supernodes.items() %}
-      saddr {{ node.ip4 }}/32 proto gre ACCEPT; # {{ name }}
+{% for item in supernodes | dict2items %}
+      saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
 {% endfor %}
     }
 
@@ -86,9 +86,9 @@ domain (ip6) {
 domain (ip ip6) {
   table filter {
     chain FORWARD {
-{% for name,node in supernodes.items() %}
-      interface $DEV_EXIT outerface gre-{{ name }} ACCEPT;
-      interface gre-{{ name }} outerface $DEV_EXIT ACCEPT;
+{% for item in supernodes | dict2items %}
+      interface $DEV_EXIT outerface gre-{{ item.key }} ACCEPT;
+      interface gre-{{ item.key }} outerface $DEV_EXIT ACCEPT;
 {% endfor %}
     }
   }

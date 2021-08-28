@@ -12,14 +12,14 @@ redistribute ip 2a02:790:ff::/48 metric 256
 redistribute ip 10.0.0.0/8 metric 256
 redistribute local deny
 
-{% for iface, penalty in babeld_interface_penalty.items() %}
-in if {{ iface }} ip 0.0.0.0/0 metric {{ penalty }}
+{% for item in babeld_interface_penalty | dict2items %}
+in if {{ item.key }} ip 0.0.0.0/0 metric {{ item.value }}
 {% endfor %}
 
 # disable asymmetric routing, route all IPv6 to leintor
-{% for name,node in exitnodes.items() if not name=='leintor' %}
-out if gre-{{ name }} ip ::/0 deny
-in if gre-{{ name }} ip ::/0 deny
+{% for item in (exitnodes | dict2items) if not item.key=='leintor' %}
+out if gre-{{ item.key }} ip ::/0 deny
+in if gre-{{ item.key }} ip ::/0 deny
 {% endfor %}
 
 local-port 33123

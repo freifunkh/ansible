@@ -1,5 +1,5 @@
 [Network]
-{% for supernode in supernodes %}
+{% for supernode in supernodes.keys() | sort %}
 {% if supernode != servername %}
 Tunnel=gt-{{ supernode }}
 {% endif %}

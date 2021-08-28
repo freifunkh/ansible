@@ -7,12 +7,12 @@
 {%- endmacro -%}
 
 [Network]
-{% for supernode in supernodes %}
+{% for supernode in supernodes.keys() | sort %}
 {% if get_lower_iface('gre-' + supernode) == item.value -%}
 Tunnel=gre-{{ supernode }}
 {% endif %}
 {% endfor %}
-{% for exitnode in exitnodes %}
+{% for exitnode in exitnodes.keys() | sort %}
 {% if exitnode != servername and get_lower_iface('gre-' + exitnode) == item.value -%}
 Tunnel=gre-{{ exitnode }}
 {% endif %}

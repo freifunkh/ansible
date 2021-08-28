@@ -5,12 +5,12 @@ domain (ip ip6) {
 {% for client in influxdb_clients | default( [] ) %}
         saddr {{ client }};
 {% endfor %}
-{% for name, supernode in supernodes.items() %}
-{% if supernode.ip4 is defined %}
-        saddr {{ supernode.ip4 }};   # {{ name }}
+{% for item in supernodes | dict2items %}
+{% if item.value.ip4 is defined %}
+        saddr {{ item.value.ip4 }};   # {{ item.key }}
 {% endif %}
-{% if supernode.ip6 is defined %}
-        saddr {{ supernode.ip6 }};   # {{ name }}
+{% if item.value.ip6 is defined %}
+        saddr {{ item.value.ip6 }};   # {{ item.key }}
 {% endif %}
 {% endfor %}
       }

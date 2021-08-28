@@ -4,9 +4,9 @@ Name=gre-{{ item.key }}
 [Network]
 Address=100.{{ 100 + exitnodes[item.key].id }}.{{ sn }}.2/24
 
-{% for hostname, exitnode in exitnodes.items() %}
-{% if hostname == item.key %}
-{% for ip_range in exitnode.exit_ip_ranges %}
+{% for other in exitnodes | dict2items %}
+{% if other.key == item.key %}
+{% for ip_range in other.value.exit_ip_ranges %}
 {% if ":" in ip_range %}
 # The following lines add source specific routes. These routes are necessary
 # since we announce multiple ipv6 prefixes via radvd into our network. Announcing
@@ -21,9 +21,9 @@ Table=42
 {% endfor %}
 {% endif %}
 {% endfor %}
-{% for hostname, exitnode in superexitnodes.items() %}
-{% if hostname == item.key %}
-{% for ip_range in exitnode.exit_ip_ranges %}
+{% for other in superexitnodes | dict2items %}
+{% if other.key == item.key %}
+{% for ip_range in other.value.exit_ip_ranges %}
 {% if ":" in ip_range %}
 # The following lines add source specific routes. These routes are necessary
 # since we announce multiple ipv6 prefixes via radvd into our network. Announcing
