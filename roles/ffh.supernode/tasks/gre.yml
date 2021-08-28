@@ -14,17 +14,17 @@
   shell: "ip link set down gre-{{ item.key }}; ip link del dev gre-{{ item.key }};"
   notify: Restart networkd
 
-- name: Create /etc/systemd/network/10-eth0.network.d directory
+- name: Create /etc/systemd/network/10-{{ gre_lower_ifaces.default }}.network.d directory
   notify: Restart networkd
   file:
-    name: /etc/systemd/network/10-eth0.network.d  
+    name: /etc/systemd/network/10-{{ gre_lower_ifaces.default }}.network.d  
     state: directory
 
-- name: Drop tunnel config into /etc/systemd/network/10-eth0.network.d directory
+- name: Drop tunnel config into /etc/systemd/network/10-{{ gre_lower_ifaces.default }}.network.d directory
   notify: Restart networkd
   template: 
     src: tunnel.conf.j2
-    dest: /etc/systemd/network/10-eth0.network.d/gre-tunnel.conf
+    dest: /etc/systemd/network/10-{{ gre_lower_ifaces.default }}.network.d/gre-tunnel.conf
 
 - name: Create gre tunnel in networkd
   notify: Restart networkd
