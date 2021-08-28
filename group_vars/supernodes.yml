@@ -1,2 +1,5 @@
 ---
 is_supernode: true
+
+gre_lower_ifaces:
+  default: eth0

@@ -15,6 +15,9 @@ networkd_configures:
   no_radv_accept: true
   dns_server: [1.1.1.1, 8.8.8.8]
 
+gre_lower_ifaces:
+  default: ens18
+
 mesh_prefix: "2001:678:978"
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
