@@ -1,5 +1,8 @@
 ---
 
+- name: Install ip_gre kmod on boot
+  lineinfile: dest=/etc/modules line=ip_gre
+
 - name: Install nf_conntrack kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack
 
@@ -13,6 +16,9 @@
 
 - name: Install nf_onntrack_proto_gre kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_proto_gre
+
+- name: Load ip_gre kmod
+  modprobe: name=ip_gre state=present
 
 - name: Load nf_conntrack_proto_gre kmod
   modprobe: name=nf_conntrack_proto_gre state=present
