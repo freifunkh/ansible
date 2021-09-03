@@ -30,7 +30,7 @@ nginx_sites:
   tls: true
   tls_redirect_to_https: true
 - domain: hannover.freifunk.net
-  root: /var/www/web
+  root: /var/www/web/new1
   tls: true
   tls_redirect_to_https: true
   php: true
@@ -38,10 +38,19 @@ nginx_sites:
     - location: /download
       directory_index: true
       disable_symlinks: true
+      root: /var/www/web
   custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
           client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
+
+          location /gluon-firmware-wizard {
+            root /var/www/web;
+          }
+          
+          location /karte {
+            root /var/www/web;
+          }
 
           location = /wiki/ {
             root $foswiki_root;
