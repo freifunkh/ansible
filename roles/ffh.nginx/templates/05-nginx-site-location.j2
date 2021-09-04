@@ -30,7 +30,7 @@
         disable_symlinks    off;
 {% endif %}
 {% if location.root|default(False) %}
-	root: {{ location.root }};
+	root {{ location.root }};
 {% endif %}
     }
 {% endfor %}

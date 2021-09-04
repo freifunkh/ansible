@@ -39,19 +39,17 @@ nginx_sites:
       directory_index: true
       disable_symlinks: true
       root: /var/www/web
+    - location: /gluon-firmware-wizard
+      root: /var/www/web
+    - location: /api
+      root: /var/www/web
+    - location: /karte
+      root: /var/www/web
   custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
           client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
-
-          location /gluon-firmware-wizard {
-            root /var/www/web;
-          }
           
-          location /karte {
-            root /var/www/web;
-          }
-
           location = /wiki/ {
             root $foswiki_root;
             rewrite .* /wiki/Main/WebHome;
