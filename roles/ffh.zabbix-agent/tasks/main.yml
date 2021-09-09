@@ -43,7 +43,7 @@
     group: "root"
     mode: "0644"
 
-- name: Deploy zabbix-agent config file
+- name: Deploy zabbix-agent config file (DIFF REDACTED)
   notify: reload zabbix-agent
   template:
     src: agent.conf.j2
@@ -69,7 +69,7 @@
 - name: Set x attribute on /etc/zabbix/bin/
   command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
 
-- name: Deploy zabbix-agent PSK file
+- name: Deploy zabbix-agent PSK file (DIFF REDACTED)
   notify: reload zabbix-agent
   template:
     src: zabbix_agentd.psk.j2

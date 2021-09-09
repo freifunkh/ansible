@@ -7,7 +7,7 @@
     key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
   loop: "{{ restic_backup_server_ips + [ restic_backup_server_hostname ] }}"
 
-- name: "Check if passwords/{{ ansible_hostname }} exists"
+- name: "Check if passwords/{{ ansible_hostname }} exists (DIFF REDACTED)"
   local_action: stat path=../passwords/{{ ansible_hostname }}
   register: "passwordfile"
   diff: false

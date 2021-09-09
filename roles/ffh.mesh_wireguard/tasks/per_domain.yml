@@ -1,6 +1,6 @@
 ---
 
-- name: "Generate networkd wg netdev (dom {{ domain.id }})"
+- name: "Generate networkd wg netdev (dom {{ domain.id }}) (DIFF REDACTED)"
   template:
     src: wireguard.netdev.j2
     dest: "/etc/systemd/network/30-{{ mesh_wireguard_iface_prefix }}-{{ domain.id }}.netdev"

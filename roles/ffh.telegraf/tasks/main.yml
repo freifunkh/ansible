@@ -8,7 +8,7 @@
   apt: deb=https://dl.influxdata.com/telegraf/releases/telegraf_1.13.0-1_amd64.deb
   when: not telegraf_bin.stat.exists
 
-- name: Update telegraf config
+- name: Update telegraf config (DIFF REDACTED)
   template:
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf

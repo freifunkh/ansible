@@ -28,7 +28,7 @@
     state: "present"
     login_unix_socket: "{{ zabbix_server_db_socket }}"
 
-- name: "Create a new MySQL user with name {{ zabbix_server_dbuser }} using {{ zabbix_server_db_login_user }}"
+- name: "Create a new MySQL user with name {{ zabbix_server_dbuser }} using {{ zabbix_server_db_login_user }} (DIFF REDACTED)"
   mysql_user:
     name: "{{ zabbix_server_dbuser }}"
     password: "{{ zabbix_server_dbpassword }}"

@@ -124,7 +124,7 @@
     owner: www-data
   when: yanic_nodes_enabled
 
-- name: Configure yanic
+- name: Configure yanic (DIFF REDACTED)
   notify: Restart yanic
   template:
     src: config.yml.j2

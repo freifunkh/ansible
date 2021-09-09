@@ -23,7 +23,7 @@
   apt:
     name: grafana
 
-- name: Generate grafana config
+- name: Generate grafana config (DIFF REDACTED)
   notify: Restart grafana
   template:
     src: grafana.ini.j2
