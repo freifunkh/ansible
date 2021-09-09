@@ -10,6 +10,12 @@ en: 4
 
 fix_netifnames: false
 
+# networkd_manage_foreign_routes=false is necessary to avoid issues with
+# systemd-networkd with very large routing tables. As soon as we have systemd
+# in version 247 (or above) everywhere, we can just make this option default
+# for all machines. But as of now, this requires installing systemd from debian
+# backports, so we only apply it where necessary.
+networkd_manage_foreign_routes: false
 networkd_configures:
 - iface: ens18
   addresses:

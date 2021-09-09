@@ -14,6 +14,30 @@
     sysctl_file: /etc/sysctl.d/10-ipv6.conf
     reload: yes
 
+- name: Obtain systemd version
+  shell: "systemd --version | head -n 1 | cut -d ' ' -f 2"
+  register: systemd_version
+  check_mode: no
+  changed_when: false
+
+- name: Print systemd version
+  debug:
+    msg: 'Systemd version is {{ systemd_version.stdout }}'
+
+# Disabling ManageForeignRoutes is only possible in systemd 247 and above.
+- name: Ensure systemd version >= 247 for ManageForeignRoutes=no feature
+  command: /bin/true
+  when: not networkd_manage_foreign_routes
+  failed_when: (systemd_version.stdout | int) < 247
+  check_mode: no
+  changed_when: false
+
+- name: Install /etc/systemd/networkd.conf
+  notify: Restart networkd
+  template:
+    dest: /etc/systemd/networkd.conf
+    src: networkd.conf.j2
+
 - name: Enable systemd-networkd
   service: name=systemd-networkd enabled=yes state=started
   # networkd does not remove any existing network configuration,
@@ -58,4 +82,3 @@
   # would remove their already applied configuration. networkd does not perceive
   # the removed configuration and would not apply it's own. This would cause connection
   # loss. So we wait until the next reboot, to let networkd do the whole networking.
-
