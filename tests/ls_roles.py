@@ -15,6 +15,7 @@ with open(sys.argv[1]) as f:
 
 last_taskname = ''
 rolename = ''
+first_start = None
 
 for play in res['plays']:
     for task in play['tasks']:
@@ -32,6 +33,9 @@ for play in res['plays']:
 
         t = (task_start - last_start).total_seconds()
 
+        if not first_start:
+            first_start = task_start
+
         print(f"({t:>10.2f})  {rolename}")
 
         last_start = task_start
@@ -39,3 +43,6 @@ for play in res['plays']:
 
 t = (task_start - last_start).total_seconds()
 print(f"({t:>10.2f})  {rolename}")
+print('--------------------------------------------')
+t = (task_start - first_start).total_seconds()
+print(f"({t:>10.2f})  total")
