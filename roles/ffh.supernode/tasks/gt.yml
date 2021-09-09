@@ -15,12 +15,6 @@
 - name: Already restart ferm here
   meta: flush_handlers
 
-- name: Install wait_for_iface.sh
-  copy:
-    src: wait_for_iface.sh
-    dest: /usr/bin/wait_for_iface.sh
-    mode: 755
-
 - name: Create network for gt endpoint
   notify: Restart networkd
   template:
