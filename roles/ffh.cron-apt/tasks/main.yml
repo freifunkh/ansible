@@ -2,6 +2,7 @@
 
 - name: Install package
   apt: name=cron-apt update_cache=yes
+  register: cronapt_install
 
 - name: Deploy main config file
   template:
@@ -39,6 +40,8 @@
     src: config.5-secupdates.j2
     dest: /etc/cron-apt/config.d/5-secupdates
 
-- service:
+- name: Restart cron
+  service:
     name: cron
     state: restarted
+  when: cronapt_install.changed

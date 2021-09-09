@@ -10,3 +10,6 @@
   loop_control:
     loop_var: domain
   when: domains is defined
+
+- name: Restart networkd
+  service: name=systemd-networkd state=restarted

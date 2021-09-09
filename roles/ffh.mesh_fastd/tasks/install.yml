@@ -8,9 +8,6 @@
 - name: Install fastd
   apt: name=fastd update_cache=yes
 
-- name: Remove autostart of generic fastd instance on boot
-  service: name=fastd enabled=no
-
 - name: Remove legacy init.d file
   file: path=/etc/init.d/fastd state=absent
 

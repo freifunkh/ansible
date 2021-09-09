@@ -18,19 +18,27 @@
     group: "root"
     remote_src: yes
 
-- name: Configure
-  command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
-  args:
-    chdir: "/usr/src/radvd-2.18"
+- name: Check if (self built) radvd exists
+  stat:
+    path: /usr/local/sbin/radvd
+  register: self_built_radvd_binary
 
-- name: Make
-  make:
-    chdir: "/usr/src/radvd-2.18"
+- name: Build radvd
+  when: self_built_radvd_binary.stat.exists==false
+  block:
+    - name: Configure
+      command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
+      args:
+        chdir: "/usr/src/radvd-2.18"
 
-- name: Make install
-  make:
-    chdir: "/usr/src/radvd-2.18"
-    target: "install"
+    - name: Make
+      make:
+        chdir: "/usr/src/radvd-2.18"
+
+    - name: Make install
+      make:
+        chdir: "/usr/src/radvd-2.18"
+        target: "install"
 
 - name: Generate radvd config
   notify: Restart radvd
@@ -42,9 +50,11 @@
   template:
     src: systemd.service
     dest: /etc/systemd/system/radvd.service
+  register: radvd_servicefile
 
-- name: Enable radvd
-  command: systemctl enable radvd
-
-- name: Start radvd
-  command: systemctl start radvd
+- name: Enable and start radvd
+  service:
+    name: radvd
+    state: started
+    enabled: yes
+  when: radvd_servicefile.changed

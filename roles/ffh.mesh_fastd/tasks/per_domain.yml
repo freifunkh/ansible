@@ -2,6 +2,7 @@
   template:
     src: network.j2
     dest: "/etc/systemd/network/10-bat{{ domain.id }}.network"
+  notify: Restart networkd
 
 - name: Create mesh_fastd daemon config directories
   file: path=/etc/fastd/mesh_fastd_{{ domain.id }} state=directory

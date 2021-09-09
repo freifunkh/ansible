@@ -31,11 +31,6 @@
     loop_var: domain
   when: domains is defined and sn is not defined
 
-- name: Reread networkd config for new bat devices
-  systemd:
-    name: systemd-networkd
-    state: restarted
-
 - name: Firewalling mesh_fastd for all domains
   include_tasks: ferm.yml
 
