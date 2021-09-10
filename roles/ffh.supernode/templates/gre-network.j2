@@ -21,20 +21,3 @@ Table=42
 {% endfor %}
 {% endif %}
 {% endfor %}
-{% for other in superexitnodes | dict2items %}
-{% if other.key == item.key %}
-{% for ip_range in other.value.exit_ip_ranges %}
-{% if ":" in ip_range %}
-# The following lines add source specific routes. These routes are necessary
-# since we announce multiple ipv6 prefixes via radvd into our network. Announcing
-# multiple ipv6 prefixes leads to problems with gluon nodes discussed here:
-# - https://github.com/freifunk-gluon/gluon/issues/2180
-# - https://github.com/freifunkh/ansible/issues/155
-[Route]
-Destination=::/0
-Source={{ ip_range }}
-Table=42
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endfor %}

@@ -1,6 +1,6 @@
 ---
 exitnodes:
-  # aegidientor: used for superexitnode sn01
+  # aegidientor: { id: 1, ip4: "{{ lookup('dig', 'aegidientor.e.ffh.zone./A') }}" }
   # steintor: { id: 2, ip4: "{{ lookup('dig', 'steintor.e.ffh.zone./A') }}" }
   leintor:
     id: 3
@@ -18,7 +18,6 @@ exitnodes:
     - 45.12.203.1/24
   # listertor: { id: 5, ip4: "{{ lookup('dig', 'listertor.e.ffh.zone./A') }}" }
   # bruehltor: { id: 6, ip4: "{{ lookup('dig', 'bruehltor.e.ffh.zone./A') }}" }
-superexitnodes: {}
 supernodes:
   # sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}" }
   sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn02.s.ffh.zone./AAAA') }}" }

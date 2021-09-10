@@ -23,4 +23,3 @@ zabbix_agent_server_active: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') or '::1' 
 
 is_supernode: false
 is_exitnode: false
-is_superexitnode: false

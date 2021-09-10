@@ -37,16 +37,9 @@ if [ "$interface" = "" ]; then
 	exit
 fi
 
-{% if is_superexitnode %}
-# we are superexitnode, so we are always on
-on
-{% else %}
-# we are just a supernode using another exitnode, so we want to
-# ping!
 if ping -q -I ${interface} 100.100.0.1 -c 4 -W 5 >/dev/null; then
 	on
 else
 	logger -p local3.error "ping to 100.100.0.1 (anycast) dev $interface failed. turning off batman gw mode"
 	off
 fi
-{% endif %}

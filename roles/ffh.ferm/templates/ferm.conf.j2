@@ -32,11 +32,6 @@ domain (ip ip6) {
                 saddr ! {{ exit_range }};
 {% endfor %}
 {% endfor %}
-{% for item in superexitnodes | dict2items %}
-{% for exit_range in item.value.exit_ip_ranges %}
-                saddr ! {{ exit_range }};
-{% endfor %}
-{% endfor %}
             }
 
 {%if batman is defined and legacy_dom0 == true %}
