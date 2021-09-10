@@ -11,8 +11,8 @@ exitnodes:
     - 81.3.6.94/32
   clevertor:
     id: 4
-    ip4: "194.50.19.35"
-    # ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}"
+    # ip4: "194.50.19.35"
+    ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}"
     exit_ip_ranges:
     - 2001:678:978::/48
     - 45.12.203.1/24
