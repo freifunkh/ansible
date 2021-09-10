@@ -52,6 +52,10 @@ Longitude: {{ coordinates[1] }}
 {% for domain in domains_with_dom0 | default( [] ) %}
 [dom{{ domain.id }}]
 BatmanInterface: bat{{ domain.id }}
-Interfaces: mesh_fastd_{{ domain.id }},vlan-gt-2{{ domain.id }},vx-{{ domain.id }}
+Interfaces: {% if domain.id!="0" -%}
+mesh_fastd_{{ domain.id }},vlan-gt-2{{ domain.id }},vx-{{ domain.id }}
+{% else %}
+mesh_fastd,vlan-gt-2{{ domain.id }}
+{% endif %}
 
 {% endfor %}
