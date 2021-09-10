@@ -34,6 +34,7 @@
   git:
     repo: 'https://github.com/freifunkh/wireguard-vxlan-glue.git'
     dest: /srv/wireguard/vxlan-glue
+    version: deploy
   register: repo
 
 - name: Install wg_netlink service
