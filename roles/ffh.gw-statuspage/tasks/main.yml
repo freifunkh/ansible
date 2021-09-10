@@ -41,19 +41,19 @@
     hour: "*"
     job: "cd /var/cache/gw-statuspage/site; git pull >/dev/null 2>&1"
 
-- name: Add aiyions package-repo into sources list
-  ansible.builtin.apt_repository:
-    repo: deb http://aiyionpri.me/repo/ ./
-    state: present
-    filename: aiyionprime
-  register: repo
-
 - name: add aiyions gpg-key as known gpg key to verify packages
   ansible.builtin.apt_key:
     id: 961988DB578E33B3E2812463F3CD90145E0C0947
     url: https://aiyionpri.me/repo/aiyionprime.gpg
     state: present
   register: gpg
+
+- name: Add aiyions package-repo into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://aiyionpri.me/repo/ ./
+    state: present
+    filename: aiyionprime
+  register: repo
 
 - name: Update apt cache
   apt:
