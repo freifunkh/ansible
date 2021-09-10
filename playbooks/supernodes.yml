@@ -52,6 +52,7 @@
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.bpfcount, tags: bpfcount }
+    - { name: ffh.gw-statuspage, tags: gw-statuspage }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:
