@@ -33,6 +33,14 @@
     accept_hostkey=true
   register: site
 
+- name: Add cron job for git pull of site
+  cron:
+    name: "gw-statuspage site git pull"
+    user: "auto"
+    minute: "4,44"
+    hour: "*"
+    job: "cd /var/cache/gw-statuspage/site; git pull >/dev/null 2>&1"
+
 - name: Add aiyions package-repo into sources list
   ansible.builtin.apt_repository:
     repo: deb http://aiyionpri.me/repo/ ./
