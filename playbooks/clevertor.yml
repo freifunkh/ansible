@@ -16,7 +16,7 @@
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cron-apt, tags: cron-apt }
-    # - { name: ffh.babeld, tags: babeld }
+    - { name: ffh.babeld, tags: babeld }
     # - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # - { name: ffh.apinger, tags: apinger }
     # - { name: ffh.routingnode, tags: routingnode }
