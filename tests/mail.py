@@ -59,4 +59,5 @@ if __name__ == '__main__':
     msg_txt = read_play(filename)
     msg_html = read_play(filename, 'html')
 
-    send_mail('Daily Report of Ansible Run', msg_txt, msg_html, SMTP_TO)
+    if msg_txt:
+        send_mail('Daily Report of Ansible Run', msg_txt, msg_html, SMTP_TO)
