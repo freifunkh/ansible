@@ -33,13 +33,16 @@ VPN: {{ is_supernode or is_superexitnode }}
 # may contain csv if more than one protocol is used
 # optional, default is fastd
 # supported protocols are: fastd, None
-VPNProtocols: fastd,wireguard
+VPNProtocols: {% if fastd_keys[servername] is defined %}fastd{% endif -%}
+{% if fastd_keys[servername] is defined and wireguard_keys[servername] is defined%},{% endif -%}
+{% if wireguard_keys[servername] is defined%}wireguard{% endif %}
+
 # Default fastd-public-key to use
 # optional, default is None
-FastdPublicKey: {{ fastd_keys[servername].public }}
+FastdPublicKey: {{ fastd_keys[servername].public | default("None") }}
 # Default WireGuard-public-key to use
 # optional, default is None
-WireGuardPublicKey: {{ wireguard_keys[servername].public }}
+WireGuardPublicKey: {{ wireguard_keys[servername].public | default("None") }}
 {% if coordinates is defined %}
 # Latitude of the system
 # optional, default: @Latitude
