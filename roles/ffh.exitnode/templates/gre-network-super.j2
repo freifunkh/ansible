@@ -3,4 +3,6 @@ Name=gre-{{ item.key }}
 
 [Network]
 Address=100.{{ 100 + en }}.{{ supernodes[item.key].id }}.1/24
-Address=fe80::babe/64    # due to missing proper addr_gen_mode support in certain systemd-networkd versions
+# Due to missing proper addr_gen_mode support in certain systemd-networkd
+# versions, we assign LL ips manually here.
+Address=fe80::babe/64
