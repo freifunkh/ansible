@@ -135,8 +135,6 @@ dns_authoritative_toplevel:
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",
        "netbox.ffh.zone. IN CNAME monitor.ffh.zone.",
        "zabbix.ffh.zone. IN CNAME monitor.ffh.zone.",
-       "awx.ffh.zone. IN A 88.99.100.51",
-       "awx.ffh.zone. IN AAAA 2a01:4f8:221:100c::1005",
        "rdns.ffh.zone. 120 IN A 45.12.203.13",
        "rdns.ffh.zone. 120 IN AAAA 2001:678:978:ff01::3",
        "zbx-interwerk.ffh.zone. IN CNAME rdns.ffh.zone.",
