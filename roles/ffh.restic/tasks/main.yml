@@ -10,7 +10,7 @@
 - name: "Check if passwords/{{ ansible_hostname }} exists (DIFF REDACTED)"
   local_action: stat path=../passwords/{{ ansible_hostname }}
   register: "passwordfile"
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: "Generate random"
   set_fact:

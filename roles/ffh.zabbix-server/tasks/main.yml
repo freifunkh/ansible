@@ -36,7 +36,7 @@
     host: "{{ zabbix_server_dbhost }}"
     state: "present"
     login_unix_socket: "{{ zabbix_server_db_socket }}"
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: "Check whether database has existing tables"
   register: "preexistingtables"

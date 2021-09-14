@@ -12,4 +12,4 @@ export ANSIBLE_STDOUT_CALLBACK=json
 
 time=$(date -Iseconds)
 
-ansible-playbook playbooks/supernodes.yml -CD > tests/tmp/${time}.json
+ansible-playbook playbooks/supernodes.yml -CD --extra-vars "show_secret_diffs=no" > tests/tmp/${time}.json

@@ -2,6 +2,8 @@
 ansible_user: "root"
 ansible_port: 1337
 
+show_secret_diffs: yes
+
 simple_mail:
   root_email: "monitoring@hannover.freifunk.net"
   mail_server: "mail.ffh.zone"

@@ -28,7 +28,7 @@
   template:
     src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: Permissions on data directory
   file:

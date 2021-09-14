@@ -129,7 +129,7 @@
   template:
     src: config.yml.j2
     dest: /etc/yanic.conf
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: Copy systemd service
   notify: Daemon reload

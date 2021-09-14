@@ -51,7 +51,7 @@
     owner: "zabbix"
     group: "zabbix"
     mode: "0644"
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: Deploy additional configuration files in /etc
   notify: reload zabbix-agent
@@ -77,7 +77,7 @@
     owner: "zabbix"
     group: "zabbix"
     mode: "0755"
-  diff: false
+  diff: "{{ show_secret_diffs }}"
 
 - name: Enable and start zabbix-agent
   systemd:
