@@ -23,11 +23,10 @@ yanic_influx2_bucket: yanic_harvester/autogen
 yanic_influx2_organisation_id: 70c3e4abf369c216
 # yanic_influx2_token in group_vars/all/10_vault.misc.yml
 
-influxdb_meta_path: "/media/data/influxdb/meta"
-influxdb_data_path: "/media/data/influxdb/data"
-influxdb_wal_path:  "/media/data/influxdb/wal"
-influxdb_bind_address: ":8086"
-influxdb_clients:
+influx2_bolt_path: "/media/data/influxdb/influxd.bolt"
+influx2_engine_path: "/media/data/influxdb/engine"
+influx2_bind_address: ":8086"
+influx2_clients:
   - "81.3.6.94/32"                   # leintor
   - "88.99.88.12/32"
   - "94.130.213.34/32"               # perf-test

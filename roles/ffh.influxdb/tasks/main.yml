@@ -1,9 +1,5 @@
 ---
 
-- name: This role needs to be migrated to influx2!
-  command: /bin/false
-  failed_when: "true"
-
 - name: Add repo key
   apt_key:
     url: https://repos.influxdata.com/influxdb.key
@@ -18,43 +14,22 @@
   apt: update_cache=yes
   when: influxrepositoryadded is changed
 
-- name: Install influxdb from repo
+- name: Install influxdb2 from repo
   register: influxinstall
   apt:
-    name: influxdb
+    name: influxdb2
     state: latest
 
 - name: Generate config file
-  register: influx_configfile
+  register: influx2_configfile
   template:
-    src: influxdb.conf.j2
-    dest: /etc/influxdb/influxdb.conf
+    src: influx2.config.toml.j2
+    dest: /etc/influxdb/config.toml
 
-- name: Delpoy original/commented config template
-  template:
-    src: influxdb.original.conf.j2
-    dest: /etc/influxdb/influxdb.original.conf
-
-- name: Ensure meta directory exists and has correct ownership
+- name: Ensure engine directory exists and has correct ownership
   file:
     state: directory
-    path: "{{ influxdb_meta_path }}"
-    owner: "influxdb"
-    group: "influxdb"
-    recurse: yes
-
-- name: Ensure data directory exists and has correct ownership
-  file:
-    state: directory
-    path: "{{ influxdb_data_path }}"
-    owner: "influxdb"
-    group: "influxdb"
-    recurse: yes
-
-- name: Ensure wal directory exists and has correct ownership
-  file:
-    state: directory
-    path: "{{ influxdb_wal_path }}"
+    path: "{{ influx2_engine_path }}"
     owner: "influxdb"
     group: "influxdb"
     recurse: yes
@@ -66,16 +41,15 @@
     dest: /etc/ferm/conf.d/50-influxdb.conf
   notify: reload ferm
 
-- name: Reload influxdb service
+- name: Reload influxdb2 service
   systemd:
     name: influxdb
     state: restarted
     daemon_reload: yes
-  when: influx_configfile is changed
+  when: influx2_configfile is changed
 
 - name: Enable service
   service:
     name: influxdb
     enabled: yes
     state: started
-

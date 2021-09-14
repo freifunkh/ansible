@@ -2,7 +2,7 @@ domain (ip ip6) {
   table filter {
     chain INPUT {
       proto tcp dport (8086) ACCEPT {
-{% for client in influxdb_clients | default( [] ) %}
+{% for client in influx2_clients | default( [] ) %}
         saddr {{ client }};
 {% endfor %}
 {% for item in supernodes | dict2items %}
