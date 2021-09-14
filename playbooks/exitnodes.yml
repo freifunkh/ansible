@@ -20,4 +20,5 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
+    - { name: ffh.iperf3, tags: iperf3 }
     - { name: ffh.restic, tags: restic }
