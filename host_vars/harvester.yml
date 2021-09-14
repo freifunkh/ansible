@@ -16,7 +16,7 @@ mesh_ula_address_suffix: 1231
 
 yanic_port: 10002
 yanic_nodes_enabled: true
-yanic_nodes_path: /var/www/harvester.ffh.zone
+yanic_nodes_path: /var/www/harvester.ffh.zone/api
 yanic_influx2_enabled: true
 yanic_influx2_hostname: http://localhost:8086/
 yanic_influx2_bucket: yanic_harvester/autogen
