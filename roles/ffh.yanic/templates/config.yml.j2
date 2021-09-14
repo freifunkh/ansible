@@ -145,7 +145,7 @@ path = "{{ yanic_nodes_path }}/nodelist.json"
 no_owner = false
 domain_append_site = true
 
-{% if yanic_influxdb_enabled %}
+{% if yanic_influx2_enabled %}
 [database]
 # this will send delete commands to the database to prune data
 # which is older than:
@@ -163,12 +163,12 @@ delete_interval = "1h"
 #   global: store global data, i.e. count of clients and nodes
 #   firmware: store the count of nodes tagged with firmware
 #   model: store the count of nodes tagged with hardware model
-[[database.connection.influxdb]]
+[[database.connection.influxdb2]]
 enable   = true
-address  = "{{ yanic_influx_hostname }}"
-database = "{{ yanic_influx_database }}"
-username = "yanic_{{ ansible_hostname }}"
-password = "{{ yanic_influx_password }}"
+address  = "{{ yanic_influx2_hostname }}"
+token = "{{ yanic_influx2_token }}"
+organization_id = "{{ yanic_influx2_organisation_id }}"
+bucket_default = "{{ yanic_influx2_bucket }}"
 
 # Tagging of the data (optional)
 [database.connection.influxdb.tags]

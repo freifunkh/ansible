@@ -17,10 +17,11 @@ mesh_ula_address_suffix: 1231
 yanic_port: 10002
 yanic_nodes_enabled: true
 yanic_nodes_path: /var/www/harvester.ffh.zone
-yanic_influxdb_enabled: true
-yanic_influx_database: yanic_harvester
-yanic_influx_hostname: http://localhost:8086/
-# yanic_influx_password in var/secrets.yml
+yanic_influx2_enabled: true
+yanic_influx2_hostname: http://localhost:8086/
+yanic_influx2_bucket: yanic_harvester/autogen
+yanic_influx2_organisation_id: 70c3e4abf369c216
+# yanic_influx2_token in group_vars/all/10_vault.misc.yml
 
 influxdb_meta_path: "/media/data/influxdb/meta"
 influxdb_data_path: "/media/data/influxdb/data"
@@ -87,4 +88,3 @@ restic_backup_paths:
 - /etc/
 - /media/data/grafana # current grafana data location (might be changed later) - currently this consumes ~110MB
 - /var/lib/grafana/   # maybe used in future, so I'll add it here already
-

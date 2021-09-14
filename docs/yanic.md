@@ -1,4 +1,4 @@
-# yanic_role
+# yanic_role (OUTDATED)
 
 [Yanic](https://github.com/FreifunkBremen/yanic)
 monitors the freifunk routers in the mesh via multicast.
