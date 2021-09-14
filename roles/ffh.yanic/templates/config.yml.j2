@@ -140,6 +140,11 @@ domain_append_site = true
 enable   = true
 path = "{{ yanic_nodes_path }}/nodelist.json"
 
+# definition for raw.jsonl
+[[nodes.output.raw-jsonl]]
+enable   = true
+path = "{{ yanic_nodes_path }}/raw.jsonl"
+
 [nodes.output.nodelist.filter]
 # WARNING: if it is not set, it will publish contact information of other persons
 no_owner = false
