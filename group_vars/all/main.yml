@@ -13,6 +13,9 @@ git_addr: "ssh://git@git.ffh.zone:1337"
 stats_pushgateway:
   host: "[fdca:ffee:8::108]:9091"
 
+gre_lower_ifaces:
+  default: eth0
+
 reboot_on_kernelpanic: true
 
 dns_recursive_allowed_private_rdns_zones:
