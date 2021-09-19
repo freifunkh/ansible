@@ -92,18 +92,22 @@
 - name: Get all project dependencies
   command:
     chdir: "{{ yanic_source_path }}"
-    cmd: "{{ go_bin_path }}/go get ./..."
-  when: yanic_repo.changed
+    cmd: "{{ go_bin_path }}/go get ."
+  when: patch_sync.changed or yanic_repo.changed
 
 - name: Build yanic with applied patches
-  command: "{{ go_bin_path }}/go build {{ yanic_repo_path }}"
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "{{ go_bin_path }}/go build ."
   environment:
     GOPATH: "{{ go_path }}"
   when: patches.changed
 
 - name: Install built yanic
   notify: Restart yanic
-  command: "{{ go_bin_path }}/go install {{ yanic_repo_path }}"
+  command:
+    chdir: "{{ yanic_source_path }}"
+    cmd: "{{ go_bin_path }}/go install ."
   environment:
     GOPATH: "{{ go_path }}"
   when: patches.changed
