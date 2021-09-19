@@ -28,10 +28,6 @@
     remote_src: True
   when: goversion is changed
 
-- name: This role is blocked. See https://github.com/freifunkh/ansible/issues/217
-  command: /bin/false
-  failed_when: "true"
-
 - name: Install path to go stuff
   template:
     src: go.sh.j2
