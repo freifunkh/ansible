@@ -1,4 +1,4 @@
-From 745f2e26469b169336462d44d730ff4aff1d16c2 Mon Sep 17 00:00:00 2001
+From 67531d9312cb0f4ea3f180443649c9ac8778a1ad Mon Sep 17 00:00:00 2001
 From: "aiyion.prime" <git@aiyionpri.me>
 Date: Thu, 18 Feb 2021 14:22:56 +0100
 Subject: [PATCH] data: add WGPeerselector struct
@@ -9,11 +9,11 @@ Subject: [PATCH] data: add WGPeerselector struct
  2 files changed, 8 insertions(+)
 
 diff --git a/data/nodeinfo.go b/data/nodeinfo.go
-index d81ce2c..f607a44 100644
+index 65bcc49..de92f76 100644
 --- a/data/nodeinfo.go
 +++ b/data/nodeinfo.go
 @@ -80,6 +80,10 @@ type Software struct {
- 	StatusPage struct {
+ 	StatusPage *struct {
  		API int `json:"api"`
  	} `json:"status-page,omitempty"`
 +	WGPeerselector struct {
