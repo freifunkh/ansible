@@ -6,7 +6,7 @@ perl knoten_compile.pl reverse {{ dns_zonenodes_nodedomain }} > {{ dns_zonenodes
 
 cat rdns.zone.inc >> {{ dns_zonenodes_rdnsdomain }}.zone
 
-/usr/sbin/nsd-control reload | grep -ve '^ok$'
+/usr/sbin/nsd-control reload | grep -vE '^ok$'
 
-/usr/sbin/nsd-control notify {{ dns_zonenodes_nodedomain }}
-/usr/sbin/nsd-control notify {{ dns_zonenodes_rdnsdomain }}
+/usr/sbin/nsd-control notify {{ dns_zonenodes_nodedomain }} | grep -vE '^ok$'
+/usr/sbin/nsd-control notify {{ dns_zonenodes_rdnsdomain }} | grep -vE '^ok$'
