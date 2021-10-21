@@ -32,7 +32,6 @@ apinger_targets2:
     - "100.103.10.1"
 - description: "hostway router"
   ips:
-    - "2a02:790::1"
-exit_ip: "81.3.6.91" 
+    - "2a02:790::1" 
 fix_netifnames: true
 coordinates: ['52.328259949', '9.783561230']
