@@ -14,8 +14,12 @@
 domain (ip) {
   table nat {
     chain POSTROUTING {
-      # Alternativly to MASQUERADE use SNAT to <addr>;
+      {% if exit_ip is defined %}
+      # WE PREFER SNAT HERE TO SET IP EXPLICITLY (needed if multiple ips exist)
+      saddr 10.0.0.0/8 outerface $DEV_EXIT SNAT to {{ exit_ip }};
+      {% else %}
       saddr 10.0.0.0/8 outerface $DEV_EXIT MASQUERADE;
+      {% endif %}
     }
   }
   table filter {
