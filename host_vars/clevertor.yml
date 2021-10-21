@@ -51,7 +51,7 @@ gre_lower_ifaces:
   gre-sn02: ens19
   default: vlan2000
 
-exit_device: "ens19"
+exit_device: "vlan2000"
 exit_ip: 45.12.203.10
 
 networkd_vlans:
