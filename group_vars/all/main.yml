@@ -29,3 +29,5 @@ zabbix_agent_server_active: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') or '::1' 
 is_supernode: false
 is_exitnode: false
 iperf3_is_public_server: false
+
+mesh_prefix_len: "48"

@@ -8,11 +8,7 @@ import-table 42
 # are already reachable directly via batman
 in ip 10.0.0.0/8 deny
 
-{% if sn|default(0) in [5,9,10] -%}
-redistribute ip 2a02:790:ff::/48 metric 256
-{% else -%}
-redistribute ip 2001:678:978::/48 metric 256
-{% endif -%}
+redistribute ip {{ mesh_prefix }}::/{{ mesh_prefix_len }} metric 256
 redistribute ip 10.0.0.0/8 metric 256
 redistribute local deny
 
