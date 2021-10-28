@@ -9,31 +9,43 @@ TIMEOUT = timedelta(minutes=3)
 
 
 def get_stats(format, interface, extended=True):
-    clients = WireGuard().info(interface)[0].WGDEVICE_A_PEERS.value
+    infos = WireGuard().info(interface)
 
-    combined = {"interface": interface}
     peers = []
+    combined = { "interface": interface }
     established_peers_count = 0
-    for client in clients:
-        public_key = client.WGPEER_A_PUBLIC_KEY["value"].decode("utf-8")
 
-        # ignore dummy key
-        if public_key == (43 * "0" + "="):
+    for info in infos:
+        try:
+            # we fail continue here, if this atribute does not exist...
+            info.WGDEVICE_A_PEERS
+        except:
             continue
 
-        established = False
-        latest_handshake = client.WGPEER_A_LAST_HANDSHAKE_TIME["tv_sec"]
-        if datetime.now() - datetime.fromtimestamp(latest_handshake) < TIMEOUT:
-            established = True
-            established_peers_count += 1
-        if extended:
-            peers.append({
-                "public_key": public_key,
-                "latest_handshake": latest_handshake,
-                "is_established": established,
-                "rx_bytes": int(client.WGPEER_A_RX_BYTES['value']),
-                "tx_bytes": int(client.WGPEER_A_TX_BYTES['value']),
-            })
+        clients = info.WGDEVICE_A_PEERS.value
+
+        for client in clients:
+            public_key = client.WGPEER_A_PUBLIC_KEY["value"].decode("utf-8")
+
+            # ignore dummy key
+            if public_key == (43 * "0" + "="):
+                continue
+
+            established = False
+            latest_handshake = client.WGPEER_A_LAST_HANDSHAKE_TIME.get("tv_sec")
+
+            if latest_handshake and datetime.now() - datetime.fromtimestamp(latest_handshake) < TIMEOUT:
+                established = True
+                established_peers_count += 1
+
+            if extended:
+                peers.append({
+                    "public_key": public_key,
+                    "latest_handshake": latest_handshake,
+                    "is_established": established,
+                    "rx_bytes": int(client.WGPEER_A_RX_BYTES['value']),
+                    "tx_bytes": int(client.WGPEER_A_TX_BYTES['value']),
+                })
 
     if extended:
         combined["peers"] = peers
@@ -51,6 +63,10 @@ def print_influx_format(stats):
           ",type=linux_kernel " +
           "established_peers=" + str(stats['established_peers_count']) +
           "i " + timestamp)
+
+    if 'peers' not in stats:
+        return
+
     for peer in stats['peers']:
         print("wireguard_peer,device=" + stats['interface'] +
               ",public_key=" + peer['public_key'] +
