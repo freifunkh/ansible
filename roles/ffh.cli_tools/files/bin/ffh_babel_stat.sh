@@ -83,6 +83,7 @@ echo
 TOK_10="prefix 10\\." 
 TOK_100="prefix 100\\." 
 TOK_2a02="prefix 2a02:790:ff:"
+TOK_2001="prefix 2001:678:978:"
 
 xroute_10=$(ifroutes | grep "$TOK_10" | count_lines)
 xroute_100=$(ifroutes | grep "$TOK_100" | count_lines)
