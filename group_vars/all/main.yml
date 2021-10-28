@@ -21,7 +21,7 @@ reboot_on_kernelpanic: true
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 
-babeld_build_version: "babeld-1.9.1"
+babeld_build_version: "babeld-1.10"
 
 zabbix_agent_server: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') or '::1' }},{{ lookup('dig', 'zabbix.ffh.zone./A') or '127.0.0.1' }}"
 zabbix_agent_server_active: "{{ lookup('dig', 'zabbix.ffh.zone./AAAA') or '::1' }},{{ lookup('dig', 'zabbix.ffh.zone./A') or '127.0.0.1' }}"
