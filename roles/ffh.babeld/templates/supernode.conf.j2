@@ -16,10 +16,15 @@ redistribute local deny
 in if {{ item.key }} ip 0.0.0.0/0 metric {{ item.value }}
 {% endfor %}
 
+{#
 # disable asymmetric routing, route all IPv6 to leintor
 {% for item in (exitnodes | dict2items) if not item.key=='leintor' %}
 # out if gre-{{ item.key }} ip ::/0 deny
 # in if gre-{{ item.key }} ip ::/0 deny
 {% endfor %}
+#}
+
+in if gre-{{ babeld_v6_exitnode }} ip ::/0 le 1 allow
+in ip ::/0 deny
 
 local-port 33123

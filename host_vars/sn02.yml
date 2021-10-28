@@ -28,6 +28,7 @@ babeld_interface_penalty:
   gre-clevertor: 110
   gre-listertor: 666
   gre-bruehltor: 666
+babeld_v6_exitnode: "clevertor"
 
 legacy_dom0: true
 radv_announce_default: true
