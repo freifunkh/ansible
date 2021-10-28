@@ -8,8 +8,11 @@ import-table 42
 # are already reachable directly via batman
 in ip 10.0.0.0/8 deny
 
+{% if sn|default(0) in [5,9,10] -%}
 redistribute ip 2a02:790:ff::/48 metric 256
+{% else -%}
 redistribute ip 2001:678:978::/48 metric 256
+{% endif -%}
 redistribute ip 10.0.0.0/8 metric 256
 redistribute local deny
 
@@ -19,8 +22,8 @@ in if {{ item.key }} ip 0.0.0.0/0 metric {{ item.value }}
 
 # disable asymmetric routing, route all IPv6 to leintor
 {% for item in (exitnodes | dict2items) if not item.key=='leintor' %}
-out if gre-{{ item.key }} ip ::/0 deny
-in if gre-{{ item.key }} ip ::/0 deny
+# out if gre-{{ item.key }} ip ::/0 deny
+# in if gre-{{ item.key }} ip ::/0 deny
 {% endfor %}
 
 local-port 33123
