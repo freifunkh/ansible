@@ -32,3 +32,6 @@ babeld_v6_exitnode: "leintor"
 legacy_dom0: true
 radv_announce_default: false
 coordinates: ['50.478069651', '12.334529757']
+
+zabbix_agent_server: "zbx-hetzner.ffh.zone"
+zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
