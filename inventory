@@ -33,6 +33,8 @@ all:
       ansible_host: rdns.ffh.zone
     sql:
       ansible_host: sql.ffh.zone
+    ruettgers:
+      ansible_host: ruettgers.ffh.zone
 
 supernodes:
   hosts:
@@ -56,6 +58,7 @@ helpernodes:
     archive:
     rdns:
     sql:
+    ruettgers:
 
 batmannodes:
   hosts:

@@ -130,6 +130,7 @@ dns_authoritative_toplevel:
        "tiefensee.ffh.zone. 120 IN AAAA 2a01:4f8:221:100c::2",
        "ramsauer.ffh.zone. IN A 46.4.116.108",
        "ramsauer.ffh.zone. 120 IN AAAA 2a01:4f8:141:1464::2",
+       "ruettgers.ffh.zone. 600 IN AAAA 2a02:8106:64:fc02:e463:89ff:fe3e:d3f4",
        "perf-test.ffh.zone. IN A 94.130.213.34",
        "monitor.ffh.zone. IN A 88.99.88.14",
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",

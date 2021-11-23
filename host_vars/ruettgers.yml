@@ -1,0 +1,10 @@
+---
+servername: ruettgers
+fqdn: "ruettgers.ffh.zone"
+admin_authorized: [lemoer, cawi, manawyrm, aiyion, jue, okrueger, raute, bschelm, tobby, sush, codefetch, DarkAMD, codefetch_cockroach]
+
+restic_backup_paths:
+- /etc/
+
+zabbix_agent_server: "zabbix.ffh.zone"
+zabbix_agent_server_active: "zabbix.ffh.zone"
