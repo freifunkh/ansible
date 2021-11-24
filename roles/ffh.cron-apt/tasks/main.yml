@@ -17,7 +17,7 @@
 - name: Comment out security deb line in /etc/apt/sources.list
   lineinfile:
     dest: /etc/apt/sources.list
-    regexp: '(?i)^(deb http://security.debian.org/ .*?/updates main.*)'
+    regexp: '(?i)^(deb http://security.debian.org/.*?main.*)'
     line: '# \1'
     backrefs: yes
     state: present
@@ -25,7 +25,7 @@
 - name: Comment out security deb-src line in /etc/apt/sources.list
   lineinfile:
     dest: /etc/apt/sources.list
-    regexp: '(?i)^(deb-src http://security.debian.org/ .*?/updates main.*)'
+    regexp: '(?i)^(deb-src http://security.debian.org/.*?main.*)'
     line: '# \1'
     backrefs: yes
     state: present
