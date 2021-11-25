@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -e
 export ANSIBLE_STDOUT_CALLBACK=json
 time=$(date -Iseconds)
 
