@@ -17,10 +17,10 @@ from read_play import *
 SMTP_HOST = 'mail.ffh.zone'
 SMTP_PORT = 25
 SMTP_USE_STARTTLS = False
-SMTP_FROM = "me@irrelefant.net"
-SMTP_REPLY_TO_EMAIL = "me@irrelfant.net"
+SMTP_FROM = "auto@ruettgers.ffh.zone"
+SMTP_REPLY_TO_EMAIL = "monitoring@hannover.freifunk.net"
 
-SMTP_TO = 'me@irrelefant.net'
+SMTP_TO = 'monitoring@hannover.freifunk.net'
 
 def send_mail(subject, message, message_html, to):
     msgid = make_msgid()
