@@ -220,6 +220,7 @@ postfix_mynetworks:
 - "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 - "[{{ lookup('dig', 'archive.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 - "[{{ lookup('dig', 'sql.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
+- "[{{ lookup('dig', 'ruettgers.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 
 restic_backup_paths:
 - /etc/
