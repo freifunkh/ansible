@@ -7,6 +7,13 @@
     key: "{{ item.key }}"
   with_items: "{{ admin_pubkeys }}"
 
+- name: Install ssh known hostkeys
+  known_hosts:
+    name: "{{ item.name }}"
+    key: "{{ item.name }} {{ item.key }}"
+    path: "/etc/ssh/ssh_known_hosts"
+  with_items: "{{ known_hostkeys }}"
+
 - name: sysctl - Reboot on kernel panic
   sysctl:
     name: kernel.panic
