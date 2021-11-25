@@ -15,3 +15,24 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # Backups
     - { name: ffh.restic, tags: restic }
+  tasks:
+    - name: "Install git, ansible and stuff"
+      apt:
+        pkg:
+        - git
+        - ansible
+
+    - name: Create auto user
+      register: createuser
+      user:
+        name: auto
+        system: yes
+        generate_ssh_key: yes
+
+    - name: Clone the ansible git
+      become: yes
+      become_user: auto
+      git:
+        repo: "https://github.com/freifunkh/ansible"
+        dest: /home/auto/ansible
+        accept_hostkey: true
