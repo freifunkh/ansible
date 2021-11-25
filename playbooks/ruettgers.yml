@@ -21,6 +21,8 @@
         pkg:
         - git
         - ansible
+        - pip
+        - sudo
 
     - name: Create auto user
       register: createuser
@@ -29,6 +31,10 @@
         system: yes
         generate_ssh_key: yes
 
+    - name: Configure git
+      become_user: auto
+      shell: "git config --global pull.ff only"
+
     - name: Clone the ansible git
       become: yes
       become_user: auto
@@ -36,3 +42,18 @@
         repo: "https://github.com/freifunkh/ansible"
         dest: /home/auto/ansible
         accept_hostkey: true
+
+    - name: Install PIP dependencies
+      pip:
+        executable: pip3
+        name:
+          - python-dateutil
+          - pytz
+
+    - name: Install daily cronjob
+      cron:
+        name: Daily ansible dry-run
+        user: auto
+        job: "cd /home/auto/ansible; tests/cron.sh"
+        hour: 23
+        minute: 2
