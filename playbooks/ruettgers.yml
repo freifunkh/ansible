@@ -55,5 +55,5 @@
         name: Daily ansible dry-run
         user: auto
         job: "cd /home/auto/ansible; tests/cron.sh"
-        hour: 23
-        minute: 2
+        hour: "5"
+        minute: "30"
