@@ -15,9 +15,9 @@ all:
     leintor:
       ansible_host: leintor.e.ffh.zone
     clevertor:
-      ansible_host: 194.50.19.35
+      ansible_host: clevertor.e.ffh.zone
     ns1:
-      ansible_host: ns1.fnorden.net
+      ansible_host: ns1.ffh.zone
     harvester:
       ansible_host: harvester.ffh.zone
     web:
