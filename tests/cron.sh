@@ -8,5 +8,8 @@ git reset --quiet --hard origin/master
 
 mkdir -p /tmp/auto/dailyrun
 
-ansible-playbook playbooks/supernodes.yml -CD --extra-vars "show_secret_diffs=no" > /tmp/auto/dailyrun/${time}.json
-python3 tests/mail.py /tmp/auto/dailyrun/${time}.json
+for machine in supernodes exitnodes harvester monitor web rdns
+do
+  ansible-playbook playbooks/${machine}.yml -CD --extra-vars "show_secret_diffs=no" > /tmp/auto/dailyrun/${time}-${machine}.json
+  python3 tests/mail.py /tmp/auto/dailyrun/${time}-${machine}.json
+done
