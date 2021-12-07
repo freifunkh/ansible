@@ -131,6 +131,7 @@ dns_authoritative_toplevel:
        "ramsauer.ffh.zone. IN A 46.4.116.108",
        "ramsauer.ffh.zone. 120 IN AAAA 2a01:4f8:141:1464::2",
        "ruettgers.ffh.zone. 600 IN AAAA 2a02:8106:64:fc02:e463:89ff:fe3e:d3f4",
+       "tonne.ffh.zone. 600 IN AAAA 2a02:8106:64:fc02:8c82:eaff:fe35:81b2",
        "perf-test.ffh.zone. 120 IN A 94.130.213.34",
        "monitor.ffh.zone. 120 IN A 88.99.88.14",
        "monitor.ffh.zone. 120 IN AAAA 2a01:4f8:221:100c::1003",
