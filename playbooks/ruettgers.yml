@@ -23,6 +23,7 @@
         - ansible
         - pip
         - sudo
+        - rsync
 
     - name: Create auto user
       register: createuser
