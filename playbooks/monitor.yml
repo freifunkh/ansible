@@ -15,9 +15,6 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     # special
-    - { name: DavidWittman.redis, tags: redis }
-    - { name: geerlingguy.postgresql, tags: postgresql }
-    - { name: lae.netbox, tags: netbox }
     - { name: ffh.zabbix-server, tags: zabbix-server }
     - { name: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { role: ffh.nginx, tags: nginx }
