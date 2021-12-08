@@ -3,6 +3,7 @@
 import datetime
 import pytz
 import smtplib, ssl
+import re
 from email.utils import make_msgid
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -55,9 +56,10 @@ def send_mail(subject, message, message_html, to):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
+    machine = re.findall('^.*-(.*?)\.json$', filename)[0]
 
     msg_txt = read_play(filename)
     msg_html = read_play(filename, 'html')
 
     if msg_txt:
-        send_mail('Daily Report of Ansible Run', msg_txt, msg_html, SMTP_TO)
+        send_mail('Daily Report of Ansible Run on '+machine, msg_txt, msg_html, SMTP_TO)
