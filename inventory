@@ -35,6 +35,8 @@ all:
       ansible_host: sql.ffh.zone
     ruettgers:
       ansible_host: ruettgers.ffh.zone
+    tonne:
+      ansible_host: tonne.ffh.zone
 
 supernodes:
   hosts:
@@ -59,6 +61,7 @@ helpernodes:
     rdns:
     sql:
     ruettgers:
+    tonne:
 
 batmannodes:
   hosts:
