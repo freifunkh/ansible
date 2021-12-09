@@ -18,7 +18,6 @@
     - { role: ffh.nginx, tags: nginx }
     - { role: ffh.fnorden.net, tags: fnorden.net }
     - { role: ffh.foswiki, tags: foswiki }
-    - { role: ffh.git2cal, tags: git2cal }
     # - { role: ffh.taskserver, tags: taskserver }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.burginfo, tags: burginfo }
