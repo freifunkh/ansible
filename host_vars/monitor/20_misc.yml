@@ -9,3 +9,4 @@ networkd_configures:
   addresses:
     - "2a01:4f8:221:100c::1003/64"
   gateway6: "2a01:4f8:221:100c::2"
+  no_radv_accept: true
