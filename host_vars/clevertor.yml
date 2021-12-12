@@ -59,3 +59,6 @@ networkd_vlans:
   iface: "ens16"
 
 babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
+
+zabbix_agent_server: "zbx-hetzner.ffh.zone"
+zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
