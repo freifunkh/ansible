@@ -27,7 +27,12 @@
     - sudo
     - jo
     - jq
-    - dbus-user-session # let normal users execute systemctl
+
+- name: Install additional dependencies for non-buster-backport machines
+  apt:
+    pkg:
+    - dbus-user-session # let normal users execute systemctl # install breaks on buster/backports for systemd 247
+  ignore_errors: true
 
 - name: Create ferm directory if necessary
   file:
