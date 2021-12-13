@@ -1,38 +1,41 @@
 ---
 # tasks file for ffh.bird2
 
-- name: "Add repo key"
-  apt_key:
-    id: "B188E2B695BD4743"
-    keyserver: "keyserver.ubuntu.com"
-    state: present
+- name: "BIRD 2"
+  block:
+    - name: "Add repo key"
+      apt_key:
+        id: "B188E2B695BD4743"
+        keyserver: "keyserver.ubuntu.com"
+        state: present
 
-- name: "Add repo"
-  register: birdrepositoryadded
-  apt_repository:
-    repo: "deb http://bird.network.cz/debian/ {{ ansible_distribution_release }} main"
-    filename: "bird"
+    - name: "Add repo"
+      register: birdrepositoryadded
+      apt_repository:
+        repo: "deb http://bird.network.cz/debian/ {{ ansible_distribution_release }} main"
+        filename: "bird"
 
-- name: "Update apt chache to get bird packages"
-  apt: update_cache=yes
-  when: birdrepositoryadded is changed
+    - name: "Update apt chache to get bird packages"
+      apt: update_cache=yes
+      when: birdrepositoryadded is changed
 
-- name: "Install bird2 from repo"
-  apt:
-    name: "bird2"
-    state: latest
+    - name: "Install bird2 from repo"
+      apt:
+        name: "bird2"
+        state: latest
 
 # Depends on outdated libs. Disabled for now.
 #- name: "Install statistics export"
 #  include_tasks: bird_exporter.yml
 
-- name: "Add named routing table"
-  copy:
-    dest: "/etc/iproute2/rt_tables.d/cix.conf"
-    content: |
-      2000 cix
+    - name: "Add named routing table"
+      copy:
+        dest: "/etc/iproute2/rt_tables.d/cix.conf"
+        content: |
+          2000 cix
 
-- name: "Generate config file"
-  template:
-   src: "bird_{{ ansible_hostname }}.conf.j2"
-   dest: /etc/bird/bird.conf
+    - name: "Generate config file"
+      template:
+       src: "bird_{{ ansible_hostname }}.conf.j2"
+       dest: /etc/bird/bird.conf
+  when: bird_enable is defined and bird_enable
