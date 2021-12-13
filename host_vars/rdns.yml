@@ -6,3 +6,6 @@ all_knowing_dns:
     mesh_prefixes:
         - 2a02:790:ff
         - 2001:678:978
+
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
