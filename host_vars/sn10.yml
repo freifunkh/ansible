@@ -36,3 +36,6 @@ apinger_targets2:
     - "2a02:790::1" 
 fix_netifnames: true
 coordinates: ['52.328259949', '9.783561230']
+
+zabbix_agent_server: "zbx-hostway.ffh.zone"
+zabbix_agent_server_active: "zbx-hostway.ffh.zone"

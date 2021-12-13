@@ -113,3 +113,6 @@ git2cal:
 restic_backup_paths:
 - /etc/
 - /var/www/ # wiki (and other probably not so important stuff)
+
+zabbix_agent_server: "zbx-hetzner.ffh.zone"
+zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
