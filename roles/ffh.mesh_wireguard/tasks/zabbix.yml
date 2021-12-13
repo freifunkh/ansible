@@ -16,11 +16,3 @@
     mode: "0644"
     owner: "root"
     group: "root"
-
-- name: "Install sudoer file"
-  template:
-    src: "zabbix-wgstats.j2"
-    dest: "/etc/sudoers.d/zabbix-wgstats"
-    mode: "0644"
-    owner: "root"
-    group: "root"

@@ -1,2 +1,0 @@
-zabbix ALL=(ALL) NOPASSWD: /usr/bin/etc-gitlog.sh whitelisting -1 -p
-Defaults:zabbix        !requiretty, !logfile, !syslog

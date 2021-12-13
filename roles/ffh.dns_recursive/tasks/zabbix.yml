@@ -17,22 +17,6 @@
     group: "root"
     mode: "0644"
 
-- name: "Zabbix: Create /etc/sudoers.d if necessary"
-  file:
-    path: "/etc/sudoers.d"
-    state: "directory"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-
-- name: "Zabbix: Deploy sudoers file"
-  template:
-    src: "zabbix-unbound.j2"
-    dest: "/etc/sudoers.d/zabbix-unbound"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-
 - name: "Zabbix: Create /etc/zabbix/bin if necessary"
   file:
     path: "/etc/zabbix/bin"

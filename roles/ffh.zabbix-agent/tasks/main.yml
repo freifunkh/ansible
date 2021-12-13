@@ -58,6 +58,14 @@
     mode: "0644"
   diff: "{{ show_secret_diffs }}"
 
+- name: Deploy generic sudoers file for user zabbix
+  template:
+    src: sudoers.j2
+    dest: "/etc/sudoers.d/90-zabbix"
+    owner: "root"
+    group: "root"
+    mode: "0440"
+
 - name: Deploy additional configuration files in /etc
   notify: reload zabbix-agent
   copy:
