@@ -99,7 +99,7 @@ nginx_sites:
             rewrite ^/wiki/(.*)$ /wiki/bin/view/$1;
           }
 
-          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/$1 permanent;
+          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/api/$1 permanent;
 
 - domain: tiles.ffh.zone
   root: /var/www/tiles/www
