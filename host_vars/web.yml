@@ -33,7 +33,7 @@ nginx_sites:
   tls: true
   tls_redirect_to_https: true
 - domain: hannover.freifunk.net
-  root: /var/www/web/new1
+  root: /var/www/web/webroot
   tls: true
   tls_redirect_to_https: true
   php: true
