@@ -52,6 +52,11 @@ nginx_sites:
           set $foswiki_root "/var/www/web/wiki";
 
           client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
+
+          location /841.txt {
+            auth_basic "unicorn area";
+            auth_basic_user_file /etc/nginx/.htpasswd_841;
+          }
           
           location = /wiki/ {
             root $foswiki_root;
