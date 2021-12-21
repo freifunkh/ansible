@@ -37,6 +37,12 @@ all:
       ansible_host: ruettgers.ffh.zone
     tonne:
       ansible_host: tonne.ffh.zone
+    tiefensee:
+      ansible_host: tiefensee.ffh.zone
+    ramsauer:
+      ansible_host: ramsauer.ffh.zone
+    scheuer:
+      ansible_host: scheuer.ffh.zone
 
 supernodes:
   hosts:
@@ -68,3 +74,9 @@ batmannodes:
     harvester:
   children:
     supernodes:
+
+proxmoxes:
+  hosts:
+    scheuer:
+    tiefensee:
+    ramsauer:

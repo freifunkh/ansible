@@ -1,0 +1,9 @@
+---
+servername: scheuer
+fqdn: "scheuer.ffh.zone"
+
+restic_backup_paths:
+- /etc/
+
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
