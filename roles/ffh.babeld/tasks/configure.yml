@@ -32,5 +32,5 @@
 
 - name: "Save state"
   copy:
-    content: 'True'
+    content: '"True"'
     dest: "/etc/ansible/facts.d/babeld_system_configured.fact"
