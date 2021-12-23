@@ -61,3 +61,5 @@ networkd_vlans:
 babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
 
 bird_enable: true
+
+zabbix_agent_skip_additionals: true

@@ -2,3 +2,4 @@
 zabbix_agent_hostname: "{{ fqdn | default(ansible_fqdn) }}"
 zabbix_agent_server: "127.0.0.1"
 zabbix_agent_server_active: "127.0.0.1"
+zabbix_agent_skip_additionals: false
