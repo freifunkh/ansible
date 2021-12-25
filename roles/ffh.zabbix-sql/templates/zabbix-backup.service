@@ -1,0 +1,5 @@
+[Unit]
+Description=Zabbix backup service
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mysqldump --defaults-extra-file=/root/.my.cnf --databases {{ zabbix_sql_dbname }} --ignore-table-data={{ zabbix_sql_dbname }}.history --ignore-table-data={{ zabbix_sql_dbname }}.history_log --ignore-table-data={{ zabbix_sql_dbname }}.history_str --ignore-table-data={{ zabbix_sql_dbname }}.history_text --ignore-table-data={{ zabbix_sql_dbname }}.history_uint --ignore-table-data={{ zabbix_sql_dbname }}.trends --ignore-table-data={{ zabbix_sql_dbname }}.trends_uint --result-file={{ zabbix_sql_dumppath }}/zabbix.sql

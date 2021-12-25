@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup Zabbix mysql db
+[Timer]
+OnCalendar=daily
+[Install]
+WantedBy=timers.target

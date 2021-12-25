@@ -1,0 +1,26 @@
+---
+# tasks file for ffh.zabbix-sql
+
+- name: "Create mysql dump directory"
+  file:
+    path: "{{ zabbix_sql_dumppath }}"
+    state: "directory"
+
+- name: "Install zabbix-backup systemd units"
+  template:
+    dest: "/etc/systemd/system/{{ item }}"
+    src: "{{ item }}"
+  with_items:
+    - "zabbix-backup.service"
+    - "zabbix-backup.timer"
+  register: "systemdunits"
+
+- name: "Enable systemd units"
+  systemd:
+    name: "{{ item }}"
+    daemon_reload: "yes"
+    enabled: "yes"
+    state: "started"
+  with_items:
+    - "zabbix-backup.timer"
+  when: "systemdunits.changed"

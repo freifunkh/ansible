@@ -1,0 +1,5 @@
+---
+# defaults file for ffh.zabbix-sql
+
+zabbix_sql_dumppath: "/media/mysql/dump"
+zabbix_sql_dbname: "zabbix"
