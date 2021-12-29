@@ -31,6 +31,7 @@
     - less
     - iptstate
     - aptitude
+    - etckeeper
 
 - name: Set prompt (PS1)
   lineinfile:
