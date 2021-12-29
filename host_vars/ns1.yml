@@ -153,7 +153,7 @@ dns_authoritative_toplevel:
        "zbx-hetzner.ffh.zone. IN AAAA 2a01:4f8:221:100c::2",
        "zbx-hostway.ffh.zone. IN CNAME leintor.e.ffh.zone.",
        "archive.ffh.zone. IN AAAA 2a01:4f8:141:1464::7001",
-       "sql.ffh.zone. 120 IN AAAA 2a01:4f8:141:1464::7002",
+       "sql.ffh.zone. 120 IN AAAA 2a01:4f8:221:100c::7007",
        "keepitup.ffh.zone. IN CNAME harvester.ffh.zone.",
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
