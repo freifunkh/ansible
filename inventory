@@ -27,8 +27,6 @@ all:
     perf-test:
       ansible_host: 94.130.213.34
       ansible_port: 22
-    archive:
-      ansible_host: archive.ffh.zone
     rdns:
       ansible_host: rdns.ffh.zone
     sql:
@@ -39,8 +37,6 @@ all:
       ansible_host: tonne.ffh.zone
     tiefensee:
       ansible_host: tiefensee.ffh.zone
-    ramsauer:
-      ansible_host: ramsauer.ffh.zone
     scheuer:
       ansible_host: scheuer.ffh.zone
 
@@ -63,7 +59,6 @@ helpernodes:
     harvester:
     web:
     monitor:
-    archive:
     rdns:
     sql:
     ruettgers:
@@ -79,4 +74,3 @@ proxmoxes:
   hosts:
     scheuer:
     tiefensee:
-    ramsauer:
