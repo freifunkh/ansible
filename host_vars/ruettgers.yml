@@ -2,8 +2,14 @@
 servername: ruettgers
 fqdn: "ruettgers.ffh.zone"
 
+restic_backup_server_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGSZGZcmeZG8WD8cCfOO0adEPOAae2XmAw7KxZ/1EcoHQ8LPMwP8wB9MePkQNE3vzfX4JExzRTO8lmLWEoB4PpY= root@tonne"
+restic_backup_server_ansible_host: "tonne"
+restic_backup_server_hostname: "tonne.ffh.zone"
+restic_backup_server_ips:
+- "2a02:8106:64:fc02:8c82:eaff:fe35:81b2"
 restic_backup_paths:
-- /etc/
+- "/etc/"
+- "/home/auto/"
 
 zabbix_agent_server: "zabbix.ffh.zone"
 zabbix_agent_server_active: "zabbix.ffh.zone"
