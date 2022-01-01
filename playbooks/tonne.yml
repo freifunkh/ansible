@@ -13,8 +13,6 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    # Backups
-    - { name: ffh.restic, tags: restic }
   tasks:
     - name: "Install git and stuff"
       apt:
