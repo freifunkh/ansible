@@ -8,7 +8,7 @@ git reset --quiet --hard origin/master
 
 mkdir -p /tmp/auto/dailyrun
 
-for machine in supernodes exitnodes harvester monitor web rdns
+for machine in supernodes exitnodes ns1 sql tonne ruettgers harvester monitor web rdns
 do
   ansible-playbook playbooks/${machine}.yml -CD --extra-vars "show_secret_diffs=no" > /tmp/auto/dailyrun/${time}-${machine}.json
   python3 tests/mail.py /tmp/auto/dailyrun/${time}-${machine}.json
