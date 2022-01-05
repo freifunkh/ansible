@@ -18,6 +18,9 @@
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 {% endif %}
+{% if location.expires is defined %}
+        expires {{ location.expires }};
+{% endif %}
 {% if location.directory_index|default(False) %}
         autoindex           on;
 {% endif %}
