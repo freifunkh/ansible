@@ -38,6 +38,10 @@ nginx_sites:
   tls_redirect_to_https: true
   php: true
   locations:
+    - location: /download
+      directory_index: true
+      disable_symlinks: true
+      root: /var/www/web
     - location: /gluon-firmware-wizard
       root: /var/www/web
     - location: /api
