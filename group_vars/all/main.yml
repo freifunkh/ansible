@@ -25,6 +25,7 @@ babeld_build_version: "babeld-1.10"
 
 zabbix_agent_server: "zabbix.ffh.zone"
 zabbix_agent_server_active: "zabbix.ffh.zone"
+zabbix_server_version: "5.0"
 
 is_supernode: false
 is_exitnode: false
