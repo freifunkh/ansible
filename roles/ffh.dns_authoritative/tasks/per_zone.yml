@@ -5,29 +5,20 @@
     src: "/etc/nsd/zones/{{item.domain}}zone"
   register: zonefile
 
-- name: "{{ item.domain }}: extract old serial"
-  set_fact:
-    serial_old: "{{ zonefile.content | b64decode | regex_search('(\\d+)\\s+;\\s+serial.*', '\\1') | first }}"
-    serial_new: "{{ ansible_date_time.epoch }}"
-
-- name: "{{ item.domain }}: selecting old serial for template"
-  set_fact:
-    serial_selected: "{{ serial_old }}"
-
 - name: "{{ item.domain }}: generate zone (dry-run)"
   template:
     src: zone.j2
     dest: /etc/nsd/zones/{{item.domain}}zone
+  vars:
+    serial_selected: "{{ zonefile.content | b64decode | regex_search('(\\d+)\\s+;\\s+serial.*', '\\1') | first }}"
   check_mode: yes
   register: generated_zone_dry 
-
-- name: "{{ item.domain }}: selecting new serial for template"
-  set_fact:
-    serial_selected: "{{ serial_new }}"
 
 - name: "{{ item.domain }}: generate zone"
   notify: Reload zones
   template:
     src: zone.j2
     dest: /etc/nsd/zones/{{item.domain}}zone
+  vars:
+    serial_selected: "{{ hostvars[ansible_play_hosts_all.0].ansible_facts.date_time.epoch }}"
   when: generated_zone_dry is changed
