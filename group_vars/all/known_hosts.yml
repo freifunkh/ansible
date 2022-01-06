@@ -26,13 +26,6 @@ known_hostkeys:
 - name: ns1.ffh.zone
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCltFNKCg9sZyk/819oYWCVIHnbDscKa24SSByfhEhBZXuJQ+9rDyQevcFpiGpA0PKUsO/IinIdJTkjXueIAr/QzQhpwABpJ1O26usUKCbp382xXdu3wIfknwjTzS5p5bC/Uj+TWFzAgEIQ9j5/Eu9zH7ngJX3aGTqOWsFgFsBhKtwR03j9QUACgaLCkfMLVPydAgyiz+dLd4gRAwVZFlShut/VJel2k/pUWhClIaEiRr2ypttmrErJmWsNmVRXrrhwjDETEh0jiz35Nf8bBb8T4KHClpGODjvvs/3qTbS+4likEPh8BjOdcIjuMO2DISPilqf653EuFjKZ5Rjq6Rdf root@ns1
 
-- name: archive.ffh.zone
-  key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG/uDwHMPset8a0YGvBTMbCCPfdM/AKXlzgzUR4KkpzteGqiTanymSw5UELfkgCaZ9EMIohkMis45jcSUEF34Oo= root@archive
-- name: archive.ffh.zone
-  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBkvcr64qdGwZbEVvg0fXeDa+k8od3lFJ7Ysdojhus3 root@archive
-- name: archive.ffh.zone
-  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7fuUS8kL4wYIjri+1ZTKJnPY25hIgc6VVVfsmyeLK4hcVeO+oNVbCFDsApULZwNYiY/i0kBbx1Woj4gLA/s/1ei3xUNx5L6hi5OCIA/PXxY8E19XORmQEbgYzv/OJad6UJ6dp3cLqMUxcQgPnXpiXyFRgZj9Gx/O4U2eBECp7J1OXFfoCdBqYtJ16xH8IXUd+PEcIH5dgCjF4MV/d8N1twfXSnQJw44vzFrTJKpthcN66PWA0tPvSPHzQDdts97F1oIpVzIkLjqm16tzNDN2M1NHGLpNqnkOSqxqMagug7VMsDhk2dSgwnuLSA/YhDWkYVRWmKkJJiqA8LMhRD2ev root@archive
-
 - name: rdns.ffh.zone
   key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEQNQvpFxNjryZz/XvAMjj6GWmTIb6G2LVwmowP1EvyrLy6FgUs5cYeo5L8Z9hmnnYiOEygkwW8RTHx+qvmdQlw= root@rdns
 - name: rdns.ffh.zone
