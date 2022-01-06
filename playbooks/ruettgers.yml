@@ -58,3 +58,13 @@
         job: "cd /home/auto/ansible; tests/cron.sh"
         hour: "5"
         minute: "30"
+
+    - name: Add auto to sudoers
+      copy:
+        dest: /etc/sudoers.d/90-auto
+        mode: 0440
+        owner: root
+        group: root
+        content: |
+          auto ALL=(root) NOPASSWD:ALL
+          Defaults:auto	!requiretty, !logfile, !syslog
