@@ -12,11 +12,8 @@
 - name: Create zone dir
   file: path=/etc/nsd/zones state=directory
 
-- name: generate zones
-  notify: Reload zones
-  template:
-    src: zone.j2
-    dest: /etc/nsd/zones/{{item.domain}}zone
+- name: Zonefiles
+  include_tasks: per_zone.yml
   with_items: "{{ dns_authoritative_toplevel }}"
 
 - name: Enable nsd
