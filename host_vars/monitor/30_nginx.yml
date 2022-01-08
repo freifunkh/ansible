@@ -10,22 +10,13 @@ nginx_sites:
       type: proxy
       proxy_forward_url: http://localhost:8011/
 - domain: zabbix.ffh.zone
-  root: /var/www/zabbix.ffh.zone
+  root: /usr/share/zabbix/
   tls: true
   tls_redirect_to_https: true
   php: true
   custom_config: |
           location / {
-            alias /usr/share/zabbix;
+            alias /usr/share/zabbix/;
             disable_symlinks on;
-            fastcgi_param PHP_VALUE "
-              max_execution_time 300
-              memory_limit 128M
-              post_max_size 16M
-              upload_max_filesize 2M
-              max_input_time 300
-              max_input_vars 10000
-              always_populate_raw_post_data -1
-            ";
           }
 
