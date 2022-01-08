@@ -15,7 +15,7 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     # special
-    - { name: ffh.zabbix-server, tags: zabbix-server }
+    # - { name: ffh.zabbix-server }  # will be replaced with zabbix_server role from community collection soon'ish
     - { name: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { role: ffh.nginx, tags: nginx }
     # Backups
