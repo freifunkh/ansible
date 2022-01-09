@@ -1,4 +1,5 @@
 server {
+{% set http_mode = 'http' %}
     listen                      80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
     listen                      [::]:80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
     server_name                 {{ item.servername_override | default(item.domain) }};
@@ -20,6 +21,7 @@ server {
 
 {% if item.tls is defined and item.tls == true %}
 server {
+{% set http_mode = 'https' %}
     listen                      443 ssl http2;
     listen                      [::]:443 ssl http2;
     server_name                 {{ item.servername_override | default(item.domain) }};

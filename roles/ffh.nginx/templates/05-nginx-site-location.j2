@@ -1,5 +1,6 @@
 {% if item.locations is defined %}
 {% for location in item.locations %}
+{% if ( http_mode == "http" and not location.https_only | default(False) ) or ( http_mode == "https" and not location.http_only | default(False) ) %}
 
     location {{ location.location }} {
 {% if location.type|default('default') == 'proxy' %}
@@ -36,5 +37,6 @@
 	root {{ location.root }};
 {% endif %}
     }
+{% endif %}
 {% endfor %}
 {% endif %}
