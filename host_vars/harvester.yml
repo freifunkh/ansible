@@ -54,6 +54,7 @@ nginx_sites:
       gzip: true
   tls: true
   tls_redirect_to_https: true
+  servername_override: '"~^(www.)?harvester.ffh.zone|fdca:ffee:8:.{0,3}:1231$"'
 - domain: opkg.ffh.zone
   tls: false
   locations:

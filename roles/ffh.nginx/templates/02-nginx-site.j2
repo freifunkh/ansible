@@ -1,7 +1,7 @@
 server {
     listen                      80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
     listen                      [::]:80{% if item.default_site is defined and item.default_site %} default_server{% endif %};
-    server_name                 {{ item.domain }};
+    server_name                 {{ item.servername_override | default(item.domain) }};
 
 {% if item.tls_redirect_to_https is defined and item.tls_redirect_to_https == true %}
     access_log                  off;
@@ -22,7 +22,7 @@ server {
 server {
     listen                      443 ssl http2;
     listen                      [::]:443 ssl http2;
-    server_name                 {{ item.domain }};
+    server_name                 {{ item.servername_override | default(item.domain) }};
 
 {% include '03-nginx-site-ssl.j2' %}
 
