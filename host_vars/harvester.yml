@@ -49,11 +49,23 @@ nginx_sites:
   root: /var/www/harvester.ffh.zone
   locations:
     - location: /
+      http_only: true
+      type: proxy
+      proxy_forward_url: http://localhost:8042/
+      proxy_buffering: false
+    - location: /
+      https_only: true
+      rewrite_params: '^ http://$host$request_uri? permanent'
+    - location: /api/
+      http_only: true
+      rewrite_params: '^ https://$host$request_uri? permanent'
+    - location: /api/
+      https_only: true
       allow_cors: true
       directory_index: true
       gzip: true
   tls: true
-  tls_redirect_to_https: true
+  tls_redirect_to_https: false
   servername_override: '"~^(www.)?harvester.ffh.zone|fdca:ffee:8:.{0,3}:1231$"'
 - domain: opkg.ffh.zone
   tls: false
