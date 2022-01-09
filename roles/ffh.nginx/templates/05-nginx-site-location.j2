@@ -3,6 +3,9 @@
 {% if ( http_mode == "http" and not location.https_only | default(False) ) or ( http_mode == "https" and not location.http_only | default(False) ) %}
 
     location {{ location.location }} {
+{% if location.rewrite_params is defined %}
+        rewrite {{ location.rewrite_params }};
+{% endif %}
 {% if location.type|default('default') == 'proxy' %}
         proxy_pass          {{ location.proxy_forward_url }};
 {% if location.proxy_pass_host|default(True) %}
