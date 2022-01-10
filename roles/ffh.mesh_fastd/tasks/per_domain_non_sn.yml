@@ -11,6 +11,7 @@
 
 - name: Restart systemd-networkd
   service: name=systemd-networkd state=restarted
+  when: not ansible_check_mode
 
 - name: Create mesh_fastd daemon config directories
   file: path=/etc/fastd/mesh_fastd_{{ domain.id }} state=directory
