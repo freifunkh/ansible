@@ -7,6 +7,8 @@ journald_watch_filter_regexes:
 - '/sshd.*fatal: no hostkey alg \[preauth\]/'
 - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
 - '/sshd.*fatal: Unable to negotiate a key exchange method \[preauth\]/'
+- '/sshd.*error: kex_exchange_identification: Connection closed by remote host/'
+- '/sshd.*error: kex_exchange_identification: banner line contains invalid characters/'
 - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: Auth fail \[preauth\]/'
 - '/sshd.*error: Received disconnect from.*com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. \[preauth\]/'
 - '/sshd.*error: Received disconnect from.*Handshake failed \[preauth\]/'
