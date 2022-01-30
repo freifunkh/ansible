@@ -3,9 +3,9 @@
 print_all() {
     for SOCK in $(ls -1 /var/run/fastd.mesh_fastd*.sock)
     do
-	DOM=$(echo ${SOCK} | sed -e 's/[^0-9]//g');
-	echo -n "Domain ${DOM}: ";
-	nc -U ${SOCK} 2>/dev/null | jq '.peers[] | select(.connection != null ) | .name | select( test("^(?!sn\\d+|harvester)"))' | wc -l;
+        DOM=$(echo ${SOCK} | sed -e 's/[^0-9]//g');
+        echo -n "Domain ${DOM}: ";
+        nc -U ${SOCK} 2>/dev/null | jq '.peers[] | select(.connection != null ) | .name | select( test("^(?!sn\\d+|harvester)"))' | wc -l;
     done
 }
 
@@ -17,8 +17,8 @@ print_json() {
     total=0
     for SOCK in $(ls -1 /var/run/fastd.mesh_fastd*.sock)
     do
-	domain=$(nc -U ${SOCK} 2>/dev/null | jq '.peers[] | select(.connection != null ) | .name | select( test("^(?!sn\\d+|harvester)"))' | wc -l);
-        total=$(python -c "print($total+$domain)")
+        domain=$(nc -U ${SOCK} 2>/dev/null | jq '.peers[] | select(.connection != null ) | .name | select( test("^(?!sn\\d+|harvester)"))' | wc -l);
+        total=$(python3 -c "print($total+$domain)")
     done
 
     cat<<EOF
