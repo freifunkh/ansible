@@ -41,4 +41,4 @@
     user: auto
     minute: "*/1"
     job: >
-      sudo /home/auto/autoupdate_wg.py > /dev/null 2>&1
+      sudo /home/auto/autoupdate_wg.py
