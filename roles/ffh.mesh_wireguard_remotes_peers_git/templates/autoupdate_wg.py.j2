@@ -46,7 +46,11 @@ def read_repo_keys():
         if file.is_file():
             filename = os.fsdecode(file)
             with open(filename) as keyfile:
-                repokeys.append(keyfile.readline().strip())
+                key = keyfile.readline().strip()
+                if not re.match('^[0-9a-zA-Z+/]{42}[AEIMQUYcgkosw480]=$', key):
+                    print(f"Warning: Skipping {filename}. Key is invalid!")
+                    continue
+                repokeys.append(key)
     return repokeys
 
 def read_interface_keys(intf):
