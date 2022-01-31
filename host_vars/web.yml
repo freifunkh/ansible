@@ -9,7 +9,6 @@ networkd_configures:
   addresses:
     - 2a01:4f8:221:100c::443/64
   gateway6: 2a01:4f8:221:100c::2
-  dns_server: [213.133.98.98, 213.133.99.99]
   static_routes:
     - gw: 2a01:4f8:221:100c::2
       dest: 2a01:4f8:221:100c::7000/120
