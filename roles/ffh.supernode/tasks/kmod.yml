@@ -16,12 +16,14 @@
 
 - name: Install nf_onntrack_proto_gre kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_proto_gre
+  when: ansible_distribution_major_version|int < 11
 
 - name: Load ip_gre kmod
   modprobe: name=ip_gre state=present
 
 - name: Load nf_conntrack_proto_gre kmod
   modprobe: name=nf_conntrack_proto_gre state=present
+  when: ansible_distribution_major_version|int < 11
 
 - name: Load nf_conntrack_ipv6 kmod
   modprobe: name=nf_conntrack_ipv6 state=present
