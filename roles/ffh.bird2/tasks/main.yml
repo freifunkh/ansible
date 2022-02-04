@@ -2,6 +2,7 @@
 # tasks file for ffh.bird2
 
 - name: "BIRD 2"
+  when: bird_enable is defined and bird_enable
   block:
     - name: "Add repo key"
       apt_key:
@@ -24,9 +25,9 @@
         name: "bird2"
         state: latest
 
-# Depends on outdated libs. Disabled for now.
-#- name: "Install statistics export"
-#  include_tasks: bird_exporter.yml
+    # Depends on outdated libs. Disabled for now.
+    #- name: "Install statistics export"
+    #  include_tasks: bird_exporter.yml
 
     - name: "Add named routing table"
       copy:
@@ -38,4 +39,34 @@
       template:
        src: "bird_{{ ansible_hostname }}.conf.j2"
        dest: /etc/bird/bird.conf
-  when: bird_enable is defined and bird_enable
+
+    - name: "Install birdstatus"
+      git:
+        repo: "https://github.com/freifunkh/birdstatus"
+        dest: "/opt/birdstatus"
+        version: "main"
+
+    - name: "Install birdstatus dependencies"
+      get_url:
+        url: "https://raw.githubusercontent.com/freifunkh/pybird/master/pybird/__init__.py"
+        dest: "/opt/birdstatus/pybird.py"
+        mode: "0644"
+        owner: "root"
+        group: "root"
+
+    - name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
+      file:
+        path: "/etc/zabbix/zabbix_agentd.d"
+        state: "directory"
+        owner: "root"
+        group: "root"
+        mode: "0755"
+
+    - name: "Zabbix: Deploy userparameter file"
+      notify: "reload zabbix-agent"
+      copy:
+        src: "userparameter_bird.conf"
+        dest: "/etc/zabbix/zabbix_agentd.d/userparameter_bird.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"      
