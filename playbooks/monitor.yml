@@ -6,17 +6,17 @@
       import_tasks: "include/reboot-required.yml"
       tags: [always]
   roles:
+    # general
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.ferm, tags: ferm }
-    # admin stuff
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     # special
-    # - { name: ffh.zabbix-server }  # will be replaced with zabbix_server role from community collection soon'ish
+      # - { name: ffh.zabbix-server }  # will be replaced with zabbix_server role from community collection soon'ish
     - { name: ffh.zabbix-frontend, tags: zabbix-frontend }
     - { role: ffh.nginx, tags: nginx }
-    # Backups
+    # backup
     - { name: ffh.restic, tags: restic }

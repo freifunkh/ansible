@@ -24,7 +24,7 @@
         state: "link"
       tags: [always]
   roles:
-    # Generic
+    # general
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.journald, tags: journald }
@@ -32,7 +32,10 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    # special
     - { name: ffh.zabbix-sql, tags: zabbix-sql }
+    # backup
     - { name: ffh.restic, tags: restic }
-    # Specific
+
+    # attention
     ###### - { name: geerlingguy.mysql, tags: mysql } # NEVER USE IT AS IT OVERWRITES VITAL CONFIG DATA

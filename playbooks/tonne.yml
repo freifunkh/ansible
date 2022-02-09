@@ -6,6 +6,7 @@
       import_tasks: "include/reboot-required.yml"
       tags: [always]
   roles:
+    # general
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }

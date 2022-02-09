@@ -6,16 +6,18 @@
       import_tasks: "include/reboot-required.yml"
       tags: [always]
   roles:
+    # general
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.ferm, tags: ferm }
-    - { role: ffh.dns_authoritative, tags: dns_authoritative }
-    - { role: ffh.dns_zonenodes, tags: dns_zonenodes }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    # special
+    - { name: ffh.dns_authoritative, tags: dns_authoritative }
+    - { name: ffh.dns_zonenodes, tags: dns_zonenodes }
     - { name: ffh.postfix, tags: postfix }
     - { name: ffh.ntp, tags: ntp }
-    - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    # Backups
+    # backup
     - { name: ffh.restic, tags: restic }
