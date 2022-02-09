@@ -1,0 +1,7 @@
+---
+
+- name: etckeeper post-commit
+  shell: 'etckeeper commit "post-commit changes after Ansible run ({{ local_username.stdout }}, tags: {{ ansible_run_tags | join(",") }})" || echo "nothing to commit"'
+  register: post_result
+  changed_when: post_result.stdout.find('nothing to commit') == -1
+  tags: [always]

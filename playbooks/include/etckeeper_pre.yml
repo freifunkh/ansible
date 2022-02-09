@@ -1,0 +1,14 @@
+---
+
+- name: get local username
+  local_action: shell echo $USER@$(hostname)
+  register: local_username
+  changed_when: false
+  tags: [always]
+  check_mode: no
+
+- name: etckeeper pre-commit
+  shell: 'etckeeper commit "pre-commit changes before Ansible runs ({{ local_username.stdout }}, tags: {{ ansible_run_tags | join(",") }})" || echo "nothing to commit"'
+  register: pre_result
+  changed_when: pre_result.stdout.find('nothing to commit') == -1
+  tags: [always]
