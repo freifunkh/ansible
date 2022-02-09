@@ -9,15 +9,16 @@
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
   roles:
-    - { name: ffh.ferm, tags: ferm }
+    # general
+    - { name: ffh.ferm, tags: ferm, when: "'proxmoxes' not in group_names" }
     - { name: ffh.admin, tags: admin }
-    - { name: ffh.journald, tags: journald }
+    - { name: ffh.journald, tags: journald, when: "'proxmoxes' not in group_names" }
     - { name: ffh.cli_tools, tags: cli_tools }
-    - { name: ffh.simple_mail, tags: simple_mail }
-    - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.simple_mail, tags: simple_mail, when: "'proxmoxes' not in group_names" }
+    - { name: ffh.cron-apt, tags: cron-apt, when: "'proxmoxes' not in group_names" }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    - { name: ffh.restic, tags: restic }
-
+    # backup
+    - { name: ffh.restic, tags: restic, when: "ansible_hostname not in ['tonne']" }
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
