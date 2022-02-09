@@ -22,3 +22,10 @@
     sysctl_file: /etc/sysctl.d/50-forwarding.conf
     reload: yes
 
+- name: Setting the maximum number of IPv6 routes
+  sysctl:
+    name: net.ipv6.route.max_size
+    value: "1073741824"
+    sysctl_file: /etc/sysctl.d/11-ipv6-routing.conf
+    reload: yes
+
