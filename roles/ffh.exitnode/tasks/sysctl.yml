@@ -3,7 +3,7 @@
 - name: Adjust netfilter conntrack table size
   sysctl:
     name: net.netfilter.nf_conntrack_max
-    value: "{{ firewall_conntrack_table_size }}"
+    value: "{{ firewall_conntrack_table_size|int }}"
     state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
     sysctl_file: /etc/sysctl.d/20-conntrack.conf
     reload: yes
