@@ -1,0 +1,16 @@
+---
+# tasks file for ffh.zabbix-proxy
+
+- name: "Create Ferm config directory"
+  file:
+    path: "/etc/ferm/conf.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Generate firewall config stanza (ferm)"
+  notify: "reload ferm"
+  template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-zabbix-proxy.conf"
