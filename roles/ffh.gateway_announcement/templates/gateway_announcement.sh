@@ -7,12 +7,12 @@ BATCTL=/usr/sbin/batctl
 #GW_BANDWIDTH=/sys/class/net/bat%/mesh/gw_bandwidth
 
 off() {
-	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw off
+	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -I X $BATCTL meshif batX gw off
 	systemctl stop isc-kea-dhcp4-server
 }
 
 on() {
-	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -n 1 -I X $BATCTL meshif batX gw server
+	find /sys/class/net/bat* | cut -d '/' -f 5 | sed 's_bat__' | xargs -I X $BATCTL meshif batX gw server
 	systemctl start isc-kea-dhcp4-server
 }
 
