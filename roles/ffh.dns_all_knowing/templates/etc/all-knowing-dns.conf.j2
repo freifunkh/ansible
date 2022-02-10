@@ -5,6 +5,12 @@
 listen {{ rdns_ip }}
 {% endfor %}
 
+{%- for ip6, host in all_knowing_dns.static_hosts.items() | default( [] ) %}
+
+network {{ ip6 }}/128
+        resolves to {{ host }}
+	with upstream {{ helpernodes.ns1.ip6 }}
+{%- endfor %}
 {%- for mesh_prefix in all_knowing_dns.mesh_prefixes | default( [] ) %}
 	{%- for snname,sn in supernodes.items() | default( [] ) %}
 		{% for domain in domains | default( [] ) %}
