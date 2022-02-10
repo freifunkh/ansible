@@ -35,3 +35,6 @@ radv_announce_default: true
 fix_netifnames: false
 no_babel: false
 iperf3_is_public_server: true
+
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
