@@ -18,6 +18,7 @@ gre_lower_ifaces:
 
 reboot_on_kernelpanic: true
 
+dns_searchdomains: "ffh.zone"
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
 

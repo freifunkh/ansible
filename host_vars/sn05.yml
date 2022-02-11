@@ -15,7 +15,10 @@ networkd_configures:
       dest: "0.0.0.0/0"
   no_radv_accept: false
   dhcp: false
-  dns_server: [9.9.9.9, 1.1.1.1]
+  dns_server:
+    - 213.133.100.98
+    - 5.1.66.255
+    - '2001:678:ed0:f000::'
 
 mesh_prefix: "2a02:790:ff"
 

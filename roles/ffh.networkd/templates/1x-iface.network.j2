@@ -18,6 +18,7 @@ Gateway={{ item.1.gateway6 }}
 DNS={{ dns_server }}
 {% endfor %}
 {% endif %}
+Domains={{ dns_searchdomains | default('.local') }}
 {% for tunnel in networkd_gre_tunnels %}
 {% if tunnel.lower_interface == item.1.iface %}
 Tunnel={{ tunnel.name }}
@@ -37,6 +38,11 @@ VLAN=vlan{{ vlan.id }}
 {% endfor %}
 {% endif %}
 
+{% if item.1.dhcp is defined and item.1.dhcp %}
+[DHCPv4]
+UseDNS=true
+UseDomains=false
+{% endif %}
 
 {% if item.1.macaddress is defined %}
 [Link]

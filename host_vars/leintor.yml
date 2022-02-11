@@ -15,7 +15,10 @@ networkd_configures:
     - 2a02:790:1:ff::1001/64
   gateway4: 81.3.6.89
   gateway6: fe80::1
-  dns_server: [81.3.3.81, 8.8.8.8]
+  dns_server:
+    - 81.3.3.81
+    - 5.1.66.255
+    - '2001:678:ed0:f000::'
   static_routes:
     - gw: 81.3.6.89
       dest: 0.0.0.0/0

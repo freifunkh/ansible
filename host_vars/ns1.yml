@@ -9,7 +9,10 @@ networkd_configures:
     - 2a03:4000:6:8277::1/64
   gateway4: 37.120.176.1
   gateway6: fe80::1
-  dns_server: [8.8.8.8, 8.8.4.4]
+  dns_server:
+    - 46.38.225.230
+    - 5.1.66.255
+    - '2001:678:ed0:f000::'
 
 dns_authoritative_nameserver:
 - nameserver: "ns1.fnorden.net."
