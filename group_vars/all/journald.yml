@@ -3,6 +3,7 @@ journald_watch_enabled: true
 journald_watch_mailto: "monitoring@hannover.freifunk.net"
 journald_watch_filter_regexes:
 - '/kernel: do_IRQ:.*No irq handler for vector \(irq -1\)/'
+- '/kernel: .*batman_adv: Cannot find parent device/'
 - '/sshd.*fatal: no matching cipher found/'
 - '/sshd.*fatal: no hostkey alg \[preauth\]/'
 - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
