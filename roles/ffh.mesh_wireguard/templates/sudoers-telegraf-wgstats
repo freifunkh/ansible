@@ -1,0 +1,2 @@
+telegraf ALL=(ALL) NOPASSWD: /usr/bin/ffh_wg_stats.py
+Defaults:zabbix        !requiretty, !logfile, !syslog

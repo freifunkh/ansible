@@ -23,3 +23,8 @@
   template:
     src: telegraf_mesh_wg_stats.conf.j2
     dest: /etc/telegraf/telegraf.d/mesh_wg_stats.conf
+
+- name: Allow querying wgstats for user telegraf
+  template:
+    src: sudoers-telegraf-wgstats
+    dest: /etc/sudoers.d/sudoers-telegraf-wgstats
