@@ -1,0 +1,14 @@
+#
+# bat{{ domain.id }}
+#
+
+[NetDev]
+Name=bat{{ domain.id }}
+Kind=batadv
+
+
+[BatmanAdvanced]
+# GatewayMode=server
+RoutingAlgorithm=batman-iv
+# OriginatorIntervalSec=5
+# HopPenalty=250
