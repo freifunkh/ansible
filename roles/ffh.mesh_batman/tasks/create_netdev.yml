@@ -1,0 +1,10 @@
+---
+
+- name: "Generate networkd batman-adv netdev (dom {{ domain.id }})"
+  template:
+    src: 10-batX.netdev
+    dest: /etc/systemd/network/10-bat{{ domain.id }}.netdev
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: domain
+  when: domains is defined and sn is defined

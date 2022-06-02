@@ -19,6 +19,9 @@
 - name: Load batman_adv module
   modprobe: name=batman_adv state=present
 
+- name: Include 'Create netdev'
+  include_tasks: create_netdev.yml
+
 - name: Restart mesh_fastd
   service: name=fastd@mesh_fastd state=restarted
   when: installedversion is changed and bat0_exists.stat.exists
