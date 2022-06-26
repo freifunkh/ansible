@@ -144,10 +144,10 @@
 
 - name: Download getssl
   get_url:
-    url: "https://raw.githubusercontent.com/srvrco/getssl/e85b4655ccf79114b2a78867ceff049dbaf67fa9/getssl"
+    url: "https://raw.githubusercontent.com/srvrco/getssl/release2.46/getssl"
     dest: "{{ nginx_getssl_dir }}/getssl"
     mode: 0700
-    checksum: "sha256:0b447777bebeaa3b0eb4cf493260f569f44d96e5b4f29de5e70bf60e77a3b893"
+    checksum: "sha256:1d05824bed32b5b1d5bdc546b338abf1ed2a48d0c8c6f903cc15883b2412614d"
   when: item.tls|default(False)
   with_items: "{{ nginx_sites }}"
 
