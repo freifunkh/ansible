@@ -1,0 +1,37 @@
+---
+
+servername: "sn03"
+sn: 3
+fqdn: "sn03.s.ffh.zone"
+
+networkd_configures:
+- iface: "enp0s20f3"
+  addresses:
+    - "192.168.178.254/32"
+    - "2a02:560:5338:9d00:ec4:7aff:feac:87ed/64"
+  gateway4: 192.168.178.1
+  gateway6: fe80::1
+  no_radv_accept: false
+  dhcp: true
+  dns_server:
+    - 5.1.66.255 # ffmuc
+    - '2001:678:ed0:f000::' # ffmuc
+
+mesh_prefix: "2a02:790:ff"
+
+gre_lower_ifaces:
+  default: enp0s20f3
+
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interface_penalty:
+  gre-aegidientor: 666
+  gre-steintor: 120
+  gre-leintor: 130
+  gre-clevertor: 140
+  gre-listertor: 100
+  gre-bruehltor: 666
+babeld_v6_exitnode: "leintor"
+
+legacy_dom0: true
+radv_announce_default: false
+coordinates: ['52.384054116', '9.722457826']
