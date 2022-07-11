@@ -47,8 +47,11 @@ dns_zonenodes_nodeurl: "https://harvester.ffh.zone/api/nodes.json"
 dns_authoritative_toplevel:
    - domain: "203.12.45.in-addr.arpa."
      records: [
+      "10.203.12.45.in-addr.arpa. IN PTR clevertor.e.ffh.zone.",
+      "11.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
+      "12.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
       "13.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
-      "12.203.12.45.in-addr.arpa. IN PTR aegidientor.e.ffh.zone."
+      "14.203.12.45.in-addr.arpa. IN PTR harvester.ffh.zone."
      ]
    - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
      records: [
