@@ -1,0 +1,31 @@
+---
+# tasks file for ffh.addr-gen-mode-hotfix
+
+# see https://github.com/freifunkh/ansible/issues/224
+
+- name: "Hotfix b/c systemd is currently unable to set net.ipv6.conf.*.addr_gen_mode right."
+  when: "ansible_distribution_version|int > 10"
+  block:
+    - name: "Install addr-gen-mode"
+      notify: "systemd daemon-reload"
+      copy:
+        src: "addr-gen-mode.service"
+        dest: "/etc/systemd/system/addr-gen-mode.service"
+        mode: "0644"
+        owner: "root"
+        group: "root"
+
+    - name: "Create sysctl file"
+      template:
+        src: "99-addr_gen_mode.conf.j2"
+        dest: "/etc/sysctl.d/99-addr_gen_mode.conf"
+        mode: "0644"
+        owner: "root"
+        group: "root"
+
+    - name: "Enable oneshot service addr-gen-mode"
+      systemd:
+        name: "addr-gen-mode"
+        state: "started"
+        enabled: "yes"
+        daemon_reload: "yes"

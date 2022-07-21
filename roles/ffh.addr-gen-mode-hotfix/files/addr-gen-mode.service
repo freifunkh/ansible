@@ -1,0 +1,11 @@
+[Unit]
+Description=Fires sysctl for addr-gen-mode again (for gre devices)
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/sysctl -p /etc/sysctl.d/99-addr_gen_mode.conf
+ExecStartPost=/usr/bin/systemctl restart babeld
+
+[Install]
+WantedBy=network-online.target

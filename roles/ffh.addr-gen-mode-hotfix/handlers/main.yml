@@ -1,0 +1,6 @@
+---
+# handlers file for ffh.addr-gen-mode-hotfix
+
+- name: "systemd daemon-reload"
+  systemd:
+    daemon_reload: "yes"

@@ -1,0 +1,17 @@
+net.ipv6.conf.default.addr_gen_mode=0
+
+{% for exitnode in exitnodes.keys() | sort %}
+{% if servername != exitnode -%}
+net.ipv6.conf.gre-{{ exitnode }}.addr_gen_mode=0
+{% endif %}
+{% endfor %}
+
+{% for supernode in supernodes.keys() | sort %}
+{% if servername != supernode -%}
+net.ipv6.conf.gt-{{ supernode }}.addr_gen_mode=0
+{% endif %}
+{% endfor %}
+
+{% for domain in domains | default([]) %}
+net.ipv6.conf.wg-{{ domain.id }}.addr_gen_mode=0
+{% endfor %}
