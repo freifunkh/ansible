@@ -13,7 +13,7 @@
     - { name: ffh.devname, tags: devname }
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.networkd, tags: networkd }
-    - { name: ffh.addr-gen-mode-hotfix, tags: addr-gen-mode-hotfix }
+    - { name: ffh.addr-gen-mode-hotfix, tags: addr-gen-mode-hotfix, when: ansible_distribution_major_version|int > 10 }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.babeld, tags: babeld }
     - { name: ffh.simple_mail, tags: simple_mail }
