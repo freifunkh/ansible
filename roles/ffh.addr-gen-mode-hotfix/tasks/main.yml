@@ -26,6 +26,5 @@
     - name: "Enable oneshot service addr-gen-mode"
       systemd:
         name: "addr-gen-mode"
-        state: "started"
         enabled: "yes"
         daemon_reload: "yes"
