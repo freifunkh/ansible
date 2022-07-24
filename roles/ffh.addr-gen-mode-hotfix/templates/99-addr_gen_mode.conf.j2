@@ -12,6 +12,8 @@ net.ipv6.conf.gt-{{ supernode }}.addr_gen_mode=0
 {% endif %}
 {% endfor %}
 
+# wg interfaces just had fe80::1 addresses in the past
+# unsure if we should leave it that way
 {% for domain in domains | default([]) %}
-net.ipv6.conf.wg-{{ domain.id }}.addr_gen_mode=0
+# net.ipv6.conf.wg-{{ domain.id }}.addr_gen_mode=0
 {% endfor %}
