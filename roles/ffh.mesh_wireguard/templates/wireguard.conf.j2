@@ -2,5 +2,6 @@
 Name={{ mesh_wireguard_iface_prefix }}-{{ '%02d' % domain.id | int }}
 
 [Network]
-Address = fe80::1/64
+Address=fe80::1/64
+IPv6AcceptRA=false    # workaround for https://github.com/systemd/systemd/issues/23197
 VXLAN={{ vxlan_iface_prefix }}-{{ '%02d' % domain.id | int }}
