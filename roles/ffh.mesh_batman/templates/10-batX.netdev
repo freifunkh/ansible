@@ -6,9 +6,8 @@
 Name=bat{{ domain.id }}
 Kind=batadv
 
-
 [BatmanAdvanced]
-# GatewayMode=server
+GatewayMode=server
 RoutingAlgorithm=batman-iv
-# OriginatorIntervalSec=5
-# HopPenalty=250
+OriginatorIntervalSec=5
+HopPenalty=30

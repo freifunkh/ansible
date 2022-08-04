@@ -1,7 +1,11 @@
 [Match]
-Name={{ vxlan_iface_prefix }}-*
+Name={{ vxlan_iface_prefix }}-{{ domain.id }}
 
 [Network]
+BatmanAdvanced=bat{{ domain.id }}
+DHCP=no
+IPv6AcceptRA=false
 
 [Link]
 MTUBytes=1330
+RequiredForOnline=false
