@@ -9,3 +9,6 @@
   service:
     name: wg_netlink
     state: restarted
+
+- name: Restart networkd
+  service: name=systemd-networkd state=restarted
