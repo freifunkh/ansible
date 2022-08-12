@@ -1,3 +1,32 @@
 ---
 servername: "build"
 fqdn: "build.ffh.zone"
+
+networkd_configures:
+- iface: eth0
+  dhcp: false
+  addresses:
+    - 172.26.178.26/16
+  gateway4: 172.26.0.1
+  dns_server:
+    - 5.1.66.255
+
+ansible_python_interpreter: "/usr/bin/python3"
+
+nginx_sites:
+- domain: build.ffh.zone
+  root: /var/www/jenkins
+  tls: true
+  locations:
+    - location: /
+      http_only: true
+      type: proxy
+      proxy_forward_url: http://localhost:8042/
+      proxy_buffering: false
+
+restic_backup_paths:
+- "/etc/"
+- "/var/www/"
+
+zabbix_agent_server: "zbx-hetzner.ffh.zone"
+zabbix_agent_server_active: "zbx-hetzner.ffh.zone"

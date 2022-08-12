@@ -41,6 +41,9 @@ all:
       ansible_host: tiefensee.ffh.zone
     scheuer:
       ansible_host: scheuer.ffh.zone
+    build:
+      ansible_host: build.ffh.zone
+      ansible_port: 22
 
 supernodes:
   hosts:
