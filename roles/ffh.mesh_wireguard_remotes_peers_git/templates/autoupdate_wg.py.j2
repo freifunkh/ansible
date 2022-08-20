@@ -122,19 +122,19 @@ def calc_ll(pubkey) -> str:
 
 def wg_modify_peer(pubkey, iface, remove=False):
     # this could become global
-    wg = WireGuard()
-    if remove:
-        peer = {'public_key': pubkey,
-                'remove': True}
-        wg.set(iface, peer=peer)
-    else:
-        allowed=calc_ll(pubkey)
-        peer = {'public_key': pubkey,
-                'persistent_keepalive': 25,
-                'allowed_ips': [allowed]}
-        wg.set(iface, peer=peer)
-        if verbose:
-            print("Info: Added key to {}.".format(iface))
+    with WireGuard() as wg:
+        if remove:
+            peer = {'public_key': pubkey,
+                    'remove': True}
+            wg.set(iface, peer=peer)
+        else:
+            allowed=calc_ll(pubkey)
+            peer = {'public_key': pubkey,
+                    'persistent_keepalive': 25,
+                    'allowed_ips': [allowed]}
+            wg.set(iface, peer=peer)
+            if verbose:
+                print("Info: Added key to {}.".format(iface))
 
 
 if "__main__" == __name__:
