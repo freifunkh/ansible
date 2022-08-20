@@ -1,2 +1,3 @@
-telegraf ALL=(ALL) NOPASSWD: /usr/bin/ffh_wg_stats.py
-Defaults:zabbix        !requiretty, !logfile, !syslog
+telegraf ALL=(root) NOPASSWD: /usr/bin/ffh_wg_stats.py
+telegraf ALL=(root) NOPASSWD: /usr/bin/ffh_wg_peercounter.sh
+Defaults:telegraf        !requiretty, !logfile, !syslog

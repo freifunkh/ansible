@@ -7,6 +7,13 @@
     owner: "root"
     mode: 0755
 
+- name: Install ffh_wg_peercounter.sh
+  copy:
+    src: "bin/ffh_wg_peercounter.sh"
+    dest: "/usr/bin/"
+    owner: "root"
+    mode: 0755
+
 - name: Check telegraf path
   stat:
     path: /etc/telegraf/telegraf.d/
