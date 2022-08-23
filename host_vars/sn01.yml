@@ -1,0 +1,32 @@
+---
+
+servername: "sn01"
+sn: 1
+fqdn: "sn01.s.ffh.zone"
+
+networkd_configures:
+- iface: "eth0"
+  addresses:
+    - "2001:41d0:701:1100::65a6/64"
+  gateway6: "2001:41d0:701:1100::1"
+  no_radv_accept: true
+  dhcp: true
+  dns_server:
+    - 5.1.66.255
+    - '2001:678:ed0:f000::'
+
+mesh_prefix: "2a02:790:ff"
+
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interface_penalty:
+  gre-aegidientor: 666
+  gre-steintor: 120
+  gre-leintor: 130
+  gre-clevertor: 140
+  gre-listertor: 100
+  gre-bruehltor: 666
+babeld_v6_exitnode: "leintor"
+
+legacy_dom0: false
+radv_announce_default: false
+coordinates: ['50.408633770', '8.062720299']

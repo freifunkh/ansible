@@ -113,6 +113,8 @@ dns_authoritative_toplevel:
        "sn08.ffh.zone. IN CNAME sn08.s.ffh.zone.",
        "sn09.ffh.zone. IN CNAME sn09.s.ffh.zone.",
        "sn10.ffh.zone. IN CNAME sn10.s.ffh.zone.",
+       "sn01.s.ffh.zone. 120 IN A 51.75.67.203",
+       "sn01.s.ffh.zone. 120 IN AAAA 2001:41d0:701:1100::65a6",
        "sn02.s.ffh.zone. 120 IN A 45.12.203.11",
        "sn02.s.ffh.zone. IN AAAA 2001:678:978:ff01::2",
        "sn03.s.ffh.zone. 10 IN A 89.182.6.219",
@@ -179,8 +181,6 @@ dns_authoritative_toplevel:
 dns_authoritative_zones:
 - zone: "pve-ffnw"
   to: "2001:678:978:ff01::1"
-- zone: "sn01.s"
-  to: "2001:678:978:ff01::2"
 - zone: "rdns"
   to: "2001:678:978:ff01::3"
 
