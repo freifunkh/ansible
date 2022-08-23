@@ -4,3 +4,8 @@
 # it is installed later or already installed.
 - name: Maybe restart telegraf
   shell: if [ -f /usr/bin/telegraf ]; then systemctl restart telegraf; fi
+
+- name: Restart wg_netlink
+  service:
+    name: wg_netlink
+    state: restarted
