@@ -15,13 +15,13 @@ ansible_python_interpreter: "/usr/bin/python3"
 
 nginx_sites:
 - domain: build.ffh.zone
-  root: /var/www/jenkins
+  tls_redirect_to_https: true
   tls: true
   locations:
     - location: /
-      http_only: true
+      https_only: true
       type: proxy
-      proxy_forward_url: http://localhost:8042/
+      proxy_forward_url: http://localhost:8080/
       proxy_buffering: false
 
 restic_backup_paths:
