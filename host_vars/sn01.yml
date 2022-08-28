@@ -27,6 +27,6 @@ babeld_interface_penalty:
   gre-bruehltor: 666
 babeld_v6_exitnode: "leintor"
 
-legacy_dom0: false
+legacy_dom0: true
 radv_announce_default: false
 coordinates: ['50.408633770', '8.062720299']
