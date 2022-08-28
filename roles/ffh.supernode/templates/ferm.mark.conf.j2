@@ -15,11 +15,8 @@ domain (ip ip6) {
 
     }
 
-    table mangle {
-      chain OUTPUT {
+    chain OUTPUT {
         saddr {{ mesh_prefix }}:{{ sn }}00::/56 MARK set-xmark 0x2a/0xffffffff;
-      }
     }
-
   }
 }
