@@ -18,7 +18,7 @@
     - { name: ffh.cron-apt, tags: cron-apt, when: "'proxmoxes' not in group_names" }
     - { name: ffh.zabbix-agent, tags: zabbix-agent, when: "ansible_hostname not in ['monitor']" }
     # backup
-    - { name: ffh.restic, tags: restic, when: "ansible_hostname not in ['tonne']" }
+    - { name: ffh.restic, tags: restic, when: "ansible_hostname not in ['tonne', 'perf-test']" }
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
