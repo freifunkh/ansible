@@ -18,13 +18,62 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+
   tasks:
-    - name: "Install git and stuff"
+    - name: "Install git, ansible and stuff"
       apt:
         pkg:
-        - sudo
         - git
         - nfs-common
+        - ansible
+        - pip
+        - sudo
+        - rsync
+
+    - name: Create auto user
+      register: createuser
+      user:
+        name: auto
+        system: yes
+        generate_ssh_key: yes
+
+    - name: Configure git
+      become_user: auto
+      shell: "git config --global pull.ff only"
+
+    - name: Clone the ansible git
+      become: yes
+      become_user: auto
+      git:
+        repo: "https://github.com/freifunkh/ansible"
+        dest: /home/auto/ansible
+        accept_hostkey: true
+
+    - name: Install PIP dependencies
+      pip:
+        executable: pip3
+        name:
+          - python-dateutil
+          - pytz
+
+    - name: Install daily cronjob
+      cron:
+        name: Daily ansible dry-run
+        user: auto
+        job: "cd /home/auto/ansible; tests/cron.sh"
+        hour: "5"
+        minute: "30"
+
+    - name: Add auto to sudoers
+      copy:
+        dest: /etc/sudoers.d/90-auto
+        mode: 0440
+        owner: root
+        group: root
+        content: |
+          auto ALL=(root) NOPASSWD:ALL
+          Defaults:auto	!requiretty, !logfile, !syslog
+
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
