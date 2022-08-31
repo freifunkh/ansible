@@ -138,7 +138,6 @@ dns_authoritative_toplevel:
        "scheuer.ffh.zone. IN A 194.50.19.34",
        "tiefensee.ffh.zone. IN A 88.99.100.13",
        "tiefensee.ffh.zone. 120 IN AAAA 2a01:4f8:221:100c::2",
-       "ruettgers.ffh.zone. 600 IN AAAA 2a02:8106:64:fc02:e463:89ff:fe3e:d3f4",
        "tonne.ffh.zone. 600 IN A 45.12.203.9",
        "tonne.ffh.zone. 600 IN AAAA 2001:678:978:ff01::9",
        "perf-test.ffh.zone. 120 IN A 94.130.213.34",
@@ -228,7 +227,6 @@ postfix_mynetworks:
 - "[{{ lookup('dig', 'harvester.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 - "[{{ lookup('dig', 'sql.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 - "[{{ lookup('dig', 'tonne.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
-- "[{{ lookup('dig', 'ruettgers.ffh.zone./AAAA') | regex_replace('NXDOMAIN', '::1') }}]/128"
 
 restic_backup_paths:
 - "/etc/"
