@@ -1,5 +1,5 @@
 
-@def $DEV_EXIT = {{ exit_device | default('eth0') }};
+@def $DEV_EXIT = {{ exit_device | default(gre_lower_ifaces.default) }};
 
 @def &PRIV_NET($net) = {
       outerface $DEV_EXIT daddr $net REJECT reject-with icmp-host-unreachable;
