@@ -8,8 +8,8 @@ domain (ip6) {
 domain (ip ip6) {
   table filter {
     chain INPUT_SOURCE_IS_NOT_FFH_EXIT {
-      interface {{ gre_lower_ifaces.default }} proto udp dport 518{{ (domains | map(attribute='id')) | first }}:518{{ ((domains | map(attribute='id')) | list)[-2] }} ACCEPT;
-      interface {{ gre_lower_ifaces.default }} proto udp dport 518{{ (domains | map(attribute='id')) | list | last }} ACCEPT;
+      interface {{ network_lower_ifaces.default }} proto udp dport 518{{ (domains | map(attribute='id')) | first }}:518{{ ((domains | map(attribute='id')) | list)[-2] }} ACCEPT;
+      interface {{ network_lower_ifaces.default }} proto udp dport 518{{ (domains | map(attribute='id')) | list | last }} ACCEPT;
     }
   }
 }

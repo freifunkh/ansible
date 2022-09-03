@@ -52,7 +52,7 @@ networkd_configures:
 
 iperf3_is_public_server: true
 
-gre_lower_ifaces:
+network_lower_ifaces:
   gre-sn02: ens19
   default: vlan2000
 

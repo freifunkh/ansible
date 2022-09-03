@@ -5,14 +5,14 @@
   file:
     name: /etc/systemd/network/10-{{ item.value }}.network.d
     state: directory
-  with_dict: "{{ gre_lower_ifaces }}"
+  with_dict: "{{ network_lower_ifaces }}"
 
 - name: Drop tunnel configs into /etc/systemd/network/10-XXXXX.network.d directories
   notify: Restart networkd
   template:
     src: tunnel.conf.j2
     dest: /etc/systemd/network/10-{{ item.value }}.network.d/gre-tunnel.conf
-  with_dict: "{{ gre_lower_ifaces }}"
+  with_dict: "{{ network_lower_ifaces }}"
 
 - name: Create network interface for each supernode gre endpoint
   notify: Restart networkd

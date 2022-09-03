@@ -1,7 +1,7 @@
 ---
 is_supernode: true
 
-gre_lower_ifaces:
+network_lower_ifaces:
   default: eth0
 
 restic_backup_server_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGSZGZcmeZG8WD8cCfOO0adEPOAae2XmAw7KxZ/1EcoHQ8LPMwP8wB9MePkQNE3vzfX4JExzRTO8lmLWEoB4PpY= root@tonne"

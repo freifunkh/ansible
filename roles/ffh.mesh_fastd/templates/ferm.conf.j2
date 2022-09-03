@@ -6,7 +6,7 @@ domain (ip ip6) {
   }
   table nat {
     chain PREROUTING {
-      proto udp dport 500 if {{ gre_lower_ifaces.default }} REDIRECT to-ports 10023;
+      proto udp dport 500 if {{ network_lower_ifaces.default }} REDIRECT to-ports 10023;
     }
   }
 }

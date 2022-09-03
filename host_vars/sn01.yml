@@ -15,7 +15,7 @@ networkd_configures:
     - 5.1.66.255
     - '2001:678:ed0:f000::'
 
-gre_lower_ifaces:
+network_lower_ifaces:
   default: "ens3"
 
 mesh_prefix: "2a02:790:ff"

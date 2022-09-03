@@ -2,8 +2,8 @@ domain (ip ip6) {
   table filter {
     chain FORWARD {
 
-      interface {{ gre_lower_ifaces.default }} DROP;
-      outerface {{ gre_lower_ifaces.default }} DROP;
+      interface {{ network_lower_ifaces.default }} DROP;
+      outerface {{ network_lower_ifaces.default }} DROP;
       ACCEPT;
 
     }

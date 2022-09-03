@@ -19,7 +19,7 @@ networkd_configures:
 
 mesh_prefix: "2a02:790:ff"
 
-gre_lower_ifaces:
+network_lower_ifaces:
   default: enp0s20f3
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']

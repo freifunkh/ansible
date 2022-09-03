@@ -27,7 +27,7 @@ domain (ip ip6) {
 {% if is_supernode is defined and is_supernode == true %}
             # Every input packet will traverse this chain, except it if is from
             # one of our own exitnode ips. This chain is used to block ff in ff.
-            jump INPUT_SOURCE_IS_NOT_FFH_EXIT interface {{ gre_lower_ifaces.default }} {
+            jump INPUT_SOURCE_IS_NOT_FFH_EXIT interface {{ network_lower_ifaces.default }} {
 {% for item in exitnodes | dict2items %}
 {% for exit_range in item.value.exit_ip_ranges %}
                 saddr ! {{ exit_range }};

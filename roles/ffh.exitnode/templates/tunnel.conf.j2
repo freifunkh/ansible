@@ -1,8 +1,8 @@
 {% macro get_lower_iface(gre_iface) -%}
-{%- if gre_lower_ifaces[gre_iface] is defined -%}
-{{ gre_lower_ifaces[gre_iface] }}
+{%- if network_lower_ifaces[gre_iface] is defined -%}
+{{ network_lower_ifaces[gre_iface] }}
 {%- else -%}
-{{ gre_lower_ifaces.default }}
+{{ network_lower_ifaces.default }}
 {%- endif -%}
 {%- endmacro -%}
 
