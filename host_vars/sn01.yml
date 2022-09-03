@@ -5,7 +5,7 @@ sn: 1
 fqdn: "sn01.s.ffh.zone"
 
 networkd_configures:
-- iface: "eth0"
+- iface: "ens3"
   addresses:
     - "2001:41d0:701:1100::65a6/64"
   gateway6: "2001:41d0:701:1100::1"
@@ -14,6 +14,9 @@ networkd_configures:
   dns_server:
     - 5.1.66.255
     - '2001:678:ed0:f000::'
+
+gre_lower_ifaces:
+  default: "ens3"
 
 mesh_prefix: "2a02:790:ff"
 
