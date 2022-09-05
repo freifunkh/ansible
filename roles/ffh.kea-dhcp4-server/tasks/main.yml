@@ -2,13 +2,13 @@
 
 - name: "Add ISC Kea repository key"
   apt_key:
-    url: "https://dl.cloudsmith.io/public/isc/kea-1-8/cfg/gpg/gpg.4DD5AE28ADA7268E.key"
+    url: "https://dl.cloudsmith.io/public/isc/kea-2-2/gpg.A8CB727C62565FF8.key"
     state: "present"
 
 - name: "Add ISC Kea repository"
   register: "iscrepositoryadded"
   apt_repository:
-    repo: "deb https://dl.cloudsmith.io/public/isc/kea-1-8/deb/debian {{ ansible_distribution_release }} main"
+    repo: "deb https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian {{ ansible_distribution_release }} main"
 
 - name: "Update apt chache to get isc packages"
   apt:
