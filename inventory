@@ -8,6 +8,8 @@ all:
       ansible_host: sn02.s.ffh.zone
     sn03:
       ansible_host: sn03.s.ffh.zone
+    sn04:
+      ansible_host: sn04.s.ffh.zone
     sn05:
       ansible_host: sn05.s.ffh.zone
     sn07:
@@ -50,6 +52,7 @@ supernodes:
     sn01:
     sn02:
     sn03:
+    sn04:
     sn05:
     sn07:
     sn09:
