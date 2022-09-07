@@ -31,6 +31,8 @@ networkd_configures:
 network_lower_ifaces:
   default: eth0
 
+iperf3_is_public_server: true
+
 babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
 
 zabbix_agent_server: "zbx-hostway.ffh.zone"
