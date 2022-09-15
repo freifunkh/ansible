@@ -61,15 +61,6 @@
     owner: "root"
     group: "root"
 
-- name: "Deploy unit file sniplet to create /run directories in case we have a stretch"
-  template:
-    src: "50-pre-env.conf.j2"
-    dest: "/etc/systemd/system/isc-kea-dhcp4-server.service.d/50-pre-env.conf"
-    mode: "0644"
-    owner: "root"
-    group: "root"
-  when: "ansible_distribution_version|int < 10"
-
 - name: "Deploy unit file sniplet to wait for bat devices"
   template:
     src: "50-bat-device.conf.j2"
