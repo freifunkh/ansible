@@ -19,7 +19,8 @@ networkd_configures:
 network_lower_ifaces:
   default: "ens18"
 
-mesh_prefix: "2001:678:978"
+# mesh_prefix: "2001:678:978"
+mesh_prefix: "2a02:790:ff"
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
