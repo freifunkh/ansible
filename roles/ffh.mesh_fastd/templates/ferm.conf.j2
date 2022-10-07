@@ -4,9 +4,4 @@ domain (ip ip6) {
       proto udp dport 10000:10100 ACCEPT;
     }
   }
-  table nat {
-    chain PREROUTING {
-      proto udp dport 500 if {{ network_lower_ifaces.default }} REDIRECT to-ports 10023;
-    }
-  }
 }
