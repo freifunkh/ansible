@@ -51,6 +51,8 @@ nginx_sites:
       expires: -1
     - location: /karte
       root: /var/www/web
+    - location: /sshauto
+      root: /var/www/web
   custom_config: |
           set $foswiki_root "/var/www/web/wiki";
 
