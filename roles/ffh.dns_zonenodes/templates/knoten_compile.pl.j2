@@ -95,7 +95,7 @@ if ($response->is_success) {
             {
                 my $ip = new Net::IP ($ip) or die (Net::IP::Error());
                 my $ptr = $ip->reverse_ip();
-                push( @output, $ptr . "upstream. IN PTR $hostname.$domain.\n" );
+                # push( @output, $ptr . "upstream. IN PTR $hostname.$domain.\n" );
             }
         }
     }

@@ -41,7 +41,7 @@ dns_zonenodes_toplevel: "ffh.zone."
 dns_zonenodes_nodedomain: "n.ffh.zone"
 dns_zonenodes_rdnsdomain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
 dns_zonenodes_rdnsnetwork: "2001:678:978"
-dns_zonenodes_matchIP: "/^2001/"
+dns_zonenodes_matchIP: "/^2a02:790:ff:9/"
 dns_zonenodes_nodeurl: "https://harvester.ffh.zone/api/nodes.json"
 
 dns_authoritative_toplevel:
