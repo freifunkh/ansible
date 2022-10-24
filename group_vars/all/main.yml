@@ -32,5 +32,5 @@ is_supernode: false
 is_exitnode: false
 iperf3_is_public_server: false
 
-babeld_v6_exitnode: "leintor"
+babeld_iface_accept_v6_default_route: "gre-leintor"
 mesh_prefix_len: "48"

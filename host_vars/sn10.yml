@@ -31,7 +31,7 @@ babeld_interface_penalty:
   gre-clevertor: 120
   gre-listertor: 110
   gre-bruehltor: 666
-babeld_v6_exitnode: "leintor"
+babeld_iface_accept_v6_default_route: "eth1"
 
 legacy_dom0: true
 radv_announce_default: true
