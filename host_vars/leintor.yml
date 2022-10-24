@@ -23,6 +23,11 @@ networkd_configures:
     - gw: 81.3.6.89
       dest: 0.0.0.0/0
       table: 43
+- iface: "eth1"
+  addresses:
+    - 100.103.110.1/24
+    - fe80::babf/64
+  no_radv_accept: true
 
 - iface: lo
   addresses:
@@ -33,7 +38,7 @@ network_lower_ifaces:
 
 iperf3_is_public_server: true
 
-babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
+babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10", "eth1"]
 
 zabbix_agent_server: "zbx-hostway.ffh.zone"
 zabbix_agent_server_active: "zbx-hostway.ffh.zone"

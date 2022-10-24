@@ -15,10 +15,14 @@ networkd_configures:
     - 81.3.3.81 # hostway
     - 5.1.66.255 # ffmuc
     - '2001:678:ed0:f000::' # ffmuc
+- iface: "eth1"
+  addresses:
+    - 100.103.110.3/24
+  no_radv_accept: true
 
 mesh_prefix: "2a02:790:ff"
 
-babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor', 'eth1']
 babeld_interface_penalty:
   gre-aegidientor: 666
   gre-steintor: 130
