@@ -25,6 +25,11 @@ networkd_configures:
     - 5.1.66.255
     - '2001:678:ed0:f000::'
   no_radv_accept: true
+  additional_config: |
+    # The following route is used to import a default route into babeld.
+    [Route]
+    Destination=::/0
+    Type=unreachable
 - iface: ens16
 - iface: vlan2000
   addresses:
