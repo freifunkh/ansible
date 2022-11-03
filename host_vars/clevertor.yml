@@ -44,6 +44,10 @@ networkd_configures:
     [RoutingPolicyRule]
     From=10.0.0.0/8
     Table=2000
+- iface: ens20
+  addresses:
+    - 100.104.110.1/24
+  no_radv_accept: true
 - iface: lo
   addresses:
     - 100.100.0.1/32 # anycast for ping tests

@@ -16,21 +16,20 @@ networkd_configures:
     - '2001:678:ed0:f000::'
     - 9.9.9.9
   no_radv_accept: true
+- iface: ens19
+  addresses:
+    - 100.104.110.2/24
+  no_radv_accept: true
 
 network_lower_ifaces:
   default: ens18
 
 mesh_prefix: "2001:678:978"
 
-babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
+babeld_interfaces: ['ens19']
 babeld_interface_penalty:
-  gre-aegidientor: 666
-  gre-steintor: 666
-  gre-leintor: 120
-  gre-clevertor: 110
-  gre-listertor: 666
-  gre-bruehltor: 666
-babeld_iface_accept_v6_default_route: "gre-clevertor"
+  ens19: 100
+babeld_iface_accept_v6_default_route: "ens19"
 
 legacy_dom0: true
 radv_announce_default: true
