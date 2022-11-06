@@ -25,6 +25,7 @@ mesh_prefix: "2a02:790:ff"
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor', 'eth1']
 babeld_interface_penalty:
+  eth1: 90
   gre-aegidientor: 666
   gre-steintor: 130
   gre-leintor: 100
