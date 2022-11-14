@@ -8,7 +8,7 @@ networkd_configures:
 - iface: "enp0s20f3"
   addresses:
     - "192.168.178.254/32"
-    - "2a02:560:5338:9d00:ec4:7aff:feac:87ed/64"
+    - "2a02:560:529b:8c00:ec4:7aff:feac:87ed/64"
   gateway4: 192.168.178.1
   gateway6: fe80::1
   no_radv_accept: false
