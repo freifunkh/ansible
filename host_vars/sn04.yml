@@ -26,8 +26,8 @@ babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listert
 babeld_interface_penalty:
   gre-aegidientor: 666
   gre-steintor: 120
-  gre-leintor: 140
-  gre-clevertor: 130
+  gre-leintor: 130
+  gre-clevertor: 140
   gre-listertor: 100
   gre-bruehltor: 666
 babeld_iface_accept_v6_default_route: "gre-leintor"
