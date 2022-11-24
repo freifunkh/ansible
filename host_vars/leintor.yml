@@ -38,7 +38,7 @@ network_lower_ifaces:
 
 iperf3_is_public_server: true
 
-babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10", "eth1"]
+babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "eth1"]
 
 zabbix_agent_server: "zbx-hostway.ffh.zone"
 zabbix_agent_server_active: "zbx-hostway.ffh.zone"
