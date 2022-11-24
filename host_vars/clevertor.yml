@@ -72,7 +72,7 @@ networkd_vlans:
 - id: 2000
   iface: "ens16"
 
-babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10"]
+babeld_interfaces: ["gre-sn01", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn06", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10", "ens20"]
 
 bird_enable: true
 
