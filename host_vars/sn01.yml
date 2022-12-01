@@ -20,6 +20,8 @@ network_lower_ifaces:
 
 mesh_prefix: "2a02:790:ff"
 
+mesh_wireguard_firewall_open: false
+
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor']
 babeld_interface_penalty:
   gre-aegidientor: 666

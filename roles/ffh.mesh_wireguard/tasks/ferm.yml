@@ -5,4 +5,4 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-mesh_wireguard.conf
-
+  when: mesh_wireguard_firewall_open
