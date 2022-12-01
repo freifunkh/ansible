@@ -1,0 +1,8 @@
+---
+
+- name: call ffh_fix_vx every 5mins
+  ansible.builtin.cron:
+    name: "call ffh_fix_vx every 5mins"
+    minute: "*/5"
+    job: "test -x /usr/bin/ffh_fix_vx.sh && /usr/bin/ffh_fix_vx.sh"
+    user: "root"
