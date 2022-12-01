@@ -5,3 +5,4 @@ mesh_fastd_port: 10000
 mesh_fastd_peerlimit: 150
 mesh_fastd_mtu: 1394
 mesh_fastd_debug_level: fatal
+mesh_fastd_firewall_open: true

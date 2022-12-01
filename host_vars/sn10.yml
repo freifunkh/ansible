@@ -20,8 +20,9 @@ networkd_configures:
     - 100.103.110.2/24
   no_radv_accept: true
 
-
 mesh_prefix: "2a02:790:ff"
+
+mesh_fastd_firewall_open: false
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor', 'eth1']
 babeld_interface_penalty:

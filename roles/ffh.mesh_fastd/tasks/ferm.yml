@@ -3,4 +3,4 @@
   template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-mesh_fastd.conf
-
+  when: mesh_fastd_firewall_open

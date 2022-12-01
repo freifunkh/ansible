@@ -26,6 +26,8 @@ network_lower_ifaces:
 
 mesh_prefix: "2001:678:978"
 
+mesh_fastd_firewall_open: false
+
 babeld_interfaces: ['ens19']
 babeld_interface_penalty:
   ens19: 100
