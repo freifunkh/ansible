@@ -46,5 +46,5 @@ apinger_targets2:
     - 2a02:790::1
 coordinates: ['52.328323878', '9.783394933']
 
-zabbix_agent_server: "zbx-hostway.ffh.zone"
-zabbix_agent_server_active: "zbx-hostway.ffh.zone"
+# zabbix_agent_server: "zbx-hostway.ffh.zone"
+# zabbix_agent_server_active: "zbx-hostway.ffh.zone"
