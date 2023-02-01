@@ -11,6 +11,7 @@
   roles:
     # general
     - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.networkd, tags: networkd }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.cli_tools, tags: cli_tools }
