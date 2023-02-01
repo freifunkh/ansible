@@ -9,6 +9,9 @@
   register: "iscrepositoryadded"
   apt_repository:
     repo: "deb https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian {{ ansible_distribution_release }} main"
+    filename: "kea"
+    update_cache: "yes"
+    state: "present"
 
 - name: "Update apt chache to get isc packages"
   apt:
