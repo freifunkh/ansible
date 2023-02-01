@@ -15,20 +15,11 @@
     path: /srv/wireguard
     state: directory
 
-- name: Install pip3
+- name: Install python3-pyroute2
   apt:
+    name: python3-pyroute2
     update_cache: yes
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - python3-pip
-    - python-setuptools
-    - python3-setuptools
-
-- name: Install pyroute2
-  pip:
-    executable: pip3
-    name: pyroute2
+    cache_valid_time: 3600
 
 - name: Fetch wireguard-vxlan-glue
   notify: Restart wg_netlink
