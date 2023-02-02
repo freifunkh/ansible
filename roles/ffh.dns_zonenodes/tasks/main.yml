@@ -10,7 +10,7 @@
     - libjson-perl
     - git 
     - libnet-ip-perl
-    - python-netaddr
+    - python3-netaddr
 
 - name: Install knoten_compile.pl
   template:
