@@ -39,7 +39,7 @@
   git_config:
     name: pull.ff
     value: only
-    scope: local
+    scope: system
     repo: /etc/wireguard/peers-wg
 
 - name: Install crontab for autoupdate
