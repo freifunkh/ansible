@@ -8,14 +8,15 @@
 
 - name: Install nf_conntrack_ipv4 kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_ipv4
-  when: ansible_distribution_release == 'stretch'
+  when: ansible_distribution_major_version|int < 10
 
 - name: Install nf_conntrack_ipv6 kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_ipv6
-  when: ansible_distribution_release == 'stretch'
+  when: ansible_distribution_major_version|int < 10
 
 - name: Install nf_conntrack_proto_gre kmod on boot
   lineinfile: dest=/etc/modules line=nf_conntrack_proto_gre
+  when: ansible_distribution_major_version|int < 11
 
 - name: Load nf_conntrack kmod
   modprobe: name=nf_conntrack state=present
@@ -25,12 +26,13 @@
 
 - name: Load nf_conntrack_ipv6 kmod
   modprobe: name=nf_conntrack_ipv6 state=present
-  when: ansible_distribution_release == 'stretch'
+  when: ansible_distribution_major_version|int < 10
 
 - name: Load nf_conntrack_ipv4 kmod
   modprobe: name=nf_conntrack_ipv4 state=present
-  when: ansible_distribution_release == 'stretch'
+  when: ansible_distribution_major_version|int < 10
 
 - name: Load nf_conntrack_proto_gre kmod
   modprobe: name=nf_conntrack_proto_gre state=present
+  when: ansible_distribution_major_version|int < 11
 
