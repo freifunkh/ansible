@@ -172,6 +172,8 @@ dns_authoritative_toplevel:
        "mail.ffh.zone. IN A 37.120.176.252",
        "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "build.ffh.zone. IN AAAA 2001:678:978:214::baba", # This IP is statically routed via sn02, rdns is defined in host_vars/rdns.yml.
+       # testenv
+       "testenv.ffh.zone. IN A 130.75.178.22",
        "build.ffh.zone. IN A 130.75.178.26",
        # "lounge.ffh.zone. IN AAAA 2001:470:775a:42:1000::115",
        "lounge.ffh.zone. IN A 130.75.178.26",
