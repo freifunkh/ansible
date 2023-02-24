@@ -49,3 +49,4 @@
   cron:
     name: "update burginfo"
     job: "cd /opt/burginfo && ./burginfo.py"
+  when: burginfo_enabled
