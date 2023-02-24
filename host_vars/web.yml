@@ -112,6 +112,8 @@ nginx_sites:
   tls_redirect_to_https: true
   untouchable: true
 
+burginfo_enabled: False
+
 git2cal:
   user: www-data
   git2cal_dir: /opt/git2cal
