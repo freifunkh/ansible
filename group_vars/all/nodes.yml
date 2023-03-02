@@ -29,3 +29,7 @@ helpernodes:
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
   monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}" }
   rdns: { id: 6, ip4: "{{ lookup('dig', 'rdns.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'rdns.ffh.zone./AAAA') }}" }
+
+route_exitnode_via:
+  leintor: "gre-leintor"
+  clevertor: "gre-clevertor"
