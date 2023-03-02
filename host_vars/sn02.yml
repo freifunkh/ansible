@@ -33,6 +33,10 @@ babeld_interface_penalty:
   ens19: 100
 babeld_iface_accept_v6_default_route: "ens19"
 
+route_exitnode_via:
+  leintor: "gre-leintor"
+  clevertor: "ens19"
+
 legacy_dom0: true
 radv_announce_default: true
 fix_netifnames: false

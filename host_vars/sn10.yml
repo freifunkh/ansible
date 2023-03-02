@@ -35,6 +35,10 @@ babeld_interface_penalty:
   gre-bruehltor: 666
 babeld_iface_accept_v6_default_route: "eth1"
 
+route_exitnode_via:
+  leintor: "eth1"
+  clevertor: "gre-clevertor"
+
 legacy_dom0: true
 radv_announce_default: true
 apinger_targets2:
