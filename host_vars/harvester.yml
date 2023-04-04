@@ -32,16 +32,15 @@ influx2_engine_path: "/media/data/influxdb/engine"
 influx2_bind_address: ":8086"
 influx2_clients:
   - "81.3.6.94/32"                   # leintor
-  - "45.12.203.10/32"                # clevertor
-  - "88.99.88.12/32"
-  - "94.130.213.34/32"               # perf-test
-  - "2a01:4f8:221:100c::1001/128"
-  - "2a01:4f8:221:100c::1004/128"    # perf-test
   - "2a02:790:1:ff::1001/128"        # leintor
+  - "45.12.203.10/32"                # clevertor
   - "2001:678:978:ff01::1/128"       # clevertor
-  - "194.50.19.34"                   # ffnw-pve
-  - "2001:7f8:a5::20:9347:1"         # ffnw-pve
-  - "185.197.132.139"                # ffnw-pve
+  - "88.99.88.12/32"                 # perf-test
+  - "2a01:4f8:221:100c::1004/128"    # perf-test
+  - "194.50.19.34"                   # scheuer
+  - "2001:7f8:a5::20:9347:1"         # scheuer
+  - "88.99.88.14"                    # monitor
+  - "2a01:4f8:221:100c::1003"        # monitor
 
 grafana_datadir: "/media/data/grafana"
 grafana_allow_signup: true
