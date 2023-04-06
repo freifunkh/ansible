@@ -31,7 +31,7 @@ all:
     monitor:
       ansible_host: monitor.ffh.zone
     perf-test:
-      ansible_host: 94.130.213.34
+      ansible_host: perf-test.ffh.zone
       ansible_port: 22
     rdns:
       ansible_host: rdns.ffh.zone
