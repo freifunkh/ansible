@@ -51,7 +51,7 @@ supernodes:
   hosts:
     sn01:
     sn02:
-    sn03:
+    # sn03:
     sn04:
     sn05:
     sn07:
