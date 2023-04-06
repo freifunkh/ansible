@@ -33,7 +33,17 @@ alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
 mydestination = mail.ffh.zone, localhost
 relayhost = 
-mynetworks = {{ postfix_mynetworks | join(' ') }}
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+{% for hostname,item in supernodes.items() %}
+ {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+{% endfor %}
+{% for hostname,item in exitnodes.items() %}
+ {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+{% endfor %}
+{% for hostname,item in helpernodes.items() %}
+ {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+{% endfor %}
+
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
