@@ -12,7 +12,7 @@
 
 - name: Unarchive radvd to local directory
   unarchive:
-    src: "http://www.litech.org/radvd/dist/radvd-2.18.tar.gz"
+    src: "http://www.litech.org/radvd/dist/radvd-2.19.tar.gz"
     dest: "/usr/src"
     owner: "root"
     group: "root"
@@ -29,15 +29,15 @@
     - name: Configure
       command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
       args:
-        chdir: "/usr/src/radvd-2.18"
+        chdir: "/usr/src/radvd-2.19"
 
     - name: Make
       make:
-        chdir: "/usr/src/radvd-2.18"
+        chdir: "/usr/src/radvd-2.19"
 
     - name: Make install
       make:
-        chdir: "/usr/src/radvd-2.18"
+        chdir: "/usr/src/radvd-2.19"
         target: "install"
 
 - name: Generate radvd config
