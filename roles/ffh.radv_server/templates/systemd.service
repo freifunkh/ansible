@@ -13,7 +13,7 @@ ExecStartPre=/usr/local/sbin/radvd --logmethod stderr_clean --configtest
 ExecStart=/usr/local/sbin/radvd --logmethod stderr_clean
 ExecReload=/usr/local/sbin/radvd --logmethod stderr_clean --configtest
 ExecReload=/bin/kill -HUP $MAINPID
-PIDFile=/var/run/radvd.pid
+PIDFile=/run/radvd.pid
 
 # Set the CPU scheduling policy to idle which is for running very low priority background jobs
 CPUSchedulingPolicy=idle
