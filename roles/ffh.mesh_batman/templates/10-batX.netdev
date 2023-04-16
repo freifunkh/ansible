@@ -5,6 +5,9 @@
 [NetDev]
 Name=bat{{ domain.id }}
 Kind=batadv
+{% if sn is defined %}
+MACAddress=88:e6:40:20:00:{% if domain.id != "0" %}{{ '%02d' % domain.id | int }}{% else %}01{% endif %}
+{% endif %}
 
 [BatmanAdvanced]
 GatewayMode=server
