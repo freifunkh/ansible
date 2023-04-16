@@ -30,3 +30,21 @@
   with_items:
     - "{{ domains }}"
   when: add_gt_to_batx is changed
+
+- name: "#236: remove 19-vlan-gt.network (since they are now iface specific versions)"
+  ansible.builtin.file:
+    path: /etc/systemd/network/19-vlan-gt.network
+    state: absent
+
+- name: "#236: Remove ffh_fix_vx.sh"
+  ansible.builtin.file:
+    path: /usr/bin/ffh_fix_vx.sh
+    state: absent
+
+- name: "#236: Remove ffh_fix_vx.sh cronjob"
+  ansible.builtin.cron:
+    name: "call ffh_fix_vx every 5mins"
+    minute: "*/5"
+    job: "test -x /usr/bin/ffh_fix_vx.sh && /usr/bin/ffh_fix_vx.sh"
+    user: "root"
+    state: absent
