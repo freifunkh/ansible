@@ -16,3 +16,17 @@
   with_items:
     - "{{ domains }}"
   when: add_vx_to_batx is changed
+
+- name: "#236: remove add-gt-to-batX@.service files"
+  ansible.builtin.file:
+    path: /etc/systemd/system/add-gt-to-batX@.service
+    state: absent
+  register: add_gt_to_batx
+
+- name: "#236: disable add-gt-to-batX@.service services"
+  systemd:
+    name: add-gt-to-batX@{{ item.id }}
+    enabled: no
+  with_items:
+    - "{{ domains }}"
+  when: add_gt_to_batx is changed

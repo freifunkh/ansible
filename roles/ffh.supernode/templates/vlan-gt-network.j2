@@ -1,2 +1,10 @@
 [Match]
-Name=vlan-gt-*
+Name=vlan-gt-2{{ item.id }}
+
+[Network]
+BatmanAdvanced=bat{{ item.id }}
+DHCP=no
+IPv6AcceptRA=false
+
+[Link]
+RequiredForOnline=false

@@ -62,25 +62,6 @@
   notify: Restart networkd
   template:
     src: vlan-gt-network.j2
-    dest: /etc/systemd/network/19-vlan-gt.network
-
-- name: Create systemd service to add vlan-gt-* devices into bat*
-  template:
-    src: addtobatX.j2
-    dest: /etc/systemd/system/add-gt-to-batX@.service
-
-- name: Systemd daemon-reload
-  command: systemctl daemon-reload
-
-- name: Enable systemd services
-  command: systemctl enable add-gt-to-batX@{{ item.id }}
-  with_items:
-    - "{{ domains_with_dom0 }}"
-
-- name: Restart networkd
-  command: systemctl restart systemd-networkd
-
-- name: Start systemd services
-  command: systemctl start add-gt-to-batX@{{ item.id }}.service
+    dest: /etc/systemd/network/19-vlan-gt-2{{ item.id }}.network
   with_items:
     - "{{ domains_with_dom0 }}"
