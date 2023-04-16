@@ -2,3 +2,17 @@
 # This file should regularly be cleaned up, so we can remove outdated stuff.
 
 # PR #236: https://github.com/freifunkh/ansible/pull/236
+
+- name: "#236: remove add-vx-to-batX@.service files"
+  ansible.builtin.file:
+    path: /etc/systemd/system/add-{{ vxlan_iface_prefix }}-to-batX@.service
+    state: absent
+  register: add_vx_to_batx
+
+- name: "#236: disable add-vx-to-batX@.service services"
+  systemd:
+    name: add-{{ vxlan_iface_prefix }}-to-batX@{{ item.id }}
+    enabled: no
+  with_items:
+    - "{{ domains }}"
+  when: add_vx_to_batx is changed
