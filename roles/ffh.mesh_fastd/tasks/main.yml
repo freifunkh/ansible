@@ -31,6 +31,16 @@
     loop_var: domain
   when: domains is defined and sn is not defined
 
+- name: "Generate networkd networks for fastd"
+  notify: Restart networkd
+  template:
+    src: mesh_fastd.network.j2
+    dest: "/etc/systemd/network/30-mesh_fastd-{{ domain.id }}.network"
+  loop_control:
+    loop_var: domain
+  with_items:
+    - "{{ domains_with_dom0 }}"
+
 - name: Firewalling mesh_fastd for all domains
   include_tasks: ferm.yml
 
