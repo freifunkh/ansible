@@ -29,9 +29,4 @@ status socket "/var/run/fastd.{{ mesh_fastd_iface }}.sock";
 
 on up "
  chmod o+rw /var/run/fastd.{{ mesh_fastd_iface }}.sock
- batctl meshif bat{{ mesh_fastd_batdev | default(0) }} if add $INTERFACE
-{% if sn is defined %}
- ip link set address 88:e6:40:20:{{ '%x' | format(sn) }}0:{% if domain is defined %}{{ '%02d' % domain.id | int }}{% else %}01{% endif %} dev $INTERFACE
-{% endif %}
- ip link set $INTERFACE up
 ";
