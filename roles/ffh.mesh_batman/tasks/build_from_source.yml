@@ -36,8 +36,6 @@
 
 - name: Patch batman
   shell: curl {{ item }} | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
-  args:
-    warn: False
   with_items:
    - https://paste.irrelefant.net/einei4aN.txt
    - https://paste.irrelefant.net/xoraza8E.txt
