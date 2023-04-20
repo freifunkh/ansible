@@ -5,15 +5,7 @@
 
 #
 # RULES FOR TABLE freifunk
+# Moved to systemd-networkd
 #
-
-# This unreachable route prevents leaking of packets in the other routing tables
-# when we have no other default route in the freifunk table.
-/sbin/ip -6 route replace unreachable default table freifunk metric 8096
-/sbin/ip -4 route replace unreachable default table freifunk metric 8096
-
-# Use the packet park from iptables to put the packets in table freifunk
-/sbin/ip rule add from all fwmark 0x2a table freifunk priority 242
-/sbin/ip -6 rule add from all fwmark 0x2a table freifunk priority 242
 
 exit 0

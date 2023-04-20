@@ -30,9 +30,14 @@
     dest: /etc/rc.local
     mode: u=rwx,g=rx,o=rx
 
-- name: Apply changes in /etc/rc.local
-  command: /etc/rc.local
-  when: rclocal is changed
+- name: Using lo.network for RoutingPolicyRule and unreachable routes
+  notify: Restart networkd
+  template:
+    src: lo.network.j2
+    dest: /etc/systemd/network/00-lo.network
+    mode: "0644"
+    owner: "root"
+    group: "systemd-network"
 
 - name: Create network droplet directories (systemd-networkd)
   file:
