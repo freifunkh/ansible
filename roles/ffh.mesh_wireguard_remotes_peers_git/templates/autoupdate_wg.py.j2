@@ -38,20 +38,25 @@ def pull_repo(repo):
     s = subprocess.Popen(["git -C {} pull".format(REPO)], shell=True, env=env,
                          preexec_fn=demote(user_uid, user_gid), stdout=subprocess.PIPE)
 
+
 def read_repo_keys():
-    repokeys=[]
+    repokeys = []
     directory = os.fsencode(REPO)
 
     for file in os.scandir(directory):
         if file.is_file():
             filename = os.fsdecode(file)
-            with open(filename) as keyfile:
-                key = keyfile.readline().strip()
-                if not re.match('^[0-9a-zA-Z+/]{42}[AEIMQUYcgkosw480]=$', key):
-                    print(f"Warning: Skipping {filename}. Key is invalid!")
-                    continue
-                repokeys.append(key)
+            try:
+                with open(filename) as keyfile:
+                    key = keyfile.readline().strip()
+                    if not re.match('^[0-9a-zA-Z+/]{42}[AEIMQUYcgkosw480]=$', key):
+                        print(f"Warning: Skipping {filename}. Key is invalid!")
+                        continue
+                    repokeys.append(key)
+            except FileNotFoundError:
+                pass
     return repokeys
+
 
 def read_interface_keys(intf):
     ignore_dummy_key="0"*43+"="
