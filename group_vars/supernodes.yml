@@ -4,6 +4,12 @@ is_supernode: true
 network_lower_ifaces:
   default: eth0
 
+route_exitnode_via:
+  leintor:
+    interface: "gre-leintor"
+  clevertor:
+    interface: "gre-clevertor"
+
 restic_backup_server_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGSZGZcmeZG8WD8cCfOO0adEPOAae2XmAw7KxZ/1EcoHQ8LPMwP8wB9MePkQNE3vzfX4JExzRTO8lmLWEoB4PpY= root@tonne"
 restic_backup_server_ansible_host: "tonne"
 restic_backup_server_hostname: "tonne.ffh.zone"

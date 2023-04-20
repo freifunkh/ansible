@@ -36,8 +36,11 @@ babeld_interface_penalty:
 babeld_iface_accept_v6_default_route: "eth1"
 
 route_exitnode_via:
-  leintor: "eth1"
-  clevertor: "gre-clevertor"
+  leintor:
+    interface: "eth1"
+    gateway: "fe80::babf"
+  clevertor:
+    interface: "gre-clevertor"
 
 legacy_dom0: true
 radv_announce_default: true

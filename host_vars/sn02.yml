@@ -34,8 +34,11 @@ babeld_interface_penalty:
 babeld_iface_accept_v6_default_route: "ens19"
 
 route_exitnode_via:
-  leintor: "gre-leintor"
-  clevertor: "ens19"
+  leintor:
+    interface: "gre-leintor"
+  clevertor:
+    interface: "ens19"
+    gateway: "fe80::74f2:85ff:fede:7cb7"
 
 legacy_dom0: true
 radv_announce_default: true

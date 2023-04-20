@@ -42,7 +42,7 @@
 - name: Create network droplet directories (systemd-networkd)
   file:
     state: "directory"
-    dest: /etc/systemd/network/10-{{ item.value }}.network.d
+    dest: /etc/systemd/network/10-{{ item.value.interface }}.network.d
     owner: "root"
     group: "root"
     mode: "0755"
@@ -52,5 +52,5 @@
   notify: Restart networkd
   template:
     src: "route-freifunk.conf.j2"
-    dest: "/etc/systemd/network/10-{{ item.value }}.network.d/route.freifunk.conf"
+    dest: "/etc/systemd/network/10-{{ item.value.interface }}.network.d/route.freifunk.conf"
   with_dict: "{{ route_exitnode_via }}"
