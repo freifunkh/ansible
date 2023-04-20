@@ -66,6 +66,13 @@
     group: "root"
     mode: "0440"
 
+- name: Disable session login for zabbix in pam
+  lineinfile:
+    path: "/etc/pam.d/sudo"
+    line: "session [success=1 default=ignore] pam_succeed_if.so quiet uid = 0 ruser = zabbix"
+    regexp: "^session.*quiet uid = 0 ruser = zabbix"
+    insertbefore: "^@include common-session-noninteractive"
+
 - name: Deploy additional configuration files in /etc
   notify: reload zabbix-agent
   copy:
