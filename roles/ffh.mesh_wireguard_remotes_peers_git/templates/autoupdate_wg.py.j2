@@ -35,7 +35,7 @@ def pull_repo(repo):
     env = os.environ.copy()
     env.update({'HOME': homedir, 'LOGNAME': autouser, 'USER': autouser})
 
-    s = subprocess.Popen(["git -C {} pull".format(REPO)], shell=True, env=env,
+    s = subprocess.Popen(["git -C {} pull -q".format(REPO)], shell=True, env=env,
                          preexec_fn=demote(user_uid, user_gid), stdout=subprocess.PIPE)
 
 
