@@ -17,3 +17,10 @@
 
 - name: misc stuff
   include_tasks: misc.yml
+
+- name: Ignore peer directories in etckeeper
+  blockinfile:
+    path: "/etc/.gitignore"
+    block: |
+      fastd/peers
+      wireguard/peers-wg
