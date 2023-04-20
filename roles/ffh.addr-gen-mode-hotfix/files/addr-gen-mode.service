@@ -1,7 +1,7 @@
 [Unit]
 Description=Fires sysctl for addr-gen-mode again (for gre devices)
 After=network-online.target
-PartOf=systemd-networkd
+PartOf=systemd-networkd.service
 
 [Service]
 Type=oneshot
