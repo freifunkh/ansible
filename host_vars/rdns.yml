@@ -22,6 +22,7 @@ all_knowing_dns:
         - 2001:678:978
     static_hosts:
         2001:678:978:214::baba: build.ffh.zone
+        2001:678:978:ff01::4: harvester.ffh.zone
 
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
