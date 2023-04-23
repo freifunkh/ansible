@@ -3,4 +3,4 @@ Name=gre-{{ item.key }}
 
 [Network]
 Address=100.{{ 100 + exitnodes[item.key].id }}.{{ sn }}.2/24
-Address=fe80::{{ '%02d' % sn | int }}:{{ '%02d' % exitnodes[item.key].id | int }}
+Address=fe80::{{ '%02d' % sn | int }}:{{ '%02d' % exitnodes[item.key].id | int }}/64
