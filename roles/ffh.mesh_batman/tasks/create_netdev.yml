@@ -1,6 +1,6 @@
 ---
 
-- name: "Generate networkd batman-adv netdev (dom {{ domain.id }})"
+- name: "Generate networkd batman-adv netdev"
   template:
     src: 10-batX.netdev
     dest: /etc/systemd/network/10-bat{{ domain.id }}.netdev
