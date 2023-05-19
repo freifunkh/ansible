@@ -128,8 +128,11 @@ def read_play(filename, highlighting=None):
         CYELLOW = ''
         CEND = ''
 
-    with open(filename) as f:
-        res = json.load(f)
+    try:
+        with open(filename) as f:
+            res = json.load(f)
+    except json.decoder.JSONDecodeError:
+        return ''  # Don't send emails if the JSON is invalid (or None).
 
     for play in res['plays']:
         for task in play['tasks']:
