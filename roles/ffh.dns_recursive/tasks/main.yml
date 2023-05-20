@@ -1,7 +1,11 @@
 ---
 
 - name: Install unbound
-  apt: name=unbound update_cache=yes
+  apt:
+    name: "unbound"
+    update_cache: yes
+    state: "latest"
+    default_release: "{{ ansible_distribution_release }}-backports"
 
 - name: Configure unbound
   notify: Restart unbound
