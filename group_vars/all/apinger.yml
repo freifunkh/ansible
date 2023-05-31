@@ -15,6 +15,11 @@ apinger_targets:
   - 10.10.70.1
   - 135.125.190.100
   - fdca:ffee:8:18::7001
+- description: sn08
+  ips:
+  - 10.10.80.1
+  - 135.125.190.100         # FIXME
+  - fdca:ffee:8:18::8001
 - description: sn09
   ips:
   - 10.10.90.1
