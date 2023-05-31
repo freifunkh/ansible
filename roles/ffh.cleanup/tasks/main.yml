@@ -48,3 +48,25 @@
     job: "test -x /usr/bin/ffh_fix_vx.sh && /usr/bin/ffh_fix_vx.sh"
     user: "root"
     state: absent
+
+# 224 Retiring addr-gen-mode-hotfix
+
+- name: "#224: Disable addr-gen-mode service"
+  systemd:
+    name: "addr-gen-mode.service" 
+    enabled: no
+  register: addr_gen_mode_changed
+  ignore_errors: true
+
+- name: "#224: Remove addr-gen-mode service"
+  ansible.builtin.file:
+    path: "/etc/systemd/system/addr-gen-mode.service" 
+    state: absent
+  when: addr_gen_mode_changed is changed
+
+- name: "#224: Remove sysctl file"
+  ansible.builtin.file:
+    path: "/etc/sysctl.d/99-addr_gen_mode.conf"
+    state: absent
+
+# ###
