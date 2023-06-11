@@ -56,13 +56,22 @@
           - python-dateutil
           - pytz
 
-    - name: Install daily cronjob
+    - name: "Install daily cronjob: dryruns"
       cron:
         name: Daily ansible dry-run
         user: auto
         job: "cd /home/auto/ansible; tests/cron.sh"
         hour: "5"
         minute: "30"
+
+
+    - name: "Install daily cronjob: remove old tmp file"
+      cron:
+        name: Remove old tmp files
+        user: auto
+        job: "find /tmp/auto/dailyrun -type f -mtime +7 -delete >/dev/null"
+        hour: "10"
+        minute: "45"
 
     - name: Add auto to sudoers
       copy:
