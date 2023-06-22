@@ -29,3 +29,7 @@
     path: /etc/default/grub
     line: 'GRUB_DISABLE_OS_PROBER="true"'
   when: grubprober.stat.exists == true and ansible_virtualization_type != "lxc"
+
+- name: Set timezone
+  community.general.timezone:
+    name: "Europe/Berlin"
