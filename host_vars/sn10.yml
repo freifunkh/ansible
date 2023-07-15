@@ -54,5 +54,7 @@ apinger_targets2:
 fix_netifnames: true
 coordinates: ['52.328259949', '9.783561230']
 
+iperf_is_public_server: true
+
 # zabbix_agent_server: "zbx-hostway.ffh.zone"
 # zabbix_agent_server_active: "zbx-hostway.ffh.zone"
