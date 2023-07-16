@@ -24,11 +24,11 @@
       - "exim4"
   - name: "Download ssmtp"
     get_url: 
-      url: "http://ftp.de.debian.org/debian/pool/main/s/ssmtp/ssmtp_2.64-8+b2_amd64.deb"
-      dest: "/tmp/ssmtp_2.64-8+b2_amd64.deb"
+      url: "http://ftp.de.debian.org/debian/pool/main/s/ssmtp/ssmtp_2.64-10_amd64.deb"
+      dest: "/tmp/ssmtp_2.64-10_amd64.deb"
   - name: "Install ssmtp"
     apt:
-      deb: "/tmp/ssmtp_2.64-8+b2_amd64.deb"
+      deb: "/tmp/ssmtp_2.64-10_amd64.deb"
 
 - name: "Generate ssmtp config"
   template:
