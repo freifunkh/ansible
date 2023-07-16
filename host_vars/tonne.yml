@@ -5,7 +5,7 @@ fqdn: "tonne.ffh.zone"
 networkd_configures:
 - iface: ens18
   addresses:
-    - 45.12.203.9/29
+    - 45.12.203.9/24
     - 2001:678:978:ff01::9/64
   gateway6: 2001:678:978:ff01::1
   gateway4: 45.12.203.10
