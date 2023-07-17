@@ -9,7 +9,6 @@
 
     - name: "Configure system if necessary"
       include_tasks: "configure.yml"
-      when: not (ansible_local['babeld_system_configured'] | default(False))
 
     - name: "Install babeld supernode config"
       notify: "Restart babeld"
