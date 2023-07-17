@@ -20,6 +20,7 @@ supernodes:
   sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn02.s.ffh.zone./AAAA') }}" }
   sn04: { id: 4, ip4: "{{ lookup('dig', 'sn04.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn04.s.ffh.zone./AAAA') }}" }
   sn05: { id: 5, ip4: "{{ lookup('dig', 'sn05.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn05.s.ffh.zone./AAAA') }}" }
+  sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn06.s.ffh.zone./AAAA') }}" }
   sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
 helpernodes:
