@@ -27,9 +27,10 @@ mesh_prefix: "2001:678:978"
 
 mesh_fastd_firewall_open: false
 
-babeld_interfaces: ['ens19']
+babeld_interfaces: ['ens19 gre-leintor']
 babeld_interface_penalty:
   ens19: 100
+  gre-leintor: 110
 babeld_iface_accept_v6_default_route: "ens19"
 
 route_exitnode_via:
