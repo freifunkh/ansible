@@ -51,6 +51,12 @@ all:
       ansible_host: build.ffh.zone
       ansible_port: 22
 
+debiannodes:
+  children:
+    supernodes:
+    exitnodes:
+    helpernodes:
+
 supernodes:
   hosts:
     sn01:
