@@ -12,9 +12,9 @@ networkd_configures:
 - iface: eth0
   addresses:
     - 81.3.6.94/29
-    - 2a02:790:1:ff::1001/64
+    - 2a02:790:1:ff::2/64
   gateway4: 81.3.6.89
-  gateway6: fe80::1
+  gateway6: 2a02:790:1:ff::1
   dns_server:
     - 81.3.3.81
     - 5.1.66.255

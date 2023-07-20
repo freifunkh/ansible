@@ -9,7 +9,7 @@ networkd_configures:
     - "81.3.6.91/29"
     - "2a02:790:1:ff::a001/64"
   gateway4: "81.3.6.89"
-  gateway6: "fe80::1"
+  gateway6: "2a02:790:1:ff::1"
   no_radv_accept: true
   dns_server:
     - 81.3.3.81 # hostway

@@ -132,7 +132,7 @@ dns_authoritative_toplevel:
        "sn10.s.ffh.zone. IN AAAA 2a02:790:1:ff::a001",
        "ns1.ffh.zone. IN A 37.120.176.252",
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::1001",
+       "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::2",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
        "clevertor.e.ffh.zone. IN A 45.12.203.1",
        "clevertor.e.ffh.zone. IN AAAA 2001:678:978:ff01::1",
