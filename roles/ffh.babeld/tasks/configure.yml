@@ -18,19 +18,9 @@
     state: "started"
     enabled: yes
 
-- name: "Cronjob: restart babeld weekly"
-  cron:
-    name: "Restart babeld"
-    job: "systemctl restart babeld"
-    hour: "3"
-    weekday: "3"
-
-- name: "Create custom fact directory"
-  file:
-    path: "/etc/ansible/facts.d"
-    state: "directory"
-
-- name: "Save state"
-  copy:
-    content: '"True"'
-    dest: "/etc/ansible/facts.d/babeld_system_configured.fact"
+#- name: "Cronjob: restart babeld weekly"
+#  cron:
+#    name: "Restart babeld"
+#    job: "systemctl restart babeld"
+#    hour: "3"
+#    weekday: "3"
