@@ -7,4 +7,4 @@
 
 - pause:
     prompt: "WARNING: Do you really want to play this book although the host requires a reboot? Ctrl-C to quit."
-  when: "rebootrequired.stat.exists"
+  when: rebootrequired.stat.exists and not ansible_check_mode
