@@ -13,5 +13,5 @@ yanic_state_path: /var/lib/yanic/state.json
 yanic_influx2_enabled: false
 yanic_repo_path: "github.com/FreifunkBremen/yanic"
 yanic_source_path: "{{ go_path }}/src/{{ yanic_repo_path }}"
-yanic_commit: "4a9089b099eb246ca736e33ef67ac5e72b3d1fa9"
+yanic_commit: "5a8383ed30e0a91cae2bc94e4e4083a60bf7ce19"
 legacy_dom0: true
