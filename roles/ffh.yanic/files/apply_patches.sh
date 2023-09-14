@@ -2,10 +2,10 @@
 
 cleanup() {
 	git am --abort
-	git reset --hard origin/master
+	git reset --hard origin/main
 	>&2 echo "Warning: git am of $file failed"
 	>&2 echo "git am --abort has already been executed"
-	>&2 echo "as well as 'git reset --hard origin/master'"
+	>&2 echo "as well as 'git reset --hard origin/main'"
 	>&2 echo "to reset manually, remove the patches directory'"
 	exit 1
 }
