@@ -1,19 +1,19 @@
-From 639a2fc8b900e52e8e04c748df066962573322b7 Mon Sep 17 00:00:00 2001
+From 3db6237f77e68393a605f777a0389c164b2f0697 Mon Sep 17 00:00:00 2001
 From: root <root@web.ffh.zone>
-Date: Tue, 16 Feb 2021 18:31:00 +0100
-Subject: [PATCH] ignore override warning
+Date: Thu, 14 Sep 2023 23:32:40 +0200
+Subject: [PATCH] feat: Drop warning of duplicate node ids
 
 ---
  runtime/nodes.go | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/runtime/nodes.go b/runtime/nodes.go
-index 3dae12d..2e6adf7 100644
+index 37cf0a6..98d4f47 100644
 --- a/runtime/nodes.go
 +++ b/runtime/nodes.go
-@@ -204,7 +204,7 @@ func (nodes *Nodes) readIfaces(nodeinfo *data.Nodeinfo, warning bool) {
+@@ -229,7 +229,7 @@ func (nodes *Nodes) readIfaces(nodeinfo *data.Nodeinfo, warning bool) {
  		}
- 		if oldNodeID, _ := nodes.ifaceToNodeID[addr]; oldNodeID != nodeID {
+ 		if oldNodeID := nodes.ifaceToNodeID[addr]; oldNodeID != nodeID {
  			if oldNodeID != "" && warning {
 -				log.Warnf("override nodeID from %s to %s on MAC address %s", oldNodeID, nodeID, addr)
 +				// log.Warnf("override nodeID from %s to %s on MAC address %s", oldNodeID, nodeID, addr)
@@ -21,5 +21,5 @@ index 3dae12d..2e6adf7 100644
  			nodes.ifaceToNodeID[addr] = nodeID
  		}
 -- 
-2.20.1
+2.30.2
 
