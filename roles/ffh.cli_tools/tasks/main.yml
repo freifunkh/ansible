@@ -40,7 +40,7 @@
   pip:
     name:
       - pytz # needed by ffh_resolve.py
-  when: ansible_distribution_release != 'buster' # TODO: please remove as soon as leintor arrived in the future
+  when: ansible_distribution_version == '11' # TODO: handling of pytz in bullseye only, ignoring older distros
 
 - name: Set prompt (PS1)
   lineinfile:
