@@ -1,5 +1,11 @@
 ---
 
+- name: install etckeeper
+  apt:
+    pkg:
+    - etckeeper
+  check_mode: no
+
 - name: get local username
   local_action: shell echo $USER@$(hostname)
   register: local_username
