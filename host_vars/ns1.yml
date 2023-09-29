@@ -53,6 +53,7 @@ dns_authoritative_toplevel:
       "12.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
       "13.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
       "14.203.12.45.in-addr.arpa. IN PTR harvester.ffh.zone.",
+      "15.203.12.45.in-addr.arpa. IN PTR kistendampfer.ffh.zone."
      ]
    - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
      records: [
@@ -139,6 +140,8 @@ dns_authoritative_toplevel:
        "tiefensee.ffh.zone. IN AAAA 2a01:4f8:221:100c::2",
        "tonne.ffh.zone. 600 IN A 45.12.203.9",
        "tonne.ffh.zone. 600 IN AAAA 2001:678:978:ff01::9",
+       "kistendampfer.ffh.zone. IN A 45.12.203.15",
+       "kistendampfer.ffh.zone. IN AAAA 2001:678:978:ff01::15",
        "perf-test.ffh.zone. 120 IN A 88.99.88.12",
        "monitor.ffh.zone. IN A 88.99.88.14",
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",

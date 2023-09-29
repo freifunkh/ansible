@@ -43,6 +43,8 @@ all:
       ansible_host: sql.ffh.zone
     tonne:
       ansible_host: tonne.ffh.zone
+    kistendampfer:
+      ansible_host: kistendampfer.ffh.zone
     tiefensee:
       ansible_host: tiefensee.ffh.zone
     scheuer:
@@ -80,6 +82,7 @@ helpernodes:
     rdns:
     sql:
     tonne:
+    kistendampfer:
 
 batmannodes:
   hosts:
