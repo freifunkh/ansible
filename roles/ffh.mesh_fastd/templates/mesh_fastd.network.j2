@@ -12,6 +12,6 @@ IPv6AcceptRA=false
 
 [Link]
 RequiredForOnline=false
-{% if sn is defined %}
-MACAddress=88:e6:40:20:{{ '%x' | format(sn) }}0:{% if domain.id != "0" %}{{ '%02d' % domain.id | int }}{% else %}01{% endif %}
+{% if sn is defined or servername == "harvester" %}
+MACAddress=88:e6:40:22:{% if servername == "harvester" %}00{% else %}{{ '%x' | format(sn) }}0{% endif %}:{% if domain.id != "0" %}{{ '%02d' % domain.id | int }}{% else %}01{% endif %}
 {% endif %}
