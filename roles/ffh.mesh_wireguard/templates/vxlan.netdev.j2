@@ -1,7 +1,7 @@
 [NetDev]
 Name={{ vxlan_iface_prefix }}-{{ '%02d' % domain.id | int }}
 Kind=vxlan
-MACAddress=02:a1:71:04:{{ '%02d' % sn | int }}:{{ '%02d' % domain.id | int }}
+MACAddress=88:e6:40:33:{{ '%x' | format(sn) }}0:{{ '%02d' % domain.id | int }}
 
 [VXLAN]
 Id={{ domain.vxlanid }}
