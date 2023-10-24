@@ -17,6 +17,18 @@
       git:
         repo: https://github.com/Jajcus/apinger
         dest: /opt/apinger
+    - name: Create patches directory
+      file:
+        dest: /opt/apinger/patches
+        state: directory
+    - name: Deploy patch
+      copy:
+        src: 0001-mark-targets-as-extern.patch
+        dest: /opt/apinger/patches/0001-mark-targets-as-extern.patch
+    - name: Patch apinger.h
+      shell: "git am patches/0001-mark-targets-as-extern.patch"
+      args:
+        chdir: /opt/apinger
     - name: Build and install apinger
       shell: "sh autogen.sh && cd src && make install"
       args:

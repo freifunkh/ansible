@@ -1,0 +1,25 @@
+From 038522beafaac23cb3f80f093d1776e02bfab2cb Mon Sep 17 00:00:00 2001
+From: root <root@kistendampfer.ffh.zone>
+Date: Tue, 24 Oct 2023 22:32:23 +0200
+Subject: [PATCH] mark targets as extern
+
+---
+ src/apinger.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/apinger.h b/src/apinger.h
+index a748e3a..f1bdb46 100644
+--- a/src/apinger.h
++++ b/src/apinger.h
+@@ -111,7 +111,7 @@ struct piped_info {
+ };
+ #endif
+ 
+-struct target *targets;
++extern struct target *targets;
+ 
+ extern int foreground;
+ extern char *config_file;
+-- 
+2.39.2
+
