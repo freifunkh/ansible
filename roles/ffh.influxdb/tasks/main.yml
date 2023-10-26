@@ -8,7 +8,8 @@
 - name: Add influx repo
   register: influxrepositoryadded
   apt_repository:
-    repo: "deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable"
+    repo: "deb https://repos.influxdata.com/debian bullseye stable"
+    # repo: "deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable"
 
 - name: Update apt chache to get influxdb packages
   apt: update_cache=yes
