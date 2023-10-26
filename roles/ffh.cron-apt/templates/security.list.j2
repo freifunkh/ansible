@@ -1,4 +1,4 @@
-{% if ansible_distribution_version|int > 11 -%}
+{% if ansible_distribution_version|int > 10 -%}
 deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main
 deb-src http://security.debian.org/debian-security {{ ansible_distribution_release }}-security main
 {% else %}
