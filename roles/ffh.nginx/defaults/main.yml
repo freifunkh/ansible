@@ -1,5 +1,6 @@
 ---
 
+nginx_repo: false
 nginx_user: www-data
 nginx_worker_processes: auto
 nginx_webroot: /var/www

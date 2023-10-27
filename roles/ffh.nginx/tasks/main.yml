@@ -12,35 +12,33 @@
     name: apt-transport-https
     update_cache: yes
 
-- name: Add nginx repository key
-  apt_key:
-    url: "https://nginx.org/keys/nginx_signing.key"
+- name: Install nginx from nginx repo
+  when: nginx_repo is true
+  block:
+  - name: Add nginx repository key
+    apt_key:
+      url: "https://nginx.org/keys/nginx_signing.key"
+  - name: Add nginx repository
+    register: nginxrepositoryadded
+    apt_repository:
+      repo: "deb https://nginx.org/packages/debian/ {{ansible_distribution_release}} nginx"
+  - name: Update apt cache to get nginx packages
+    apt: update_cache=yes
+    when: nginxrepositoryadded is changed
+  - name: Remove old nginx
+    apt:
+      state: absent
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - nginx=1.6.*
+      - nginx-common=1.6.*
+  - name: Unmask service nginx
+    systemd:
+      name: nginx
+      masked: no
 
-- name: Add nginx repository
-  register: nginxrepositoryadded
-  apt_repository:
-    repo: "deb https://nginx.org/packages/debian/ {{ansible_distribution_release}} nginx"
-
-- name: Update apt cache to get nginx packages
-  apt: update_cache=yes
-  when: nginxrepositoryadded is changed
-
-- name: Remove old nginx
-  apt:
-    state: absent
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - nginx=1.6.*
-    - nginx-common=1.6.*
-
-- name: Unmask service nginx
-  systemd:
-    name: nginx
-    masked: no
-  when: ansible_service_mgr == 'systemd'
-
-- name: Install new nginx
+- name: Install nginx
   apt:
     name: nginx
 
