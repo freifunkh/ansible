@@ -20,10 +20,15 @@
     packages:
     - zabbix-frontend-php
 
+- name: Determine current php version
+  shell: "find /etc/php/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort -nr | head -1"
+  register: php_location
+  check_mode: false
+
 - name: "PHP Timezone setting"
   notify: Reload nginx
   lineinfile:
-    dest: /etc/php/7.3/fpm/php.ini
+    dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
     regexp: "date.timezone ="
     line: "date.timezone = Europe/Berlin"
 
