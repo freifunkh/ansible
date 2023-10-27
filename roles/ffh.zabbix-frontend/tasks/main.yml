@@ -24,6 +24,7 @@
   shell: "find /etc/php/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort -nr | head -1"
   register: php_location
   check_mode: false
+  changed_when: False
 
 - name: "PHP Timezone setting"
   notify: Reload nginx
