@@ -4,7 +4,7 @@
 
 - name: Do not setup wireguard on incompatible debian releases
   include_tasks: setup_wg.yml
-  when: 'ansible_distribution_release in ["buster", "bullseye"]'
+  when: "ansible_distribution_version|int > 9"
   register: setup
 
 - name: Warn about incompatible Debian release
