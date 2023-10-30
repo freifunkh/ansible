@@ -1,21 +1,13 @@
 ---
-    - name: update apt
+    - name: Install vim and debconf
       become: true
       apt:
         update_cache: yes
-        cache_valid_time: 3600
-
-    - name: install vim
-      become: true
-      apt:
-        name: vim
-        state: present
-
-    - name: install debconf
-      become: true
-      apt:
-        name: debconf
-        state: present
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - vim
+        - debconf
 
     - name: Set Postfix option type as internet site
       become: true
