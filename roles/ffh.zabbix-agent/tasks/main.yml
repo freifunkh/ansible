@@ -1,18 +1,30 @@
 ---
 
-- name: Add gpg dependency for apt_key
+- name: Add gpg dependency for key handling
   apt:
     name: "gpg"
 
+- name: Prepare key directory for older Debian versions
+  file:
+    path: "/etc/apt/keyrings"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  when: "ansible_distribution_version|int < 12"
+
 - name: Add Zabbix Repo Key
-  apt_key:
+  get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
-    state: present
-    keyring: /etc/apt/trusted.gpg.d/zabbix.gpg
+    dest: "/etc/apt/keyrings/zabbix-official-repo.key"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
 
 - name: Add Zabbix Repo
   apt_repository:
-    repo: "deb https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_distribution_release }} main"
     state: present
     filename: zabbix
 
