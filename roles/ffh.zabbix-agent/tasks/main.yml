@@ -93,9 +93,6 @@
     dest: "/usr/bin"
     mode: 0755
 
-- name: Set x attribute on /etc/zabbix/bin/
-  command: "/bin/sh -c 'chmod a+x /etc/zabbix/bin/*'"
-
 - name: Deploy zabbix-agent PSK file (DIFF REDACTED)
   notify: reload zabbix-agent
   template:

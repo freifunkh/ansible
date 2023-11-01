@@ -33,3 +33,6 @@
   loop_control:
     loop_var: domain
   when: domains is defined and installedversion is changed and bat0_exists.stat.exists
+
+- name: "Include Zabbix-agent tasks"
+  include_tasks: "zabbix.yml"
