@@ -1,14 +1,12 @@
 ---
 
-- name: Install python3, git
+- name: Install prerequisites
   apt:
     update_cache: yes
-    cache_valid_time: 3600
-    name: "{{ packages }}"
-  vars:
-    packages:
+    pkg:
     - python3
     - git
+    - gpg
 
 - name: Generate firewall config stanza (ferm)
   register: ferm_changed
@@ -48,24 +46,30 @@
     hour: "*"
     job: "cd /var/cache/gw-statuspage/site; git pull >/dev/null 2>&1"
 
-- name: add aiyions gpg-key as known gpg key to verify packages
-  ansible.builtin.apt_key:
-    id: 961988DB578E33B3E2812463F3CD90145E0C0947
-    url: https://aiyionpri.me/repo/aiyionprime.gpg
-    state: present
-  register: gpg
+- name: Prepare key directory for older Debian versions
+  file:
+    path: "/etc/apt/keyrings"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  when: "ansible_distribution_version|int < 12"
+
+- name: Add aiyions gpg-key to verify packages
+  get_url:
+    url: "https://aiyionpri.me/repo/aiyionprime.gpg"
+    dest: "/etc/apt/keyrings/aiyionprime.gpg"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
 
 - name: Add aiyions package-repo into sources list
   ansible.builtin.apt_repository:
-    repo: deb http://aiyionpri.me/repo/ ./
-    state: present
-    filename: aiyionprime
-  register: repo
-
-- name: Update apt cache
-  apt:
+    repo: "deb [signed-by=/etc/apt/keyrings/aiyionprime.gpg] https://aiyionpri.me/repo/ ./"
+    state: "present"
+    filename: "aiyionprime"
     update_cache: yes
-  when: repo.changed or gpg.changed
 
 - name: Install or update gw-statuspage
   apt:
