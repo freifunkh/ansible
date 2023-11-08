@@ -8,5 +8,3 @@ restic_backup_server_ips:
 restic_backup_paths:
 - "/etc/"
 - "/root/"
-- "/srv/netbox/"
-- "/var/lib/postgresql/9.6/"

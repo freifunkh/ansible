@@ -1,14 +1,6 @@
 ---
 
 nginx_sites:
-- domain: netbox.ffh.zone
-  root: /var/www/netbox.ffh.zone
-  tls: true
-  tls_redirect_to_https: true
-  locations:
-    - location: /
-      type: proxy
-      proxy_forward_url: http://localhost:8011/
 - domain: zabbix.ffh.zone
   root: /usr/share/zabbix/
   tls: true
@@ -19,4 +11,3 @@ nginx_sites:
             alias /usr/share/zabbix/;
             disable_symlinks on;
           }
-
