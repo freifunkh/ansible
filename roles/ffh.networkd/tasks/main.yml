@@ -7,11 +7,18 @@
     update_cache: "yes"
     filename: "backports"
 
+- name: Install systemd
+  apt:
+    name: "systemd"
+    state: "latest"
+  when: not networkd_systemd_from_backports
+
 - name: Install systemd from backports
   apt:
     name: "systemd"
     state: "latest"
     default_release: "{{ ansible_distribution_release }}-backports"
+  when: networkd_systemd_from_backports
 
 - name: "sysctl: net.ipv6.conf.all.disable_ipv6 to 0"
   sysctl:
