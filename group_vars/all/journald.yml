@@ -35,3 +35,4 @@ journald_watch_filter_regexes:
 - '/unbound.* error: udp connect failed: Invalid argument for fe80.*port 53/'
 - '/unbound.* error: read \(in tcp s\): Connection refused for /'
 - '/drm:drm_atomic_helper_wait_for_dependencies \[drm_kms_helper.*ERROR.*flip_done timed out/'
+- '/ping to 100.100.0.1 \(anycast\) dev.*failed. turning off batman gw mode/'
