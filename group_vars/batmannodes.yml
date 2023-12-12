@@ -1,3 +1,3 @@
 batman_build_from_source: true
-batman_build_version: v2023.2
+batman_build_version: "v2023.3"
 batman: true
