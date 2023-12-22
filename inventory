@@ -49,6 +49,9 @@ all:
       ansible_host: tiefensee.ffh.zone
     scheuer:
       ansible_host: scheuer.ffh.zone
+    dobrindt:
+      ansible_host: dobrindt.ffh.zone
+      ansible_port: 22
     build:
       ansible_host: build.ffh.zone
       ansible_port: 22
@@ -93,3 +96,4 @@ proxmoxes:
   hosts:
     scheuer:
     tiefensee:
+    dobrindt:

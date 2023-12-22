@@ -143,6 +143,7 @@ dns_authoritative_toplevel:
        "scheuer.ffh.zone. IN AAAA 2a0f:5707:ab80:194::34",
        "tiefensee.ffh.zone. IN A 88.99.100.13",
        "tiefensee.ffh.zone. IN AAAA 2a01:4f8:221:100c::2",
+       "dobrindt.ffh.zone. IN A 217.197.91.135",
        "zbx-hetzner.ffh.zone. IN CNAME tiefensee.ffh.zone.",
        "tonne.ffh.zone. 600 IN A 45.12.203.9",
        "tonne.ffh.zone. 600 IN AAAA 2001:678:978:ff01::9",
