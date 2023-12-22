@@ -1,4 +1,5 @@
 ---
+
 servername: kistendampfer
 fqdn: "kistendampfer.ffh.zone"
 
@@ -14,8 +15,6 @@ networkd_configures:
     - '2001:678:ed0:f000::'
     - 9.9.9.9
   no_radv_accept: true
-
-ix_netifnames: false
 
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
