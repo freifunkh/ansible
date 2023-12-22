@@ -1,0 +1,47 @@
+---
+# tasks file for ffh.docker
+
+- name: Install dependencies
+  apt:
+    pkg:
+    - "apt-transport-https"
+    - "ca-certificates"
+    - "curl"
+    - "gnupg"
+
+- name: Prepare key directory for older Debian versions
+  file:
+    path: "/etc/apt/keyrings"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  when: "ansible_distribution_version|int < 12"
+
+- name: Add Docker repo key
+  get_url:
+    url: "https://download.docker.com/linux/debian/gpg"
+    dest: "/etc/apt/keyrings/docker.key"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
+
+- name: Add Docker repo
+  register: dockerrepositoryadded
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.key] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    filename: "docker"
+
+- name: Update apt chache to get Docker packages
+  apt: update_cache=yes
+  when: dockerrepositoryadded is changed
+
+- name: Install Docker from repo
+  register: dockerinstall
+  apt:
+    pkg:
+    - "docker-ce"
+    - "docker-ce-cli"
+    - "containerd.io"
+
