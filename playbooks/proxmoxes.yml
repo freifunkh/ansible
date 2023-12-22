@@ -9,6 +9,7 @@
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
   roles:
+    - { name: ffh.proxmox-init, tags: proxmox-init }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
