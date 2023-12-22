@@ -31,3 +31,7 @@ helpernodes:
   rdns: { id: 6, ip4: "{{ lookup('dig', 'rdns.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'rdns.ffh.zone./AAAA') }}" }
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
   kistenkdampfer: { id: 8, ip4: "{{ lookup('dig', 'kistendampfer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'kistendampfer.ffh.zone./AAAA') }}" }
+proxmoxnodes:
+  scheuer: { id: 1, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
+  dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}" }
+  tiefensee: { id: 1, ip4: "{{ lookup('dig', 'tiefensee.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tiefensee.ffh.zone./AAAA') }}" }
