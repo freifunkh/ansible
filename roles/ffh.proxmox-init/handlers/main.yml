@@ -1,0 +1,5 @@
+---
+# handlers file for ffh.proxmox-init
+
+- name: efiboot
+  shell: "/usr/sbin/pve-efiboot-tool refresh"

@@ -1,0 +1,72 @@
+---
+# tasks file for ffh.proxmox-init
+
+- name: "apt-sources: disable ceph repo"
+  lineinfile:
+    dest: /etc/apt/sources.list.d/ceph.list
+    regexp: '(?i)^(deb.*ceph.*enterprise)$'
+    line: '# \1'
+    backrefs: yes
+    state: present
+  when: 'ansible_distribution_release in ["bookworm"]'
+
+- name: "apt-sources: disable pve enterprise repo"
+  lineinfile:
+    dest: /etc/apt/sources.list.d/pve-enterprise.list
+    regexp: '(?i)^(deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise)$'
+    line: '# \1'
+    backrefs: yes
+    state: present
+  when: 'ansible_distribution_release in ["bookworm"]'
+
+- name: "apt-sources: deploy pve-no-subscription.list"
+  copy:
+    src: 'pve-no-subscription.list'
+    dest: '/etc/apt/sources.list.d/'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "apt-sources: update"
+  apt:
+    update_cache: true
+    autoremove: true
+    autoclean: true
+    upgrade: true
+
+- name: "kernel: add parameter intel_iommu=on for SR-IOV stuff"
+  lineinfile:
+    path: "/etc/kernel/cmdline"
+    regexp: '^(root=(?!.*\bintel_iommu=on\b).*)$'
+    line: '\1 intel_iommu=on'
+    backrefs: yes
+    state: present
+  notify: efiboot
+
+- name: "kernel: add parameter iommu=pt for SR-IOV stuff"
+  lineinfile:
+    path: "/etc/kernel/cmdline"
+    regexp: '^(root=(?!.*\biommu=pt\b).*)$'
+    line: '\1 iommu=pt'
+    backrefs: yes
+    state: present
+  notify: efiboot
+
+- name: "deploy sr-iov starter unitfile"
+  copy:
+    src: 'sr-iov.service'
+    dest: '/etc/systemd/system/sr-iov.service'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "enable sr-iov.service"
+  ansible.builtin.systemd_service:
+    name: 'sr-iov.service'
+    daemon_reload: true
+    enabled: true
+
+- name: "Install dependencies for ansible/proxmox"
+  apt:
+    pkg:
+    - python3-proxmoxer
