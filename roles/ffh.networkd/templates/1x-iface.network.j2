@@ -37,6 +37,15 @@ VLAN=vlan{{ vlan.id }}
 {% endif %}
 {% endfor %}
 {% endif %}
+{% if networkd_bonds is defined %}
+{% for bond in networkd_bonds %}
+{% for iface in bond.ifaces %}
+{% if iface == item.1.iface %}
+Bond={{ bond.name }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
 
 {% if item.1.dhcp is defined and item.1.dhcp %}
 [DHCPv4]

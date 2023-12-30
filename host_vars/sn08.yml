@@ -1,0 +1,44 @@
+---
+servername: sn08
+sn: 8
+fqdn: "sn08.s.ffh.zone"
+
+networkd_configures:
+- iface: ens18
+  addresses:
+    - 192.168.149.2/24
+  gateway4: 192.168.149.1
+  dns_server:
+    - 8.8.8.8
+  no_radv_accept: true
+- iface: bond1 # vlan2000 (see below)
+- iface: ens16 # bond1 (see below)
+- iface: ens17 # bond1 (see below)
+- iface: vlan2000
+  addresses:
+    - 185.1.74.68/25
+
+network_lower_ifaces:
+  default: ens18
+
+networkd_vlans:
+- id: 2000
+  iface: bond1
+
+networkd_bonds:
+- name: bond1
+  ifaces: ["ens16", "ens17"]
+
+
+mesh_prefix: "2001:678:978"
+
+mesh_fastd_firewall_open: false
+
+legacy_dom0: true
+radv_announce_default: false
+fix_netifnames: false
+no_babel: true
+iperf3_is_public_server: true
+
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
