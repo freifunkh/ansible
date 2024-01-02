@@ -6,8 +6,8 @@ method "null"; # prefer null over salsa2012+umac, since only routers in
                # "security mode" fall back to salsa2012 then.
 method "salsa2012+umac";
 
-bind {{ ansible_default_ipv4.address }} port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
-bind [{{ ansible_default_ipv6.address }}] port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
+bind 0.0.0.0 port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
+bind [::] port {% if domain is defined %}{{ 10000 + domain.id | int }}{% else %}10000{% endif %};
 
 hide ip addresses yes;
 hide mac addresses yes;
