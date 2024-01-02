@@ -99,7 +99,7 @@
 # We do not care whether telegraf is really installed. So it could be installed
 # later (or also never).
 - name: Set /etc/telegraf/telegraf.d/apinger.conf
-  notify: Maybe restart telegraf # handler from ffh.routingnode
+  notify: Maybe restart telegraf # handler from ffh.nfctd
   template:
     src: telegraf-apinger.conf
     dest: /etc/telegraf/telegraf.d/apinger.conf
