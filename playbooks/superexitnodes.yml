@@ -13,19 +13,19 @@
     - { name: ffh.cleanup, tags: cleanup }
     # General
     - { name: ffh.devname, tags: devname }
-      #    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.ferm, tags: ferm }
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.cli_tools, tags: cli_tools }
       #    - { name: ffh.babeld, tags: babeld }
     - { name: ffh.simple_mail, tags: simple_mail }
-      #    - { name: ffh.admin, tags: admin }
-      #    - { name: ffh.cron-apt, tags: cron-apt }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.cron-apt, tags: cron-apt }
       #    # Batman
-      #    - { name: ffh.mesh_batman, tags: mesh_batman }
-      #    - { name: ffh.mesh_fastd, tags: mesh_fastd }
-      #    - { name: ffh.mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
-      #    - { name: ffh.mesh_wireguard_remotes_peers_git, tags: mesh_wireguard_remotes_peers_git }
-      #    - { name: ffh.routingnode, tags: routingnode }
+    - { name: ffh.mesh_batman, tags: mesh_batman }
+    - { name: ffh.mesh_fastd, tags: mesh_fastd }
+    - { name: ffh.mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
+    - { name: ffh.mesh_wireguard_remotes_peers_git, tags: mesh_wireguard_remotes_peers_git }
+    - { name: ffh.nfctd, tags: nfctd }
       #    - { name: ffh.mesh_wireguard, tags: mesh_wireguard }
       #    - { name: ffh.mesh_announce, tags: mesh_announce }
       #    - { name: ffh.supernode, tags: supernode }
@@ -34,15 +34,15 @@
       #    - { name: ffh.dns_recursive, tags: dns_recursive }
       #    - { name: ffh.kea-dhcp4-server, tags: kea-dhcp4-server }
       #    - { name: ffh.gateway_announcement, tags: gateway_announcement }
-      #    - { name: ffh.iperf3, tags: iperf3 }
-      #    - { name: ffh.journald, tags: journald }
-      #    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.iperf3, tags: iperf3 }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
       #    - { name: ffh.apinger, tags: apinger }
       #    - { name: ffh.telegraf, tags: telegraf }
-      #    - { name: ffh.bpfcount, tags: bpfcount }
+    - { name: ffh.bpfcount, tags: bpfcount }
       #    - { name: ffh.gw-statuspage, tags: gw-statuspage }
       #    # Backups
-      #    - { name: ffh.restic, tags: restic }
+    - { name: ffh.restic, tags: restic }
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
