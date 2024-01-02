@@ -1,7 +1,7 @@
 [Unit]
 {% if legacy_dom0 == true %}
-After=wait-for-ip4@bat0.service
+After=sys-subsystem-net-devices-bat0.device
 {% endif %}
 {% for domain in domains | default([]) %}
-After=wait-for-ip4@bat{{ domain.id }}.service
+After=sys-subsystem-net-devices-bat{{ domain.id }}.device
 {% endfor %}

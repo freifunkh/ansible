@@ -74,4 +74,40 @@
       state: absent
   when: addrgenmode_installed.stat.exists
 
-# ###
+# ### Deprecate wait-for
+
+- name: "Disable wait-for servicefile for each bat interface"
+  systemd:
+    name: "wait-for-ip@bat{{ domain.id }}.service"
+    enabled: "no"
+  with_items: "{{ domains }}"
+  loop_control:
+    loop_var: "domain"
+  when: "domains is defined"
+
+- name: "Disable wait-for servicefile for dom0"
+  systemd:
+    name: "wait-for-ip@bat0.service"
+    enabled: "no"
+  when: "legacy_dom0 == true"
+
+- name: Remove wait-for-ip
+  ansible.builtin.file:
+    path: /usr/bin/wait-for-ip
+    state: absent
+
+- name: Remove wait-for-iface
+  ansible.builtin.file:
+    path: /usr/bin/wait-for-iface
+    state: absent
+
+- name: Remove wait_for_iface.sh legacy link
+  ansible.builtin.file:
+    path: /usr/bin/wait_for_iface.sh
+    state: absent
+
+- name: Remove wait-for-ip system service file
+  notify: "systemd daemon-reload"
+  ansible.builtin.file:
+    path: /etc/systemd/system/wait-for-ip@.service
+    state: absent
