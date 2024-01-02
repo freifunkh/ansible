@@ -17,6 +17,8 @@ networkd_configures:
 - iface: vlan2000
   addresses:
     - 185.1.74.68/25
+    - 2001:7f8:a5::20:9347:2/64
+  no_radv_accept: true
 
 network_lower_ifaces:
   default: ens18

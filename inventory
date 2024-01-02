@@ -20,7 +20,7 @@ all:
       ansible_host: 192.168.149.2
       ansible_port: 22
       ansible_user: root
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q dobrindt"'
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@dobrindt.ffh.zone"'
     sn09:
       ansible_host: sn09.s.ffh.zone
     sn10:
@@ -99,6 +99,7 @@ batmannodes:
     harvester:
   children:
     supernodes:
+    superexitnodes:
 
 proxmoxes:
   hosts:
