@@ -1,6 +1,7 @@
 ---
 servername: sn08
 sn: 8
+en: 8
 fqdn: "sn08.s.ffh.zone"
 
 networkd_configures:
@@ -31,7 +32,6 @@ networkd_bonds:
 - name: bond1
   ifaces: ["ens16", "ens17"]
 
-
 mesh_prefix: "2001:678:978"
 
 mesh_fastd_firewall_open: false
@@ -44,3 +44,13 @@ iperf3_is_public_server: true
 
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
+
+# This adds static routes to
+# /etc/systemd/network/10-gre-leintor.d/ (and others)
+# based on the exit_ip_ranges variable defined in
+# group_vars/all/nodes.yml.
+route_exitnode_via:
+  leintor:
+    interface: "gre-leintor"
+  clevertor:
+    interface: "gre-clevertor"

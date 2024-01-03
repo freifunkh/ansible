@@ -15,6 +15,11 @@ exitnodes:
     exit_ip_ranges:
     - 2001:678:978::/48
     - 45.12.203.1/24
+  sn08:
+    id: 8
+    ip4: "185.1.74.68"
+    ip6: "2001:7f8:a5::20:9347:2"
+    exit_ip_ranges:
 supernodes:
   sn01: { id: 1, ip4: "{{ lookup('dig', 'sn01.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn01.s.ffh.zone./AAAA') }}" }
   sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn02.s.ffh.zone./AAAA') }}" }
