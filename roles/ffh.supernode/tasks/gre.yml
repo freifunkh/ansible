@@ -1,15 +1,21 @@
 ---
 
+# Since we have superexitnodes, this node might also be an exitnode, so we create
+# the variable other_exitnodes here (which does not include this node for sure).
+- name: Preparing an exitnode list excluding the current exitnode
+  set_fact:
+    other_exitnodes: "{{ dict( exitnodes | dictsort | rejectattr('0', 'equalto', servername) | list ) }}"
+
 - name: Create network interface for each gre endpoint
   template:
     src: gre-network.j2
     dest: /etc/systemd/network/10-gre-{{ item.key }}.network
-  with_dict: "{{ exitnodes }}"
+  with_dict: "{{ other_exitnodes }}"
   register: greconfig
 
 - name: Delete old gre interfaces
   when: greconfig.changed
-  with_dict: "{{ exitnodes }}"
+  with_dict: "{{ other_exitnodes }}"
   ignore_errors: yes
   shell: "ip link set down gre-{{ item.key }}; ip link del dev gre-{{ item.key }};"
   notify: Restart networkd
@@ -31,7 +37,7 @@
   template:
     src: gre-netdev.j2
     dest: /etc/systemd/network/20-gre-{{ item.key }}.netdev
-  with_dict: "{{ exitnodes }}"
+  with_dict: "{{ other_exitnodes }}"
 
 - name: Generate firewall config stanza for GRE tunnel (ferm)
   notify: reload ferm

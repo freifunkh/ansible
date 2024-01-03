@@ -1,9 +1,11 @@
 ---
 
+# This is not used for superexitnodes
+
 - name: Adjust netfilter conntrack table size
   sysctl:
     name: net.netfilter.nf_conntrack_max
-    value: "{{ firewall_conntrack_table_size }}"
+    value: "{{ firewall_conntrack_table_size|int }}"
     state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
     sysctl_file: /etc/sysctl.d/20-conntrack.conf
     reload: yes
@@ -78,5 +80,12 @@
     name: net.ipv6.neigh.default.gc_thresh3
     value: "131072"
     sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
+    reload: yes
+
+- name: Setting the maximum number of IPv6 routes
+  sysctl:
+    name: net.ipv6.route.max_size
+    value: "1073741824"
+    sysctl_file: /etc/sysctl.d/11-ipv6-routing.conf
     reload: yes
 

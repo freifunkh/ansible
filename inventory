@@ -101,6 +101,12 @@ batmannodes:
     supernodes:
     superexitnodes:
 
+routingnodes:
+  children:
+    supernodes:
+    superexitnodes:
+    exitnodes:
+
 proxmoxes:
   hosts:
     scheuer:

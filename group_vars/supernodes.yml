@@ -4,6 +4,10 @@ is_supernode: true
 network_lower_ifaces:
   default: eth0
 
+# This adds static routes to
+# /etc/systemd/network/10-gre-leintor.d/ (and others)
+# based on the exit_ip_ranges variable defined in
+# group_vars/all/nodes.yml.
 route_exitnode_via:
   leintor:
     interface: "gre-leintor"

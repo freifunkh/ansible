@@ -28,6 +28,7 @@
     - { name: ffh.nfctd, tags: nfctd }
     - { name: ffh.mesh_wireguard, tags: mesh_wireguard }
     - { name: ffh.mesh_announce, tags: mesh_announce }
+    - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.supernode, tags: supernode }
     # Stats, Monitoring, Logging
     - { name: ffh.radv_server, tags: radv_server }

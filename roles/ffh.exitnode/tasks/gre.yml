@@ -14,34 +14,22 @@
     dest: /etc/systemd/network/10-{{ item.value }}.network.d/gre-tunnel.conf
   with_dict: "{{ network_lower_ifaces }}"
 
+# Since we have superexitnodes, this node might also be a supernode, so we create
+# the variable other_supernodes here (which does not include this node for sure).
+- name: Preparing an supernode list excluding the current supernode
+  set_fact:
+    other_supernodes: "{{ dict( supernodes | dictsort | rejectattr('0', 'equalto', servername) | list ) }}"
+
 - name: Create network interface for each supernode gre endpoint
   notify: Restart networkd
   template:
     src: gre-network-super.j2
     dest: /etc/systemd/network/10-gre-{{ item.key }}.network
-  with_dict: "{{ supernodes }}"
+  with_dict: "{{ other_supernodes }}"
 
 - name: Create supernode gre tunnel in networkd
   notify: Restart networkd
   template:
     src: gre-netdev-super.j2
     dest: /etc/systemd/network/20-gre-{{ item.key }}.netdev
-  with_dict: "{{ supernodes }}"
-
-- name: Preparing an exitnode list excluding the current exitnode
-  set_fact:
-    other_exitnodes: "{{ dict( exitnodes | dictsort | rejectattr('0', 'equalto', servername) | list ) }}"
-
-- name: Create network interface for gre tunnel between exitnodes
-  notify: Restart networkd
-  template:
-    src: gre-network-exit.j2
-    dest: /etc/systemd/network/30-gre-{{ item.key }}.network
-  with_dict: "{{ other_exitnodes }}"
-
-- name: Create network device for gre tunnel between exitnodes
-  notify: Restart networkd
-  template:
-    src: gre-netdev-exit.j2
-    dest: /etc/systemd/network/30-gre-{{ item.key }}.netdev
-  with_dict: "{{ other_exitnodes }}"
+  with_dict: "{{ other_supernodes }}"
