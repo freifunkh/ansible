@@ -1,16 +1,9 @@
 domain (ip) {
   table filter {
     chain INPUT {
-
-    {#  TODO: whitespace cosmetics  #}
-
-    {%- for item in supernodes | dict2items -%}
-       saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
-    {% endfor %}
-
-    {%- for item in exitnodes | dict2items -%}
-       saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
-    {% endfor %}
+      {%- for item in other_exitnodes | dict2items -%}
+        saddr {{ item.value.ip4 }}/32 proto gre ACCEPT; # {{ item.key }}
+      {% endfor %}
     }
   }
 }

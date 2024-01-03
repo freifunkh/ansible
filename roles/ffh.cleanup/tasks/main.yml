@@ -1,2 +1,30 @@
 ---
 # This file should regularly be cleaned up, so we can remove outdated stuff.
+
+## cleanup gretap + vxlan stuff
+
+- name: "Find *-gt-* in networkd"
+  notify: Restart networkd
+  find:
+    paths: /etc/systemd/network
+    patterns: "*gt*"
+  register: find_results
+
+- name: "Delete *-gt-* in networkd"
+  notify: Restart networkd
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items: "{{ find_results['files'] }}"
+
+- name: "Delete ferm"
+  notify: reload ferm
+  file:
+    path: /etc/ferm/conf.d/10-br-gt-noforward.conf
+    state: absent
+
+- name: "Delete networkd dropin"
+  notify: Restart networkd
+  file:
+    path: /etc/systemd/network/10-{{ network_lower_ifaces.default }}.network.d/gt-tunnel.conf
+    state: absent

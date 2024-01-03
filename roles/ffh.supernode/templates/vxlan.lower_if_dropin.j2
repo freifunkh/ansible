@@ -1,7 +1,4 @@
-[Match]
-Name=br-gt
-
 [Network]
 {% for domain in domains_with_dom0 %}
-VLAN=vlan-gt-2{{ domain.id }}
+VXLAN=vx-cross-{{ domain.id }}
 {% endfor %}

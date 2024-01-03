@@ -1,0 +1,19 @@
+---
+- name: Generate firewall config stanza for vxlan tunnel (ferm)
+  notify: reload ferm
+  template:
+    src: vx-cross-ferm.conf.j2
+    dest: /etc/ferm/conf.d/51-vx-cross.conf
+
+- name: Generate networkd dropin for lower iface for vxlan
+  notify: Restart networkd
+  template:
+    src: vxlan.lower_if_dropin.j2
+    dest: /etc/systemd/network/10-{{ network_lower_ifaces.default }}.network.d/vx-cross.conf
+
+- name: Domain configs (supernode)
+  include_tasks: vx-cross-per-domain.yml
+  with_items: "{{domains_with_dom0}}"
+  loop_control:
+    loop_var: domain
+  when: domains_with_dom0 is defined and sn is defined

@@ -1,0 +1,22 @@
+[Match]
+Name=vx-cross-{{ domain.id }}
+
+[Network]
+BatmanAdvanced=bat{{ domain.id }}
+DHCP=no
+IPv6AcceptRA=false
+
+[Link]
+MTUBytes=1330
+RequiredForOnline=false
+
+{% for item in supernodes | dict2items -%}
+{% if item.key != servername %}
+# To {{ item.key }}
+[BridgeFDB]
+# 00:00:00:00:00:00 = automatic learning
+MACAddress=00:00:00:00:00:00
+Destination={{ item.value.ip6 }}
+
+{% endif %}
+{% endfor %}
