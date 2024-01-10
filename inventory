@@ -94,6 +94,13 @@ helpernodes:
     tonne:
     kistendampfer:
 
+fermnodes:
+  children:
+    supernodes:
+    exitnodes:
+    superexitnodes:
+    helpernodes:
+
 batmannodes:
   hosts:
     harvester:
