@@ -119,3 +119,9 @@ proxmoxes:
     scheuer:
     tiefensee:
     dobrindt:
+
+zabbixproxies:
+  hosts:
+    rdns:
+    leintor:
+    tiefensee:

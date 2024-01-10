@@ -42,6 +42,7 @@ babeld_interfaces: ["gre-sn01", "gre-sn02", "gre-sn03", "gre-sn04", "gre-sn05", 
 
 # zabbix_agent_server: "zbx-hostway.ffh.zone"
 # zabbix_agent_server_active: "zbx-hostway.ffh.zone"
+zabbix_proxy_hostname: "zbx-hostway.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"

@@ -7,3 +7,5 @@ restic_backup_paths:
 
 zabbix_agent_server: "zbx-hetzner.ffh.zone"
 zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
+zabbix_proxy_hostname: "zbx-hetzner.ffh.zone"
+zabbix_proxy_sourceip: "2a01:4f8:221:100c::2"
