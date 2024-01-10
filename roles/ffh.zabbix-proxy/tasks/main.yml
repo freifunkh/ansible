@@ -1,16 +1,58 @@
 ---
 # tasks file for ffh.zabbix-proxy
 
-- name: "Create Ferm config directory"
+- name: "Add gpg dependency for key handling"
+  apt:
+    name: "gpg"
+
+- name: "Prepare key directory for older Debian versions"
   file:
-    path: "/etc/ferm/conf.d"
+    path: "/etc/apt/keyrings"
     state: "directory"
+    mode: "0755"
     owner: "root"
     group: "root"
-    mode: "0755"
+  when: "ansible_distribution_version|int < 12"
 
-- name: "Generate firewall config stanza (ferm)"
-  notify: "reload ferm"
+- name: "Add Zabbix Repo Key"
+  get_url:
+    url: "https://repo.zabbix.com/zabbix-official-repo.key"
+    dest: "/etc/apt/keyrings/zabbix-official-repo.key"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
+
+- name: "Add Zabbix Repo"
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('6.0') }}/debian {{ ansible_distribution_release }} main"
+    state: "present"
+    filename: "zabbix"
+
+- name: "Install Zabbix Proxy package"
+  apt:
+    update_cache: "yes"
+    name:
+    - "zabbix-proxy-sqlite3"
+
+- name: "Generate zabbix-proxy config"
+  notify: "restart zabbix-proxy"
   template:
-    src: "ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/50-zabbix-proxy.conf"
+    src: "zabbix_proxy.conf.j2"
+    dest: "/etc/zabbix/zabbix_proxy.conf"
+
+- name: "Add firewall config"
+  when: "inventory_hostname in groups['fermnodes']"
+  block:
+  - name: "Create Ferm config directory"
+    file:
+      path: "/etc/ferm/conf.d"
+      state: "directory"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+  - name: "Generate firewall config stanza (ferm)"
+    notify: "reload ferm"
+    template:
+      src: "ferm.conf.j2"
+      dest: "/etc/ferm/conf.d/50-zabbix-proxy.conf"

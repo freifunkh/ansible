@@ -1,2 +1,13 @@
 ---
 # handlers file for ffh.zabbix-proxy
+
+- name: "restart zabbix-proxy"
+  systemd:
+    name: "zabbix-proxy"
+    state: "restarted"
+
+- name: "reload ferm"
+  systemd:
+    name: "ferm"
+    state: "reloaded"
+  when: "inventory_hostname in groups['fermnodes']"

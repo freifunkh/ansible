@@ -1,0 +1,23 @@
+ProxyMode=0
+Server={{ zabbix_proxy_server }}
+{% if zabbix_proxy_sourceip is defined -%}
+SourceIP={{ zabbix_proxy_sourceip | default('127.0.0.1') }}
+{% endif %}
+Hostname={{ zabbix_proxy_hostname | default(inventory_hostname) }}
+LogFile=/var/log/zabbix/zabbix_proxy.log
+# LogFileSize=0
+EnableRemoteCommands=1
+LogRemoteCommands=0
+PidFile=/var/run/zabbix/zabbix_proxy.pid
+SocketDir=/var/run/zabbix
+DBName=/tmp/zabbix_proxy.db
+DBUser={{ zabbix_proxy_dbuser | default("zabbix") }}
+ProxyOfflineBuffer=48
+# ConfigFrequency=3600
+SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+Timeout=5
+ExternalScripts=/usr/lib/zabbix/externalscripts
+FpingLocation=/usr/bin/fping
+Fping6Location=/usr/bin/fping6
+LogSlowQueries=3000
+# Include=/etc/zabbix/zabbix_proxy.conf.d/
