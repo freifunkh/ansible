@@ -1,0 +1,36 @@
+---
+
+- name: "Create graveyard directory"
+  ansible.builtin.file:
+    path: "{{ yanic_graveyard_dir }}"
+    state: "directory"
+    mode: "0755" 
+    owner: "{{ yanic_user }}"
+    group: "{{ yanic_group }}"
+
+- name: "Install graveyard script"
+  ansible.builtin.template:
+    src: "update-graveyard.sh.j2"
+    dest: "{{ yanic_graveyard_dir }}/update-graveyard.sh"
+    owner: "{{ yanic_user }}"
+    group: "{{ yanic_group }}"
+    mode: "0755"
+
+- name: "Create graveyard removelist if necessary"
+  copy:
+    content: ""
+    dest: "{{ yanic_graveyard_dir }}/removelist"
+    owner: "{{ yanic_user }}"
+    group: "{{ yanic_group }}"
+    mode: "0644"
+    force: "false"
+
+- name: "Run graveyard script"
+  ansible.builtin.shell: "{{ yanic_graveyard_dir }}/update-graveyard.sh"
+
+- name: "Setup cronjob for graveyard update"
+  ansible.builtin.cron:
+    name: "graveyard"
+    job: "{{ yanic_graveyard_dir }}/update-graveyard.sh"
+    minute: "0"
+    hour: "4"

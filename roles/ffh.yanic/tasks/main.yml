@@ -174,3 +174,6 @@
     value: "131072"
     sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
     reload: yes
+
+- name: Run Graveyard tasks
+  include_tasks: graveyard.yml
