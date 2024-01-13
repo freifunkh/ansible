@@ -2,6 +2,7 @@
 
 cd {{ yanic_graveyard_dir }}
 cp {{ yanic_nodes_path }}/meshviewer.json {{ yanic_graveyard_dir }}/meshviewer.json
+cp {{ yanic_nodes_path }}/graveyard.json {{ yanic_graveyard_dir }}/graveyard.json
 #read the nodes-array from current graveyard AND map
 jq  '.nodes[]'  meshviewer.json graveyard.json |
 #sort all nodes and keep only the latest instance if are there more than one with the same node_id. this makes ressurrected nodes dissappear from the graveyard automatically

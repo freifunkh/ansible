@@ -25,6 +25,15 @@
     mode: "0644"
     force: "false"
 
+- name: "Create graveyard.json if necessary"
+  copy:
+    content: ""
+    dest: "{{ yanic_nodes_path }}/graveyard.json"
+    owner: "{{ yanic_user }}"
+    group: "{{ yanic_group }}"
+    mode: "0644"
+    force: "false"
+
 - name: "Run graveyard script"
   ansible.builtin.shell: "{{ yanic_graveyard_dir }}/update-graveyard.sh"
 
