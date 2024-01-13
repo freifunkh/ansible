@@ -8,6 +8,7 @@ journald_watch_filter_regexes:
 - '/sshd.*fatal: no hostkey alg \[preauth\]/'
 - '/sshd.*fatal: Read from socket failed: Connection reset by peer \[preauth\]/'
 - '/sshd.*fatal: Unable to negotiate a key exchange method \[preauth\]/'
+- '/sshd.*fatal: Timeout before authentication for/'
 - '/sshd.*error: send_error: write: Connection reset by peer/'
 - '/sshd.*error: kex_exchange_identification: client sent invalid protocol identifier/'
 - '/sshd.*error: kex_exchange_identification: Connection closed by remote host/'
