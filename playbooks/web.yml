@@ -23,6 +23,7 @@
     - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
     - { name: ffh.burginfo, tags: burginfo }
+    - { name: ffh.meshviewer, tags: meshviewer }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

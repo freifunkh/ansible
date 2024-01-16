@@ -130,7 +130,7 @@ meshviewer_grafana_url: "https://stats.ffh.zone"
 meshviewer_devicepictures_dir: "/var/www/web/device-pictures"
 meshviewer_dir: "/var/www/web/meshviewer"
 meshviewer_site: "Freifunk Hannover"
-meshviewer_deprecation_text: "Dieses Gerät ist leider veraltet und wird bald nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
+meshviewer_deprecation_text: "Dieses Gerät ist leider veraltet und wird nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
 
 restic_backup_paths:
 - "/etc/"
