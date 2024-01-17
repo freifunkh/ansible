@@ -33,6 +33,27 @@
     dest: /etc/grafana/grafana.ini
   diff: "{{ show_secret_diffs }}"
 
+- name: Install/update grafana plugins
+  notify: Restart grafana
+  community.grafana.grafana_plugin:
+    name: "{{ item }}"
+    version: "latest"
+    state: "present"
+    grafana_plugins_dir: "{{ grafana_datadir }}/plugins"
+  loop:
+    - "alexanderzobnin-zabbix-app"
+    - "blackmirror1-singlestat-math-panel"
+    - "grafana-piechart-panel"
+    - "jdbranham-diagram-panel"
+    - "marcusolsson-dynamictext-panel"
+    - "marcusolsson-json-datasource"
+    - "michaeldmoore-scatter-panel"
+    - "natel-plotly-panel"
+    - "vonage-status-panel"
+
+    # not sure, if they are all needed. its the current status quo.
+    # - "grafana-image-renderer"
+
 - name: Permissions on data directory
   file:
     state: directory
