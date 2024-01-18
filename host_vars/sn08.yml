@@ -19,7 +19,17 @@ networkd_configures:
   addresses:
     - 185.1.74.68/25
     - 2001:7f8:a5::20:9347:2/64
+    - 2a0a:4587:2030::1/128
   no_radv_accept: true
+  additional_config: |
+    [RoutingPolicyRule]
+    From=2a0a:4587:2030::/48
+    Table=2000
+- iface: ens19 # bridge to other vms
+  addresses:
+    - 217.197.84.201/29
+
+bird_enable: true
 
 network_lower_ifaces:
   default: ens18
@@ -32,7 +42,7 @@ networkd_bonds:
 - name: bond1
   ifaces: ["ens16", "ens17"]
 
-mesh_prefix: "2001:678:978"
+mesh_prefix: "2a0a:4587:2030"
 
 mesh_fastd_firewall_open: false
 

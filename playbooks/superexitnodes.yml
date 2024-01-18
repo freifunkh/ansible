@@ -30,7 +30,9 @@
     - { name: ffh.mesh_announce, tags: mesh_announce }
     - { name: ffh.routingnode, tags: routingnode }
     - { name: ffh.supernode, tags: supernode }
+    # Exitnode stuff
     - { name: ffh.exitnode, tags: exitnode }
+    - { name: ffh.bird2, tags: bird2 }
     # Stats, Monitoring, Logging
     - { name: ffh.radv_server, tags: radv_server }
     - { name: ffh.dns_recursive, tags: dns_recursive }
