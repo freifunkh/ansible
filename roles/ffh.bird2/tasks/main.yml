@@ -38,6 +38,7 @@
           2000 cix
 
     - name: "Generate config file"
+      notify: restart bird
       template:
        src: "bird_{{ ansible_hostname }}.conf.j2"
        dest: /etc/bird/bird.conf

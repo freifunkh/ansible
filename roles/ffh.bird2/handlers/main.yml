@@ -5,3 +5,8 @@
 # it is installed later or already installed.
 - name: Maybe restart telegraf
   shell: if test -f /usr/bin/telegraf; then systemctl restart telegraf; fi
+
+- name: restart bird
+  systemd:
+    name: bird
+    state: restarted
