@@ -1,0 +1,18 @@
+---
+meshviewer_version: "v12.3.0"
+meshviewer_file_owner: "www-data"
+meshviewer_file_group: "www-data"
+meshviewer_dir: "/var/www/meshviewer"
+meshviewer_devicepictures_dir: "/var/www/device-pictures"
+
+meshviewer:
+- name: "default"
+  site: "Freifunk"
+  data_url: "/data/"
+  grafana_url: "https://stats.local"
+  maxage: 14
+  deprecation_enabled: true
+  deprecation_text: "This device is not supported anymore and therefore gets not (security) updates."
+  night: false
+  tile_url: "https://tiles.ffh.zone/{z}/{x}/{y}.png"
+  tile_attribution: "<a href='https://github.com/freifunk/meshviewer/issues' target='_blank'>Report Bug</a> | Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributor"

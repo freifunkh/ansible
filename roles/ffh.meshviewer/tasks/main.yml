@@ -1,0 +1,49 @@
+---
+
+- name: "Install dependencies"
+  ansible.builtin.apt:
+    pkg:
+    - "git"
+    - "unzip"
+
+- name: "Create meshviewer directory"
+  ansible.builtin.file:
+    path: "{{ meshviewer_dir }}"
+    state: "directory"
+    mode: "0755" 
+    owner: "{{ meshviewer_file_owner }}"
+    group: "{{ meshviewer_file_group }}"
+
+- name: "Create meshviewer config directory"
+  ansible.builtin.file:
+    path: "{{ item.config_file | dirname }}"
+    state: "directory"
+    mode: "0755" 
+    owner: "{{ meshviewer_file_owner }}"
+    group: "{{ meshviewer_file_group }}"
+  with_items: "{{ meshviewer_instances }}"
+
+- name: "Install meshviewer from {{ meshviewer_version }} release zipfile (GitHub)"
+  ansible.builtin.unarchive:
+    remote_src: "yes"
+    src: "https://github.com/freifunk/meshviewer/releases/download/{{ meshviewer_version }}/meshviewer-build.zip"
+    dest: "{{ meshviewer_dir }}"
+    owner: "{{ meshviewer_file_owner }}"
+    group: "{{ meshviewer_file_group }}"
+    creates: "{{ meshviewer_dir }}/app.js"
+
+- name: "Copy meshviewer config"
+  ansible.builtin.template:
+    src: "meshviewer_config.json.j2"
+    dest: "{{ item.config_file }}"
+    owner: "{{ meshviewer_file_owner }}"
+    group: "{{ meshviewer_file_group }}"
+  with_items: "{{ meshviewer_instances }}"
+  
+- name: "Clone device pictures from repo"
+  ansible.builtin.git:
+    repo: "https://github.com/freifunk/device-pictures.git"
+    dest: "{{ meshviewer_devicepictures_dir }}"
+    accept_hostkey: "true"
+  become: "yes"
+  become_user: "{{ meshviewer_file_owner }}"

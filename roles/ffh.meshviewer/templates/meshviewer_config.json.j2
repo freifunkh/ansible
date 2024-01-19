@@ -1,0 +1,140 @@
+{
+    "dataPath": [
+      "{{ item.data_url }}"
+    ],
+    "siteName": "{{ item.site }}",
+    "maxAge": {{ item.maxage }},
+    "nodeZoom": 19,
+    "mapLayers": [
+      {
+        "name": "OpenStreetMap",
+        "url": "{{ item.tile_url }}",
+        "config": {
+          "type": "osm",
+          "maxZoom": 19,
+          "attribution": "{{ item.tile_attribution }}",
+          {% if item.night is defined and item.night %}"mode": "night",
+{% endif %}
+          "start": 10
+        }
+      },
+    {
+      "name": "EsriWorldImagery",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      "config": {
+        "maxZoom": 19,
+        "start": 30,
+        "mode": "night",
+        "attribution": "<a href='http://arcgis.com/' target='_blank'>&copy; ArcGIS-Satellite</a> <a href='http://arcgis.com/about/' target='_blank'>&copy; ArcGIS</a>"
+      }
+    }
+    ],
+    "fixedCenter": [
+      [
+        52.654728,
+        9.179077
+      ],
+      [
+        52.134331,
+        10.149994
+      ]
+    ],
+    "siteNames": [
+      { "site": "ffh", "name": "{{ item.site }}" }
+    ],
+    "domainNames": [
+{% for dom in domain_codes %}
+      {
+        "domain": "{{ dom.id }}",
+        "name": "{{ dom.name }}"
+      }{{ "," if not loop.last }}
+{% endfor %}
+    ],
+    "icon": {
+      "base":{
+        "fillOpacity":0.8,
+        "opacity":0.8,
+        "weight":2,
+        "radius":6,
+        "className":"stroke-first"
+      },
+      "online":{
+        "fillOpacity":1,
+        "opacity":1,
+        "color":"#1566A9",
+        "fillColor":"#5DA439"
+      },
+      "online.uplink":{
+        "fillOpacity":1,
+        "opacity":1,
+        "color":"#1566AF",
+        "fillColor":"#43901c"
+      },
+      "offline":{
+        "color":"#D43E2A",
+        "fillColor":"#D43E2A",
+        "radius":3
+      },
+      "lost":{
+        "color":"#D43E2A",
+        "fillColor":"#D43E2A",
+        "radius":4
+      },
+      "alert":{
+        "color":"#D43E2A",
+        "fillColor":"#D43E2A",
+        "radius":5
+      },
+      "new":{
+        "fillOpacity":1,
+        "opacity":0.5,
+        "color":"#1566A9",
+        "fillColor":"#93E929"
+      },
+      "new.uplink":{
+        "fillOpacity":1,
+        "opacity":0.5,
+        "color":"#1566A9",
+        "fillColor":"#90ff06",
+        "weight": 5
+      }
+    },
+    "nodeInfos": [
+      {
+        "name": "Clientstatistik",
+        "href": "{{ item.grafana_url }}/d/EGysRPsMz/router-fur-meshviewer?var-node={NODE_ID}&from=now-12h&to=now-1m",
+        "image": "/grafana.jpg",
+        "title": "Knoten {NODE_ID} ({NODE_NAME})"
+      }
+    ],
+    "linkInfos": [],
+    "globalInfos": [],
+    "hwImg": "https://hannover.freifunk.net/device-pictures/{MODEL_NORMALIZED}.svg",
+    "devicePicturesSource": "<a href='https://github.com/freifunk/device-pictures'>https://github.com/freifunk/device-pictures</a>",
+    "devicePicturesLicense": "CC-BY-NC-SA 4.0",
+    "node_custom": "/[^a-z0-9\\-\\.]/ig",
+    "geo": [
+      {
+        "json":
+{% include 'stadtbezirke.json' %},
+        "option": {
+          "style": {
+          "color": "#555555",
+          "weight": 5,
+          "opacity": 0.4,
+          "fillColor": "#998877",
+          "fillOpacity": 0.3
+        }
+      }
+    } 
+    ],
+    "linkList": [
+    {
+      "title": "Impressum & Datenschutz",
+      "href": "/wiki/Freifunk/Impressum"
+    }
+    ],
+
+    "deprecation_text": "{{ item.deprecation_text }}",
+    "deprecation_enabled": {% if item.deprecation_text != "" %}true{% else %}false{% endif %}
+  }
