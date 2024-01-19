@@ -117,14 +117,6 @@ nginx_sites:
 
 burginfo_enabled: False
 
-git2cal:
-  user: www-data
-  git2cal_dir: /opt/git2cal
-  calendar_git: https://github.com/freifunkh/calendar.git
-  calendar_dir: /tmp/calendar
-  ics_file: /var/www/apps/api/meetings.ics
-  json_file: /var/www/apps/api/meetings.json
-
 meshviewer_dir: "/var/www/apps/meshviewer"
 meshviewer_devicepictures_dir: "/var/www/apps/device-pictures"
 meshviewer_instances:
