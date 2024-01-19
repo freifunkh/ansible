@@ -40,6 +40,9 @@
 {% if location.disable_symlinks|default(False) %}
         disable_symlinks    off;
 {% endif %}
+{% if location.alias|default(False) %}
+	alias {{ location.alias }};
+{% endif %}
 {% if location.root|default(False) %}
 	root {{ location.root }};
 {% endif %}
