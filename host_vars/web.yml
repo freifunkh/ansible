@@ -18,100 +18,98 @@ networkd_configures:
 
 ansible_python_interpreter: "/usr/bin/python3"
 
+foswiki_dir: "/var/www/apps/wiki"
+
 nginx_sites:
 - domain: firmware.ffh.zone
-  root: /var/www/firmware
+  root: /var/www/domains/firmware.ffh.zone
   tls: true
   locations:
     - location: /
       directory_index: true
 - domain: fnorden.net
-  root: /var/www/fnorden.net
+  root: /var/www/domains/fnorden.net
   tls: true
   tls_redirect_to_https: true
   # Todo: Multiple domains & certs for one web
 - domain: www.fnorden.net
-  root: /var/www/fnorden.net
+  root: /var/www/domains/fnorden.net
   tls: true
   tls_redirect_to_https: true
 - domain: hannover.freifunk.net
-  root: /var/www/web/webroot
+  root: /var/www/domains/hannover.freifunk.net/
   tls: true
   tls_redirect_to_https: true
   php: true
   locations:
+    - location: /api/
+      expires: -1
+      alias: /var/www/apps/api/
     - location: /download/
       directory_index: true
       disable_symlinks: true
-      root: /var/www/web
-    - location: /gluon-firmware-wizard
-      root: /var/www/web
-    - location: /api
-      root: /var/www/web
-      expires: -1
-    - location: /karte
-      root: /var/www/web
-    - location: /meshviewer
-      root: /var/www/web
-    - location: /device-pictures
-      root: /var/www/web
-    - location: /sshauto
-      root: /var/www/web
+      alias: /var/www/apps/download/
+    - location: /gluon-firmware-wizard/
+      alias: /var/www/apps/gluon-firmware-selector/
+    - location: /karte/config.json
+      alias: /var/www/apps/meshviewer_configs/karte.json
+    - location: /friedhof/config.json
+      alias: /var/www/apps/meshviewer_configs/friedhof.json
+    - location: /karte/
+      alias: /var/www/apps/meshviewer/
+    - location: /friedhof/
+      alias: /var/www/apps/meshviewer/
+    - location: /device-pictures/
+      alias: /var/www/apps/device-pictures/pictures-svg/
+    - location: /sshauto/
+      alias: /var/www/apps/sshauto/
+
   custom_config: |
-          set $foswiki_root "/var/www/web/wiki";
-
-          client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
-
-          location /841.txt {
-            auth_basic "unicorn area";
-            auth_basic_user_file /etc/nginx/.htpasswd_841;
-          }
-          
-          location = /wiki/ {
-            root $foswiki_root;
-            rewrite .* /wiki/Main/WebHome;
-          }
-
+          #
+          # General
+          #
           location ~ (^/Fl(ue|ü)chtlings(wohn)?heime) {
             rewrite .* /wiki/Maschinenraum/Fluechtlingsheime;
           }
 
+          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/api/$1 permanent;
+
+          #
+          # Wiki related
+          #
+          set $foswiki_root "/var/www/apps/wiki";
+          client_max_body_size 10M;   # Set to maximum attachment size, See also ATTACHFILESIZELIMIT
+          location = /wiki/ {
+            root $foswiki_root;
+            rewrite .* /wiki/Main/WebHome;
+          }
           location ~ ^/wiki/pub/(.*) {
             alias $foswiki_root/pub/$1;
             allow all;
           }
-
           location ~ ^/wiki/bin/ {
             root $foswiki_root;
             gzip off;
-            #fastcgi_pass             unix:/var/run/nginx/foswiki.sock;
             fastcgi_pass             127.0.0.1:9000;
             fastcgi_split_path_info  ^(/wiki/bin/\w+)(.*);
-            #  Captures two variables   ($fastcgi_script_name) and ($fastcgi_path_info)
             fastcgi_param            SCRIPT_FILENAME $foswiki_root/bin/$fastcgi_script_name;
             fastcgi_param            SCRIPT_NAME     $fastcgi_script_name;
             fastcgi_param            PATH_INFO       $fastcgi_path_info;
             include fastcgi_params;
           }
-
           location ~ (^/wiki/lib|^/wiki/data|^/wiki/locale|^/wiki/templates|^/wiki/tools|^/wiki/working) {
             root $foswiki_root;
             deny all;
           }
-
           if ($http_user_agent ~ ^SiteSucker|^iGetter|^larbin|^LeechGet|^RealDownload|^Teleport|^Webwhacker|^WebDevil|^Webzip|^Attache|^SiteSnagger|^WX_mail|^EmailCollector|^WhoWhere|^Roverbot|^ActiveAgent|^EmailSiphon|^CrownPeak-HttpAgent|^$) {
             rewrite .* /404.html break;
           }
-
           location ~ ^/wiki/(.*)$ {
             root $foswiki_root;
             rewrite ^/wiki/(.*)$ /wiki/bin/view/$1;
           }
-
-          rewrite ^/api/((graph|nodes|summary)\.json)$ https://harvester.ffh.zone/api/$1 permanent;
-
 - domain: tiles.ffh.zone
-  root: /var/www/tiles/www
+  root: /var/www/domains/tiles.ffh.zone/www
   tls: true
   tls_redirect_to_https: true
   untouchable: true
@@ -126,11 +124,28 @@ git2cal:
   ics_file: /var/www/web/api/meetings.ics
   json_file: /var/www/web/api/meetings.json
 
-meshviewer_grafana_url: "https://stats.ffh.zone"
-meshviewer_devicepictures_dir: "/var/www/web/device-pictures"
-meshviewer_dir: "/var/www/web/meshviewer"
-meshviewer_site: "Freifunk Hannover"
-meshviewer_deprecation_text: "Dieses Gerät ist leider veraltet und wird nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
+meshviewer_dir: "/var/www/apps/meshviewer"
+meshviewer_devicepictures_dir: "/var/www/apps/device-pictures"
+meshviewer_instances:
+- name: "karte"
+  site: "Freifunk Hannover"
+  config_file: "/var/www/apps/meshviewer_configs/karte.json"
+  data_url: "https://harvester.ffh.zone/api/"
+  grafana_url: "https://stats.ffh.zone"
+  maxage: 14
+  deprecation_text: "Dieses Gerät ist leider veraltet und wird bald nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
+  tile_url: "https://tiles.ffh.zone/{z}/{x}/{y}.png"
+  tile_attribution: "<a href='https://github.com/freifunk/meshviewer/issues' target='_blank'>Report Bug</a> | Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributor"
+- name: "friedhof"
+  site: "Friedhof Hannover"
+  config_file: "/var/www/apps/meshviewer_configs/friedhof.json"
+  data_url: "https://harvester.ffh.zone/api/graveyard/"
+  grafana_url: "https://stats.ffh.zone"
+  maxage: 7300
+  deprecation_text: ""
+  night: true
+  tile_url: "https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+  tile_attribution: "Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
 
 restic_backup_paths:
 - "/etc/"
