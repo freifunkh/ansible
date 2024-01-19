@@ -19,6 +19,7 @@ networkd_configures:
 ansible_python_interpreter: "/usr/bin/python3"
 
 foswiki_dir: "/var/www/apps/wiki"
+fnorden_webroot: "/var/www/domains/fnorden.net"
 
 nginx_sites:
 - domain: firmware.ffh.zone
