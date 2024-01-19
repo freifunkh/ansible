@@ -10,7 +10,7 @@ Description=Foswiki
 [Service]
 #Environment=SYSTEMD_LOG_LEVEL=debug
 
-Environment=FOSWIKI_ROOT=/var/www/web/wiki
+Environment=FOSWIKI_ROOT={{ foswiki_dir }}
 Environment=FOSWIKI_FCGI=foswiki.fcgi
 Environment=FOSWIKI_BIND=127.0.0.1:9000
 Environment=FOSWIKI_CHILDREN=3
@@ -32,11 +32,11 @@ Group=www-data
 
 # If changing pidfile,  be sure to also update the -p argument on the ExecStart command
 # The PIDFile directory must exist and  be writable by the User:Group specified above
-PIDFile=/var/www/web/wiki/working/foswiki.pid
+PIDFile={{ foswiki_dir }}/working/foswiki.pid
 #PIDFile=/var/run/foswiki/foswiki.pid         # conventional location
 
 # Path to the foswiki bin directory, including a trailing slash
-WorkingDirectory=/var/www/web/wiki/bin/
+WorkingDirectory={{ foswiki_dir }}/bin/
 
 # Starts foswiki fcgi service
 ExecStart=/usr/bin/perl ${FOSWIKI_ROOT}/bin/${FOSWIKI_FCGI} \

@@ -48,19 +48,19 @@
 
 - name: Prepare Foswiki directory
   file:
-    path: /var/www/web/wiki
+    path: "{{ foswiki_dir }}"
     state: directory
     mode: 0755
 
 - name: Check if Foswiki is already there
   stat:
-    path: /var/www/web/wiki/lib/LocalSite.cfg
+    path: "{{ foswiki_dir }}/lib/LocalSite.cfg"
   register: foswiki_st
 
 - name: Install Foswiki package
   unarchive:
     src: https://github.com/foswiki/distro/releases/download/FoswikiRelease02x01x04/Foswiki-2.1.4.tgz
-    dest: /var/www/web/wiki
+    dest: "{{ foswiki_dir }}"
     remote_src: True
     extra_opts: ['--strip-components=1']
     owner: www-data
