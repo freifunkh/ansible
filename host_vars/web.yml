@@ -115,8 +115,6 @@ nginx_sites:
   tls_redirect_to_https: true
   untouchable: true
 
-burginfo_enabled: False
-
 meshviewer_dir: "/var/www/apps/meshviewer"
 meshviewer_devicepictures_dir: "/var/www/apps/device-pictures"
 meshviewer_instances:
