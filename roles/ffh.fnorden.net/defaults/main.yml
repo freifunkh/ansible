@@ -1,4 +1,5 @@
 ---
 
-fnorden_git_repo: https://github.com/freifunkh/fnorden.net.git
-fnorden_webroot: /var/www/fnorden.net
+fnorden_git_repo: "https://github.com/freifunkh/fnorden.net.git"
+fnorden_webroot: "/var/www/fnorden.net"
+fnorden_user: "{{ nginx_user | default('www-data') }}"

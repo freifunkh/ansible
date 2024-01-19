@@ -10,12 +10,5 @@
   git:
     repo: "{{ fnorden_git_repo }}"
     dest: "{{ fnorden_webroot }}"
-
-- name: Change directory permissions
-  file:
-    path: "{{ fnorden_webroot }}"
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_user }}"
-    mode: u=rwX,g=rwX,o=rX
-    recurse: yes
-  when: repositorycloned is changed
+  become: yes
+  become_user: "{{ fnorden_user }}"
