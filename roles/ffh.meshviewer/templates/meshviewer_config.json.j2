@@ -137,4 +137,7 @@
 
     "deprecation_text": "{{ item.deprecation_text }}",
     "deprecation_enabled": {% if item.deprecation_text != "" %}true{% else %}false{% endif %}
+    {% if item.additional_config is defined %},
+    {{ item.additional_config }}
+    {% endif %}
   }
