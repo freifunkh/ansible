@@ -125,7 +125,7 @@ meshviewer_instances:
   data_url: "https://harvester.ffh.zone/api/"
   grafana_url: "https://stats.ffh.zone"
   maxage: 14
-  deprecation_text: "Dieses Gerät ist leider veraltet und wird bald nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
+  deprecation_text: "Dieses Gerät ist leider veraltet und wird nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
   tile_url: "https://tiles.ffh.zone/{z}/{x}/{y}.png"
   tile_attribution: "<a href='https://github.com/freifunk/meshviewer/issues' target='_blank'>Report Bug</a> | Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributor"
   additional_config: |
