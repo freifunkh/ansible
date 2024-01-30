@@ -149,6 +149,7 @@ dns_authoritative_toplevel:
        "tonne.ffh.zone. 600 IN AAAA 2001:678:978:ff01::9",
        "kistendampfer.ffh.zone. IN A 45.12.203.15",
        "kistendampfer.ffh.zone. IN AAAA 2001:678:978:ff01::15",
+       "hub.ffh.zone. IN CNAME kistendampfer.ffh.zone.",
        "perf-test.ffh.zone. 120 IN A 88.99.88.12",
        "monitor.ffh.zone. IN A 88.99.88.14",
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",
