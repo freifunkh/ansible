@@ -47,6 +47,9 @@ networkd_bonds:
 
 mesh_prefix: "2a0a:4587:2030"
 
+# With this, we do SNAT in favor of MASQUERADE
+exit_ip: 217.197.84.201
+
 mesh_fastd_firewall_open: false
 
 legacy_dom0: true
