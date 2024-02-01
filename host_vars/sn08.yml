@@ -25,6 +25,9 @@ networkd_configures:
     [RoutingPolicyRule]
     From=2a0a:4587:2030::/48
     Table=2000
+    [RoutingPolicyRule]
+    From=217.197.84.201/29
+    Table=2000
 - iface: ens19 # bridge to other vms
   addresses:
     - 217.197.84.201/29
