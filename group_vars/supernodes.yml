@@ -13,3 +13,5 @@ route_exitnode_via:
     interface: "gre-leintor"
   clevertor:
     interface: "gre-clevertor"
+  sn08:
+    interface: "gre-sn08"
