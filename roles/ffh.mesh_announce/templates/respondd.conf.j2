@@ -28,7 +28,7 @@ Hostname: {{ servername }}
 # IPv4Gateway: 10.116.128.8
 # Is the System considered an Gateway
 # optional, default is True
-VPN: {{ is_supernode }}
+VPN: {{ is_supernode or is_superexitnode }}
 # Default vpn protocols to use
 # may contain csv if more than one protocol is used
 # optional, default is fastd
