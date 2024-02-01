@@ -39,6 +39,8 @@ route_exitnode_via:
   clevertor:
     interface: "ens19"
     gateway: "fe80::74f2:85ff:fede:7cb7"
+  sn08:
+    interface: "gre-sn08"
 
 legacy_dom0: true
 radv_announce_default: true

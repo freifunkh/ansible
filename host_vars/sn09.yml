@@ -41,6 +41,8 @@ route_exitnode_via:
     gateway: "fe80::babf"
   clevertor:
     interface: "gre-clevertor"
+  sn08:
+    interface: "gre-sn08"
 
 legacy_dom0: true
 radv_announce_default: true
