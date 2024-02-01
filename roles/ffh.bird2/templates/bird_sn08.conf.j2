@@ -14,6 +14,16 @@ protocol direct {
 }
 
 protocol kernel {
+	ipv4 {
+		export filter {
+			if source ~ [RTS_BGP] then accept; else reject;
+		};
+		import none;
+	};
+	kernel table 2000;	# Kernel table to synchronize with (default: main)
+}
+
+protocol kernel {
 	ipv6 {
 		export where source ~ [RTS_BGP]; # we do not want to export the
 		                                 # static unreachable route, so
@@ -56,6 +66,33 @@ template bgp cix_peer6_ber {
 		#export none;
 		export filter to_upstream6;
 	};
+}
+
+filter to_upstream4 {
+	# we only want to pull routes here.
+	reject;
+}
+
+template bgp cix_peer4_ber {
+	local 185.1.74.68 as my_asn;
+	hold time 90;
+	password "eyohroK8uV2b";
+	ipv4 {
+		import keep filtered;
+		import all; #filter no_1und1;
+		#export none;
+		export filter to_upstream4;
+	};
+}
+
+protocol bgp cix2_ip4_ber from cix_peer4_ber {
+	description "CIX Route Server 2 (IPv4)";
+	neighbor 185.1.74.2 as 57555;
+}
+
+protocol bgp cix1_ip4_ber from cix_peer4_ber {
+	description "CIX Route Server 1 (IPv4)";
+	neighbor 185.1.74.1 as 57555;
 }
 
 protocol bgp cix1_ip6_ber from cix_peer6_ber {
