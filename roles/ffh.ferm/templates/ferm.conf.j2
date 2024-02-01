@@ -24,7 +24,7 @@ domain (ip ip6) {
             proto tcp dport ssh ACCEPT;
             proto tcp dport 1337 ACCEPT;
 
-{% if is_supernode is defined and is_supernode == true %}
+{% if (is_supernode is defined and is_supernode) or (is_superexitnode is defined and is_superexitnode)  %}
             # Every input packet will traverse this chain, except it if is from
             # one of our own exitnode ips. This chain is used to block ff in ff.
             jump INPUT_SOURCE_IS_NOT_FFH_EXIT interface {{ network_lower_ifaces.default }} {
