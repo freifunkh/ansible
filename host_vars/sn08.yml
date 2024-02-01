@@ -35,7 +35,7 @@ networkd_configures:
 bird_enable: true
 
 network_lower_ifaces:
-  default: ens18
+  default: vlan2000
 
 networkd_vlans:
 - id: 2000
