@@ -28,7 +28,8 @@ if [ "$1" = '--force-off' ]; then
 fi
 
 # we assume that the mark and the routing table number are the same
-mark=$(cat /etc/iproute2/rt_tables | grep freifunk | cut -d" " -f 1)
+# mark=$(cat /etc/iproute2/rt_tables | grep freifunk | cut -d" " -f 1)
+mark=$(cat /etc/iproute2/rt_tables.d/freifunk.conf | cut -d" " -f 1)
 interface=$(ip route get 100.100.0.1 mark ${mark} 2>/dev/null | head -n 1 | sed 's_^.*dev \([^ ]*\).*$_\1_g')
 
 if [ "$interface" = "" ]; then
