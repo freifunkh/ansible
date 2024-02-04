@@ -31,6 +31,7 @@
   template: 
     src: tunnel.conf.j2
     dest: /etc/systemd/network/10-{{ network_lower_ifaces.default }}.network.d/gre-tunnel.conf
+  when: not is_superexitnode
 
 - name: Create gre tunnel in networkd
   notify: Restart networkd
