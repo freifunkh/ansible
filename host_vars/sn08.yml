@@ -70,3 +70,7 @@ route_exitnode_via:
     interface: "gre-leintor"
   clevertor:
     interface: "gre-clevertor"
+
+rt_preferred:
+  name: "cix"
+  number: "2000"
