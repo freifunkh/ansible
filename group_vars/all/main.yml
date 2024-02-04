@@ -35,3 +35,7 @@ iperf3_is_public_server: false
 
 babeld_iface_accept_v6_default_route: "gre-leintor"
 mesh_prefix_len: "48"
+
+rt_tables:
+  freifunk: 42
+  cix: 2000

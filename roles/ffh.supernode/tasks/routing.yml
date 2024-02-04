@@ -18,10 +18,12 @@
     src: ferm.forward.conf.j2
     dest: /etc/ferm/conf.d/50-forward.conf
 
-- name: Ensure alternative routing tables are existing
-  lineinfile:
-    dest: /etc/iproute2/rt_tables
-    line: "42 freifunk"
+# TODO: move this to systemd/networkd.conf: RouteTable statement in the future
+- name: Add named routing table
+  copy:
+    dest: "/etc/iproute2/rt_tables.d/{{ item.key }}.conf"
+    content: "{{ item.value }} {{ item.key }}\n"
+  loop: "{{ rt_tables | dict2items }}"
 
 - name: Deploy /etc/rc.local
   register: rclocal
