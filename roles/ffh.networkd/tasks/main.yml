@@ -20,11 +20,13 @@
     sysctl_file: /etc/sysctl.d/10-ipv6.conf
     reload: yes
 
-- name: Install /etc/systemd/networkd.conf
-  notify: Restart networkd
-  template:
-    dest: /etc/systemd/networkd.conf
-    src: networkd.conf.j2
+- name: Set ManageForeignTables in networkd.conf
+  community.general.ini_file:
+    path: "/etc/systemd/networkd.conf"
+    section: "Network"
+    option: "ManageForeignRoutes"
+    value: "{{ networkd_manage_foreign_routes }}"
+    no_extra_spaces: true
 
 - name: Enable systemd-resolved
   service: name=systemd-resolved enabled=yes state=started
