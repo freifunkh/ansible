@@ -1,0 +1,9 @@
+---
+
+networkd_rt_tables:
+  freifunk: 42
+  cix: 2000
+
+rt_preferred:
+  name: "freifunk"
+  number: "42"
