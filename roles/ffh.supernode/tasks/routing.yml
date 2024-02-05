@@ -18,12 +18,20 @@
     src: ferm.forward.conf.j2
     dest: /etc/ferm/conf.d/50-forward.conf
 
-# TODO: move this to systemd/networkd.conf: RouteTable statement in the future
-- name: Add named routing table
+- name: Add named routing table to iproute2's rt_tables.d
   copy:
     dest: "/etc/iproute2/rt_tables.d/{{ item.key }}.conf"
     content: "{{ item.value }} {{ item.key }}\n"
   loop: "{{ rt_tables | dict2items }}"
+
+- name: Add named routing table to systemd-networkd
+  community.general.ini_file:
+    path: /etc/systemd/networkd.conf
+    section: "Network"
+    option: "RouteTable"
+    value: "{{ rt_tables.keys() | zip(rt_tables.values()) | map('join', ':') | join(' ') }}"
+    # value: "freifunk:42 cix:2000"
+    no_extra_spaces: true
 
 - name: Deploy /etc/rc.local
   register: rclocal
