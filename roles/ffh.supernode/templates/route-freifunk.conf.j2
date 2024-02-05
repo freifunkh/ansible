@@ -11,7 +11,7 @@
 [Route]
 Destination=::/0
 Source={{ ip_range }}
-Table=42
+Table={{ rt_preferred.name }}
 {% if item.value.gateway is defined %}Gateway={{ item.value.gateway }}{% endif -%}
 {% endif %}
 {% endfor %}

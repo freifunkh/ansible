@@ -4,18 +4,18 @@ Name=lo
 
 [RoutingPolicyRule]
 FirewallMark=42
-Table=42
+Table={{ rt_preferred.name }}
 Priority=242
 Family=both
 
 [Route]
 Type=unreachable
 Metric=8096
-Table=42
+Table={{ rt_preferred.name }}
 Destination=0.0.0.0/0
 
 [Route]
 Type=unreachable
 Metric=8096
-Table=42
+Table={{ rt_preferred.name }}
 Destination=::/0
