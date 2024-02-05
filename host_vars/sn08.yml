@@ -45,6 +45,8 @@ networkd_bonds:
 - name: bond1
   ifaces: ["ens16", "ens17"]
 
+networkd_manage_foreign_routes: false
+
 mesh_prefix: "2a0a:4587:2030"
 
 # With this, we do SNAT in favor of MASQUERADE
