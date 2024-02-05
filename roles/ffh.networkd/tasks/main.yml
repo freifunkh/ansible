@@ -22,6 +22,7 @@
 
 # ManageForeignTables defaults to yes
 - name: Set ManageForeignTables in networkd.conf
+  notify: Restart networkd
   community.general.ini_file:
     path: "/etc/systemd/networkd.conf"
     section: "Network"
@@ -31,6 +32,7 @@
   when: "not networkd_manage_foreign_routes"
 
 - name: Set named routing tables in networkd.conf
+  notify: Restart networkd
   community.general.ini_file:
     path: "/etc/systemd/networkd.conf"
     section: "Network"
