@@ -30,6 +30,15 @@
     no_extra_spaces: true
   when: "not networkd_manage_foreign_routes"
 
+- name: Set named routing tables in networkd.conf
+  community.general.ini_file:
+    path: "/etc/systemd/networkd.conf"
+    section: "Network"
+    option: "RouteTable"
+    value: "{{ networkd_rt_tables.keys() | zip(networkd_rt_tables.values()) | map('join', ':') | join(' ') }}"
+    no_extra_spaces: true
+  when: networkd_rt_tables is defined
+
 - name: Enable systemd-resolved
   service: name=systemd-resolved enabled=yes state=started
 
