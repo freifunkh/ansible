@@ -1,24 +1,10 @@
 ---
 
-- name: Add backports repository
-  apt_repository:
-    repo: "deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main"
-    state: "present"
-    update_cache: "yes"
-    filename: "backports"
-
 - name: Install systemd
-  apt:
-    name: "systemd"
-    state: "latest"
-  when: not networkd_systemd_from_backports
-
-- name: Install systemd from backports
-  apt:
-    name: "systemd"
-    state: "latest"
-    default_release: "{{ ansible_distribution_release }}-backports"
-  when: networkd_systemd_from_backports
+  ansible.builtin.apt:
+    pkg:
+    - "systemd"
+    - "systemd-resolved"
 
 - name: "sysctl: net.ipv6.conf.all.disable_ipv6 to 0"
   sysctl:
@@ -34,39 +20,14 @@
     sysctl_file: /etc/sysctl.d/10-ipv6.conf
     reload: yes
 
-- name: Obtain systemd version
-  shell: "systemd --version | head -n 1 | cut -d ' ' -f 2"
-  register: systemd_version
-  check_mode: no
-  changed_when: false
-
-- name: Print systemd version
-  debug:
-    msg: 'Systemd version is {{ systemd_version.stdout }}'
-
-# Disabling ManageForeignRoutes is only possible in systemd 247 and above.
-- name: Ensure systemd version >= 247 for ManageForeignRoutes=no feature
-  command: /bin/true
-  when: not networkd_manage_foreign_routes
-  failed_when: (systemd_version.stdout | int) < 247
-  check_mode: no
-  changed_when: false
-
 - name: Install /etc/systemd/networkd.conf
   notify: Restart networkd
   template:
     dest: /etc/systemd/networkd.conf
     src: networkd.conf.j2
 
-- name: Install systemd-resolved
-  apt:
-    name: systemd-resolved
-    state: present
-  when: (systemd_version.stdout | int) > 251
-
 - name: Enable systemd-resolved
   service: name=systemd-resolved enabled=yes state=started
-  when: (systemd_version.stdout | int) > 251
 
 - name: Enable systemd-networkd
   service: name=systemd-networkd enabled=yes state=started
