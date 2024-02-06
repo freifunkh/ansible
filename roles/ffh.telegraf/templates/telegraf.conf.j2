@@ -26,11 +26,11 @@
   data_format = "json"
   name_suffix = "_fastd"
   tag_keys = ["domain"]
-[[inputs.exec]]
-  commands = ["/usr/bin/ffh_dhcp_leases.sh"]
-  data_format = "json"
-  name_suffix = "_dhcp_leases"
-  tag_keys = ["domain", "state"]
+#[[inputs.exec]]
+#  commands = ["/usr/bin/ffh_dhcp_leases.sh"]
+#  data_format = "json"
+#  name_suffix = "_dhcp_leases"
+#  tag_keys = ["domain", "state"]
 [[inputs.exec]]
   commands = ["/usr/bin/ffh_chosen_gw.sh"]
   data_format = "json"
@@ -43,4 +43,3 @@
   urls = [ "http://stats.ffh.zone:8086" ]
   username = "telegraf"
   password = "{{ telegraf_influx_dbpassword }}"
-
