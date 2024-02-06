@@ -24,7 +24,7 @@
   copy:
     dest: "/etc/iproute2/rt_tables.d/{{ item.key }}.conf"
     content: "{{ item.value }} {{ item.key }}\n"
-  loop: "{{ rt_tables | dict2items }}"
+  loop: "{{ networkd_rt_tables | dict2items }}"
 
 
 - name: Deploy /etc/rc.local
