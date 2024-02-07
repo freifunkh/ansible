@@ -76,6 +76,12 @@ Table={{ route.table }}
 {% if route.pref_src is defined %}
 PreferredSource={{ route.pref_src }}
 {% endif %}
+{% if route.gol is defined %}
+GatewayOnLink={{ route.gol }}
+{% endif %}
+{% if route.scope is defined %}
+Scope={{ route.scope }}
+{% endif %}
 {% endfor %}
 
 {% if item.1.additional_config is defined -%}
