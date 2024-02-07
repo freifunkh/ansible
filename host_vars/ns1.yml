@@ -135,6 +135,7 @@ dns_authoritative_toplevel:
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::2",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
        "zbx-hostway.ffh.zone. IN CNAME leintor.e.ffh.zone.",
+       "clevertor.ffh.zone. IN CNAME clevertor.ffh.zone.",
        "clevertor.e.ffh.zone. IN A 45.12.203.1",
        "clevertor.e.ffh.zone. IN AAAA 2001:678:978:ff01::1",
        "scheuer.ffh.zone. IN A 194.50.19.34",
@@ -179,7 +180,7 @@ dns_authoritative_toplevel:
      ]
 
 dns_authoritative_zones:
-- zone: "pve-ffnw"
+- zone: "clevertor"
   to: "2001:678:978:ff01::1"
 - zone: "rdns"
   to: "2001:678:978:ff01::3"
