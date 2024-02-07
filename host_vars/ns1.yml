@@ -33,8 +33,6 @@ dns_authoritative_external:
   zonefile: "n.ffh.zone.zone"
 - domain:  "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
   zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
-- domain: "ffh"
-  zonefile: "ffh.zone"
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
 dns_zonenodes_toplevel: "ffh.zone."
@@ -135,7 +133,6 @@ dns_authoritative_toplevel:
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::2",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
        "zbx-hostway.ffh.zone. IN CNAME leintor.e.ffh.zone.",
-       "clevertor.ffh.zone. IN CNAME clevertor.ffh.zone.",
        "clevertor.e.ffh.zone. IN A 45.12.203.1",
        "clevertor.e.ffh.zone. IN AAAA 2001:678:978:ff01::1",
        "scheuer.ffh.zone. IN A 194.50.19.34",
@@ -181,8 +178,6 @@ dns_authoritative_toplevel:
      ]
 
 dns_authoritative_zones:
-- zone: "clevertor"
-  to: "2001:678:978:ff01::1"
 - zone: "rdns"
   to: "2001:678:978:ff01::3"
 
