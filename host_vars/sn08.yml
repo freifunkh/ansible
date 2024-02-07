@@ -37,6 +37,7 @@ networkd_configures:
 - iface: ens19 # bridge to other vms
   addresses:
     - 217.197.84.201/29
+    - 2a0a:4587:2030:10c::1/64
   static_routes:
     - dest: "217.197.84.200/29"
       table: "cix"
