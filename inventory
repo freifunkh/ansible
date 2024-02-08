@@ -48,6 +48,8 @@ all:
       ansible_host: tonne.ffh.zone
     kistendampfer:
       ansible_host: kistendampfer.ffh.zone
+    evergiven:
+      ansible_host: evergiven.ffh.zone
     tiefensee:
       ansible_host: tiefensee.ffh.zone
     scheuer:
@@ -93,6 +95,7 @@ helpernodes:
     sql:
     tonne:
     kistendampfer:
+    evergiven:
 
 fermnodes:
   children:
