@@ -1,0 +1,26 @@
+log:
+  level: "INFO"
+
+api:
+  insecure: false
+  dashboard: false
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      #caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      storage: "/etc/traefik/acme.json"
+      email: "{{ traefik_acme_email }}"
+      httpChallenge:
+        entryPoint: "http"

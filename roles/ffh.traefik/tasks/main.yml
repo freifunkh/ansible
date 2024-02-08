@@ -1,0 +1,28 @@
+---
+
+- name: Create path for traefik config
+  ansible.builtin.file:
+    path: "/etc/traefik"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create/Update Traefik static configuration in /etc/traefik/traefik.yml
+  ansible.builtin.template:
+    src: "traefik.yml.j2"
+    dest: "/etc/traefik/traefik.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy Traefik
+  community.docker.docker_container:
+    name: "traefik"
+    image: "traefik:v2.10"
+    state: "started"
+    restart_policy: "always"
+    network_mode: "host"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/etc/traefik:/etc/traefik"
