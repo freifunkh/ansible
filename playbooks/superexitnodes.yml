@@ -37,7 +37,6 @@
     - { name: ffh.radv_server, tags: radv_server }
     - { name: ffh.dns_recursive, tags: dns_recursive }
     - { name: ffh.kea-dhcp4-server, tags: kea-dhcp4-server }
-      #    - { name: ffh.gateway_announcement, tags: gateway_announcement }
     - { name: ffh.iperf3, tags: iperf3 }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
