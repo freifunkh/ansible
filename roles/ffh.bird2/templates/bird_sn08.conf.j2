@@ -58,6 +58,7 @@ filter no_1und1 {
 
 template bgp cix_peer6_ber {
 	local 2001:7f8:a5::20:9347:2 as my_asn;
+	allow local as my_asn;
 	hold time 90;
 	password "eyohroK8uV2b";
 	ipv6 {
@@ -75,6 +76,7 @@ filter to_upstream4 {
 
 template bgp cix_peer4_ber {
 	local 185.1.74.68 as my_asn;
+	allow local as my_asn;
 	hold time 90;
 	password "eyohroK8uV2b";
 	ipv4 {
