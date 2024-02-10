@@ -34,37 +34,8 @@
     autoclean: true
     upgrade: true
 
-- name: "kernel: add parameter intel_iommu=on for SR-IOV stuff"
-  lineinfile:
-    path: "/etc/kernel/cmdline"
-    regexp: '^(root=(?!.*\bintel_iommu=on\b).*)$'
-    line: '\1 intel_iommu=on'
-    backrefs: yes
-    state: present
-  notify: efiboot
-
-- name: "kernel: add parameter iommu=pt for SR-IOV stuff"
-  lineinfile:
-    path: "/etc/kernel/cmdline"
-    regexp: '^(root=(?!.*\biommu=pt\b).*)$'
-    line: '\1 iommu=pt'
-    backrefs: yes
-    state: present
-  notify: efiboot
-
-- name: "deploy sr-iov starter unitfile"
-  copy:
-    src: 'sr-iov.service'
-    dest: '/etc/systemd/system/sr-iov.service'
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: "enable sr-iov.service"
-  ansible.builtin.systemd_service:
-    name: 'sr-iov.service'
-    daemon_reload: true
-    enabled: true
+- name: "Enable SR-IOV"
+  include_tasks: "sr-iov.yml"
 
 - name: "Install dependencies for ansible/proxmox"
   apt:

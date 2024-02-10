@@ -1,0 +1,31 @@
+---
+
+- name: "kernel: add parameter intel_iommu=on for SR-IOV stuff"
+  lineinfile:
+    path: "/etc/kernel/cmdline"
+    regexp: '^(root=(?!.*\bintel_iommu=on\b).*)$'
+    line: '\1 intel_iommu=on'
+    backrefs: yes
+    state: present
+  notify: efiboot
+
+- name: "kernel: add parameter iommu=pt for SR-IOV stuff"
+  lineinfile:
+    path: "/etc/kernel/cmdline"
+    regexp: '^(root=(?!.*\biommu=pt\b).*)$'
+    line: '\1 iommu=pt'
+    backrefs: yes
+    state: present
+  notify: efiboot
+
+- name: "install sysfsutils"
+  apt:
+    name: "sysfsutils"
+
+- name: "Set sriov_numvfs via sysfs.d"
+  ansible.builtin.template:
+    src: "sysfs.conf"
+    dest: "/etc/sysfs.d/10-sr-iov.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
