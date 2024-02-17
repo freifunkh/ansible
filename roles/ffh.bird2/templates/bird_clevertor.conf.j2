@@ -26,9 +26,12 @@ protocol kernel {
 
 protocol kernel {
 	ipv6 {
-		export where source ~ [RTS_BGP]; # we do not want to export the
-		                                 # static unreachable route, so
-		                                 # we do it like this as of now
+		export filter {
+			krt_prefsrc = 2001:678:978:ff01::1;
+			if source ~ [RTS_BGP] then accept; else reject;
+				# we do not want to export the static unreachable route, so
+				# we do it like this as of now
+		};
 		import none;
 	};
 	kernel table 2000;	# Kernel table to synchronize with (cix)
@@ -76,6 +79,7 @@ filter no_1und1 {
 
 template bgp cix_peer6 {
 	local 2001:7f8:a5::20:9347:1 as my_asn;
+	allow local as my_asn;
 	hold time 90;
 	password "eyohroK8uV2b";
 	ipv6 {
@@ -88,6 +92,7 @@ template bgp cix_peer6 {
 
 template bgp cix_peer4 {
 	local 185.1.74.56 as my_asn;
+	allow local as my_asn;
 	hold time 90;
 	password "eyohroK8uV2b";
 	ipv4 {

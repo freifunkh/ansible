@@ -16,6 +16,7 @@ protocol direct {
 protocol kernel {
 	ipv4 {
 		export filter {
+			krt_prefsrc = 217.197.84.201;
 			if source ~ [RTS_BGP] then accept; else reject;
 		};
 		import none;
@@ -25,9 +26,12 @@ protocol kernel {
 
 protocol kernel {
 	ipv6 {
-		export where source ~ [RTS_BGP]; # we do not want to export the
-		                                 # static unreachable route, so
-		                                 # we do it like this as of now
+		export filter {
+			krt_prefsrc = 2a0a:4587:2030::1;
+			if source ~ [RTS_BGP] then accept; else reject;
+				# we do not want to export the static unreachable route, so
+				# we do it like this as of now
+		};
 		import none;
 	};
 	kernel table 2000;	# Kernel table to synchronize with (cix)
