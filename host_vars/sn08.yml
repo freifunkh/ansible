@@ -23,24 +23,18 @@ networkd_configures:
   no_radv_accept: true
   additional_config: |
     [RoutingPolicyRule]
-    From=2a0a:4587:2030::/48
-    Table=2000
-    [RoutingPolicyRule]
-    From=217.197.84.201/29
-    Table=2000
-  static_routes:
-    - gw: "fe80::3aea:a7ff:fe38:a5d9"
-      dest: "2001:678:978::/48"
-      table: "cix"
-      pref_src: "2a0a:4587:2030::1" 
-      gol: "true"
+    Table=cix
+    Family=both
 - iface: ens19 # bridge to other vms
   addresses:
     - 217.197.84.201/29
     - 2a0a:4587:2030:10c::1/64
   static_routes:
     - dest: "217.197.84.200/29"
-      table: "cix"
+      table: "blech"
+      scope: "link"
+    - dest: "2a0a:4587:2030:10c::/64"
+      table: "blech"
       scope: "link"
 
 bird_enable: true
@@ -85,5 +79,5 @@ route_exitnode_via:
     interface: "gre-clevertor"
 
 rt_preferred:
-  name: "cix"
-  number: "2000"
+  name: "freifunk"
+  number: "42"
