@@ -1,6 +1,7 @@
 ---
 
 networkd_rt_tables:
+  blech: 21
   freifunk: 42
   cix: 2000
 
