@@ -7,4 +7,4 @@ TLSAccept=psk
 TLSPSKFile=/etc/zabbix/zabbix_agentd.d/secret.psk
 TLSPSKIdentity={{ zabbix_agent_psk_id | default("none") }}
 AllowKey=system.run[systemctl list-units --failed -l --no-legend --no-pager]
-UserParameter=localping[*],fping -q $1; test $? -eq 0  && echo 1 || echo 0
+UserParameter=localping[*],fping -q $1 $2 $3 $4; test $? -eq 0  && echo 1 || echo 0
