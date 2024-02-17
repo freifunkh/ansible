@@ -17,9 +17,8 @@ all:
     sn07:
       ansible_host: sn07.s.ffh.zone
     sn08:
+      # ansible_host: sn08.s.ffh.zone
       ansible_host: 192.168.149.2
-      ansible_port: 1337
-      ansible_user: root
       ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@dobrindt.ffh.zone"'
     sn09:
       ansible_host: sn09.s.ffh.zone
