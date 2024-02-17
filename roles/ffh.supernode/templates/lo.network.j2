@@ -2,6 +2,12 @@
 [Match]
 Name=lo
 
+{% if is_superexitnode %}[RoutingPolicyRule]
+Table=blech
+Priority=221
+Family=both
+
+{% endif %}
 [RoutingPolicyRule]
 FirewallMark=42
 Table={{ rt_preferred.name }}
