@@ -13,6 +13,7 @@ FirewallMark=42
 Table={{ rt_preferred.name }}
 Priority=242
 Family=both
+{% if not is_superexitnode %}
 
 [Route]
 Type=unreachable
@@ -25,3 +26,4 @@ Type=unreachable
 Metric=8096
 Table={{ rt_preferred.name }}
 Destination=::/0
+{% endif %}
