@@ -9,7 +9,8 @@ Family=both
 
 {% endif %}
 [RoutingPolicyRule]
-FirewallMark=42
+{% if not is_superexitnode %}FirewallMark=42
+{% endif %}
 Table={{ rt_preferred.name }}
 Priority=242
 Family=both

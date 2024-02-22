@@ -5,6 +5,7 @@
   template:
     src: ferm.mark.conf.j2
     dest: /etc/ferm/conf.d/02-mark.conf
+  when: not is_superexitnode
 
 - name: (Maybe) Remove deprecated firewall config stanza for Freifunk-Blocker (ferm)
   notify: reload ferm
