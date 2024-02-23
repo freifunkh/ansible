@@ -26,7 +26,7 @@ network_lower_ifaces:
 
 mesh_prefix: "2001:678:978"
 
-mesh_fastd_firewall_open: false
+mesh_fastd_firewall_open: true
 
 babeld_interfaces: ['ens19 gre-leintor']
 babeld_interface_penalty:

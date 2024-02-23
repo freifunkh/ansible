@@ -22,7 +22,7 @@ networkd_configures:
 
 mesh_prefix: "2a02:790:ff"
 
-mesh_fastd_firewall_open: false
+mesh_fastd_firewall_open: true
 
 babeld_interfaces: ['gre-steintor', 'gre-leintor', 'gre-clevertor', 'gre-listertor', 'gre-aegidientor', 'gre-bruehltor', 'eth1']
 babeld_interface_penalty:
