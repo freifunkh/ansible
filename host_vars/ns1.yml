@@ -48,7 +48,6 @@ dns_authoritative_toplevel:
       "10.203.12.45.in-addr.arpa. IN PTR clevertor.e.ffh.zone.",
       "11.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
       "12.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
-      "13.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
       "14.203.12.45.in-addr.arpa. IN PTR harvester.ffh.zone."
      ]
    - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
@@ -152,8 +151,8 @@ dns_authoritative_toplevel:
        "monitor.ffh.zone. IN A 88.99.88.14",
        "monitor.ffh.zone. IN AAAA 2a01:4f8:221:100c::1003",
        "zabbix.ffh.zone. IN CNAME monitor.ffh.zone.",
-       "rdns.ffh.zone. 120 IN A 45.12.203.13",
-       "rdns.ffh.zone. 120 IN AAAA 2001:678:978:ff01::3",
+       "rdns.ffh.zone. IN A 217.197.84.202",
+       "rdns.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
        "zbx-interwerk.ffh.zone. IN CNAME rdns.ffh.zone.",
        "c.ffh.zone. IN NS rdns.ffh.zone.",
        "web.ffh.zone. 60 IN A 88.99.88.13",
