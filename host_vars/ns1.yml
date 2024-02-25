@@ -179,7 +179,7 @@ dns_authoritative_toplevel:
 
 dns_authoritative_zones:
 - zone: "rdns"
-  to: "2001:678:978:ff01::3"
+  to: "2a0a:4587:2030:10c::53"
 
 postfix_myhostname: "mail.ffh.zone"
 postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"

@@ -15,8 +15,8 @@ networkd_configures:
 
 all_knowing_dns:
     listen:
-        - 45.12.203.13
-        - 2001:678:978:ff01::3
+        - 217.197.84.202
+        - 2a0a:4587:2030:10c::53
     mesh_prefixes:
         - 2a02:790:ff
         - 2001:678:978
