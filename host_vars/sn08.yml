@@ -36,6 +36,9 @@ networkd_configures:
     - dest: "2a0a:4587:2030:10c::/64"
       table: "blech"
       scope: "link"
+    - dest: "2a0a:4580:1033::1/56"
+      table: "blech"
+      gw: "2a0a:4587:2030:10c::8006"
 
 bird_enable: true
 
