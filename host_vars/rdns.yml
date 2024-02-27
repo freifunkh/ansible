@@ -1,5 +1,8 @@
 ---
 
+servername: "rdns"
+fqdn: "rdns.ffh.zone"
+
 networkd_configures:
 - iface: ens18
   addresses:
