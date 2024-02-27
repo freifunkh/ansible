@@ -61,7 +61,7 @@ fi
 
 lines=$(echo "$result" | grep -ve '^\-\-' | wc -l)
 boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
-hostname="{{ ansible_fqdn }}"
+hostname="{{ fqdn | default(ansible_fqdn) }}"
 
 if [ "$lines" -eq 0 ]; then
   # nothing to do \o/
