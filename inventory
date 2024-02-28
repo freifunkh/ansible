@@ -67,9 +67,7 @@ debiannodes:
 
 supernodes:
   hosts:
-    sn01:
     sn02:
-    sn05:
     sn09:
     sn10:
 
