@@ -34,8 +34,10 @@ dns_authoritative_listen_on:
 dns_authoritative_external:
 - domain: "n.ffh.zone"
   zonefile: "n.ffh.zone.zone"
-- domain:  "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
+  xfr: true
+- domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
   zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
+  xfr: false
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
 dns_zonenodes_toplevel: "ffh.zone."
@@ -72,27 +74,12 @@ dns_authoritative_toplevel:
       "e.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
       "f.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
      ]
-   - domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa.upstream."
+   - domain: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa."
      records: [
-     ]
-   - domain: "f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa."
-     records: [
-      "0.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "1.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "2.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "3.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "4.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "5.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "6.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "7.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "8.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "9.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "a.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "b.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "c.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "d.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "e.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "f.f.f.0.0.0.9.7.0.2.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
+      "0.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+      "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
      ]
    - domain: "hannover.freifunk.net."
      records: [
