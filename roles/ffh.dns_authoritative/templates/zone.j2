@@ -11,7 +11,7 @@ $ORIGIN {{ item.domain }}
                 )
 
 {% for ns in dns_authoritative_nameserver %}
-            IN  NS      {{ns.nameserver}}
+@           IN  NS      {{ns.nameserver}}
 {% endfor %} 
 
 ; Statische Hosts (aus der Ansible-Konfiguration)
