@@ -37,10 +37,12 @@ zone:
 zone:
     name: "{{tld.domain}}"
     zonefile: "{{tld.zonefile}}"
+    {% if tld.xfr %}
     {% for ns in dns_authoritative_notify %}
     notify: {{ns.nameserver}} NOKEY
     {% endfor %}
     {% for ns in dns_authoritative_allowAXFR %}
     provide-xfr: {{ns.nameserver}} NOKEY
     {% endfor %}
+    {% endif %}
 {% endfor %}
