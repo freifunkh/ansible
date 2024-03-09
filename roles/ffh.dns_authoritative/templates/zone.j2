@@ -14,24 +14,6 @@ $ORIGIN {{ item.domain }}
 @           IN  NS      {{ns.nameserver}}
 {% endfor %} 
 
-; Statische Hosts (aus der Ansible-Konfiguration)
-{% for zone in dns_authoritative_zones %}
-        {% if ':' in zone.to %}
-{{ zone.zone }}.{{ item.domain }} IN  AAAA {{ zone.to }}
-            {% else %}
-{{ zone.zone }}.{{ item.domain }} IN  A {{ zone.to }}
-        {% endif %}
-        {% if zone.aliases is defined %}
-        {% for alias in zone.aliases %}
-            {% if ':' in zone.to %}
-{{ alias }}.{{ item.domain }} IN  AAAA {{ zone.to }}
-            {% else %}
-{{ alias }}.{{ item.domain }} IN  A {{ zone.to }}
-            {% endif %}
-        {% endfor %}
-        {% endif %}
-{% endfor %}
-
 {% for entry in item.records %}
 {{ entry }}
 {% endfor %}
