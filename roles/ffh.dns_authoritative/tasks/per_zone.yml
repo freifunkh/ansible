@@ -1,9 +1,15 @@
 ---
 
+- name: "Check for existing zonefile"
+  stat:
+    path: "/etc/nsd/zones/{{item.domain}}zone"
+  register: zonefile_stat
+
 - name: "{{ item.domain }}: slurp zonefile"
   slurp: 
     src: "/etc/nsd/zones/{{item.domain}}zone"
   register: zonefile
+  when: zonefile_stat.stat.exists
 
 - name: "{{ item.domain }}: generate zone (dry-run)"
   template:
@@ -13,6 +19,7 @@
     serial_selected: "{{ zonefile.content | b64decode | regex_search('(\\d+)\\s+;\\s+serial.*', '\\1') | first }}"
   check_mode: yes
   register: generated_zone_dry 
+  when: zonefile_stat.stat.exists
 
 - name: "{{ item.domain }}: generate zone"
   notify: Reload zones
@@ -21,4 +28,4 @@
     dest: /etc/nsd/zones/{{item.domain}}zone
   vars:
     serial_selected: "{{ hostvars[ansible_play_hosts_all.0].ansible_facts.date_time.epoch }}"
-  when: generated_zone_dry is changed
+  when: generated_zone_dry is changed or not zonefile_stat.stat.exists
