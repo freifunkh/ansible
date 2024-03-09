@@ -16,8 +16,11 @@ networkd_configures:
 
 dns_authoritative_nameserver:
 - nameserver: "ns1.fnorden.net."
-- nameserver: "ns2.fnorden.net."
-- nameserver: "ns3.fnorden.net."
+- nameserver: "ns1.he.net."
+- nameserver: "ns2.he.net."
+- nameserver: "ns3.he.net."
+- nameserver: "ns4.he.net."
+- nameserver: "ns5.he.net."
 dns_authoritative_allowAXFR:
 - nameserver: "2001:470:600::2"
 - nameserver: "216.218.133.2"
