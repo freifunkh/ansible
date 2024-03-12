@@ -21,16 +21,17 @@ all_knowing_dns:
         - 217.197.84.202
         - 2a0a:4587:2030:10c::53
     mesh_prefixes:
-        - 2a02:790:ff
         - 2001:678:978
         - 2a0a:4587:2030
     static_hosts:
-        2001:678:978:214::baba: build.ffh.zone
+        2001:678:978:ff01::1: clevertor.e.ffh.zone
+        2001:678:978:ff01::2: sn02.s.ffh.zone
         2001:678:978:ff01::4: harvester.ffh.zone
-        2a02:790:ff::1: leintor.e.ffh.zone
+        2001:678:978:214::baba: build.ffh.zone
         2a0a:4587:2030::1: sn08.s.ffh.zone
-        2a02:790:ff::9001: sn09.s.ffh.zone
-        2a02:790:ff::a001: sn10.s.ffh.zone
+        2a0a:4587:2030:10c::d0c1: evergiven.ffh.zone
+        2a0a:4587:2030:10c::bac: tonne.ffh.zone
+        2a0a:4587:2030:10c::53: rdns.ffh.zone
 
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
