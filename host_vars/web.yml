@@ -43,18 +43,18 @@ nginx_sites:
   tls_redirect_to_https: true
   php: true
   locations:
-    - location: /api
+    - location: = /api
       rewrite_params: '^ /api/ permanent'
     - location: /api/
       expires: -1
       alias: /var/www/apps/api/
-    - location: /download
+    - location: = /download
       rewrite_params: '^ /download/ permanent'
     - location: /download/
       directory_index: true
       disable_symlinks: true
       alias: /var/www/apps/download/
-    - location: /gluon-firmware-wizard
+    - location: = /gluon-firmware-wizard
       rewrite_params: '^ /gluon-firmware-wizard/ permanent'
     - location: /gluon-firmware-wizard/
       alias: /var/www/apps/gluon-firmware-selector/
@@ -62,19 +62,19 @@ nginx_sites:
       alias: /var/www/apps/meshviewer_configs/karte.json
     - location: /friedhof/config.json
       alias: /var/www/apps/meshviewer_configs/friedhof.json
-    - location: /karte
+    - location: = /karte
       rewrite_params: '^ /karte/ permanent'
     - location: /karte/
       alias: /var/www/apps/meshviewer/
-    - location: /friedhof
+    - location: = /friedhof
       rewrite_params: '^ /friedhof/ permanent'
     - location: /friedhof/
       alias: /var/www/apps/meshviewer/
-    - location: /device-pictures
+    - location: = /device-pictures
       rewrite_params: '^ /device-pictures/ permanent'
     - location: /device-pictures/
       alias: /var/www/apps/device-pictures/pictures-svg/
-    - location: /sshauto
+    - location: = /sshauto
       rewrite_params: '^ /sshauto/ permanent'
     - location: /sshauto/
       alias: /var/www/apps/sshauto/
