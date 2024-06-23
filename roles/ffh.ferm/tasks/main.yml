@@ -1,45 +1,48 @@
 ---
 
-- name: Install ferm
-  apt:
-    name: ferm
-    update_cache: yes
+- name: If ferm is enabled...
+  when: ferm_enabled
+  block:
+    - name: Install ferm
+      apt:
+        name: ferm
+        update_cache: yes
 
-- name: Prepare ferm conf.d directory
-  file:
-    path: /etc/ferm/conf.d
-    state: directory
-    mode: 0755
+    - name: Prepare ferm conf.d directory
+      file:
+        path: /etc/ferm/conf.d
+        state: directory
+        mode: 0755
 
-- name: Set /etc/default/ferm
-  template:
-    src: default
-    dest: /etc/default/ferm
+    - name: Set /etc/default/ferm
+      template:
+        src: default
+        dest: /etc/default/ferm
 
-- name: Install main configuration file
-  notify: reload ferm
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/ferm.conf
+    - name: Install main configuration file
+      notify: reload ferm
+      template:
+        src: ferm.conf.j2
+        dest: /etc/ferm/ferm.conf
 
-- name: ferm config for final REJECTs
-  notify: reload ferm
-  template:
-    src: 99-REJECT.conf
-    dest: /etc/ferm/conf.d/99-REJECT.conf
+    - name: ferm config for final REJECTs
+      notify: reload ferm
+      template:
+        src: 99-REJECT.conf
+        dest: /etc/ferm/conf.d/99-REJECT.conf
 
-- name: Deploy SystemD unitfile
-  template:
-    src: ferm.service.j2
-    dest: /etc/systemd/system/ferm.service
-  register: ferm_service_file
+    - name: Deploy SystemD unitfile
+      template:
+        src: ferm.service.j2
+        dest: /etc/systemd/system/ferm.service
+      register: ferm_service_file
 
-- name: Reload services in case service file changed
-  systemd:
-    daemon_reload: yes
-  when: ferm_service_file.changed
+    - name: Reload services in case service file changed
+      systemd:
+        daemon_reload: yes
+      when: ferm_service_file.changed
 
-- name: Enable ferm service
-  systemd:
-    enabled: yes
-    name: ferm
+    - name: Enable ferm service
+      systemd:
+        enabled: yes
+        name: ferm

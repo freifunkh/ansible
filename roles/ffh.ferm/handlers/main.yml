@@ -3,3 +3,4 @@
   service: 
     name: ferm
     state: reloaded
+  when: ferm_enabled

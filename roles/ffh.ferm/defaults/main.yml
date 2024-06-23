@@ -1,3 +1,4 @@
 ---
 
 legacy_dom0: true
+ferm_enabled: true
