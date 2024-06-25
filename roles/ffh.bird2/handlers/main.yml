@@ -10,3 +10,6 @@
   systemd:
     name: bird
     state: restarted
+
+- name: reconfigure bird
+  shell: /usr/sbin/birdc configure

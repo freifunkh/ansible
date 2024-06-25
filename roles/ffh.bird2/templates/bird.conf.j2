@@ -1,6 +1,6 @@
 log syslog all;
-router id 185.1.74.56;
-define my_asn = 209347;
+router id {{ bird_local_addr_v4 }};
+define my_asn = {{ bird_my_asn }};
 timeformat protocol iso long;
 
 protocol device {
@@ -16,7 +16,7 @@ protocol direct {
 protocol kernel {
   ipv6 {
     export filter {
-      krt_prefsrc = 2001:678:978:ff01::1;
+      krt_prefsrc = {{ bird_krt_prefsrc_v6 }};
       if source ~ [RTS_BGP] then accept; else reject;
         # we do not want to export the static unreachable route, so
         # we do it like this as of now
@@ -29,7 +29,7 @@ protocol kernel {
 protocol kernel {
   ipv4 {
     export filter {
-      krt_prefsrc = 45.12.203.1;
+      krt_prefsrc = {{ bird_krt_prefsrc_v4 }};
       if source ~ [RTS_BGP] then accept; else reject;
     };
     import none;
@@ -39,36 +39,60 @@ protocol kernel {
 
 protocol static {
   ipv6;
-  route 2001:678:978::/48 unreachable;
+{% if bird_announce_prefix_v6 is defined %}
+  route {{ bird_announce_prefix_v6 }} unreachable;
+{% endif %}
 }
 
 protocol static {
   ipv4;
-  route 45.12.203.0/24 unreachable;
+{% if bird_announce_prefix_v4 is defined %}
+  route {{ bird_announce_prefix_v4 }} unreachable;
+{% endif %}
 }
 
 filter to_upstream6 {
+{% if bird_announce_prefix_v6 is defined %}
   # CIX uses this community 57555:921:X = zu Region X announcen
   # DE-BER: X = 100
   # DE-FRA: X = 200
   bgp_large_community.add((57555, 921, 100));
   bgp_large_community.add((57555, 921, 200));
 
-  if net ~ [2001:678:978::/48] then {
+  if net ~ [{{ bird_announce_prefix_v6 }}] then {
+{% if bird_prepend_counter_v6 > 0 %}
+{% for i in range(0,bird_prepend_counter_v6) %}
+    bgp_path.prepend({{ bird_my_asn }});
+{% endfor %}
+{% endif %}
     accept;
   } else reject;
+{% else %}
+  # we only want to pull routes here.
+  reject;
+{% endif %}
 }
 
 filter to_upstream4 {
+{% if bird_announce_prefix_v4 is defined %}
   # CIX uses this community 57555:921:X = zu Region X announcen
   # DE-BER: X = 100
   # DE-FRA: X = 200
   bgp_large_community.add((57555, 921, 100));
   bgp_large_community.add((57555, 921, 200));
 
-  if net ~ [45.12.203.0/24] then {
+  if net ~ [{{ bird_announce_prefix_v4 }}] then {
+{% if bird_prepend_counter_v4 > 0 %}
+{% for i in range(0,bird_prepend_counter_v4) %}
+    bgp_path.prepend({{ bird_my_asn }});
+{% endfor %}
+{% endif %}
     accept;
   } else reject;
+{% else %}
+  # we only want to pull routes here.
+  reject;
+{% endif %}
 }
 
 filter no_1und1 {
@@ -78,10 +102,10 @@ filter no_1und1 {
 }
 
 template bgp cix_peer6 {
-  local 2001:7f8:a5::20:9347:1 as my_asn;
+  local {{ bird_local_addr_v6 }} as my_asn;
   allow local as my_asn;
   hold time 90;
-  password "eyohroK8uV2b";
+  password "{{ bird_cix_password }}";
   ipv6 {
     import keep filtered;
     import all; #filter no_1und1;
@@ -91,10 +115,10 @@ template bgp cix_peer6 {
 }
 
 template bgp cix_peer4 {
-  local 185.1.74.56 as my_asn;
+  local {{ bird_local_addr_v4 }} as my_asn;
   allow local as my_asn;
   hold time 90;
-  password "eyohroK8uV2b";
+  password "{{ bird_cix_password }}";
   ipv4 {
     import keep filtered;
     import all; #filter no_1und1;

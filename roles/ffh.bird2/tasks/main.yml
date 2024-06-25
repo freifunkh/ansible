@@ -38,9 +38,9 @@
           2000 cix
 
     - name: "Generate config file"
-      notify: restart bird
+      notify: "reconfigure bird"
       template:
-       src: "bird_{{ ansible_hostname }}.conf.j2"
+       src: "bird.conf.j2"
        dest: /etc/bird/bird.conf
 
     - name: "Install birdstatus"
