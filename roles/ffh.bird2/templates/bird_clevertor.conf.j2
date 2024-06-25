@@ -103,22 +103,22 @@ template bgp cix_peer4 {
 	};
 }
 
-protocol bgp cix1_ip4 from cix_peer4 {
-	description "CIX Route Server 1 (IPv4)";
-	neighbor 185.1.74.1 as 57555;
-}
-
-protocol bgp cix2_ip4 from cix_peer4 {
-	description "CIX Route Server 2 (IPv4)";
-	neighbor 185.1.74.2 as 57555;
-}
-
 protocol bgp cix1_ip6 from cix_peer6 {
 	description "CIX Route Server 1 (IPv6)";
 	neighbor 2001:7f8:a5::5:7555:1 as 57555;
 }
 
+protocol bgp cix1_ip4 from cix_peer4 {
+	description "CIX Route Server 1 (IPv4)";
+	neighbor 185.1.74.1 as 57555;
+}
+
 protocol bgp cix2_ip6 from cix_peer6 {
 	description "CIX Route Server 2 (IPv6)";
 	neighbor 2001:7f8:a5::5:7555:2 as 57555;
+}
+
+protocol bgp cix2_ip4 from cix_peer4 {
+	description "CIX Route Server 2 (IPv4)";
+	neighbor 185.1.74.2 as 57555;
 }

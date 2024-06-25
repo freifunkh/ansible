@@ -54,13 +54,18 @@ filter to_upstream6 {
 	else reject;
 }
 
+filter to_upstream4 {
+	# we only want to pull routes here.
+	reject;
+}
+
 filter no_1und1 {
 	if bgp_path.first = 8560
 	then reject;
 	else accept;
 }
 
-template bgp cix_peer6_ber {
+template bgp cix_peer6 {
 	local 2001:7f8:a5::20:9347:2 as my_asn;
 	allow local as my_asn;
 	hold time 90;
@@ -73,12 +78,7 @@ template bgp cix_peer6_ber {
 	};
 }
 
-filter to_upstream4 {
-	# we only want to pull routes here.
-	reject;
-}
-
-template bgp cix_peer4_ber {
+template bgp cix_peer4 {
 	local 185.1.74.68 as my_asn;
 	allow local as my_asn;
 	hold time 90;
@@ -91,22 +91,22 @@ template bgp cix_peer4_ber {
 	};
 }
 
-protocol bgp cix2_ip4_ber from cix_peer4_ber {
-	description "CIX Route Server 2 (IPv4)";
-	neighbor 185.1.74.2 as 57555;
+protocol bgp cix1_ip6 from cix_peer6 {
+	description "CIX Route Server 1 (IPv6)";
+	neighbor 2001:7f8:a5::5:7555:1 as 57555;
 }
 
-protocol bgp cix1_ip4_ber from cix_peer4_ber {
+protocol bgp cix1_ip4 from cix_peer4 {
 	description "CIX Route Server 1 (IPv4)";
 	neighbor 185.1.74.1 as 57555;
 }
 
-protocol bgp cix1_ip6_ber from cix_peer6_ber {
-	description "CIX Route Server 1 (BER, IPv6)";
-	neighbor 2001:7f8:a5::5:7555:1 as 57555;
+protocol bgp cix2_ip6 from cix_peer6 {
+	description "CIX Route Server 2 (IPv6)";
+	neighbor 2001:7f8:a5::5:7555:2 as 57555;
 }
 
-protocol bgp cix2_ip6_ber from cix_peer6_ber {
-	description "CIX Route Server 2 (BER, IPv6)";
-	neighbor 2001:7f8:a5::5:7555:2 as 57555;
+protocol bgp cix2_ip4 from cix_peer4 {
+	description "CIX Route Server 2 (IPv4)";
+	neighbor 185.1.74.2 as 57555;
 }
