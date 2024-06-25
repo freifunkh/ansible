@@ -75,6 +75,13 @@ networkd_vlans:
 babeld_interfaces: ["gre-sn01", "gre-sn03", "gre-sn04", "gre-sn05", "gre-sn07", "gre-sn08", "gre-sn09", "gre-sn10", "ens20"]
 
 bird_enable: true
+bird_my_asn: "209347"
+bird_krt_prefsrc_v6: "2001:678:978:ff01::1"
+bird_krt_prefsrc_v4: "45.12.203.1"
+bird_announce_prefix_v6: "2001:678:978::/48"
+bird_announce_prefix_v4: "45.12.203.0/24"
+bird_local_addr_v6: "2001:7f8:a5::20:9347:1"
+bird_local_addr_v4: "185.1.74.56"
 
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
