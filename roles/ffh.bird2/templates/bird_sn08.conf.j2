@@ -7,106 +7,110 @@ protocol device {
 }
 
 protocol direct {
-	disabled;		# Disable by default
-	# ipv4;			# Connect to default IPv4 table
-	ipv6;			# ... and to default IPv6 table
-	interface "dummy0";
+  disabled;    # Disable by default
+  # ipv4;      # Connect to default IPv4 table
+  ipv6;      # ... and to default IPv6 table
+  interface "dummy0";
 }
 
 protocol kernel {
-	ipv4 {
-		export filter {
-			krt_prefsrc = 217.197.84.201;
-			if source ~ [RTS_BGP] then accept; else reject;
-		};
-		import none;
-	};
-	kernel table 2000;	# Kernel table to synchronize with (default: main)
+  ipv6 {
+    export filter {
+      krt_prefsrc = 2a0a:4587:2030::1;
+      if source ~ [RTS_BGP] then accept; else reject;
+        # we do not want to export the static unreachable route, so
+        # we do it like this as of now
+    };
+    import none;
+  };
+  kernel table 2000;  # Kernel table to synchronize with (cix)
 }
 
 protocol kernel {
-	ipv6 {
-		export filter {
-			krt_prefsrc = 2a0a:4587:2030::1;
-			if source ~ [RTS_BGP] then accept; else reject;
-				# we do not want to export the static unreachable route, so
-				# we do it like this as of now
-		};
-		import none;
-	};
-	kernel table 2000;	# Kernel table to synchronize with (cix)
+  ipv4 {
+    export filter {
+      krt_prefsrc = 217.197.84.201;
+      if source ~ [RTS_BGP] then accept; else reject;
+    };
+    import none;
+  };
+  kernel table 2000;  # Kernel table to synchronize with (default: main)
 }
 
 protocol static {
-	ipv6;
-	route 2a0a:4587:2030::/48 unreachable;
+  ipv6;
+  route 2a0a:4587:2030::/48 unreachable;
+}
+
+protocol static {
+  ipv4;
 }
 
 filter to_upstream6 {
-	# CIX uses this community 57555:921:X = zu Region X announcen
-	# DE-BER: X = 100
-	# DE-FRA: X = 200
-	bgp_large_community.add((57555, 921, 100));
-	bgp_large_community.add((57555, 921, 200));
+  # CIX uses this community 57555:921:X = zu Region X announcen
+  # DE-BER: X = 100
+  # DE-FRA: X = 200
+  bgp_large_community.add((57555, 921, 100));
+  bgp_large_community.add((57555, 921, 200));
 
-	if net ~ [2a0a:4587:2030::/48]
-	then accept;
-	else reject;
+  if net ~ [2a0a:4587:2030::/48] then {
+    accept;
+  } else reject;
 }
 
 filter to_upstream4 {
-	# we only want to pull routes here.
-	reject;
+  # we only want to pull routes here.
+  reject;
 }
 
 filter no_1und1 {
-	if bgp_path.first = 8560
-	then reject;
-	else accept;
+  if bgp_path.first = 8560
+  then reject;
+  else accept;
 }
 
 template bgp cix_peer6 {
-	local 2001:7f8:a5::20:9347:2 as my_asn;
-	allow local as my_asn;
-	hold time 90;
-	password "eyohroK8uV2b";
-	ipv6 {
-		import keep filtered;
-		import all; #filter no_1und1;
-		#export none;
-		export filter to_upstream6;
-	};
+  local 2001:7f8:a5::20:9347:2 as my_asn;
+  allow local as my_asn;
+  hold time 90;
+  password "eyohroK8uV2b";
+  ipv6 {
+    import keep filtered;
+    import all; #filter no_1und1;
+    #export none;
+    export filter to_upstream6;
+  };
 }
 
 template bgp cix_peer4 {
-	local 185.1.74.68 as my_asn;
-	allow local as my_asn;
-	hold time 90;
-	password "eyohroK8uV2b";
-	ipv4 {
-		import keep filtered;
-		import all; #filter no_1und1;
-		#export none;
-		export filter to_upstream4;
-	};
+  local 185.1.74.68 as my_asn;
+  allow local as my_asn;
+  hold time 90;
+  password "eyohroK8uV2b";
+  ipv4 {
+    import keep filtered;
+    import all; #filter no_1und1;
+    #export none;
+    export filter to_upstream4;
+  };
 }
 
 protocol bgp cix1_ip6 from cix_peer6 {
-	description "CIX Route Server 1 (IPv6)";
-	neighbor 2001:7f8:a5::5:7555:1 as 57555;
+  description "CIX Route Server 1 (IPv6)";
+  neighbor 2001:7f8:a5::5:7555:1 as 57555;
 }
 
 protocol bgp cix1_ip4 from cix_peer4 {
-	description "CIX Route Server 1 (IPv4)";
-	neighbor 185.1.74.1 as 57555;
+  description "CIX Route Server 1 (IPv4)";
+  neighbor 185.1.74.1 as 57555;
 }
 
 protocol bgp cix2_ip6 from cix_peer6 {
-	description "CIX Route Server 2 (IPv6)";
-	neighbor 2001:7f8:a5::5:7555:2 as 57555;
+  description "CIX Route Server 2 (IPv6)";
+  neighbor 2001:7f8:a5::5:7555:2 as 57555;
 }
 
 protocol bgp cix2_ip4 from cix_peer4 {
-	description "CIX Route Server 2 (IPv4)";
-	neighbor 185.1.74.2 as 57555;
+  description "CIX Route Server 2 (IPv4)";
+  neighbor 185.1.74.2 as 57555;
 }
