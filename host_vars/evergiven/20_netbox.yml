@@ -1,0 +1,23 @@
+---
+
+netbox_netbox_image: "netboxcommunity/netbox:v4.0"
+netbox_postgres_image: "postgres:14-alpine"
+netbox_redis_image: "redis:7-alpine"
+
+netbox_port: null
+netbox_proxy_network_name: "proxy"
+netbox_admin_email: "noc@hannover.freifunk.net"
+netbox_login_required: "true"
+
+netbox_container_labels:
+  traefik.enable: "true"
+  traefik.docker.network: "proxy"
+  traefik.http.routers.netbox-https.entrypoints: "websecure"
+  traefik.http.routers.netbox-https.rule: "Host(`netbox.ffh.zone`)"
+  traefik.http.routers.netbox-https.tls.certresolver: "letsencrypt"
+  traefik.http.routers.netbox-https.service: "netbox-https"
+  traefik.http.services.netbox-https.loadbalancer.server.port: "8080"
+  traefik.http.routers.netbox-http.entrypoints: "web"
+  traefik.http.routers.netbox-http.rule: "Host(`netbox.ffh.zone`)"
+  traefik.http.routers.netbox-http.middlewares: "netbox"
+  traefik.http.middlewares.netbox.redirectscheme.scheme: "https"
