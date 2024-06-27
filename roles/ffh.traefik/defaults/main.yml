@@ -1,1 +1,4 @@
 ---
+
+traefik_api_user: "admin"
+traefik_api_password: "dcb49a5dc4b8f304fc4895a5d1219de"

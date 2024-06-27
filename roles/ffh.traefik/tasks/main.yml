@@ -16,13 +16,32 @@
     owner: "root"
     group: "root"
 
-- name: Deploy Traefik
-  community.docker.docker_container:
-    name: "traefik"
-    image: "traefik:v2.10"
-    state: "started"
-    restart_policy: "always"
-    network_mode: "host"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/etc/traefik:/etc/traefik"
+- name: Create path for traefik compose file
+  ansible.builtin.file:
+    path: "/opt/docker/traefik"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create/Update Traefik docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "/opt/docker/traefik/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy additional dynamic configuration for Traefik
+  ansible.builtin.template:
+    src: "other.yml.j2"
+    dest: "/etc/traefik/other.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy Portainer
+  community.docker.docker_compose_v2:
+    project_src: "/opt/docker/traefik"
+    files:
+    - "docker-compose.yml"

@@ -1,20 +1,27 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
 log:
-  level: "INFO"
+  level: ERROR
 
 api:
-  insecure: false
   dashboard: false
+  insecure: false
 
 entryPoints:
-  http:
+  web:
     address: ":80"
-  https:
+  websecure:
     address: ":443"
 
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+    network: "proxy"
+  file:
+    filename: /etc/traefik/other.yml
 
 certificatesResolvers:
   letsencrypt:
@@ -23,4 +30,4 @@ certificatesResolvers:
       storage: "/etc/traefik/acme.json"
       email: "{{ traefik_acme_email }}"
       httpChallenge:
-        entryPoint: "http"
+        entryPoint: "web"
