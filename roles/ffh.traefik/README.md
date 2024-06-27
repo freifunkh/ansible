@@ -1,38 +1,46 @@
-Role Name
+Traefik
 =========
 
-A brief description of the role goes here.
+Traefik Reverse Proxy.
 
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
-Role Variables
---------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
+Howto use it
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Do the following things to your container to expose it via Traefik to the outside world (incl. handlings of ssl certs):
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- put it into an (externally created) networkd called 'proxy'
+- set the following lables:
+```
+traefik.enable: "true"
+traefik.docker.network: "proxy" # mucho importante
+traefik.http.routers.mycontainer-https.entrypoints: "websecure"
+traefik.http.routers.mycontainer-https.rule: "Host(`mycontainer.ffh.zone`)"
+traefik.http.routers.mycontainer-https.tls.certresolver: "letsencrypt"
+traefik.http.routers.mycontainer-https.service: "mycontainer-https"
+traefik.http.services.mycontainer-https.loadbalancer.server.port: "3000"
+```
+(replace `mycontainer` with the name of your container, replace `3000` with the port, your container exposes)
+- set the exposes and networks in your docker-compose file to something like this
+```
+services:
+  mycontainer:
+    expose:
+      - "3000"
+    networks:
+      - "proxy"
 
-License
--------
+...
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+networks:
+  proxy:
+    name: proxy
+    external: true
+```
+- optionally set the following labels:
+```
+traefik.http.routers.mycontainer-http.entrypoints: "web"
+traefik.http.routers.mycontainer-http.rule: "Host(`mycontainer.ffh.zone`)"
+traefik.http.routers.mycontainer-http.middlewares: "mycontainer"
+traefik.http.middlewares.mycontainer.redirectscheme.scheme: "https"
+```
+- `proxy`, `web` and `websecure` are hardcoded intro _our_ Traefik instance and are not negotiable
