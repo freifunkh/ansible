@@ -58,6 +58,13 @@
         group: "root"
       when: not ansible_check_mode
 
+    - name: "Tweak sysctl net.core.rmem_default to avoid 'Kernel dropped some netlink messages'"
+      sysctl:
+        name: "net.core.rmem_default"
+        value: "56623104"
+        sysctl_file: "/etc/sysctl.d/99-bird.conf"
+        reload: yes
+
     - name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
       file:
         path: "/etc/zabbix/zabbix_agentd.d"
