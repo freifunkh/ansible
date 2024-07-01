@@ -34,16 +34,6 @@
 - name: Reset batman
   command: "git -C /usr/src/batman-adv-{{ batman_build_version }}/ reset --hard {{ batman_build_version }}"
 
-- name: Patch batman
-  shell: curl {{ item }} | git -C /usr/src/batman-adv-{{ batman_build_version }}/ am
-  with_items:
-   - https://paste.irrelefant.net/einei4aN.txt
-   - https://paste.irrelefant.net/xoraza8E.txt
-   - https://patchwork.open-mesh.org/patch/17405/mbox/ # crc issue
-   - https://patchwork.open-mesh.org/patch/17406/mbox/ # crc issue
-   - https://paste.irrelefant.net/chieNoo8.txt # crc issue counters
-   - https://paste.irrelefant.net/eiRee0vu.txt # tt transit crc foo
-
 - name: Add the dkms info to the source
   template:
     src: dkms.conf.j2
