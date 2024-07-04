@@ -63,6 +63,12 @@
         name: "net.core.rmem_default"
         value: "56623104"
         reload: yes
+    - name: "Tweak sysctl net.core.rmem_max accordingly"
+      sysctl:
+        name: "net.core.rmem_max"
+        value: "56623104"
+        reload: yes
+
 
     - name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
       file:

@@ -4,7 +4,7 @@
   notify: Restart mesh_fastd
   sysctl:
     name: net.core.rmem_max
-    value: "33554432"
+    value: "56623104"
     sysctl_set: yes
 
 - name: Increase network buffers net.core.rmem_default
