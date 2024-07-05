@@ -1,0 +1,68 @@
+---
+# tasks file for ffh.homer
+
+- name: Create homer user
+  ansible.builtin.group:
+    name: "homer"
+    gid: 884 
+
+- name: Create homer user
+  ansible.builtin.user:
+    name: "homer"
+    uid: 884
+    shell: "/bin/false"
+    group: "homer"
+
+- name: Create path for homer compose file
+  ansible.builtin.file:
+    path: "/opt/homer"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Install Walkx Theme
+  ansible.builtin.unarchive:
+    src: "https://github.com/walkxcode/homer-theme/archive/refs/tags/v2.0.1.tar.gz"
+    remote_src: "yes"
+    dest: "/opt/homer"
+    owner: "homer"
+    group: "homer"
+    creates: "/opt/homer/homer-theme-2.0.1/README.md"
+
+- name: Check existence of custom.css
+  stat: 
+    path: "/opt/homer/assets/custom.css"
+  register: customcss
+
+- name: Link Theme assets into the right directory
+  ansible.builtin.copy:
+    src: "/opt/homer/homer-theme-2.0.1/assets"
+    dest: "/opt/homer"
+    remote_src: true
+    force: false
+    owner: "homer"
+    group: "homer"
+  when: not customcss.stat.exists
+
+- name: Update config.yml
+  ansible.builtin.template:
+    src: "config.yml.j2"
+    dest: "/opt/homer/assets/config.yml"
+    mode: "0644"
+    owner: "homer"
+    group: "homer"
+
+- name: Create/Update homer docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "/opt/homer/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy homer
+  community.docker.docker_compose_v2:
+    project_src: "/opt/homer"
+    files:
+    - "docker-compose.yml"

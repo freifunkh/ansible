@@ -136,6 +136,7 @@ dns_authoritative_toplevel:
        "hub.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "netbox.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "homer.ffh.zone. IN CNAME evergiven.ffh.zone.",
+       "start.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "perf-test.ffh.zone. 120 IN A 88.99.88.12",
        "monitor.ffh.zone. 60 IN A 88.99.88.14",
        "monitor.ffh.zone. 60 IN AAAA 2a01:4f8:221:100c::1003",

@@ -1,0 +1,30 @@
+services:
+  homer:
+    image: "b4bz/homer"
+    container_name: "homer"
+    volumes:
+      - "/opt/homer/assets/:/www/assets"
+    networks:
+      - "proxy"
+    expose:
+      - 3003
+    user: "884:884"
+    environment:
+      - PORT=3003
+    labels:
+      traefik.docker.network: proxy
+      traefik.enable: 'true'
+      traefik.http.middlewares.homer.redirectscheme.scheme: https
+      traefik.http.routers.homer-http.entrypoints: web
+      traefik.http.routers.homer-http.middlewares: homer
+      traefik.http.routers.homer-http.rule: Host(`start.ffh.zone`)
+      traefik.http.routers.homer-https.entrypoints: websecure
+      traefik.http.routers.homer-https.rule: Host(`start.ffh.zone`)
+      traefik.http.routers.homer-https.service: homer-https
+      traefik.http.routers.homer-https.tls.certresolver: letsencrypt
+      traefik.http.services.homer-https.loadbalancer.server.port: '3003'
+
+networks:
+  proxy:
+    name: proxy
+    external: true
