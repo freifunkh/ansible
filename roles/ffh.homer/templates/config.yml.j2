@@ -1,19 +1,19 @@
 ---
-title: "Homer Theme"
-subtitle: "Walkx"
-logo: "logo.png"
+
+title: "ffh"
+subtitle: "Freifunk Hannover"
 
 header: false
-footer: '<p>Theme made with <span class="has-text-danger">❤️</span> by <a href="https://github.com/WalkxCode">Walkx</a></p>' # Set false if you want to hide it.
+footer: '<p>Freifunk Hannover ist ein Projekt von FNorden e.V. <span class="has-text-danger">❤️</span> <a href="https://fnorden.net/#impressum">Impressum</a></p>'
 
 stylesheet:
   - "assets/custom.css"
 
-columns: "3" # You can change this to any number that is a factor of 12: (1, 2, 3, 4, 6, 12)
+columns: "3" # (1, 2, 3, 4, 6, 12)
 theme: default
 defaults:
   layout: columns
-  colorTheme: dark 
+  colorTheme: dark
 colors:
   light:
     highlight-primary: "#fff5f2"
@@ -28,7 +28,7 @@ colors:
     card-shadow: rgba(0, 0, 0, 0.5)
     link: "#3273dc"
     link-hover: "#2e4053"
-    background-image: "../assets/wallpaper-light.jpeg" # Change wallpaper.jpeg to the name of your own custom wallpaper!
+    background-image: "../assets/wallpaper-light.jpeg"
   dark:
     highlight-primary: "#181C3A"
     highlight-secondary: "#181C3A"
@@ -105,39 +105,32 @@ services:
     icon: "fas fa-cloud"
     items:
       - name: "Zabbix"
-        # logo: "assets/tools/zabbix.png"
         icon: "fas fa-desktop"
         subtitle: "infrastructure monitoring"
         keywords: "monitoring zabbix alert"
         url: "https://zabbix.ffh.zone/"
       - name: "KeepItUp"
-        # logo: "assets/tools/.png"
         icon: "fas fa-bell"
         subtitle: "Nodelist monitoring"
         keywords: "monitoring keepitup alert node nodelist"
         url: "https://keepitup.ffh.zone/"
       - name: "Grafana"
-        # logo: "assets/tools/grafana.png"
         icon: "fas fa-chart-bar"
         url: "https://stats.ffh.zone"
         subtitle: "Statistics"
         keywords: "monitoring stat statistic graph"
       - name: "Map"
-        # logo: "assets/tools/meshviewer.png"
         icon: "fas fa-map-marked"
         url: "https://hannover.freifunk.net/karte/"
         subtitle: "Active nodes"
         keywords: "monitoring node mesh"
       - name: "Graveyard"
-        # logo: "assets/tools/meshviewer.png"
         icon: "fas fa-skull-crossbones"
         url: "https://hannover.freifunk.net/friedhof/"
         subtitle: "Inactive nodes"
         keywords: "monitoring node mesh"
       - name: "InfluxDB"
-        # logo: "assets/tools/influxdb.png"
         icon: "fas fa-database"
         url: "http://localhost:8086/"
         subtitle: "ssh harvester -L 8086:localhost:8086"
         keywords: "influxdb database timeseries"
- 
