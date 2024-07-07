@@ -1,0 +1,31 @@
+---
+# tasks file for ffh.authentik
+
+- name: Create path for authentik
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ authentik_path }}", owner: "1000", group: "1000", mode: "0755" }
+    - { name: "{{ authentik_path }}/media", owner: "1000", group: "1000", mode: "0775" }
+    - { name: "{{ authentik_path }}/certs", owner: "1000", group: "1000", mode: "0755" }
+    - { name: "{{ authentik_path }}/custom-templates", owner: "1000", group: "1000", mode: "0755" }
+    - { name: "{{ authentik_path }}/postgres", owner: "70", group: "70", mode: "0700" }
+    - { name: "{{ authentik_path }}/redis", owner: "999", group: "1000", mode: "0755" }
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ authentik_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy authentik
+  community.docker.docker_compose_v2:
+    project_src: "{{ authentik_path }}"
+    files:
+    - "docker-compose.yml"

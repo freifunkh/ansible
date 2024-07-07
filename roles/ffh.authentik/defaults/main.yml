@@ -1,0 +1,14 @@
+---
+# defaults file for ffh.authentik
+
+authentik_path: "/opt/authentik"
+authentik_postgres_db: "authentik"
+authentik_postgres_user: "authentik-admin"
+authentik_email_host: "localhost"
+authentik_email_port: 25
+authentik_email_username: ""
+authentik_email_password: ""
+authentik_email_tls: "false"
+authentik_email_ssl: "false"
+authentik_email_timeout: 10
+authentik_email_from: "authentik@localhost"

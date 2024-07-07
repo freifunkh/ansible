@@ -1,0 +1,6 @@
+---
+
+authentik_postgres_db: "authentik-ffh-1"
+authentik_postgres_user: "authentik-ffh-1-admin"
+authentik_email_host: "mail.ffh.zone"
+authentik_email_from: "authentik@hannover.freifunk.net"

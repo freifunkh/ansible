@@ -22,6 +22,7 @@
     - { name: ffh.traefik, tags: traefik }
     - { name: ansible-role-netbox-docker, tags: netbox }
     - { name: ffh.homer, tags: homer }
+    - { name: ffh.authentik, tags: authentik }
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
