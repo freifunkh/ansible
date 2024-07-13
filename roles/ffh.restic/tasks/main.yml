@@ -126,8 +126,18 @@
   - get_url:
       url: "https://github.com/restic/restic/releases/download/v{{restic_version}}/restic_{{restic_version}}_linux_amd64.bz2"
       dest: "/usr/local/bin/restic.bz2"
-  - shell: "bzip2 -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
-  when: "not resticpath.stat.exists"
+  - shell: "bzip2 -f -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
+  when: "not resticpath.stat.exists or ansible_local.restic_installed_version|default('0') != restic_version"
+
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    state: "directory"
+
+- name: "Save restic installed version"
+  copy:
+    content: '"{{ restic_version }}"'
+    dest: "/etc/ansible/facts.d/restic_installed_version.fact"
 
 - name: "Install backups ssh host host"
   blockinfile:
