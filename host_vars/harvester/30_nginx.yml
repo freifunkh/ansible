@@ -1,0 +1,55 @@
+---
+
+nginx_sites:
+- domain: harvester.ffh.zone
+  root: /var/www/harvester.ffh.zone
+  locations:
+    - location: /
+      http_only: true
+      type: proxy
+      proxy_forward_url: http://localhost:8042/
+      proxy_buffering: false
+    - location: /
+      https_only: true
+      rewrite_params: '^ http://$host$request_uri? permanent'
+    - location: /api/
+      http_only: true
+      rewrite_params: '^ https://$host$request_uri? permanent'
+    - location: /api/
+      https_only: true
+      allow_cors: true
+      directory_index: true
+      gzip: true
+  tls: true
+  tls_redirect_to_https: false
+  servername_override: '"~^(www.)?harvester.ffh.zone|fdca:ffee:8:.{0,3}:1231$"'
+- domain: opkg.ffh.zone
+  tls: false
+  locations:
+    - location: /openwrt/
+      type: proxy
+      proxy_pass_host: false
+      proxy_forward_url: http://downloads.openwrt.org/
+    - location: /lede/
+      type: proxy
+      proxy_pass_host: false
+      proxy_forward_url: http://archive.openwrt.org/
+    - location: /modules/
+      type: proxy
+      proxy_pass_host: false
+      proxy_forward_url: http://build.ffh.zone/job/gluon-beta/ws/beta/packages/
+- domain: stats.ffh.zone
+  tls: true
+  tls_redirect_to_https: true
+  locations:
+    - location: /
+      type: proxy
+      proxy_forward_url: http://127.0.0.1:3000/
+      allow_connection_upgrade: true
+- domain: keepitup.ffh.zone
+  tls: true
+  tls_redirect_to_https: true
+  locations:
+    - location: /
+      type: proxy
+      proxy_forward_url: http://localhost:8132/

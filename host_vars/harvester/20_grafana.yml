@@ -1,0 +1,11 @@
+---
+
+grafana_root_url: "https://stats.ffh.zone/"
+grafana_listen_on:
+  ip: "127.0.0.1"
+  port: 3000
+grafana_datadir: "/media/data/grafana"
+# grafana_allow_signup: true # disabled since authentik
+grafana_anonymous_access: true
+grafana_smtp_host: "mail.ffh.zone:25"
+grafana_smtp_from: "grafana@hannover.freifunk.net"
