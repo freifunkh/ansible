@@ -165,16 +165,17 @@ allow_embedding = true
 #################################### Users ####################################
 [users]
 # disable user signup / registration
-allow_sign_up = {% if grafana_allow_signup %}true{% else %}false{% endif %}
+allow_sign_up = false
 
 # Allow non admin users to create organizations
 ;allow_org_create = true
 
 # Set to true to automatically assign new users to the default organization (id 1)
-;auto_assign_org = true
+auto_assign_org = true
+auto_assign_org_id = 1
 
 # Default role new users will be automatically assigned (if disabled above is set to true)
-;auto_assign_org_role = Viewer
+auto_assign_org_role = Editor
 
 # Background text for the user field on the login page
 ;login_hint = email or username
@@ -185,6 +186,8 @@ allow_sign_up = {% if grafana_allow_signup %}true{% else %}false{% endif %}
 [auth]
 # Set to true to disable (hide) the login form, useful if you use OAuth, defaults to false
 ;disable_login_form = false
+signout_redirect_url = https://auth.ffh.zone/application/o/grafana/end-session/
+oauth_allow_insecure_email_lookup = true
 
 #################################### Anonymous Auth ##########################
 [auth.anonymous]
@@ -235,6 +238,16 @@ org_name = Freifunk Hannover
 ;api_url = https://foo.bar/user
 ;team_ids =
 ;allowed_organizations =
+name = authentik
+enabled = true
+allow_sign_up = true
+client_id = {{ grafana_oauth_client_id }}
+client_secret = {{ grafana_oauth_client_secret }}
+scopes = openid email profile
+auth_url = https://auth.ffh.zone/application/o/authorize/
+token_url = https://auth.ffh.zone/application/o/token/
+api_url = https://auth.ffh.zone/application/o/userinfo/
+role_attribute_path = contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
 
 #################################### Grafana.net Auth ####################
 [auth.grafananet]
