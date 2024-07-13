@@ -1,5 +1,5 @@
 BACKUP_PATHS="{{ restic_backup_paths | join(' ') }}"
-BACKUP_EXCLUDES=""
+BACKUP_EXCLUDES="{{ restic_backup_excludes | map("regex_replace", "^", "--exclude=") | join(' ') }}"
 RETENTION_DAYS=7
 RETENTION_WEEKS=4
 RETENTION_MONTHS=6
