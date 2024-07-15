@@ -10,6 +10,8 @@
       tags: [always]
   roles:
     - { name: ffh.proxmox-init, tags: proxmox-init }
+    # ferm is actually disabled, but we need the handler to exist
+    - { name: ffh.ferm, tags: ferm }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
