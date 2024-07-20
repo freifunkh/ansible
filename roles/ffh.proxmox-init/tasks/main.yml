@@ -41,3 +41,16 @@
   apt:
     pkg:
     - python3-proxmoxer
+
+- name: "Get rid of rpcbind (portmapper)"
+  ansible.builtin.systemd_service:
+    name: "rpcbind.service"
+    enabled: false
+    masked: true
+    state: "stopped"
+
+- name: "...and its socket"
+  ansible.builtin.systemd_service:
+    name: "rpcbind.socket"
+    enabled: false
+    state: "stopped"
