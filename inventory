@@ -51,6 +51,10 @@ all:
       ansible_host: tiefensee.ffh.zone
     scheuer:
       ansible_host: scheuer.ffh.zone
+      ansible_port: 22
+    wissing:
+      ansible_host: wissing.ffh.zone
+      ansible_port: 22
     dobrindt:
       ansible_host: dobrindt.ffh.zone
       ansible_port: 22
@@ -116,6 +120,7 @@ proxmoxes:
     scheuer:
     tiefensee:
     dobrindt:
+    wissing:
 
 zabbixproxies:
   hosts:
