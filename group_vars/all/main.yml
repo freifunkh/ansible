@@ -10,9 +10,6 @@ simple_mail:
 
 git_addr: "ssh://git@git.ffh.zone:1337"
 
-stats_pushgateway:
-  host: "[fdca:ffee:8::108]:9091"
-
 network_lower_ifaces:
   default: eth0
 
@@ -29,6 +26,7 @@ zabbix_agent_server_active: "zabbix.ffh.zone"
 zabbix_server_version: "6.0"
 zabbix_proxy_server: "monitor.ffh.zone"
 
+is_superexitnode: false
 is_supernode: false
 is_exitnode: false
 iperf3_is_public_server: false
