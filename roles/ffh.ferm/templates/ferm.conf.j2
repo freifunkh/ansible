@@ -65,7 +65,7 @@ domain (ip ip6) {
         chain MESH_INPUT {
         }
 
-{% if is_supernode is defined and is_supernode == true %}
+{% if (is_supernode is defined and is_supernode == true) or (is_superexitnode is defined and is_superexitnode == true) %}
         # Every input packet will traverse this chain, except it is from one of
         # our own exitnode ips. This chain is used to block ff in ff.
         chain INPUT_SOURCE_IS_NOT_FFH_EXIT {
