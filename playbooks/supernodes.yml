@@ -12,7 +12,6 @@
     # Cleanup
     - { name: ffh.cleanup, tags: cleanup }
     # General
-    - { name: ffh.devname, tags: devname }
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.cli_tools, tags: cli_tools }
