@@ -1,0 +1,56 @@
+---
+
+networkd_configures:
+- iface: ens18
+  addresses:
+    - 192.168.150.7/24
+  gateway4: 192.168.150.1
+  dns_server:
+    - 9.9.9.9
+  no_radv_accept: true
+- iface: ens16 # Mellanox #1 (second slot unused)
+- iface: vlan2000
+  addresses:
+    - 185.1.74.56/25
+    - 2001:7f8:a5::20:9347:1/64
+    - 2a0a:4587:2031::1/128
+  no_radv_accept: true
+  additional_config: |
+    [RoutingPolicyRule]
+    Table=cix
+    Family=both
+- iface: ens19 # bridge to other vms
+  addresses:
+    - 45.12.203.65/26
+    - 2a0a:4587:2031:10c::1/64
+#  static_routes:
+#    - dest: "217.197.84.200/29"
+#      table: "blech"
+#      scope: "link"
+#    - dest: "2a0a:4587:2031:10c::/64"
+#      table: "blech"
+#      scope: "link"
+#    - dest: "2a0a:4580:1033::1/56"
+#      table: "blech"
+#      gw: "2a0a:4587:2030:10c::8006"
+
+network_lower_ifaces:
+  default: vlan2000
+
+networkd_vlans:
+- id: 2000
+  iface: ens16
+
+networkd_manage_foreign_routes: false
+
+# This adds static routes to
+# /etc/systemd/network/10-gre-leintor.d/ (and others)
+# based on the exit_ip_ranges variable defined in
+# group_vars/all/nodes.yml.
+route_exitnode_via:
+  leintor:
+    interface: "gre-leintor"
+
+rt_preferred:
+  name: "freifunk"
+  number: "42"

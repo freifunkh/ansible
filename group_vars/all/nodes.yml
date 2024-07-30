@@ -7,14 +7,13 @@ exitnodes:
     exit_ip_ranges:
     - 2a02:790:ff::/48
     - 81.3.6.94/32
-  clevertor:
-    id: 4
-    # ip4: "194.50.19.35"
-    ip4: "{{ lookup('dig', 'clevertor.e.ffh.zone./A') }}"
-    ip6: "{{ lookup('dig', 'clevertor.e.ffh.zone./AAAA') }}"
+  sn07:
+    id: 7
+    ip4: "45.12.203.65"
+    ip6: "2a0a:4587:2031::1"
     exit_ip_ranges:
-    - 2001:678:978::/48
-    - 45.12.203.1/24
+    - 2a0a:4587:2031::/48
+    - 45.12.203.65/32
   sn08:
     id: 8
     ip4: "217.197.84.201"
@@ -23,7 +22,8 @@ exitnodes:
     - 2a0a:4587:2030::/48
     - 217.197.84.201/32
 supernodes:
-  sn02: { id: 2, ip4: "{{ lookup('dig', 'sn02.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn02.s.ffh.zone./AAAA') }}" }
+  # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
+  sn07: { id: 7, ip4: "45.12.203.65", ip6: "2a0a:4587:2031::1" }
   sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
   sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
@@ -37,6 +37,7 @@ helpernodes:
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
   evergiven: { id: 9, ip4: "{{ lookup('dig', 'evergiven.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'evergiven.ffh.zone./AAAA') }}" }
 proxmoxnodes:
-  scheuer: { id: 1, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
-  dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}" }
-  tiefensee: { id: 1, ip4: "{{ lookup('dig', 'tiefensee.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tiefensee.ffh.zone./AAAA') }}" }
+  dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
+  wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
+  # scheuer: { id: 3, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
+  tiefensee: { id: 4, ip4: "{{ lookup('dig', 'tiefensee.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tiefensee.ffh.zone./AAAA') }}" }

@@ -15,7 +15,9 @@ all:
     sn06:
       ansible_host: sn06.s.ffh.zone
     sn07:
-      ansible_host: sn07.s.ffh.zone
+      # ansible_host: sn07.s.ffh.zone
+      ansible_host: 192.168.150.7
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@wissing.ffh.zone"'
     sn08:
       # ansible_host: sn08.s.ffh.zone
       ansible_host: 192.168.149.2
@@ -26,8 +28,6 @@ all:
       ansible_host: sn10.s.ffh.zone
     leintor:
       ansible_host: leintor.e.ffh.zone
-    clevertor:
-      ansible_host: clevertor.e.ffh.zone
     ns1:
       ansible_host: ns1.ffh.zone
     harvester:
@@ -49,17 +49,12 @@ all:
       ansible_host: evergiven.ffh.zone
     tiefensee:
       ansible_host: tiefensee.ffh.zone
-    scheuer:
-      ansible_host: scheuer.ffh.zone
       ansible_port: 22
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
     dobrindt:
       ansible_host: dobrindt.ffh.zone
-      ansible_port: 22
-    build:
-      ansible_host: build.ffh.zone
       ansible_port: 22
 
 debiannodes:
@@ -71,18 +66,17 @@ debiannodes:
 
 supernodes:
   hosts:
-    sn02:
     sn09:
     sn10:
 
 superexitnodes:
   hosts:
+    sn07:
     sn08:
 
 exitnodes:
   hosts:
     leintor:
-    clevertor:
 
 helpernodes:
   hosts:
@@ -117,7 +111,6 @@ routingnodes:
 
 proxmoxes:
   hosts:
-    scheuer:
     tiefensee:
     dobrindt:
     wissing:

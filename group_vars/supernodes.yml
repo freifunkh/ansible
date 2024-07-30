@@ -11,7 +11,7 @@ network_lower_ifaces:
 route_exitnode_via:
   leintor:
     interface: "gre-leintor"
-  clevertor:
-    interface: "gre-clevertor"
+  sn07:
+    interface: "gre-sn07"
   sn08:
     interface: "gre-sn08"
