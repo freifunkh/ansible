@@ -19,20 +19,18 @@ networkd_configures:
     [RoutingPolicyRule]
     Table=cix
     Family=both
+  static_routes:
+    - dest: "45.12.203.0/26"
+      table: "blech"
+      gw: "185.1.74.68"
 - iface: ens19 # bridge to other vms
   addresses:
     - 45.12.203.65/26
     - 2a0a:4587:2031:10c::1/64
-#  static_routes:
-#    - dest: "217.197.84.200/29"
-#      table: "blech"
-#      scope: "link"
-#    - dest: "2a0a:4587:2031:10c::/64"
-#      table: "blech"
-#      scope: "link"
-#    - dest: "2a0a:4580:1033::1/56"
-#      table: "blech"
-#      gw: "2a0a:4587:2030:10c::8006"
+  static_routes:
+    - dest: "2a0a:4587:2031:10c::/64"
+      table: "blech"
+      scope: "link"
 
 network_lower_ifaces:
   default: vlan2000

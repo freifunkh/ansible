@@ -25,6 +25,10 @@ networkd_configures:
     [RoutingPolicyRule]
     Table=cix
     Family=both
+  static_routes:
+    - dest: "45.12.203.64/26"
+      table: "blech"
+      gw: "185.1.74.56"
 - iface: ens19 # bridge to other vms
   addresses:
     - 217.197.84.201/29
@@ -33,12 +37,18 @@ networkd_configures:
     - dest: "217.197.84.200/29"
       table: "blech"
       scope: "link"
-    - dest: "2a0a:4587:2030:10c::/64"
+    - dest: "45.12.203.0/26"
       table: "blech"
       scope: "link"
+    - dest: "2a0a:4587:2030:10c::/64"
+      table: "blech"
     - dest: "2a0a:4580:1033::1/56"
       table: "blech"
       gw: "2a0a:4587:2030:10c::8006"
+  additional_config: |
+    [Address]
+    Address=45.12.203.1/26
+    AddPrefixRoute=false
 
 bird_enable: true
 bird_my_asn: "209347"
@@ -86,8 +96,6 @@ zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
 route_exitnode_via:
   leintor:
     interface: "gre-leintor"
-  clevertor:
-    interface: "gre-clevertor"
 
 rt_preferred:
   name: "freifunk"
