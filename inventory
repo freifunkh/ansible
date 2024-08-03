@@ -47,6 +47,8 @@ all:
       ansible_host: tonne.ffh.zone
     evergiven:
       ansible_host: evergiven.ffh.zone
+    dali:
+      ansible_host: dali.ffh.zone
     tiefensee:
       ansible_host: tiefensee.ffh.zone
       ansible_port: 22
@@ -88,6 +90,7 @@ helpernodes:
     sql:
     tonne:
     evergiven:
+    dali:
 
 fermnodes:
   children:

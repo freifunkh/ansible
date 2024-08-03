@@ -1,0 +1,29 @@
+---
+
+servername: dali
+fqdn: "dali.ffh.zone"
+
+networkd_configures:
+- iface: ens18
+  addresses:
+    - 45.12.203.66/26
+    - 2a0a:4587:2031:10c::66/64
+  gateway4: 45.12.203.65
+  gateway6: 2a0a:4587:2031:10c::1
+  dns_server:
+    - 5.1.66.255
+    - '2001:678:ed0:f000::'
+    - 9.9.9.9
+  no_radv_accept: true
+
+traefik_acme_email: "noc@hannover.freifunk.net"
+
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
+
+restic_backup_paths:
+- "/etc/"
+- "/opt/" # all docker container (volumes)
+- "/media/docker/" # generic docker stuff
+restic_backup_excludes:
+- "/media/docker/overlay2" # due to jenkins containers
