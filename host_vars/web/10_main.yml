@@ -5,16 +5,15 @@ fqdn: "web.ffh.zone"
 
 networkd_configures:
 - iface: eth0
-  dhcp: true
   addresses:
-    - 2a01:4f8:221:100c::443/64
-  gateway6: 2a01:4f8:221:100c::2
+    - 45.12.203.67/26
+    - 2a0a:4587:2031:10c::67/64
+  gateway4: 45.12.203.65
+  gateway6: 2a0a:4587:2031:10c::1
   dns_server:
     - 5.1.66.255
     - '2001:678:ed0:f000::'
-  static_routes:
-    - gw: 2a01:4f8:221:100c::2
-      dest: 2a01:4f8:221:100c::7000/120
+    - 9.9.9.9
 
 ansible_python_interpreter: "/usr/bin/python3"
 
@@ -189,5 +188,5 @@ restic_backup_paths:
 - "/etc/"
 - "/var/www/"
 
-zabbix_agent_server: "zbx-hetzner.ffh.zone"
-zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
+zabbix_agent_server: "zbx-interwerk.ffh.zone"
+zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
