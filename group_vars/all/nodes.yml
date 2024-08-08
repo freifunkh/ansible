@@ -22,8 +22,7 @@ exitnodes:
     - 2a0a:4587:2030::/48
     - 217.197.84.201/32
 supernodes:
-  # sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
-  sn07: { id: 7, ip4: "45.12.203.65", ip6: "2a0a:4587:2031::1" }
+  sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
   sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
   sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
@@ -39,5 +38,4 @@ helpernodes:
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
-  # scheuer: { id: 3, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
   tiefensee: { id: 4, ip4: "{{ lookup('dig', 'tiefensee.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tiefensee.ffh.zone./AAAA') }}" }
