@@ -58,7 +58,7 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.docker.network: proxy
-      traefik.http.middlewares.athentik.redirectscheme.scheme: https
+      traefik.http.middlewares.authentik.redirectscheme.scheme: https
       traefik.http.routers.authentik-https.entrypoints: websecure
       traefik.http.routers.authentik-https.rule: Host(`auth.ffh.zone`)
       traefik.http.routers.authentik-https.tls.certresolver: letsencrypt
