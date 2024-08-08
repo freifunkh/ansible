@@ -1,0 +1,24 @@
+---
+# tasks file for ffh.esphome
+
+- name: Create path for esphome
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ esphome_path }}"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ esphome_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy esphome
+  community.docker.docker_compose_v2:
+    project_src: "{{ esphome_path }}"
+    files:
+    - "docker-compose.yml"

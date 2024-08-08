@@ -1,0 +1,27 @@
+services:
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome
+    volumes:
+      - {{ esphome_path }}/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    privileged: true
+    environment:
+      - USERNAME={{ esphome_user }}
+      - PASSWORD={{ esphome_pass }}
+    networks:
+      - proxy
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: proxy
+      traefik.http.middlewares.esphome.redirectscheme.scheme: https
+      traefik.http.routers.esphome-https.entrypoints: websecure
+      traefik.http.routers.esphome-https.rule: Host(`{{ esphome_fqdn }}`)
+      traefik.http.routers.esphome-https.tls.certresolver: letsencrypt
+      traefik.http.routers.esphome-https.service: esphome-svc
+      traefik.http.services.esphome-svc.loadbalancer.server.port: '6052'
+networks:
+  proxy:
+    name: proxy
+    external: true

@@ -18,6 +18,10 @@ networkd_configures:
 
 traefik_acme_email: "noc@hannover.freifunk.net"
 
+esphome_path: "/opt/esphome"
+esphome_user: "admin"
+esphome_fqdn: "steckdosen.ffh.zone"
+
 zabbix_agent_server: "zbx-interwerk.ffh.zone"
 zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
 

@@ -20,6 +20,7 @@
     # specific
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
+    - { name: ffh.esphome, tags: esphome }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:
