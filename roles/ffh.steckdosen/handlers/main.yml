@@ -1,0 +1,5 @@
+---
+# handlers file for ffh.steckdosen
+
+# - name: Restart networkd
+#   service: name=systemd-networkd state=restarted

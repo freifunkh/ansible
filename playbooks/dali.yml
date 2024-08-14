@@ -21,6 +21,7 @@
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
     - { name: ffh.esphome, tags: esphome }
+    - { name: ffh.steckdosen, tags: steckdosen }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:

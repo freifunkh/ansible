@@ -1,0 +1,9 @@
+[NetDev]
+Name=steckdosen
+Kind=wireguard
+
+[WireGuard]
+PrivateKey={{ steckdosen_wireguard_privatekey }}
+ListenPort={{ steckdosen_wireguard_port | default("51820") }}
+
+{% include 'peers.j2' %}

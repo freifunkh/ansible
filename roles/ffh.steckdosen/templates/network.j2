@@ -1,0 +1,6 @@
+[Match]
+Name=steckdosen
+
+[Network]
+Address={{ steckdosen_prefix | default("192.168.1") }}.1/{{ steckdosen_prefix_length | default("24") }}
+IPv6AcceptRA=false

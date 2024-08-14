@@ -1,0 +1,7 @@
+domain (ip6) {
+  table filter {
+    chain INPUT {
+      interface steckdosen proto udp dport {{ steckdosen_wireguard_port | default("51820") }} ACCEPT;
+    }
+  }
+}
