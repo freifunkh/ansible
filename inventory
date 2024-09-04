@@ -34,8 +34,6 @@ all:
       ansible_host: harvester.ffh.zone
     web:
       ansible_host: web.ffh.zone
-    monitor:
-      ansible_host: monitor.ffh.zone
     vds:
       ansible_host: vds.ffh.zone
     perf-test:
@@ -43,8 +41,6 @@ all:
       ansible_port: 22
     rdns:
       ansible_host: rdns.ffh.zone
-    sql:
-      ansible_host: sql.ffh.zone
     db:
       ansible_host: db.ffh.zone
     tonne:
@@ -53,9 +49,6 @@ all:
       ansible_host: evergiven.ffh.zone
     dali:
       ansible_host: dali.ffh.zone
-    tiefensee:
-      ansible_host: tiefensee.ffh.zone
-      ansible_port: 22
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
@@ -89,10 +82,8 @@ helpernodes:
     ns1:
     harvester:
     web:
-    monitor:
     vds:
     rdns:
-    sql:
     db:
     tonne:
     evergiven:
@@ -120,7 +111,6 @@ routingnodes:
 
 proxmoxes:
   hosts:
-    tiefensee:
     dobrindt:
     wissing:
 
@@ -128,4 +118,3 @@ zabbixproxies:
   hosts:
     rdns:
     leintor:
-    tiefensee:
