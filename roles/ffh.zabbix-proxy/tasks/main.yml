@@ -41,6 +41,12 @@
     src: "zabbix_proxy.conf.j2"
     dest: "/etc/zabbix/zabbix_proxy.conf"
 
+- name: "Generate zabbix-proxy psk file"
+  notify: "restart zabbix-proxy"
+  template:
+    src: "zabbix_proxy.psk.j2"
+    dest: "/etc/zabbix/zabbix_proxy.psk"
+
 - name: "Add firewall config"
   when: "inventory_hostname in groups['fermnodes']"
   block:
