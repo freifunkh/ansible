@@ -1,0 +1,47 @@
+---
+
+- hosts: db
+  become: yes
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
+    - name: "Import pre_task etckeeper"
+      import_tasks: "include/etckeeper_pre.yml"
+      tags: [always]
+    - name: "Install pymysql libs"
+      apt:
+        pkg:
+        - python3-pymysql
+      tags: [always]
+    - name: "Create mysql datadir"
+      file:
+        path: "/media/mysql/data"
+        state: "directory"
+      tags: [always]
+    - name: "Create symlink to mysql datadir"
+      file:
+        src: "/media/mysql/data"
+        dest: "/var/lib/mysql"
+        state: "link"
+      tags: [always]
+  roles:
+    # general
+    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.networkd, tags: networkd }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.simple_mail, tags: simple_mail }
+    - { name: ffh.cron-apt, tags: cron-apt }
+    # - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    # special
+    - { name: ffh.zabbix-sql, tags: zabbix-sql }
+    # backup
+    - { name: ffh.restic, tags: restic }
+    # attention
+    # - { name: geerlingguy.mysql, tags: mysql } # NEVER USE IT AS IT OVERWRITES VITAL CONFIG DATA
+  post_tasks:
+    - name: "Import post_task etckeeper"
+      import_tasks: "include/etckeeper_post.yml"
+      tags: [always]

@@ -43,6 +43,8 @@ all:
       ansible_host: rdns.ffh.zone
     sql:
       ansible_host: sql.ffh.zone
+    db:
+      ansible_host: db.ffh.zone
     tonne:
       ansible_host: tonne.ffh.zone
     evergiven:
@@ -88,6 +90,7 @@ helpernodes:
     monitor:
     rdns:
     sql:
+    db:
     tonne:
     evergiven:
     dali:
