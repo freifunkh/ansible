@@ -28,13 +28,14 @@ supernodes:
   sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
 helpernodes:
   harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}" }
-  sql: { id: 2, ip6: "{{ lookup('dig', 'sql.ffh.zone./AAAA') }}" }
+  db: { id: 2, ip4: "{{ lookup('dig', 'db.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'db.ffh.zone./AAAA') }}" }
   ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'ns1.ffh.zone./AAAA') }}" }
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
-  monitor: { id: 5, ip4: "{{ lookup('dig', 'monitor.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'monitor.ffh.zone./AAAA') }}" }
+  vds: { id: 5, ip4: "{{ lookup('dig', 'vds.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'vds.ffh.zone./AAAA') }}" }
   rdns: { id: 6, ip4: "{{ lookup('dig', 'rdns.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'rdns.ffh.zone./AAAA') }}" }
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
   evergiven: { id: 9, ip4: "{{ lookup('dig', 'evergiven.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'evergiven.ffh.zone./AAAA') }}" }
+  dali: { id: 10, ip4: "{{ lookup('dig', 'dali.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dali.ffh.zone./AAAA') }}" }
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
