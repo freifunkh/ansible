@@ -2,6 +2,7 @@ services:
   homer:
     image: "b4bz/homer"
     container_name: "homer"
+    restart: unless-stopped
     volumes:
       - "/opt/homer/assets/:/www/assets"
     networks:
