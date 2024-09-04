@@ -49,3 +49,23 @@
     regexp: "date.timezone ="
     line: "date.timezone = Europe/Berlin"
 
+- name: "PHP post_max_size setting"
+  notify: Reload nginx
+  lineinfile:
+    dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
+    regexp: "post_max_size ="
+    line: "post_max_size = 16M"
+
+- name: "PHP max_execution_time setting"
+  notify: Reload nginx
+  lineinfile:
+    dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
+    regexp: "max_execution_time ="
+    line: "max_execution_time = 300"
+
+- name: "PHP max_input_time setting"
+  notify: Reload nginx
+  lineinfile:
+    dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
+    regexp: "max_input_time ="
+    line: "max_input_time = 300"
