@@ -36,6 +36,8 @@ all:
       ansible_host: web.ffh.zone
     monitor:
       ansible_host: monitor.ffh.zone
+    vds:
+      ansible_host: vds.ffh.zone
     perf-test:
       ansible_host: perf-test.ffh.zone
       ansible_port: 22
@@ -88,6 +90,7 @@ helpernodes:
     harvester:
     web:
     monitor:
+    vds:
     rdns:
     sql:
     db:
