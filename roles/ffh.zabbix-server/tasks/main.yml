@@ -1,10 +1,10 @@
 ---
 
-- name: Add gpg dependency for key handling
+- name: "Add gpg dependency for key handling"
   apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
+- name: "Prepare key directory for older Debian versions"
   file:
     path: "/etc/apt/keyrings"
     state: "directory"
@@ -13,7 +13,7 @@
     group: "root"
   when: "ansible_distribution_version|int < 12"
 
-- name: Add Zabbix Repo Key
+- name: "Add Zabbix Repo Key"
   get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
     dest: "/etc/apt/keyrings/zabbix-official-repo.key"
@@ -22,11 +22,11 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: Add Zabbix Repo
+- name: "Add Zabbix Repo"
   apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_distribution_release }} main"
-    state: present
-    filename: zabbix
+    state: "present"
+    filename: "zabbix"
 
 - name: "Install Zabbix Server"
   apt:
@@ -35,39 +35,6 @@
   vars:
     packages:
     - "zabbix-server-mysql"
-
-- name: "Create a new MySQL database with name {{ zabbix_server_dbname }}"
-  mysql_db:
-    name: "{{ zabbix_server_dbname }}"
-    collation: "utf8_bin"
-    encoding: "utf8"
-    state: "present"
-    login_unix_socket: "{{ zabbix_server_db_socket }}"
-
-- name: "Create a new MySQL user with name {{ zabbix_server_dbuser }} using {{ zabbix_server_db_login_user }} (DIFF REDACTED)"
-  mysql_user:
-    name: "{{ zabbix_server_dbuser }}"
-    password: "{{ zabbix_server_dbpassword }}"
-    priv: '{{zabbix_server_dbname }}.*:ALL'
-    host: "{{ zabbix_server_dbhost }}"
-    state: "present"
-    login_unix_socket: "{{ zabbix_server_db_socket }}"
-  diff: "{{ show_secret_diffs }}"
-
-- name: "Check whether database has existing tables"
-  register: "preexistingtables"
-  mysql_query:
-    login_db: "{{ zabbix_server_dbname }}"
-    login_unix_socket: "{{ zabbix_server_db_socket }}"
-    query: "SHOW TABLES"
-
-- name: "Initialise database"
-  mysql_db:
-    state: "import"
-    name: "{{ zabbix_server_dbname }}"
-    login_unix_socket: "{{ zabbix_server_db_socket }}"
-    target: "/usr/share/doc/zabbix-server-mysql/create.sql.gz"
-  when: "preexistingtables.rowcount is defined and preexistingtables.rowcount == 0"
 
 - name: "Deploy zabbix-server config"
   notify: "restart zabbix-server"
@@ -90,7 +57,7 @@
     dest: "/etc/ferm/conf.d/50-zabbix-server.conf"
 
 - name: "Enable Zabbix Server on bootup"
-  service:
+  systemd:
     name: "zabbix-server"
     enabled: "yes"
     state: "started"
