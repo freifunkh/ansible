@@ -1,0 +1,5 @@
+[Unit]
+Description=Partition zabbix database service
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/zabbix/mysql_zbx_part.pl

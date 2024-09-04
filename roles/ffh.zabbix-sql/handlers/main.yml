@@ -1,2 +1,8 @@
 ---
 # handlers file for ffh.zabbix-sql
+
+- name: "reload ferm"
+  service: 
+    name: ferm
+    state: reloaded
+  when: ferm_enabled

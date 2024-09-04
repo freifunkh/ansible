@@ -1,0 +1,10 @@
+---
+
+- name: "Punch a hole into the firewall for mariadb"
+  notify: "reload ferm"
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-mariadb.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"

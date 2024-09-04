@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      proto tcp dport ({{ zabbix_db_port | default(3306) }}) ACCEPT;
+    }
+  }
+}

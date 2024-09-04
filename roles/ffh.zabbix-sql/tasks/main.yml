@@ -1,26 +1,14 @@
 ---
 # tasks file for ffh.zabbix-sql
 
-- name: "Create mysql dump directory"
-  file:
-    path: "{{ zabbix_sql_dumppath }}"
-    state: "directory"
+- name: "Init database"
+  include_tasks: "db_init.yml"
 
-- name: "Install zabbix-backup systemd units"
-  template:
-    dest: "/etc/systemd/system/{{ item }}"
-    src: "{{ item }}"
-  with_items:
-    - "zabbix-backup.service"
-    - "zabbix-backup.timer"
-  register: "systemdunits"
+- name: "Database partitioning"
+  include_tasks: "db_maint.yml"
 
-- name: "Enable systemd units"
-  systemd:
-    name: "{{ item }}"
-    daemon_reload: "yes"
-    enabled: "yes"
-    state: "started"
-  with_items:
-    - "zabbix-backup.timer"
-  when: "systemdunits.changed"
+- name: "Misc"
+  include_tasks: "misc.yml"
+
+- name: "Install backup mechanism"
+  include_tasks: "backup.yml"

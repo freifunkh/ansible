@@ -1,0 +1,27 @@
+---
+
+- name: "Check/Create zabbix database"
+  register: zabbix_db_exists
+  community.mysql.mysql_db:
+    name: "{{ zabbix_db_name | default('zabbix') }}"
+    state: present
+
+- name: "Import data from sqldump"
+  community.mysql.mysql_db:
+    name: "{{ zabbix_db_name | default('zabbix') }}"
+    state: import
+    target: "/media/mysql/dump/zabbix-backup.sql"
+  when: zabbix_db_exists.changed
+
+- name: "Create zabbix user, set permissions"
+  community.mysql.mysql_user:
+    state: present
+    name: "{{ zabbix_db_user | default('zabbix') }}"
+    host: "%"
+    password: "{{ zabbix_db_password | default('SECRET') }}"
+    priv: "{{ zabbix_db_name | default('zabbix') }}.*: ALL,GRANT"
+
+- name: "Create ferm directory if necessary"
+  ansible.builtin.file:
+    path: "/etc/ferm/conf.d"
+    state: directory

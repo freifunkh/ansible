@@ -1,0 +1,47 @@
+---
+
+# based on
+# - https://blog.zabbix.com/partitioning-a-zabbix-mysql-database-with-perl-or-stored-procedures/13531/
+# - https://github.com/OpensourceICTSolutions/zabbix-mysql-partitioning-perl/tree/main
+
+- name: "Install dependencies for db partitioning"
+  ansible.builtin.apt:
+    pkg:
+      - libdatetime-perl
+      - liblogger-syslog-perl
+      - libdbd-mysql-perl
+
+- name: "Prepare directory for partitioning script"
+  ansible.builtin.file:
+    path: "/usr/lib/zabbix/"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Prepare partitioning script"
+  ansible.builtin.template:
+    src: "mysql_zbx_part.pl.j2"
+    dest: "/usr/lib/zabbix/mysql_zbx_part.pl"
+    owner: "root"
+    group: "root"
+    mode: "0750"
+
+- name: "Install partitioning systemd units"
+  ansible.builtin.template:
+    dest: "/etc/systemd/system/{{ item }}"
+    src: "{{ item }}"
+  with_items:
+    - "mysql-zbx-part.service"
+    - "mysql-zbx-part.timer"
+  register: "zbx_part"
+
+- name: "Enable partitioning systemd units"
+  systemd:
+    name: "{{ item }}"
+    daemon_reload: "yes"
+    enabled: "yes"
+    state: "started"
+  with_items:
+    - "mysql-zbx-part.timer"
+  when: "zbx_part.changed"
