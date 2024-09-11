@@ -21,7 +21,8 @@ providers:
     exposedByDefault: false
     network: "proxy"
   file:
-    filename: /etc/traefik/other.yml
+    directory: "/etc/traefik/conf/"
+    watch: true
 
 certificatesResolvers:
   letsencrypt:

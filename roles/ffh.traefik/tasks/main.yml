@@ -32,10 +32,18 @@
     owner: "root"
     group: "root"
 
+- name: Create path for traefik config dropins
+  ansible.builtin.file:
+    path: "/etc/traefik/conf"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
 - name: Deploy additional dynamic configuration for Traefik
   ansible.builtin.template:
     src: "other.yml.j2"
-    dest: "/etc/traefik/other.yml"
+    dest: "/etc/traefik/conf/other.yml"
     mode: "0644"
     owner: "root"
     group: "root"
