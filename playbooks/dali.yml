@@ -23,6 +23,7 @@
     - { name: ffh.authentik-outpost, tags: authentik-outpost }
     - { name: ffh.esphome, tags: esphome }
     - { name: ffh.steckdosen, tags: steckdosen }
+    - { name: ffh.vaultwarden, tags: vaultwarden }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:

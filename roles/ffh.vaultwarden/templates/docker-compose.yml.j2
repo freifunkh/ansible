@@ -1,0 +1,30 @@
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      SIGNUPS_ALLOWED: "true"
+      DOMAIN: "https://vault.ffh.zone"
+    volumes:
+      - "{{ vaultwarden_path }}/data:/data"
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.vaultwarden-https.entrypoints: "websecure"
+      traefik.http.routers.vaultwarden-https.rule: "Host(`{{ vaultwarden_fqdn }}`)"
+      traefik.http.routers.vaultwarden-https.tls.certresolver: "letsencrypt"
+      traefik.http.routers.vaultwarden-https.service: "vaultwarden-https"
+      traefik.http.routers.vaultwarden-https.middlewares: authentik@docker
+      traefik.http.services.vaultwarden-https.loadbalancer.server.port: "80"
+      traefik.http.routers.vaultwarden-http.entrypoints: "web"
+      traefik.http.routers.vaultwarden-http.rule: "Host(`{{ vaultwarden_fqdn }}`)"
+      traefik.http.routers.vaultwarden-http.middlewares: "vaultwarden"
+      traefik.http.middlewares.vaultwarden.redirectscheme.scheme: "https"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: "true"

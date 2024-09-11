@@ -163,6 +163,7 @@ dns_authoritative_toplevel:
        "build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
        "steckdosen.ffh.zone. IN CNAME dali.ffh.zone.",
+       "vault.ffh.zone. IN CNAME dali.ffh.zone.",
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
 

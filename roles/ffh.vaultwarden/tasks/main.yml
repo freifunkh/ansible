@@ -1,0 +1,24 @@
+---
+# tasks file for 1977er.vaultwarden
+
+- name: Create path for vaultwarden compose file
+  ansible.builtin.file:
+    path: "{{ vaultwarden_path }}"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create/Update vaultwarden docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ vaultwarden_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy Vaultwarden
+  community.docker.docker_compose_v2:
+    project_src: "{{ vaultwarden_path }}"
+    files:
+    - "docker-compose.yml"

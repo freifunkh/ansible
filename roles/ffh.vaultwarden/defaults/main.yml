@@ -1,0 +1,4 @@
+---
+
+vaultwarden_path: "/opt/docker/vaultwarden"
+vaultwarden_fqdn: "vault.example.com"
