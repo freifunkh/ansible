@@ -1,0 +1,26 @@
+---
+# tasks file for ffh.authentik-outpost
+
+- name: Create path for authentik-outpost
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ authentik_outpost_path }}", owner: "1000", group: "1000", mode: "0755" }
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ authentik_outpost_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy authentik outpost
+  community.docker.docker_compose_v2:
+    project_src: "{{ authentik_outpost_path }}"
+    files:
+    - "docker-compose.yml"

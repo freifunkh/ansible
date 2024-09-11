@@ -1,0 +1,4 @@
+---
+# defaults file for ffh.authentik-outpost
+
+authentik_outpost_path: "/opt/authentik-outpost"

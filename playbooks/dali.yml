@@ -20,6 +20,7 @@
     # specific
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
+    - { name: ffh.authentik-outpost, tags: authentik-outpost }
     - { name: ffh.esphome, tags: esphome }
     - { name: ffh.steckdosen, tags: steckdosen }
     # Backups
