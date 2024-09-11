@@ -31,5 +31,5 @@ mysql_innodb_buffer_pool_size: "6144M"
 mysql_innodb_log_file_size: "1024M"
 mysql_log: False
 
-# zabbix_agent_server: "zbx-hetzner.ffh.zone"
-# zabbix_agent_server_active: "zbx-hetzner.ffh.zone"
+zabbix_agent_server: "zabbix.ffh.zone"
+zabbix_agent_server_active: "zabbix.ffh.zone"
