@@ -55,6 +55,9 @@ all:
     dobrindt:
       ansible_host: dobrindt.ffh.zone
       ansible_port: 22
+    scheuer:
+      ansible_host: scheuer.ffh.zone
+      ansible_port: 22
 
 debiannodes:
   children:
@@ -113,6 +116,7 @@ proxmoxes:
   hosts:
     dobrindt:
     wissing:
+    scheuer:
 
 zabbixproxies:
   hosts:
