@@ -1,9 +1,5 @@
 ---
-servername: wissing
-fqdn: "wissing.ffh.zone"
-
-restic_backup_paths:
-- /etc/
 
 zabbix_agent_server: "zbx-fra.ffh.zone"
 zabbix_agent_server_active: "zbx-fra.ffh.zone"
+zabbix_proxy_hostname: "zbx-fra.ffh.zone"

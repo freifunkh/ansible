@@ -33,9 +33,9 @@ all_knowing_dns:
         2a0a:4587:2030:10c::bac: tonne.ffh.zone
         2a0a:4587:2030:10c::53: rdns.ffh.zone
 
-zabbix_agent_server: "zbx-interwerk.ffh.zone"
-zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
-zabbix_proxy_hostname: "zbx-interwerk.ffh.zone"
+zabbix_agent_server: "zbx-ber.ffh.zone"
+zabbix_agent_server_active: "zbx-ber.ffh.zone"
+zabbix_proxy_hostname: "zbx-ber.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"

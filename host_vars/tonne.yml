@@ -18,5 +18,5 @@ networkd_configures:
 restic_backup_paths:
 - /etc/
 
-zabbix_agent_server: "zbx-interwerk.ffh.zone"
-zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
+zabbix_agent_server: "zbx-ber.ffh.zone"
+zabbix_agent_server_active: "zbx-ber.ffh.zone"

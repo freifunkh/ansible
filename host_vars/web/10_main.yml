@@ -188,5 +188,5 @@ restic_backup_paths:
 - "/etc/"
 - "/var/www/"
 
-zabbix_agent_server: "zbx-interwerk.ffh.zone"
-zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
+zabbix_agent_server: "zbx-fra.ffh.zone"
+zabbix_agent_server_active: "zbx-fra.ffh.zone"

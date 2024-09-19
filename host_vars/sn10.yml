@@ -58,5 +58,5 @@ coordinates: ['52.328259949', '9.783561230']
 
 iperf3_is_public_server: true
 
-zabbix_agent_server: "zbx-hostway.ffh.zone"
-zabbix_agent_server_active: "zbx-hostway.ffh.zone"
+zabbix_agent_server: "zbx-haj.ffh.zone"
+zabbix_agent_server_active: "zbx-haj.ffh.zone"

@@ -22,8 +22,8 @@ networkd_configures:
 
 traefik_acme_email: "noc@hannover.freifunk.net"
 
-zabbix_agent_server: "zbx-interwerk.ffh.zone"
-zabbix_agent_server_active: "zbx-interwerk.ffh.zone"
+zabbix_agent_server: "zbx-ber.ffh.zone"
+zabbix_agent_server_active: "zbx-ber.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"
