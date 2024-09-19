@@ -122,3 +122,4 @@ zabbixproxies:
   hosts:
     rdns:
     leintor:
+    db:
