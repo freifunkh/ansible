@@ -90,6 +90,7 @@ dns_authoritative_toplevel:
    - domain: "ffh.zone."
      records: [
        "@           IN  MX 10 mail.ffh.zone.",
+
        "sn01.ffh.zone. IN CNAME sn01.s.ffh.zone.",
        "sn02.ffh.zone. IN CNAME sn02.s.ffh.zone.",
        "sn03.ffh.zone. IN CNAME sn03.s.ffh.zone.",
@@ -100,70 +101,90 @@ dns_authoritative_toplevel:
        "sn08.ffh.zone. IN CNAME sn08.s.ffh.zone.",
        "sn09.ffh.zone. IN CNAME sn09.s.ffh.zone.",
        "sn10.ffh.zone. IN CNAME sn10.s.ffh.zone.",
-       "sn07.s.ffh.zone. 60 IN A 45.12.203.65",
-       "sn07.s.ffh.zone. 60 IN AAAA 2a0a:4587:2031::1",
-       "sn08.s.ffh.zone. IN A 217.197.84.201",
+       "sn06.s.ffh.zone. IN A 45.12.203.129", # Hamburg
+       "sn06.s.ffh.zone. IN AAAA 2a0a:4587:2032::1",
+       "sn07.s.ffh.zone. IN A 45.12.203.65", # Frankfurt
+       "sn07.s.ffh.zone. IN AAAA 2a0a:4587:2031::1",
+       "sn08.s.ffh.zone. IN A 217.197.84.201", # Berlin
        "sn08.s.ffh.zone. IN AAAA 2a0a:4587:2030::1",
-       "sn09.s.ffh.zone. IN A 81.3.6.92",
+       "sn09.s.ffh.zone. IN A 81.3.6.92", # Hannover
        "sn09.s.ffh.zone. IN AAAA 2a02:790:1:ff::9001",
-       "sn10.s.ffh.zone. IN A 81.3.6.91",
+       "sn10.s.ffh.zone. IN A 81.3.6.91", # Hannover
        "sn10.s.ffh.zone. IN AAAA 2a02:790:1:ff::a001",
-       "iperf3.ffh.zone. IN CNAME sn02.s.ffh.zone.",
+
+       # netcup
        "mail.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of MX pointing at it
        "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "ns1.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of NS pointing at it
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "ntp.ffh.zone. IN CNAME mail.ffh.zone.",
        "git.ffh.zone. IN CNAME mail.ffh.zone.",
+
+       # Hannover
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::2",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
-       "zbx-hostway.ffh.zone. IN CNAME leintor.e.ffh.zone.",
-       "wissing.ffh.zone. IN A 194.50.19.34",
-       "wissing.ffh.zone. IN AAAA 2a0f:5707:ab80:669::1",
-       "scheuer.ffh.zone. IN A 213.128.152.209",
-       "scheuer.ffh.zone. IN AAAA 2001:868:100:9600::4",
+       "zbx-haj.ffh.zone. IN CNAME leintor.e.ffh.zone.",
+
+       # Berlin
        "dobrindt.ffh.zone. IN A 217.197.91.135",
        "dobrindt.ffh.zone. IN AAAA 2a0a:4580:1033::1",
-       "zbx-hetzner.ffh.zone. IN CNAME tiefensee.ffh.zone.",
+
        "tonne.ffh.zone. IN A 217.197.84.205",
        "tonne.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac",
+
        "evergiven.ffh.zone. IN A 217.197.84.203",
        "evergiven.ffh.zone. IN AAAA 2a0a:4587:2030:10c::d0c1",
-       "dali.ffh.zone. IN A 45.12.203.66",
-       "dali.ffh.zone. IN AAAA 2a0a:4587:2031:10c::66",
        "auth.ffh.zone. IN CNAME evergiven.ffh.zone.",
-       "hub.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "netbox.ffh.zone. IN CNAME evergiven.ffh.zone.",
-       "homer.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "start.ffh.zone. IN CNAME evergiven.ffh.zone.",
-       "perf-test.ffh.zone. 120 IN A 88.99.88.12",
-       "monitor.ffh.zone. 60 IN A 88.99.88.14",
-       "monitor.ffh.zone. 60 IN AAAA 2a01:4f8:221:100c::1003",
-       "vds.ffh.zone. 60 IN A 45.12.203.69",
-       "vds.ffh.zone. 60 IN AAAA 2a0a:4587:2031:10c::309",
-       "zabbix.ffh.zone. 60 IN CNAME vds.ffh.zone.",
+
        "rdns.ffh.zone. IN A 217.197.84.202",
        "rdns.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
-       "harvester.ffh.zone. 60 IN A 217.197.84.204",
-       "harvester.ffh.zone. 60 IN AAAA 2a0a:4587:2030:10c::51a1",
-       "zbx-interwerk.ffh.zone. IN CNAME rdns.ffh.zone.",
        "c.ffh.zone. IN NS rdns.ffh.zone.",
-       "web.ffh.zone. 60 IN A 45.12.203.67",
-       "web.ffh.zone. 60 IN AAAA 2a0a:4587:2031:10c::67",
-       "firmware.ffh.zone. 60 IN CNAME web.ffh.zone.",
-       "tiles.ffh.zone. 60 IN CNAME web.ffh.zone.",
+       "zbx-ber.ffh.zone. IN CNAME rdns.ffh.zone.",
+
+       "harvester.ffh.zone. IN A 217.197.84.204",
+       "harvester.ffh.zone. IN AAAA 2a0a:4587:2030:10c::51a1",
        "keepitup.ffh.zone. IN CNAME harvester.ffh.zone.",
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
-       "sql.ffh.zone. 60 IN AAAA 2a01:4f8:221:100c::7007",
-       "db.ffh.zone. 60 IN A 45.12.203.68",
-       "db.ffh.zone. 60 IN AAAA 2a0a:4587:2031:10c::db",
-       "storage.ffh.zone. 60 IN AAAA 2a0a:4587:2031:718::beef",
+
+       # Frankfurt
+       "wissing.ffh.zone. IN A 194.50.19.34",
+       "wissing.ffh.zone. IN AAAA 2a0f:5707:ab80:669::1",
+
+       "dali.ffh.zone. IN A 45.12.203.66",
+       "dali.ffh.zone. IN AAAA 2a0a:4587:2031:10c::66",
+       "steckdosen.ffh.zone. IN CNAME dali.ffh.zone.",
+       "vault.ffh.zone. IN CNAME dali.ffh.zone.",
+
+       "web.ffh.zone. IN A 45.12.203.67",
+       "web.ffh.zone. IN AAAA 2a0a:4587:2031:10c::67",
+       "firmware.ffh.zone. IN CNAME web.ffh.zone.",
+       "tiles.ffh.zone. IN CNAME web.ffh.zone.",
+
+       "db.ffh.zone. IN A 45.12.203.68",
+       "db.ffh.zone. IN AAAA 2a0a:4587:2031:10c::db",
+       "zbx-fra.ffh.zone. IN CNAME db.ffh.zone.",
+
+       "vds.ffh.zone. IN A 45.12.203.69",
+       "vds.ffh.zone. IN AAAA 2a0a:4587:2031:10c::309",
+       "zabbix.ffh.zone. 60 IN CNAME vds.ffh.zone.",
+
+       # Hamburg
+       "scheuer.ffh.zone. IN A 213.128.152.209",
+       "scheuer.ffh.zone. IN AAAA 2001:868:100:9600::4",
+
+       "thetisd.ffh.zone. IN A 45.12.203.130",
+       "thetisd.ffh.zone. IN AAAA 2a0a:4587:2032:10c::130",
+       "zbx-ham.ffh.zone. IN CNAME thetisd.ffh.zone.",
+ 
+       # Verschiedenes
        "testenv.ffh.zone. IN A 130.75.178.22",
        "build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
-       "steckdosen.ffh.zone. IN CNAME dali.ffh.zone.",
-       "vault.ffh.zone. IN CNAME dali.ffh.zone.",
+       "storage.ffh.zone. 60 IN AAAA 2a0a:4587:2031:718::beef",
+
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
 
