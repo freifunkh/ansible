@@ -1,6 +1,6 @@
 #jinja2: trim_blocks: "true", lstrip_blocks: "true"
 ; Warning: File is managed by Ansible
-$TTL 4h
+$TTL 600
 $ORIGIN {{ item.domain }}
 @           IN  SOA     ns1.{{ item.domain }}    zonemaster.ffh.zone. (
                 {{ serial_selected }}    ; serial
