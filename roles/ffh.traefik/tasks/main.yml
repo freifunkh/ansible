@@ -48,7 +48,7 @@
     owner: "root"
     group: "root"
 
-- name: Deploy Portainer
+- name: Deploy Traefik
   community.docker.docker_compose_v2:
     project_src: "/opt/traefik"
     files:
