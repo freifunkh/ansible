@@ -1,0 +1,60 @@
+---
+
+- name: "Install kea-dhcp4-server"
+  register: "keainstall"
+  apt:
+    name: "kea"
+  when: not ansible_check_mode
+
+- name: "Add a ramdisk entry in fstab"
+  notify: "Restart kea-dhcp4-server"
+  mount: 
+    name: "/var/lib/kea"
+    src: "tmpfs" 
+    fstype: "tmpfs" 
+    opts: "defaults,size=10M" 
+    state: "mounted"
+
+- name: "Generate kea-dhcp4.conf config"
+  notify: "Restart kea-dhcp4-server"
+  template:
+    src: "kea-dhcp4.conf.j2"
+    dest: "/etc/kea/kea-dhcp4.conf"
+    mode: "0644"
+    owner: "_kea"
+    group: "_kea"
+
+- name: "Generate firewall config stanza (ferm)"
+  notify: "reload ferm"
+  template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-dhcpd.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Create /etc/systemd/system/kea-dhcp4-server.service.d directory if it does not exist"
+  file:
+    state: "directory"
+    path: "/etc/systemd/system/kea-dhcp4-server.service.d"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: "Deploy unit file sniplet to wait for bat devices"
+  template:
+    src: "50-bat-device.conf.j2"
+    dest: "/etc/systemd/system/kea-dhcp4-server.service.d/50-bat-devices.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Start kea-dhcp4-server service"
+  systemd:
+    name: "kea-dhcp4-server"
+    state: "started"
+    enabled: "yes"
+    daemon_reload: "yes"
+
+- name: "Include Zabbix-agent stuff"
+  include_tasks: "zabbix.yml"

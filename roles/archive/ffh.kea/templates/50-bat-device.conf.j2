@@ -1,0 +1,7 @@
+[Unit]
+{% if legacy_dom0 == true %}
+After=sys-subsystem-net-devices-bat0.device
+{% endif %}
+{% for domain in domains | default([]) %}
+After=sys-subsystem-net-devices-bat{{ domain.id }}.device
+{% endfor %}

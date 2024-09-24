@@ -1,0 +1,23 @@
+---
+
+- name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
+  file:
+    path: "/etc/zabbix/zabbix_agentd.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Deploy additional configuration files in /etc"
+  notify: "reload zabbix-agent"
+  copy:
+    src: "etc/"
+    dest: "/etc/"
+    mode: "0644"
+
+- name: "Deploy additional configuration files in /usr/bin"
+  notify: "reload zabbix-agent"
+  copy:
+    src: "usr/bin/"
+    dest: "/usr/bin"
+    mode: "0755"
