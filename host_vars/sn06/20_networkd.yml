@@ -3,17 +3,17 @@
 networkd_configures:
 - iface: ens18
   addresses:
-    - 192.168.150.7/24
-  gateway4: 192.168.150.1
+    - 192.168.151.2/24
+  gateway4: 192.168.151.1
   dns_server:
     - 9.9.9.9
   no_radv_accept: true
-- iface: ens16 # Mellanox #1 (second slot unused)
+- iface: ens16 # Mellanox
 - iface: vlan2000
   addresses:
-    - 185.1.74.56/25
-    - 2001:7f8:a5::20:9347:1/64
-    - 2a0a:4587:2031::1/128
+    - 185.1.74.73/25
+    - 2001:7f8:a5::20:9347:3/64
+    - 2a0a:4587:2032::1/128
   no_radv_accept: true
   additional_config: |
     [RoutingPolicyRule]
@@ -23,15 +23,15 @@ networkd_configures:
     - dest: "45.12.203.0/26"
       table: "blech"
       gw: "185.1.74.68"
-    - dest: "45.12.203.128/26"
+    - dest: "45.12.203.64/26"
       table: "blech"
-      gw: "185.1.74.73"
+      gw: "185.1.74.56"
 - iface: ens19 # bridge to other vms
   addresses:
-    - 45.12.203.65/26
-    - 2a0a:4587:2031:10c::1/64
+    - 45.12.203.129/26
+    - 2a0a:4587:2032:10c::1/64
   static_routes:
-    - dest: "2a0a:4587:2031:10c::/64"
+    - dest: "2a0a:4587:2032:10c::/64"
       table: "blech"
       scope: "link"
 

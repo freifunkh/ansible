@@ -7,6 +7,13 @@ exitnodes:
     exit_ip_ranges:
     - 2a02:790:ff::/48
     - 81.3.6.94/32
+  sn06:
+    id: 6
+    ip4: "45.12.203.129"
+    ip6: "2a0a:4587:2032::1"
+    exit_ip_ranges:
+    - 2a0a:4587:2032::/48
+    - 45.12.203.129/32
   sn07:
     id: 7
     ip4: "45.12.203.65"
@@ -22,6 +29,7 @@ exitnodes:
     - 2a0a:4587:2030::/48
     - 217.197.84.201/32
 supernodes:
+  sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn06.s.ffh.zone./AAAA') }}" }
   sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
   sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
   sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
@@ -36,7 +44,8 @@ helpernodes:
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
   evergiven: { id: 9, ip4: "{{ lookup('dig', 'evergiven.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'evergiven.ffh.zone./AAAA') }}" }
   dali: { id: 10, ip4: "{{ lookup('dig', 'dali.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dali.ffh.zone./AAAA') }}" }
+  thetisd: { id: 11, ip4: "{{ lookup('dig', 'thetisd.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'thetisd.ffh.zone./AAAA') }}" }
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
-  tiefensee: { id: 4, ip4: "{{ lookup('dig', 'tiefensee.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tiefensee.ffh.zone./AAAA') }}" }
+  scheuer: { id: 3, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }

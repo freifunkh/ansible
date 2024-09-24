@@ -25,6 +25,9 @@ networkd_configures:
     - dest: "45.12.203.64/26"
       table: "blech"
       gw: "185.1.74.56"
+    - dest: "45.12.203.128/26"
+      table: "blech"
+      gw: "185.1.74.73"
 - iface: ens19 # bridge to other vms
   addresses:
     - 217.197.84.201/29

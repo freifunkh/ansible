@@ -13,7 +13,9 @@ all:
     sn05:
       ansible_host: sn05.s.ffh.zone
     sn06:
-      ansible_host: sn06.s.ffh.zone
+      # ansible_host: sn06.s.ffh.zone
+      ansible_host: 192.168.151.2
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@scheuer.ffh.zone"'
     sn07:
       # ansible_host: sn07.s.ffh.zone
       ansible_host: 192.168.150.7
@@ -36,9 +38,6 @@ all:
       ansible_host: web.ffh.zone
     vds:
       ansible_host: vds.ffh.zone
-    perf-test:
-      ansible_host: perf-test.ffh.zone
-      ansible_port: 22
     rdns:
       ansible_host: rdns.ffh.zone
     db:
@@ -49,6 +48,9 @@ all:
       ansible_host: evergiven.ffh.zone
     dali:
       ansible_host: dali.ffh.zone
+    thetisd:
+      ansible_host: 192.168.151.3
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@scheuer.ffh.zone"'
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
@@ -73,6 +75,7 @@ supernodes:
 
 superexitnodes:
   hosts:
+    sn06:
     sn07:
     sn08:
 
@@ -91,6 +94,7 @@ helpernodes:
     tonne:
     evergiven:
     dali:
+    thetisd:
 
 fermnodes:
   children:
@@ -123,3 +127,4 @@ zabbixproxies:
     rdns:
     leintor:
     db:
+    thetisd:
