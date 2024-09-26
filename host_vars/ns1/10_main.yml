@@ -183,7 +183,7 @@ dns_authoritative_toplevel:
        "testenv.ffh.zone. IN A 130.75.178.22",
        "build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
-       "storage.ffh.zone. 60 IN AAAA 2a0a:4587:2031:718::beef",
+       "storage.ffh.zone. 60 IN CNAME storage.dyn.httnstr.se.",
 
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
