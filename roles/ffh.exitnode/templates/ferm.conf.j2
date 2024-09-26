@@ -64,7 +64,7 @@ domain (ip) {
       #  = 1258
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1258;
 
-      outerface $DEV_EXIT interface $DEV_EXIT DROP;
+      # outerface $DEV_EXIT interface $DEV_EXIT DROP;
       ACCEPT;
     }
   }
@@ -86,7 +86,7 @@ domain (ip6) {
       # see the explanation above and subtract 20 to account for the 20 bytes bigger IPv6 header
       outerface $DEV_EXIT proto tcp tcp-flags (SYN RST) SYN TCPMSS set-mss 1238;
 
-      outerface $DEV_EXIT interface $DEV_EXIT DROP;
+      # outerface $DEV_EXIT interface $DEV_EXIT DROP;
       ACCEPT;
     }
   }
