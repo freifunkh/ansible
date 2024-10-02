@@ -49,8 +49,7 @@ all:
     dali:
       ansible_host: dali.ffh.zone
     thetisd:
-      ansible_host: 192.168.151.3
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@scheuer.ffh.zone"'
+      ansible_host: thetisd.ffh.zone
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
