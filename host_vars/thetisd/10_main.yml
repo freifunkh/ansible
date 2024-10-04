@@ -10,7 +10,6 @@ networkd_configures:
   addresses:
     - 45.12.203.130/26
     - 2a0a:4587:2032:10c::130/64
-  gateway4: 192.168.151.1
   gateway4: 45.12.203.129
   gateway6: 2a0a:4587:2032:10c::1
   dns_server:
@@ -25,6 +24,7 @@ authentik_outpost_host: "https://auth.ffh.zone"
 
 zabbix_agent_server: "zbx-ham.ffh.zone"
 zabbix_agent_server_active: "zbx-ham.ffh.zone"
+zabbix_proxy_hostname: "zbx-ham.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"
