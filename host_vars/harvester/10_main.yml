@@ -32,13 +32,6 @@ yanic_influx2_organisation_id: 70c3e4abf369c216
 influx2_bolt_path: "/media/data/influxdb/influxd.bolt"
 influx2_engine_path: "/media/data/influxdb/engine"
 influx2_bind_address: ":8086"
-influx2_clients:
-  - "81.3.6.94/32"                   # leintor
-  - "2a02:790:1:ff::1001/128"        # leintor
-  - "88.99.88.12/32"                 # perf-test
-  - "2a01:4f8:221:100c::1004/128"    # perf-test
-  - "45.12.203.69/32"                # vds
-  - "2a0a:4587:2031:10c::309/128"    # vds
 
 zabbix_agent_server: "zbx-ber.ffh.zone"
 zabbix_agent_server_active: "zbx-ber.ffh.zone"

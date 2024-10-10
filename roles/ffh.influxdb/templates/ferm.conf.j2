@@ -2,10 +2,31 @@ domain (ip ip6) {
   table filter {
     chain INPUT {
       proto tcp dport (8086) ACCEPT {
-{% for client in influx2_clients | default( [] ) %}
-        saddr {{ client }};
-{% endfor %}
 {% for item in supernodes | dict2items %}
+{% if item.value.ip4 is defined %}
+        saddr {{ item.value.ip4 }};   # {{ item.key }}
+{% endif %}
+{% if item.value.ip6 is defined %}
+        saddr {{ item.value.ip6 }};   # {{ item.key }}
+{% endif %}
+{% endfor %}
+{% for item in exitnodes | dict2items %}
+{% if item.value.ip4 is defined %}
+        saddr {{ item.value.ip4 }};   # {{ item.key }}
+{% endif %}
+{% if item.value.ip6 is defined %}
+        saddr {{ item.value.ip6 }};   # {{ item.key }}
+{% endif %}
+{% endfor %}
+{% for item in helpernodes | dict2items %}
+{% if item.value.ip4 is defined %}
+        saddr {{ item.value.ip4 }};   # {{ item.key }}
+{% endif %}
+{% if item.value.ip6 is defined %}
+        saddr {{ item.value.ip6 }};   # {{ item.key }}
+{% endif %}
+{% endfor %}
+{% for item in proxmoxnodes | dict2items %}
 {% if item.value.ip4 is defined %}
         saddr {{ item.value.ip4 }};   # {{ item.key }}
 {% endif %}
