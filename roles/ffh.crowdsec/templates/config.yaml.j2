@@ -1,0 +1,15 @@
+#jinja2: trim_blocks:False
+db_config:
+  type: sqlite
+  use_wal: true
+
+api:
+  cti:
+    enabled: false
+  server:
+    online_client:
+      credentials_path: ""
+    enable: {% if crowdsec_server_enable %}true{% else %}false{% endif -%}
+{% if crowdsec_server_enable %}
+    listen_uri: '{{ crowdsec_listen_uri }}'
+{% endif %}

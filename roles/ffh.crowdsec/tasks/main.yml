@@ -1,0 +1,75 @@
+---
+# tasks file for ffh.crowdsec
+
+- name: "Add gpg dependency for key handling"
+  apt:
+    name: "gpg"
+
+- name: "Prepare key directory for older Debian versions"
+  file:
+    path: "/etc/apt/keyrings"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  when: "ansible_distribution_version|int < 12"
+
+- name: "Add CrowdSec Repo Key"
+  get_url:
+    url: "https://packagecloud.io/crowdsec/crowdsec/gpgkey"
+    dest: "/etc/apt/keyrings/crowdsec.gpg"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
+
+- name: "Convert repo key"
+  ansible.builtin.shell: "cat /etc/apt/keyrings/crowdsec.gpg | /usr/bin/gpg --dearmor > /etc/apt/keyrings/crowdsec.key"
+  args:
+    creates: "/etc/apt/keyrings/crowdsec.key"
+
+- name: "Add CrowdSec Repo"
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/crowdsec.key] https://packagecloud.io/crowdsec/crowdsec/debian {{ ansible_distribution_release }} main"
+    state: "present"
+    filename: "crowdsec"
+
+- name: "Install CrowdSec"
+  apt:
+    update_cache: "yes"
+    name:
+    - "crowdsec"
+
+- name: "Open firewall for API port"
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-crowdsec.conf"
+    mode: "0644"
+    owner: "root"
+    group: "adm"
+  notify: "ferm-restart"
+  when: "crowdsec_server_enable"
+
+- name: "Update config.yaml.local"
+  ansible.builtin.template:
+    src: "config.yaml.j2"
+    dest: "/etc/crowdsec/config.yaml.local"
+    mode: "0600"
+    owner: "root"
+    group: "root"
+  notify: "crowdsec-reload"
+
+- name: "Check for machine registration..."
+  block:
+  - name: "Check for machine registration"
+    shell: "/usr/bin/cscli machines list -o json"
+    register: "cs_machine_list"
+    delegate_to: "rdns"
+  - name: "Register machine to LAPI"
+    ansible.builtin.shell: "/usr/bin/cscli lapi register -u '{{ crowdsec_lapi_url }}' --machine '{{ ansible_fqdn }}'"
+    when: "not (cs_machine_list.stdout | from_json | list | selectattr('machineId', 'contains', ansible_fqdn))"
+  - name: "Validate machine on LAPI"
+    ansible.builtin.shell: "/usr/bin/cscli machines validate '{{ ansible_fqdn }}'"
+    delegate_to: "rdns"
+    when: "not (cs_machine_list.stdout | from_json | list | selectattr('machineId', 'contains', ansible_fqdn))"
+  when: "not ansible_check_mode"

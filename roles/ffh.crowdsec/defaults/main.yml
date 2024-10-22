@@ -1,0 +1,8 @@
+---
+# defaults file for ffh.crowdsec
+
+crowdsec_listen_addr: "[2001:db8::1]"
+crowdsec_listen_port: "8080"
+crowdsec_lapi_url: "http://crowdsec.internal:8080"
+crowdsec_listen_uri: "{{ crowdsec_listen_addr }}:{{ crowdsec_listen_port }}"
+crowdsec_server_enable: false
