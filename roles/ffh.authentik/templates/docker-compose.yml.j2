@@ -36,7 +36,7 @@ services:
       - backend
   server:
     container_name: authentik-1-server
-    image: ghcr.io/goauthentik/server:2024.6.0
+    image: ghcr.io/goauthentik/server:2024.10.0
     restart: unless-stopped
     command: server
     environment:
@@ -75,7 +75,7 @@ services:
       - proxy
   worker:
     container_name: authentik-1-worker
-    image: ghcr.io/goauthentik/server:2024.6.0
+    image: ghcr.io/goauthentik/server:2024.10.0
     restart: unless-stopped
     command: worker
     environment:
