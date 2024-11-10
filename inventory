@@ -59,6 +59,9 @@ all:
     scheuer:
       ansible_host: scheuer.ffh.zone
       ansible_port: 22
+    gatrobe:
+      ansible_host: gatrobe.clouds.build.ffh.zone
+      ansible_port: 22
 
 debiannodes:
   children:
@@ -127,3 +130,7 @@ zabbixproxies:
     leintor:
     db:
     thetisd:
+
+buildclouds:
+  hosts:
+    gatrobe:
