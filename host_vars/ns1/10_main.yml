@@ -180,8 +180,7 @@ dns_authoritative_toplevel:
        "zbx-ham.ffh.zone. IN CNAME thetisd.ffh.zone.",
  
        # Verschiedenes
-       "testenv.ffh.zone. IN A 130.75.178.22",
-       "build.ffh.zone. IN A 130.75.178.26",
+       "gatrobe.clouds.build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
        "storage.ffh.zone. 60 IN CNAME storage.dyn.httnstr.se.",
 
