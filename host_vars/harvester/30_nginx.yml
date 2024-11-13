@@ -34,10 +34,10 @@ nginx_sites:
       type: proxy
       proxy_pass_host: false
       proxy_forward_url: http://archive.openwrt.org/
-    - location: /modules/
-      type: proxy
-      proxy_pass_host: false
-      proxy_forward_url: http://build.ffh.zone/job/gluon-beta/ws/beta/packages/
+#    - location: /modules/
+#      type: proxy
+#      proxy_pass_host: false
+#      proxy_forward_url: http://build.ffh.zone/job/gluon-beta/ws/beta/packages/
 - domain: stats.ffh.zone
   tls: true
   tls_redirect_to_https: true
