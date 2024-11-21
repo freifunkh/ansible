@@ -5,7 +5,7 @@
     - name: "Import pre_task etckeeper"
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
-  
+
   roles:
     # Cleanup
     - { name: ffh.cleanup, tags: cleanup }
