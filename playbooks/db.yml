@@ -35,6 +35,7 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.zabbix-sql, tags: zabbix-sql }
     # backup

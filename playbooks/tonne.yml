@@ -18,6 +18,7 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.crowdsec, tags: crowdsec }
 
   tasks:
     - name: "Install git, ansible and stuff"

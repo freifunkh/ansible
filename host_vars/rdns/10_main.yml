@@ -39,3 +39,5 @@ zabbix_proxy_hostname: "zbx-ber.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"
+
+crowdsec_server_enable: true

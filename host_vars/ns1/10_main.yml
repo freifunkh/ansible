@@ -140,6 +140,7 @@ dns_authoritative_toplevel:
 
        "rdns.ffh.zone. IN A 217.197.84.202",
        "rdns.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
+       "cs.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53", # CrowdSec API
        "c.ffh.zone. IN NS rdns.ffh.zone.",
        "zbx-ber.ffh.zone. IN CNAME rdns.ffh.zone.",
 

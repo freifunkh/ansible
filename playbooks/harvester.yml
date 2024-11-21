@@ -17,6 +17,7 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.journald, tags: journald }
+    - { name: ffh.crowdsec, tags: crowdsec }
     # Batman
     - { name: ffh.mesh_batman, tags: mesh_batman }
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
