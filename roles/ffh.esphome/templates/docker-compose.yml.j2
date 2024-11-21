@@ -10,6 +10,7 @@ services:
     environment:
       - USERNAME={{ esphome_user }}
       - PASSWORD={{ esphome_pass }}
+      - ESPHOME_DASHBOARD_USE_PING=true
     networks:
       - proxy
     labels:
@@ -20,6 +21,7 @@ services:
       traefik.http.routers.esphome-https.rule: Host(`{{ esphome_fqdn }}`)
       traefik.http.routers.esphome-https.tls.certresolver: letsencrypt
       traefik.http.routers.esphome-https.service: esphome-svc
+      traefik.http.routers.esphome-https.middlewares: authentik@docker
       traefik.http.services.esphome-svc.loadbalancer.server.port: '6052'
 networks:
   proxy:
