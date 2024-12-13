@@ -1,0 +1,8 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      saddr 176.9.100.220/32 DROP; # former sn05
+      saddr 2a01:4f8:151:42a1::2001/128 DROP; # former sn05
+    }
+  }
+}
