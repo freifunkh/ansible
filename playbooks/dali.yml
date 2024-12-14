@@ -25,6 +25,7 @@
     - { name: ffh.esphome, tags: esphome }
     - { name: ffh.steckdosen, tags: steckdosen }
     - { name: ffh.vaultwarden, tags: vaultwarden }
+    - { name: ffh.homeassistant, tags: homeassistant }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:

@@ -26,6 +26,9 @@ esphome_path: "/opt/esphome"
 esphome_user: "admin"
 esphome_fqdn: "steckdosen.ffh.zone"
 
+homeassistant_path: "/opt/homeassistant"
+homeassistant_fqdn: "homeassistant.ffh.zone"
+
 steckdosen_prefix: "192.168.185"
 
 vaultwarden_path: "/opt/vaultwarden"
