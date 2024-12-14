@@ -1,0 +1,32 @@
+---
+# tasks file
+
+- name: Create path for homeassistant
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ homeassistant_path }}"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create config path for homeassistant
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ homeassistant_path }}/config"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ homeassistant_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy homeassistant
+  community.docker.docker_compose_v2:
+    project_src: "{{ homeassistant_path }}"
+    files:
+    - "docker-compose.yml"

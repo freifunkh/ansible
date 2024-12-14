@@ -1,0 +1,28 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - {{ homeassistant_path }}/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      # - /run/dbus:/run/dbus:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+    privileged: true
+    # network_mode: host
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: proxy
+      traefik.http.middlewares.homeassistant.redirectscheme.scheme: https
+      traefik.http.routers.homeassistant-https.entrypoints: websecure
+      traefik.http.routers.homeassistant-https.rule: Host(`{{ homeassistant_fqdn }}`)
+      traefik.http.routers.homeassistant-https.tls.certresolver: letsencrypt
+      traefik.http.routers.homeassistant-https.service: homeassistant-svc
+      traefik.http.routers.homeassistant-https.middlewares: authentik@docker
+      traefik.http.services.homeassistant-svc.loadbalancer.server.port: '8123'
+
+networks:
+  proxy:
+    name: proxy
+    external: true
