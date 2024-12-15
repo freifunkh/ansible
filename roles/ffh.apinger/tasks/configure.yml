@@ -1,0 +1,6 @@
+---
+
+- name: Generate /etc/apinger.conf
+  template:
+    src: apinger.conf.j2
+    dest: /etc/apinger.conf

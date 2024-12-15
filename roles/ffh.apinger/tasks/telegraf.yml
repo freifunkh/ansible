@@ -1,0 +1,18 @@
+---
+
+- name: Check telegraf path
+  stat:
+    path: /etc/telegraf/telegraf.d/
+  register: telegraf_path
+
+- name: Ensure telegraf path
+  shell: mkdir -p /etc/telegraf/telegraf.d/
+  when: telegraf_path is defined and telegraf_path.stat.exists==false
+
+# We do not care whether telegraf is really installed. So it could be installed
+# later (or also never).
+- name: Set /etc/telegraf/telegraf.d/apinger.conf
+  notify: Maybe restart telegraf # handler from ffh.nfctd
+  template:
+    src: telegraf-apinger.conf
+    dest: /etc/telegraf/telegraf.d/apinger.conf

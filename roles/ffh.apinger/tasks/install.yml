@@ -1,0 +1,21 @@
+---
+
+- name: Install apinger.service
+  copy:
+    src: apinger.service
+    dest: /etc/systemd/system/apinger.service
+
+- name: Generate directories & do systemd stuff
+  shell: |
+    systemctl daemon-reload
+    systemctl enable apinger
+    systemctl start apinger
+
+- name: Install bin files
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/bin/"
+    owner: "root"
+    mode: 0755
+  with_fileglob:
+    - "files/bin/*"

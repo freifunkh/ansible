@@ -1,105 +1,19 @@
 ---
 
-- name: Check whether apinger is installed
+- name: "Check whether apinger is installed"
   stat: path=/usr/local/sbin/apinger
   register: apinger_installed
 
-- name: Install apinger
-  block:
-    - name: Install dependencies
-      apt:
-        pkg:
-          - automake
-          - bison
-          - flex
-          - rrdtool
-    - name: Clone apinger
-      git:
-        repo: https://github.com/Jajcus/apinger
-        dest: /opt/apinger
-    - name: Create patches directory
-      file:
-        dest: /opt/apinger/patches
-        state: directory
-    - name: Deploy patch
-      copy:
-        src: 0001-mark-targets-as-extern.patch
-        dest: /opt/apinger/patches/0001-mark-targets-as-extern.patch
-    - name: Patch apinger.h
-      shell: "git am patches/0001-mark-targets-as-extern.patch"
-      args:
-        chdir: /opt/apinger
-    - name: Build and install apinger
-      shell: "sh autogen.sh && cd src && make install"
-      args:
-        chdir: /opt/apinger
+- name: "Build apinger"
+  import_tasks: build.yml 
   when: not apinger_installed.stat.exists
 
-- name: Generate /etc/apinger.conf
-  notify: Apinger Changed
-  template:
-    src: apinger.conf.j2
-    dest: /etc/apinger.conf
+- name: "Configure apinger"
+  import_tasks: configure.yml 
 
-- name: Install service files and stuff
-  block:
-    - name: Install apinger.service
-      copy:
-        src: apinger.service
-        dest: /etc/systemd/system/apinger.service
-    - name: Install apinger-http.service
-      copy:
-        src: apinger-http.service
-        dest: /etc/systemd/system/apinger-http.service
-    - name: Allow http port 8765 in ferm
-      copy:
-        src: 50-apinger-http.conf
-        dest: /etc/ferm/conf.d/50-apinger-http.conf
-    - name: Generate directories & do systemd stuff
-      shell: |
-        mkdir -p /srv/apinger-http
-        mkdir -p /srv/apinger-http/apinger
-        chown nobody /srv/apinger-http/apinger/
-        mkdir -p /srv/apinger-http/cgi-bin
-        systemctl daemon-reload
-        systemctl enable apinger
-        systemctl start apinger
-        systemctl enable apinger-http
-        systemctl start apinger-http
-        systemctl restart ferm
-    - name: Redirect from / to /cgi-bin/apinger in http
-      copy:
-        src: index.html
-        dest: /srv/apinger-http/index.html
-    - name: Install config update script ffh_apinger_conf_changed
-      copy:
-        src: ffh_apinger_conf_changed
-        dest: /usr/bin/ffh_apinger_conf_changed
-        mode: 755
+- name: "Install apinger"
+  import_tasks: install.yml 
   when: not apinger_installed.stat.exists
 
-- name: Install bin files
-  copy:
-    src: "{{ item }}"
-    dest: "/usr/bin/"
-    owner: "root"
-    mode: 0755
-  with_fileglob:
-    - "files/bin/*"
-
-- name: Check telegraf path
-  stat:
-    path: /etc/telegraf/telegraf.d/
-  register: telegraf_path
-
-- name: Ensure telegraf path
-  shell: mkdir -p /etc/telegraf/telegraf.d/
-  when: telegraf_path is defined and telegraf_path.stat.exists==false
-
-# We do not care whether telegraf is really installed. So it could be installed
-# later (or also never).
-- name: Set /etc/telegraf/telegraf.d/apinger.conf
-  notify: Maybe restart telegraf # handler from ffh.nfctd
-  template:
-    src: telegraf-apinger.conf
-    dest: /etc/telegraf/telegraf.d/apinger.conf
+- name: "Configure Telegraf apinger"
+  import_tasks: telegraf.yml 
