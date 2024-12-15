@@ -1,35 +1,8 @@
 ---
 # This file should regularly be cleaned up, so we can remove outdated stuff.
 
-## cleanup gretap + vxlan stuff
-
-- name: "Find *-gt-* in networkd"
-  notify: Restart networkd
-  find:
-    paths: /etc/systemd/network
-    patterns: "*gt*"
-  register: find_results
-
-- name: "Delete *-gt-* in networkd"
-  notify: Restart networkd
-  file:
-    path: "{{ item['path'] }}"
-    state: absent
-  with_items: "{{ find_results['files'] }}"
-
-- name: "Delete ferm"
-  notify: reload ferm
-  file:
-    path: /etc/ferm/conf.d/10-br-gt-noforward.conf
-    state: absent
-
-- name: "Delete networkd dropin"
-  notify: Restart networkd
-  file:
-    path: /etc/systemd/network/10-{{ network_lower_ifaces.default }}.network.d/gt-tunnel.conf
-    state: absent
-
 - name: "Install temporary firewall filter for former sn05 node"
+  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
   notify: reload ferm
   template:
     src: "sn05-ferm.conf.j2"
@@ -37,3 +10,30 @@
     owner: "root"
     group: "root"
     mode: "0644"
+
+- name: "Remove apinger-http"
+  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
+  block:
+    - name: "Remove apinger-http firewall rule"
+      notify: reload ferm
+      ansible.builtin.file:
+        path: /etc/ferm/conf.d/50-apinger-http.conf
+        state: absent
+    - name: "Remove apinger-http files"
+      ansible.builtin.file:
+        path: /srv/apinger-http/
+        state: absent
+    - name: "Remove config update script ffh_apinger_conf_changed"
+      ansible.builtin.file:
+        path: /usr/bin/ffh_apinger_conf_changed
+        state: absent
+    - name: "Check for apinger-http service"
+      ansible.builtin.stat: path=/etc/systemd/system/apinger-http.service
+      register: apingerhttpservice
+    - name: "Remove systemd service"
+      when: apingerhttpservice.stat.exists
+      ansible.builtin.systemd_service:
+        name: apinger-http.service
+        state: stopped
+        enabled: false
+        daemon_reload: true
