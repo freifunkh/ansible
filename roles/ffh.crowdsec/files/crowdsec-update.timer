@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily run crowdsec updates
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=14400
+
+[Install]
+WantedBy=timers.target

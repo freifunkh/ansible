@@ -73,3 +73,21 @@
     delegate_to: "{{ crowdsec_lapi_host }}"
     when: "not (cs_machine_list.stdout | from_json | list | selectattr('machineId', 'contains', ansible_fqdn))"
   when: "not ansible_check_mode"
+
+- name: "Install crowdsec-update service and timer"
+  ansible.builtin.copy:
+    src: "crowdsec-update.{{ item }}"
+    dest: "/etc/systemd/system/crowdsec-update.{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  loop:
+    - "service"
+    - "timer"
+
+- name: "Enable crowdsec-update timer"
+  ansible.builtin.systemd_service:
+    name: "crowdsec-update.timer"
+    enabled: true
+    state: "started"
+    daemon_reload: true

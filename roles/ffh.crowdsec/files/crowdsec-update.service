@@ -1,0 +1,6 @@
+[Unit]
+Description=Update Crowdsec's parsers/scenarios/postoverflows/collections
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/cscli hub update; /usr/bin/cscli hub upgrade
