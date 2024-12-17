@@ -6,10 +6,6 @@ fqdn: "evergiven.ffh.zone"
 networkd_configures:
 - iface: ens18
   addresses:
-    - 192.168.149.3/24
-  no_radv_accept: true
-- iface: ens19
-  addresses:
     - 217.197.84.203/29
     - 2a0a:4587:2030:10c::d0c1/64
   gateway4: 217.197.84.201
