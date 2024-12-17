@@ -9,6 +9,15 @@
     owner: "root"
     group: "root"
 
+- name: Create path for esphome configs
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ esphome_path_config }}"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+
 - name: Create docker compose file
   ansible.builtin.template:
     src: "docker-compose.yml.j2"

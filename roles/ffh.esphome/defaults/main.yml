@@ -1,2 +1,4 @@
 ---
-# defaults file for ffh.esphome
+
+esphome_path: "/opt/esphome"
+esphome_path_config: "/opt/esphome/config"
