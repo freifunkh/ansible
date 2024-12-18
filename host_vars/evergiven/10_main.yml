@@ -16,6 +16,8 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 
+ferm_enabled: false
+
 traefik_acme_email: "noc@hannover.freifunk.net"
 
 zabbix_agent_server: "zbx-ber.ffh.zone"
