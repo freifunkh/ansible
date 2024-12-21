@@ -1,3 +1,6 @@
 UserParameter=ff.wireguard.iface.discovery,ip -j link show type wireguard | jq "[ .[] | { value: .ifname } ]"
-UserParameter=ff.wireguard.num_peers[*],sudo /usr/bin/ffh_wg_stats.py -i $1 | jq ".[] | .established_peers_count"
-UserParameter=ff.wireguard.total_peers,sudo /usr/bin/ffh_wg_stats.py -i `ip -j link show type wireguard | jq -r ".[] | .ifname" | xargs` | jq ".[] | .established_peers_count" | awk '{s+=$1} END {print s}'
+UserParameter=ff.wireguard.num_peers_dom[*],sudo /usr/bin/ffh_wg_stats.py -i $1 | jq ".[] | .established_peers_count"
+UserParameter=ff.wireguard.num_peers,sudo /usr/bin/ffh_wg_peercounter.sh | grep group=all | cut -d ' ' -f 2 | cut -d = -f 2 | tr -d 'i' |  awk '{s+=$1} END {print s}'
+UserParameter=ff.wireguard.num_fdb,sudo bridge fdb show | grep -e 'vx-[0-9]' | grep -e '^00:00:00:00:00:00' | wc -l 
+UserParameter=ff.wireguard.num_routes,sudo ip -6 r show proto wg-vxlan-glue | wc -l
+
