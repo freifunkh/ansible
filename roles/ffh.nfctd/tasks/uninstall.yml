@@ -1,0 +1,34 @@
+---
+
+- name: "Stop and disable nfctd service"
+  ansible.builtin.systemd_service:
+    name: "nfctd.service"
+    state: "stopped"
+    enabled: false
+    masked: false
+    force: true
+
+- name: "Remove systemd service file"
+  ansible.builtin.file:
+    path: "/etc/systemd/system/nfctd.service"
+    state: "absent"  
+
+- name: "Stop and disable nfctd service"
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: "Remove config file"
+  ansible.builtin.file:
+    path: "/etc/nfctd.conf"
+    state: "absent"  
+
+- name: "Remove folder"
+  ansible.builtin.file:
+    path: "/opt/nfctd"
+    state: "absent"  
+ 
+- name: "Remove telegraf config"
+  ansible.builtin.file:
+    path: "/etc/telegraf/telegraf.d/nfctd.conf"
+    state: "absent"  
+  notify: "Maybe restart telegraf"

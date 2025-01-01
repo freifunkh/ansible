@@ -1,74 +1,10 @@
 ---
 
-- name: Install nfctd dependencies
-  apt:
-    name:
-      - git
-      - build-essential
-      - libtool
-      - automake
-      - libsnmp-dev
-      - libnfnetlink-dev
-      - libev-dev
-      - libmnl-dev
-      - libnetfilter-conntrack-dev
-      - libpcap-dev
-    update_cache: yes
+- name: Install and configure nfctd
+  include_tasks: "install.yml"
+  when: "'uninstall_nfctd' not in ansible_run_tags"
 
-- name: Check nfctd checkout
-  stat:
-    path: /opt/nfctd
-  register: nfctd_path
-
-- name: Clone nfctd sources
-  git:
-    repo: https://github.com/lemoer/nfctd
-    dest: /opt/nfctd
-  when: nfctd_path is defined and nfctd_path.stat.exists==false
-
-- name: Check nfctd executable
-  stat:
-    path: /opt/nfctd/src/nfctd
-  register: nfctd_executable
-
-- name: Build nfctd
-  shell: autoreconf -i && ./configure && make
-  args:
-    chdir: /opt/nfctd
-  when: nfctd_executable is defined and nfctd_executable.stat.exists==false
-
-- name: Install nfctd servicefile
-  template:
-    src: nfctd.service
-    dest: /etc/systemd/system/nfctd.service
-  register: nfctd_servicefile
-
-- name: Reload systemd
-  shell: systemctl daemon-reload && systemctl enable nfctd
-  when: nfctd_servicefile is changed
-
-- name: Set /etc/nfctd.conf
-  notify: Restart nftcd
-  template:
-    src: nfctd.conf.j2
-    dest: /etc/nfctd.conf
-
-- name: Check telegraf path
-  stat:
-    path: /etc/telegraf/telegraf.d/
-  register: telegraf_path
-
-- name: Ensure telegraf path
-  shell: mkdir -p /etc/telegraf/telegraf.d/
-  when: telegraf_path is defined and telegraf_path.stat.exists==false
-
-# We do not care whether telegraf is really installed. So it could be installed
-# later (or also never).
-- name: Set /etc/telegraf/telegraf.d/nfctd.conf
-  notify: Maybe restart telegraf
-  template:
-    src: telegraf-nfctd.conf
-    dest: /etc/telegraf/telegraf.d/nfctd.conf
-
-- name: Start nftcd
-  service: name=nfctd state=started
+- name: Remove nfctd
+  include_tasks: "uninstall.yml"
+  when: "'uninstall_nfctd' in ansible_run_tags"
+  tags: "uninstall_nfctd"
