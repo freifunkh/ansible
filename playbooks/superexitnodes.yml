@@ -24,7 +24,6 @@
     - { name: ffh.mesh_fastd, tags: mesh_fastd }
     - { name: ffh.mesh_fastd_remotes_peers_git, tags: mesh_fastd_remotes_peers_git }
     - { name: ffh.mesh_wireguard_remotes_peers_git, tags: mesh_wireguard_remotes_peers_git }
-    - { name: ffh.nfctd, tags: nfctd }
     - { name: ffh.mesh_wireguard, tags: mesh_wireguard }
     - { name: ffh.mesh_announce, tags: mesh_announce }
     - { name: ffh.routingnode, tags: routingnode }
