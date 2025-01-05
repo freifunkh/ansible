@@ -1,0 +1,31 @@
+---
+
+- name: Create path for fnordensignup compose file
+  ansible.builtin.file:
+    path: "{{ fnordensignup_path }}"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create/Update fnordensignup docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ fnordensignup_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Create config.py
+  ansible.builtin.template:
+    src: "config.py.j2"
+    dest: "{{ fnordensignup_path }}/config.py"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy fnordensignup 
+  community.docker.docker_compose_v2:
+    project_src: "{{ fnordensignup_path }}"
+    files:
+    - "docker-compose.yml"
