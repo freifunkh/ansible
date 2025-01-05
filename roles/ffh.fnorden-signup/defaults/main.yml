@@ -1,0 +1,4 @@
+---
+
+fnordensignup_fqdn: "signup.example.com"
+fnordensignup_path: "/srv/docker/fnordensignup"

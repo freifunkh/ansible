@@ -27,6 +27,9 @@ esphome_path_config: "/media/docker/esphome/config"
 esphome_user: "admin"
 esphome_fqdn: "steckdosen.ffh.zone"
 
+fnordensignup_path: "/opt/fnordensignup"
+fnordensignup_fqdn: "signup.fnorden.net"
+
 homeassistant_path: "/opt/homeassistant"
 homeassistant_fqdn: "homeassistant.ffh.zone"
 

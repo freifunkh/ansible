@@ -1,0 +1,32 @@
+services:
+  fnordensignup:
+    container_name: fnordensignup
+    image: freifunkh/fnorden-membership-signup:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - "{{ fnordensignup_path }}/config.py:/app/app/config.py:ro"
+    expose:
+      - 8003
+    environment:
+      FLASK_ENV: prod 
+      FLASK_APP: app
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: "proxy"
+      traefik.http.routers.fnordensignup-https.entrypoints: "websecure"
+      traefik.http.routers.fnordensignup-https.rule: "Host(`{{ fnordensignup_fqdn }}`)"
+      traefik.http.routers.fnordensignup-https.tls.certresolver: "letsencrypt"
+      traefik.http.routers.fnordensignup-https.service: "fnordensignup-https"
+      traefik.http.services.fnordensignup-https.loadbalancer.server.port: "8003"
+      traefik.http.routers.fnordensignup-http.entrypoints: "web"
+      traefik.http.routers.fnordensignup-http.rule: "Host(`{{ fnordensignup_fqdn }}`)"
+      traefik.http.routers.fnordensignup-http.middlewares: "fnordensignup"
+      traefik.http.middlewares.fnordensignup.redirectscheme.scheme: "https"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: "true"
