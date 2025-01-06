@@ -20,6 +20,8 @@ networkd_configures:
 
 traefik_acme_email: "noc@hannover.freifunk.net"
 
+admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, bschelm, auto, github_actions_auto, codefetch_cockroach, manawyrm]
+
 authentik_outpost_host: "https://auth.ffh.zone"
 
 fnordensignup_path: "/opt/fnordensignup"
