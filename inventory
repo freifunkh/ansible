@@ -50,6 +50,8 @@ all:
       ansible_host: dali.ffh.zone
     thetisd:
       ansible_host: thetisd.ffh.zone
+    rena:
+      ansible_host: rena.ffh.zone
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
@@ -97,6 +99,7 @@ helpernodes:
     evergiven:
     dali:
     thetisd:
+    rena:
 
 fermnodes:
   children:
