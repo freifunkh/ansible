@@ -144,7 +144,7 @@ dns_authoritative_toplevel:
        "c.ffh.zone. IN NS rdns.ffh.zone.",
        "zbx-ber.ffh.zone. IN CNAME rdns.ffh.zone.",
 
-       "harvester.ffh.zone. IN A 217.197.84.204",
+       "harvester.ffh.zone. IN A 45.12.203.14",
        "harvester.ffh.zone. IN AAAA 2a0a:4587:2030:10c::51a1",
        "keepitup.ffh.zone. IN CNAME harvester.ffh.zone.",
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18

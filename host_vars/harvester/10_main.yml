@@ -6,9 +6,9 @@ fqdn: "harvester.ffh.zone"
 networkd_configures:
 - iface: eth0
   addresses:
-    - 217.197.84.204/24
+    - 45.12.203.14/26
     - 2a0a:4587:2030:10c::51a1/64
-  gateway4: 217.197.84.201
+  gateway4: 45.12.203.1
   gateway6: 2a0a:4587:2030:10c::1
   dns_server:
     - 5.1.66.255
