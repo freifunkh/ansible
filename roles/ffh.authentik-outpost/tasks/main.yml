@@ -9,7 +9,7 @@
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
   loop:
-    - { name: "{{ authentik_outpost_path }}", owner: "1000", group: "1000", mode: "0755" }
+    - { name: "{{ authentik_outpost_path }}", owner: "0", group: "0", mode: "0755" }
 
 - name: Create docker compose file
   ansible.builtin.template:
