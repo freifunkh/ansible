@@ -21,13 +21,9 @@ all_knowing_dns:
         - 45.12.203.11
         - 2a0a:4587:2030:10c::53
     mesh_prefixes:
-        - 2001:678:978
         - 2a0a:4587:2030
     static_hosts:
-        2001:678:978:ff01::1: clevertor.e.ffh.zone
-        2001:678:978:ff01::2: sn02.s.ffh.zone
         2001:678:978:ff01::4: harvester.ffh.zone
-        2001:678:978:214::baba: build.ffh.zone
         2a0a:4587:2030::1: sn08.s.ffh.zone
         2a0a:4587:2030:10c::d0c1: evergiven.ffh.zone
         2a0a:4587:2030:10c::bac: tonne.ffh.zone
