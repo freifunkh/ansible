@@ -129,7 +129,7 @@ dns_authoritative_toplevel:
        "dobrindt.ffh.zone. IN A 217.197.91.135",
        "dobrindt.ffh.zone. IN AAAA 2a0a:4580:1033::1",
 
-       "tonne.ffh.zone. IN A 217.197.84.205",
+       "tonne.ffh.zone. IN A 45.12.203.15",
        "tonne.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac",
 
        "evergiven.ffh.zone. IN A 217.197.84.203",
