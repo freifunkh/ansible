@@ -6,7 +6,7 @@ fqdn: "rdns.ffh.zone"
 networkd_configures:
 - iface: ens18
   addresses:
-    - 45.12.203.11/26
+    - 45.12.203.12/26
     - 2a0a:4587:2030:10c::53/64
   gateway6: 2a0a:4587:2030:10c::1
   gateway4: 45.12.203.1
@@ -18,7 +18,7 @@ networkd_configures:
 
 all_knowing_dns:
     listen:
-        - 45.12.203.11
+        - 45.12.203.12
         - 2a0a:4587:2030:10c::53
     mesh_prefixes:
         - 2a0a:4587:2030
