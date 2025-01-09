@@ -20,6 +20,7 @@
     host: "%"
     password: "{{ zabbix_db_password | default('SECRET') }}"
     priv: "{{ zabbix_db_name | default('zabbix') }}.*: ALL,GRANT"
+    column_case_sensitive: false
 
 - name: "Create ferm directory if necessary"
   ansible.builtin.file:
