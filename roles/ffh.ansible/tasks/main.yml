@@ -1,0 +1,31 @@
+---
+
+- name: "Add gpg dependency for key handling"
+  apt:
+    name: "gpg"
+
+- name: "Add Ansible Repo Key"
+  get_url:
+    url: "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367"
+    dest: "/etc/apt/keyrings/ansible.gpg"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
+
+- name: "Convert repo key"
+  ansible.builtin.shell: "cat /etc/apt/keyrings/ansible.gpg | /usr/bin/gpg --dearmor > /etc/apt/keyrings/ansible.key"
+  args:
+    creates: "/etc/apt/keyrings/ansible.key"
+
+- name: "Add Ansible Repo"
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/ansible.key] http://ppa.launchpad.net/ansible/ansible/ubuntu jammy main"
+    state: "present"
+    filename: "ansible"
+
+- name: "Install Ansible"
+  apt:
+    update_cache: "yes"
+    name:
+    - "ansible"
