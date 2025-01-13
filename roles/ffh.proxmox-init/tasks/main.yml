@@ -54,3 +54,12 @@
     name: "rpcbind.socket"
     enabled: false
     state: "stopped"
+
+- name: "Gather facts about ZFS pools"
+  community.general.zpool_facts:
+  when: "not ansible_check_mode"
+
+- name: "activate autotrim on all zpools"
+  shell: "/usr/sbin/zpool set autotrim=on {{ item.name }}"
+  with_items: '{{ ansible_zfs_pools }}'
+  when: "not ansible_check_mode"
