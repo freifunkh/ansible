@@ -19,6 +19,7 @@
     - { name: ffh.cron-apt, tags: cron-apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.crowdsec, tags: crowdsec }
+    - { name: ffh.ansible, tags: ansible }
 
   tasks:
     - name: "Install git, ansible and stuff"
