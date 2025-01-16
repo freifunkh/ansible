@@ -1,5 +1,10 @@
 ---
 apinger_targets:
+- description: sn06
+  ips:
+  - 10.10.60.1
+  - 45.12.203.129
+  - fdca:ffee:8:18::6001
 - description: sn07
   ips:
   - 10.10.70.1
