@@ -31,6 +31,7 @@
         - pip
         - sudo
         - rsync
+        - python3-dnspython
 
     - name: Create auto user
       register: createuser
