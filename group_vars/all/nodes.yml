@@ -23,11 +23,11 @@ exitnodes:
     - 45.12.203.65/32
   sn08:
     id: 8
-    ip4: "217.197.84.201"
+    ip4: "45.12.203.11"
     ip6: "2a0a:4587:2030::1"
     exit_ip_ranges:
     - 2a0a:4587:2030::/48
-    - 217.197.84.201/32
+    - 45.12.203.11/32
 supernodes:
   sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn06.s.ffh.zone./AAAA') }}" }
   sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }

@@ -7,7 +7,7 @@ fqdn: "sn08.s.ffh.zone"
 mesh_prefix: "2a0a:4587:2030"
 
 # With this, we do SNAT in favor of MASQUERADE
-exit_ip: 217.197.84.201
+exit_ip: 45.12.203.11
 
 mesh_fastd_firewall_open: true
 

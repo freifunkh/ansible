@@ -105,7 +105,7 @@ dns_authoritative_toplevel:
        "sn06.s.ffh.zone. IN AAAA 2a0a:4587:2032::1",
        "sn07.s.ffh.zone. IN A 45.12.203.65", # Frankfurt
        "sn07.s.ffh.zone. IN AAAA 2a0a:4587:2031::1",
-       "sn08.s.ffh.zone. IN A 217.197.84.201", # Berlin
+       "sn08.s.ffh.zone. IN A 45.12.203.11", # Berlin
        "sn08.s.ffh.zone. IN AAAA 2a0a:4587:2030::1",
        "sn09.s.ffh.zone. IN A 81.3.6.92", # Hannover
        "sn09.s.ffh.zone. IN AAAA 2a02:790:1:ff::9001",

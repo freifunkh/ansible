@@ -8,7 +8,7 @@ apinger_targets:
 - description: sn08
   ips:
   - 10.10.80.1
-  - 217.197.84.201
+  - 45.12.203.11
   - fdca:ffee:8:18::8001
 - description: sn09
   ips:
