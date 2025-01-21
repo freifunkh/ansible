@@ -16,6 +16,7 @@ networkd_configures:
     - 9.9.9.9
 
 batman_macaddr_prefix: "88:e6:40:ba:00" # last segment will be the domain.id
+batman_gatewaymode: "client"
 
 legacy_dom0: true
 mesh_ula_address_suffix: 1231
