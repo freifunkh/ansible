@@ -13,7 +13,7 @@ MACAddress={{ batman_macaddr_prefix }}:{% if domain.id != "0" %}{{ '%02d' % doma
 
 
 [BatmanAdvanced]
-GatewayMode=server
+GatewayMode={{ batman_gatewaymode }}
 RoutingAlgorithm=batman-iv
 OriginatorIntervalSec=5
 HopPenalty=30
