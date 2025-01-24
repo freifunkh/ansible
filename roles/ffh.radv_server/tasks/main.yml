@@ -9,10 +9,11 @@
     - build-essential
     - bison
     - flex
+    - libbsd-dev
 
 - name: Unarchive radvd to local directory
   unarchive:
-    src: "http://www.litech.org/radvd/dist/radvd-2.19.tar.gz"
+    src: "http://www.litech.org/radvd/dist/radvd-2.20.tar.gz"
     dest: "/usr/src"
     owner: "root"
     group: "root"
@@ -24,20 +25,20 @@
   register: self_built_radvd_binary
 
 - name: Build radvd
-  when: self_built_radvd_binary.stat.exists==false
+  # when: self_built_radvd_binary.stat.exists==false
   block:
     - name: Configure
       command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
       args:
-        chdir: "/usr/src/radvd-2.19"
+        chdir: "/usr/src/radvd-2.20"
 
     - name: Make
       make:
-        chdir: "/usr/src/radvd-2.19"
+        chdir: "/usr/src/radvd-2.20"
 
     - name: Make install
       make:
-        chdir: "/usr/src/radvd-2.19"
+        chdir: "/usr/src/radvd-2.20"
         target: "install"
 
 - name: Generate radvd config
