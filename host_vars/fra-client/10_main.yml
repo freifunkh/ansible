@@ -1,0 +1,11 @@
+---
+
+servername: fra-client
+fqdn: "fra-client.ffh.zone"
+
+zabbix_agent_server: "zbx-fra.ffh.zone"
+zabbix_agent_server_active: "zbx-fra.ffh.zone"
+
+restic_backup_paths:
+- "/etc/"
+restic_backup_excludes: []

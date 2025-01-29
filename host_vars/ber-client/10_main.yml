@@ -1,0 +1,11 @@
+---
+
+servername: ber-client
+fqdn: "ber-client.ffh.zone"
+
+zabbix_agent_server: "zbx-ber.ffh.zone"
+zabbix_agent_server_active: "zbx-ber.ffh.zone"
+
+restic_backup_paths:
+- "/etc/"
+restic_backup_excludes: []

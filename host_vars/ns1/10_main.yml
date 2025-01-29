@@ -150,6 +150,8 @@ dns_authoritative_toplevel:
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
 
+       "ber-client.ffh.zone. IN AAAA 2a0a:4587:2032:614:be24:11ff:fea5:f6c9",
+
        # Frankfurt
        "wissing.ffh.zone. IN A 194.50.19.34",
        "wissing.ffh.zone. IN AAAA 2a0f:5707:ab80:669::1",
@@ -173,6 +175,8 @@ dns_authoritative_toplevel:
        "vds.ffh.zone. IN AAAA 2a0a:4587:2031:10c::309",
        "zabbix.ffh.zone. 60 IN CNAME vds.ffh.zone.",
 
+       "fra-client.ffh.zone. IN AAAA 2a0a:4587:2031:719:255:66ff:fe77:8889",
+
        # Hamburg
        "scheuer.ffh.zone. IN A 213.128.152.209",
        "scheuer.ffh.zone. IN AAAA 2001:868:100:9600::4",
@@ -184,6 +188,8 @@ dns_authoritative_toplevel:
        "rena.ffh.zone. IN A 45.12.203.131",
        "rena.ffh.zone. IN AAAA 2a0a:4587:2032:10c::131",
  
+       "ham-client.ffh.zone. IN AAAA 2a0a:4587:2032:614:be24:11ff:fea5:f6c9",
+
        # Verschiedenes
        "gatrobe.clouds.build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",

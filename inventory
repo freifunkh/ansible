@@ -64,6 +64,12 @@ all:
     gatrobe:
       ansible_host: gatrobe.clouds.build.ffh.zone
       ansible_port: 22
+    ber-client:
+      ansible_host: ber-client.ffh.zone
+    ham-client:
+      ansible_host: ham-client.ffh.zone
+    fra-client:
+      ansible_host: fra-client.ffh.zone
 
 debiannodes:
   children:
@@ -100,6 +106,12 @@ helpernodes:
     dali:
     thetisd:
     rena:
+
+testnodes:
+  hosts:
+    ber-client:
+    ham-client:
+    fra-client:
 
 fermnodes:
   children:
