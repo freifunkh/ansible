@@ -21,6 +21,7 @@
     - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.nginx, tags: nginx }
+    - { name: ffh.firmware-proxy, tags: firmware-proxy }
     - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
     - { name: ffh.meshviewer, tags: meshviewer }

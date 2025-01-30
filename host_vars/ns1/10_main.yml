@@ -165,6 +165,7 @@ dns_authoritative_toplevel:
        "web.ffh.zone. IN A 45.12.203.67",
        "web.ffh.zone. IN AAAA 2a0a:4587:2031:10c::67",
        "firmware.ffh.zone. IN CNAME web.ffh.zone.",
+       "raw-firmware.ffh.zone. IN CNAME web.ffh.zone.",
        "tiles.ffh.zone. IN CNAME web.ffh.zone.",
 
        "db.ffh.zone. IN A 45.12.203.68",
