@@ -1,0 +1,6 @@
+---
+# handlers file for ffh.firmware-proxy
+
+- name: "Daemon reload"
+  systemd:
+    daemon_reload: "yes"
