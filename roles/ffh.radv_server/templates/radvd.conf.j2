@@ -8,6 +8,7 @@ interface bat0
  AdvDefaultLifetime 0;
 {% endif %}
  MaxRtrAdvInterval 60;
+ AdvLinkMTU 1280;
  AdvRASolicitedUnicast on;
 
  prefix {{ mesh_prefix }}:{{ sn }}00::/64 {
@@ -37,6 +38,7 @@ interface bat{{ domain.id }}
  AdvDefaultLifetime 0;
 {% endif %}
  MaxRtrAdvInterval 60;
+ AdvLinkMTU 1280;
  AdvRASolicitedUnicast on;
 
  prefix {{ mesh_prefix }}:{{ sn }}{{ domain.id }}::/64 {
