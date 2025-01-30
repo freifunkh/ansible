@@ -50,6 +50,8 @@ nginx_sites:
     - location: /api/
       expires: -1
       alias: /var/www/apps/api/
+    - location: = /download.html
+      rewrite_params: '^ /gluon-firmware-selector.html'
     - location: = /download
       rewrite_params: '^ /download/ permanent'
     - location: /download/
