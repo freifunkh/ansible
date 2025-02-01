@@ -25,7 +25,7 @@
   register: self_built_radvd_binary
 
 - name: Build radvd
-  # when: self_built_radvd_binary.stat.exists==false
+  when: self_built_radvd_binary.stat.exists==false
   block:
     - name: Configure
       command: "./configure --prefix=/usr/local --sysconfdir=/etc --mandir=/usr/share/man"
