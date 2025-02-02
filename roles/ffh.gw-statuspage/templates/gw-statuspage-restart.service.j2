@@ -1,0 +1,6 @@
+[Unit]
+Description=GW Statuspage Restart service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl try-restart gw-statuspage.service

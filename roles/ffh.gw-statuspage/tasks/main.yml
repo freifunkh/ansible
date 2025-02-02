@@ -85,3 +85,24 @@
   systemd:
     name: gw-statuspage
     state: started
+
+- name: Deploy gw-statuspage-restart.service
+  ansible.builtin.template:
+    src: gw-statuspage-restart.service.j2
+    dest: /etc/systemd/system/gw-statuspage-restart.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Deploy gw-statuspage-restart.timer
+  ansible.builtin.template:
+    src: gw-statuspage-restart.service.j2
+    dest: /etc/systemd/system/gw-statuspage-restart.timer
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable gw-statuspage-restart timer
+  ansible.builtin.systemd_service:
+    name: gw-statuspage-restart.time
+    enabled: true
