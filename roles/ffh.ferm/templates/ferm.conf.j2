@@ -37,12 +37,12 @@ domain (ip ip6) {
 {% endif %}
 
 {%if batman is defined and legacy_dom0 == true %}
-{% for intf in ["mesh_fastd", "bat0", "vlan-gt-20"] %}
+{% for intf in ["mesh_fastd", "bat0", "vx-cross-0"] %}
             interface ({{intf}}) jump MESH_INPUT;
 {% endfor %}
 {% endif %}
 {%if batman is defined and domains is defined %}
-{% for intf_prefix in ["mesh_fastd_", "bat", "vlan-gt-2", "vx-"] %}
+{% for intf_prefix in ["mesh_fastd_", "bat", "vx-cross-", "vx-"] %}
             interface ({% for d in domains %}{{intf_prefix}}{{d.id}} {% endfor %}) jump MESH_INPUT;
 {% endfor %}
 {% endif %}
