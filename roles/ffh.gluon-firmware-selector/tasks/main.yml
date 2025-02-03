@@ -1,0 +1,28 @@
+---
+
+- name: "Create gluon-firmware-selector directory"
+  ansible.builtin.file:
+    path: "{{ gfs_dir }}"
+    state: "directory"
+    mode: "0755" 
+    owner: "{{ gfs_file_owner }}"
+    group: "{{ gfs_file_group }}"
+
+- name: "Install gfs from GitHub"
+  ansible.builtin.git:
+    repo: "https://github.com/freifunk-darmstadt/gluon-firmware-selector.git"
+    dest: "{{ gfs_dir }}"
+    accept_hostkey: "true"
+    single_branch: "true"
+    version: "master"
+    # update: "false"
+    # clone: "false"
+  become: "yes"
+  become_user: "{{ gfs_file_owner }}"
+
+- name: "Deploy gfs config"
+  ansible.builtin.template:
+    src: "config.js.j2"
+    dest: "{{ gfs_dir }}/config.js"
+    owner: "{{ gfs_file_owner }}"
+    group: "{{ gfs_file_group }}"

@@ -1,0 +1,6 @@
+---
+# defaults file for ffh.gluon-firmware-selector
+
+gfs_dir: "/tmp/gfs"
+gfs_file_owner: "www-data"
+gfs_file_group: "www-data"

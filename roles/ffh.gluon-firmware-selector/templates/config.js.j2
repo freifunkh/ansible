@@ -1,0 +1,75 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+var config = {
+  // list images on console that match no model
+  listMissingImages: false,
+  // see devices.js for different vendor model maps
+  vendormodels: vendormodels,
+  // set enabled categories of devices (see devices.js)
+  enabled_device_categories: ['recommended', '4_32', '8_32', '16_32', 'ath10k_lowmem'],
+  // Display a checkbox that allows to display not recommended devices.
+  // This only make sense if enabled_device_categories also contains not
+  // recommended devices.
+  recommended_toggle: true,
+  // Optional link to an info page about no longer recommended devices
+  recommended_info_link: '/wiki/Freifunk/Router',
+  // community prefix of the firmware images
+  community_prefix: 'gluon-ffh-',
+  // firmware version regex
+  //version_regex: '-(vH[0-9]+)[.-]',
+  version_regex: '-(vH[0-9.]+(-wg-pr)?)[.-]',
+  // relative image paths and branch
+  directories: {
+    // Hannover sources
+    '/download/Router-Firmware/Erstinstallation/': 'stable',
+    '/download/Router-Firmware/Manuelles_Update/': 'stable',
+    '/download/Router-Firmware/Other/': 'stable',
+    '/download/Router-Firmware/Beta_Erstinstallation/': 'beta',
+    '/download/Router-Firmware/Beta_Manuelles_Update/': 'beta',
+    '/download/Router-Firmware/Beta_Other/': 'beta',
+    '/download/Router-Firmware/WireGuard_Erstinstallation/': 'wireguard',
+    '/download/Router-Firmware/WireGuard_Manuelles_Update/': 'wireguard',
+    '/download/Router-Firmware/WireGuard_Other/': 'wireguard'
+  },
+  // page title
+  title: 'Firmware - Freifunk Hannover',
+  // branch descriptions shown during selection
+  branch_descriptions: {
+    stable: 'Gut getestet, zuverlässig und stabil.',
+    beta: 'Vorabtests neuer Stable-Kandidaten.',
+    wireguard: 'Vorabtest eines WireGuard-Releases.',
+    experimental: 'Ungetestet, automatisch generiert.'
+  },
+  // recommended branch will be marked during selection
+  recommended_branch: 'stable',
+  // experimental branches (show a warning for these branches)
+  experimental_branches: ['experimental', 'wireguard'],
+  // path to preview pictures directory
+  preview_pictures: '/gluon-firmware-wizard/pictures/',
+  // link to changelog
+  changelog: '/wiki/Freifunk/FirmwareReleases',
+  // links for instructions like flashing of certain devices (optional)
+  // can be set for a whole model or individual revisions
+  // overwrites default values from devices_info in devices.js
+  // devices_info: {
+  //   'AVM': {
+  //     "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io"
+  //   },
+  //   "TP-Link": {
+  //     "TL-WR841N/ND": {"v13": "https://wiki.freifunk.net/TP-Link_WR841ND/Flash-Anleitung_v13"}
+  //   }
+  // }
+};
