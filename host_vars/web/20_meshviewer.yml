@@ -1,0 +1,57 @@
+---
+
+meshviewer_version: "v12.3.0"
+meshviewer_dir: "/var/www/apps/meshviewer"
+meshviewer_devicepictures_dir: "/var/www/apps/device-pictures"
+meshviewer_instances:
+- name: "karte"
+  site: "Freifunk Hannover"
+  config_file: "/var/www/apps/meshviewer_configs/karte.json"
+  data_url: "https://harvester.ffh.zone/api/"
+  grafana_url: "https://stats.ffh.zone"
+  maxage: 14
+  deprecation_text: "Dieses Gerät ist leider veraltet und wird nicht mehr durch Software-Updates unterstützt - <a href='https://hannover.freifunk.net/wiki/Freifunk/AlteGeraete'>Mehr Infos</a>"
+  tile_url: "https://tiles.ffh.zone/{z}/{x}/{y}.png"
+  tile_attribution: "<a href='https://github.com/freifunk/meshviewer/issues' target='_blank'>Report Bug</a> | Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributor"
+  additional_config: |
+    "nodeAttr": [
+      { "name": "node.status", "value": "Status" },
+      { "name": "node.gateway", "value": "Gateway" },
+      { "name": "node.coordinates", "value": "GeoURI" },
+      { "name": "node.hardware", "value": "model" },
+      { "name": "node.primaryMac", "value": "mac" },
+      { "name": "node.firmware", "value": "Firmware" },
+      { "name": "node.uptime", "value": "Uptime" },
+      { "name": "node.firstSeen", "value": "FirstSeen" },
+      { "name": "node.systemLoad", "value": "Load" },
+      { "name": "node.ram", "value": "RAM" },
+      { "name": "node.ipAddresses", "value": "IPs" },
+      { "name": "node.update", "value": "Autoupdate" },
+      { "name": "node.domain", "value": "Domain" },
+      { "name": "node.clients", "value": "Clients" },
+      { "name": "node.contact", "value": "owner" }
+    ]
+- name: "friedhof"
+  site: "Friedhof Hannover"
+  config_file: "/var/www/apps/meshviewer_configs/friedhof.json"
+  data_url: "https://harvester.ffh.zone/api/graveyard/"
+  grafana_url: "https://stats.ffh.zone"
+  maxage: 7300
+  deprecation_text: ""
+  night: true
+  tile_url: "https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+  tile_attribution: "Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
+  additional_config: |
+    "nodeAttr": [
+      { "name": "node.status", "value": "Status" },
+      { "name": "node.gateway", "value": "Gateway" },
+      { "name": "node.coordinates", "value": "GeoURI" },
+      { "name": "node.hardware", "value": "model" },
+      { "name": "node.primaryMac", "value": "mac" },
+      { "name": "node.firmware", "value": "Firmware" },
+      { "name": "node.uptime", "value": "Uptime" },
+      { "name": "node.firstSeen", "value": "FirstSeen" },
+      { "name": "node.update", "value": "Autoupdate" },
+      { "name": "node.domain", "value": "Domain" },
+      { "name": "node.clients", "value": "Clients" }
+    ]
