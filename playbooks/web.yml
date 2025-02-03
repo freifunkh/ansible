@@ -25,6 +25,7 @@
     - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
     - { name: ffh.meshviewer, tags: meshviewer }
+    - { name: ffh.gluon-firmware-selector, tags: gfs }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

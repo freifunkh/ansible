@@ -197,6 +197,8 @@ meshviewer_instances:
       { "name": "node.clients", "value": "Clients" }
     ]
 
+gfs_dir: "/var/www/apps/gluon-firmware-selector"
+
 restic_backup_paths:
 - "/etc/"
 - "/var/www/"
