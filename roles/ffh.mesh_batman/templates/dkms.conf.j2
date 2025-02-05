@@ -10,6 +10,6 @@ BUILT_MODULE_LOCATION=net/batman-adv/
 {% endif %}
 
 
-MAKE="make all"
-CLEAN="make clean"
+MAKE="make KERNELPATH=${kernel_source_dir} all"
+CLEAN="make KERNELPATH=${kernel_source_dir} clean"
 AUTOINSTALL="yes"
