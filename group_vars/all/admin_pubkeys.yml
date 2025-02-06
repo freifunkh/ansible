@@ -44,4 +44,4 @@ admin_pubkeys:
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKuHuCmeDV5qdN9hLDCw0RcwuK6nuhThiFxNUTqlsrKN github_actions_deploy
 - name: janau
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZEN1KwnoQ0L+CWRGJe23hecKV9fCPCZHZZEnjPBuxN JanAu
-admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, bschelm, auto, codefetch_cockroach, manawyrm]
+admin_authorized: [lemoer, cawi, aiyion, jue, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, bschelm, codefetch_cockroach, manawyrm]
