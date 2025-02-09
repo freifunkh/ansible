@@ -10,7 +10,7 @@ peoples=$(while read foo; do
 done</root/.ssh/authorized_keys)
 
 get_person() {
-	echo $peoples | sed "s_%%%_\n_g" | grep $1 | awk '{ print $2 }'
+	echo $peoples | sed "s_%%%_\n_g" | grep "$1" | awk '{ print $2 }'
 }
 
 logs () {
@@ -18,7 +18,7 @@ logs () {
 	cat /var/log/auth.log
 }
 
-logins=$(logs | grep "Accepted publickey for" | awk '{print $1 " " $2 " " $3 ";" $16 }' | sed 's_SHA256:__')
+logins=$(logs | grep "Accepted publickey for" | awk '{print $1 " " $2 " " $3 ";" $14 }' | sed 's_SHA256:__')
 
 echo "$logins" | while read line; do 
 	time=$(echo $line | cut -d\; -f 1)
