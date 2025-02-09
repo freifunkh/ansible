@@ -150,7 +150,7 @@ dns_authoritative_toplevel:
        "opkg.ffh.zone. IN CNAME harvester.ffh.zone.", # deprecated since vH18
        "stats.ffh.zone. IN CNAME harvester.ffh.zone.",
 
-       "ber-client.ffh.zone. IN AAAA 2a0a:4587:2032:614:be24:11ff:fea5:f6c9",
+       "ber-client.ffh.zone. IN AAAA 2a0a:4587:2030:821:be24:11ff:fec6:b308",
 
        # Frankfurt
        "wissing.ffh.zone. IN A 194.50.19.34",
