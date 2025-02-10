@@ -15,6 +15,7 @@
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
+    - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # - { name: ffh.apinger, tags: apinger }
     # - { name: ffh.telegraf, tags: telegraf }

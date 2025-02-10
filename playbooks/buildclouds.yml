@@ -14,6 +14,7 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.admin, tags: admin }
+    - { name: ffh.apt, tags: apt }
     # Docker-Cloud
     - { name: ffh.docker, tags: docker }
   post_tasks:

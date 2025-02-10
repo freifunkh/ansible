@@ -16,6 +16,7 @@
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.simple_mail, tags: simple_mail }
+    - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     - { name: ffh.crowdsec, tags: crowdsec }
     # specific
