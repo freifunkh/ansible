@@ -15,7 +15,6 @@
     - { name: ffh.journald, tags: journald, when: "'proxmoxes' not in group_names" }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.simple_mail, tags: simple_mail, when: "'proxmoxes' not in group_names" }
-    - { name: ffh.cron-apt, tags: cron-apt, when: "'proxmoxes' not in group_names" }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # backup
     - { name: ffh.restic, tags: restic, when: "ansible_hostname not in ['tonne', 'perf-test']" }
