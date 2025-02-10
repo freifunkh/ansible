@@ -1,0 +1,47 @@
+---
+
+- name: Install package
+  apt: name=cron-apt update_cache=yes
+  register: cronapt_install
+
+- name: Deploy main config file
+  template:
+    src: config.j2
+    dest: /etc/cron-apt/config
+
+- name: Activate action, apply security updates on download
+  template:
+    src: action.5-secupdates.j2
+    dest: /etc/cron-apt/action.d/5-secupdates
+
+- name: Comment out security deb line in /etc/apt/sources.list
+  lineinfile:
+    dest: /etc/apt/sources.list
+    regexp: '(?i)^(deb http://security.debian.org/.*?main.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name: Comment out security deb-src line in /etc/apt/sources.list
+  lineinfile:
+    dest: /etc/apt/sources.list
+    regexp: '(?i)^(deb-src http://security.debian.org/.*?main.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name: Deploy apt sources.list file for security updates
+  template:
+    src: security.list.j2
+    dest: /etc/apt/sources.list.d/security.list
+
+- name: Activate action, apply security updates on download
+  template:
+    src: config.5-secupdates.j2
+    dest: /etc/cron-apt/config.d/5-secupdates
+
+- name: Restart cron
+  service:
+    name: cron
+    state: restarted
+  when: cronapt_install.changed

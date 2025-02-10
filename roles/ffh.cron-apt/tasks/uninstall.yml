@@ -1,0 +1,28 @@
+---
+
+- name: Uninstall package
+  apt: 
+    name: cron-apt
+    state: absent
+    autoremove: true
+    purge: true
+
+- name: Remove main config file
+  ansible.builtin.file:
+    path: /etc/cron-apt/config
+    state: absent
+
+- name: Remove action, apply security updates on download
+  ansible.builtin.file:
+    path: /etc/cron-apt/action.d/5-secupdates
+    state: absent
+
+- name: Remove security.list
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/security.list
+    state: absent
+
+- name: Remove action, apply security updates on download
+  ansible.builtin.file:
+    path: /etc/cron-apt/config.d/5-secupdates
+    state: absent
