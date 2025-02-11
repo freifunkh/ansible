@@ -28,3 +28,26 @@
     owner: "root"
     group: "root"
     mode: "0644"
+
+- name: Prepare apt-daily*.timer override direcories
+  ansible.builtin.file:
+    path: "/etc/systemd/system/{{ item }}.timer.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  with_items:
+    - "apt-daily"
+    - "apt-daily-upgrade"
+
+- name: Deploy apt-daily*.timer override
+  ansible.builtin.template:
+    src: "{{ item }}.timer.override.j2"
+    dest: "/etc/systemd/system/{{ item }}.timer.d/50-every6.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  with_items:
+    - "apt-daily"
+    - "apt-daily-upgrade"
+  notify: systemd_daemon_reload
