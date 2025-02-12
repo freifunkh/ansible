@@ -18,8 +18,6 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 
-traefik_acme_email: "noc@hannover.freifunk.net"
-
 authentik_outpost_host: "https://auth.ffh.zone"
 
 zabbix_agent_server: "zbx-ham.ffh.zone"

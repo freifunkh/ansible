@@ -40,3 +40,5 @@ crowdsec_lapi_url: "http://cs.ffh.zone:{{ crowdsec_listen_port }}"
 crowdsec_lapi_host: "rdns"
 
 authentik_version: "2024.10.4"
+
+traefik_acme_email: "noc@hannover.freifunk.net"
