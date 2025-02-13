@@ -1,5 +1,6 @@
 ---
 # tasks file for ffh.crowdsec
+# see also: https://git.dryusdan.fr/Ansible/crowdsec
 
 - name: "Add gpg dependency for key handling"
   apt:
