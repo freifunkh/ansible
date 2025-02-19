@@ -1,0 +1,18 @@
+---
+
+- name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
+  file:
+    path: "/etc/zabbix/zabbix_agentd.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Zabbix: Deploy userparameter file"
+  notify: "reload zabbix-agent"
+  copy:
+    src: "userparameter_bird.conf"
+    dest: "/etc/zabbix/zabbix_agentd.d/userparameter_bird.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"      

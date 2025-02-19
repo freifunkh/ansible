@@ -1,0 +1,9 @@
+---
+
+- name: "Generate config file"
+  notify: "reconfigure bird"
+  template:
+    src: "bird.conf.j2"
+    dest: "{{ bird_config_path }}/bird.conf"
+
+

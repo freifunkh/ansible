@@ -4,85 +4,14 @@
 - name: "BIRD 2"
   when: bird_enable is defined and bird_enable
   block:
-    - name: "Add repo key"
-      apt_key:
-        id: "B188E2B695BD4743"
-        keyserver: "keyserver.ubuntu.com"
-        state: present
-      when: ansible_distribution_major_version|int < 11 # BIRD repo only serves for buster or older
+    - name: "Install BIRD and supplemental tools"
+      include_tasks: "install.yml"
 
-    - name: "Add repo"
-      register: birdrepositoryadded
-      apt_repository:
-        repo: "deb http://bird.network.cz/debian/ {{ ansible_distribution_release }} main"
-        filename: "bird"
-      when: ansible_distribution_major_version|int < 11
+    - name: "Configure external/system parameters"
+      include_tasks: "system.yml"
 
-    - name: "Update apt chache to get bird packages"
-      apt: update_cache=yes
-      when: birdrepositoryadded is changed and ansible_distribution_major_version|int < 11
+    - name: "Configure BIRD"
+      include_tasks: "configure.yml"
 
-    - name: "Install bird2 from repo"
-      apt:
-        name: "bird2"
-        state: latest
-
-    # Depends on outdated libs. Disabled for now.
-    #- name: "Install statistics export"
-    #  include_tasks: bird_exporter.yml
-
-    - name: "Add named routing table"
-      copy:
-        dest: "/etc/iproute2/rt_tables.d/cix.conf"
-        content: |
-          2000 cix
-
-    - name: "Generate config file"
-      notify: "reconfigure bird"
-      template:
-       src: "bird.conf.j2"
-       dest: /etc/bird/bird.conf
-
-    - name: "Install birdstatus"
-      git:
-        repo: "https://github.com/freifunkh/birdstatus"
-        dest: "/opt/birdstatus"
-        version: "main"
-
-    - name: "Install birdstatus dependencies"
-      get_url:
-        url: "https://raw.githubusercontent.com/freifunkh/pybird/master/pybird/__init__.py"
-        dest: "/opt/birdstatus/pybird.py"
-        mode: "0644"
-        owner: "root"
-        group: "root"
-      when: not ansible_check_mode
-
-    - name: "Tweak sysctl net.core.rmem_default to avoid 'Kernel dropped some netlink messages'"
-      sysctl:
-        name: "net.core.rmem_default"
-        value: "56623104"
-        reload: yes
-    - name: "Tweak sysctl net.core.rmem_max accordingly"
-      sysctl:
-        name: "net.core.rmem_max"
-        value: "56623104"
-        reload: yes
-
-
-    - name: "Zabbix: Create /etc/zabbix/zabbix_agentd.d if necessary"
-      file:
-        path: "/etc/zabbix/zabbix_agentd.d"
-        state: "directory"
-        owner: "root"
-        group: "root"
-        mode: "0755"
-
-    - name: "Zabbix: Deploy userparameter file"
-      notify: "reload zabbix-agent"
-      copy:
-        src: "userparameter_bird.conf"
-        dest: "/etc/zabbix/zabbix_agentd.d/userparameter_bird.conf"
-        owner: "root"
-        group: "root"
-        mode: "0644"      
+    - name: "Monitoring stuff for BIRD"
+      include_tasks: "monitoring.yml"
