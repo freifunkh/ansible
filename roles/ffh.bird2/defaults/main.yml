@@ -1,5 +1,6 @@
 ---
 # defaults file for ffh.bird2
 
+bird_config_path: "/etc/bird"
 bird_prepend_counter_v6: 0
 bird_prepend_counter_v4: 0

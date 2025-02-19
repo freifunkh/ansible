@@ -1,0 +1,45 @@
+---
+
+########### BIRD repo only serves for buster or older
+#- name: "Add repo key"
+#  apt_key:
+#    id: "B188E2B695BD4743"
+#    keyserver: "keyserver.ubuntu.com"
+#    state: present
+#  when: ansible_distribution_major_version|int < 11 
+#
+#- name: "Add repo"
+#  register: birdrepositoryadded
+#  apt_repository:
+#    repo: "deb http://bird.network.cz/debian/ {{ ansible_distribution_release }} main"
+#    filename: "bird"
+#  when: ansible_distribution_major_version|int < 11
+
+#- name: "Update apt chache to get bird packages"
+#  apt: update_cache=yes
+#  when: birdrepositoryadded is changed and ansible_distribution_major_version|int < 11
+########### BIRD repo only serves for buster or older
+
+- name: "Install bird2 from repo"
+  apt:
+    name: "bird2"
+    state: latest
+
+- name: "Install birdstatus"
+  git:
+    repo: "https://github.com/freifunkh/birdstatus"
+    dest: "/opt/birdstatus"
+    version: "main"
+
+- name: "Install birdstatus dependencies"
+  get_url:
+    url: "https://raw.githubusercontent.com/freifunkh/pybird/master/pybird/__init__.py"
+    dest: "/opt/birdstatus/pybird.py"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: not ansible_check_mode
+
+# Depends on outdated libs. Disabled for now.
+#- name: "Install statistics export"
+#  include_tasks: bird_exporter.yml

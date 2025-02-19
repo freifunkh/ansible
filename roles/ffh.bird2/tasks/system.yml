@@ -1,0 +1,19 @@
+---
+
+- name: "Add named routing table"
+  copy:
+    dest: "/etc/iproute2/rt_tables.d/cix.conf"
+    content: |
+      2000 cix
+
+- name: "Tweak sysctl net.core.rmem_default to avoid 'Kernel dropped some netlink messages'"
+  sysctl:
+    name: "net.core.rmem_default"
+    value: "56623104"
+    reload: yes
+
+- name: "Tweak sysctl net.core.rmem_max accordingly"
+  sysctl:
+    name: "net.core.rmem_max"
+    value: "56623104"
+    reload: yes
