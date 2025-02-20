@@ -1,11 +1,73 @@
 ---
 
 bird_enable: true
+bird_router_id: "185.1.74.73"
 bird_my_asn: "209347"
+bird_local_addr_v6: "2001:7f8:a5::20:9347:3"
+bird_local_addr_v4: "185.1.74.73"
+
 bird_krt_prefsrc_v6: "2a0a:4587:2032::1"
 bird_krt_prefsrc_v4: "45.12.203.129"
 bird_announce_prefix_v6: "2a0a:4587:2032::/48"
 bird_announce_prefix_v4: "45.12.203.0/24"
-bird_local_addr_v6: "2001:7f8:a5::20:9347:3"
-bird_local_addr_v4: "185.1.74.73"
 bird_prepend_counter_v4: 3
+
+bird_peers:
+  cix1_v6:
+    description: "CIX Route Server 1 (IPv6)"
+    password: "{{ bird_cix_password }}"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2001:7f8:a5::5:7555:1"
+    neighbor_asn: "57555"
+    filters:
+      - "to_cix"
+      - "to_upstream6"
+  cix1_v4:
+    description: "CIX Route Server 1 (IPv4)"
+    password: "{{ bird_cix_password }}"
+    local_addr: "{{ bird_local_addr_v4 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "185.1.74.1"
+    neighbor_asn: "57555"
+    filters:
+      - "to_cix"
+      - "to_upstream4"
+  cix2_v6:
+    description: "CIX Route Server 2 (IPv6)"
+    password: "{{ bird_cix_password }}"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2001:7f8:a5::5:7555:2"
+    neighbor_asn: "57555"
+    filters:
+      - "to_cix"
+      - "to_upstream6"
+  cix2_v4:
+    description: "CIX Route Server 2 (IPv4)"
+    password: "{{ bird_cix_password }}"
+    local_addr: "{{ bird_local_addr_v4 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "185.1.74.2"
+    neighbor_asn: "57555"
+    filters:
+      - "to_cix"
+      - "to_upstream4"
+  lwl_v6:
+    description: "LWLcom (IPv6)"
+    password: "{{ bird_lwlcom_password }}"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2001:7f8:a5::5:629:4"
+    neighbor_asn: "50629"
+    filters:
+      - "to_upstream6"
+  lwl_v4:
+    description: "LWLcom (IPv4)"
+    password: "{{ bird_lwlcom_password }}"
+    local_addr: "{{ bird_local_addr_v4 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "185.1.74.69"
+    neighbor_asn: "50629"
+    filters:
+      - "to_upstream4"
