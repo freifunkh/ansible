@@ -1,5 +1,5 @@
 log syslog all;
-router id {{ bird_local_addr_v4 }};
+router id {{ bird_router_id }};
 define my_asn = {{ bird_my_asn }};
 timeformat protocol iso long;
 
@@ -51,98 +51,9 @@ protocol static {
 {% endif %}
 }
 
-filter to_upstream6 {
-{% if bird_announce_prefix_v6 is defined %}
-  # CIX uses this community 57555:921:X = zu Region X announcen
-  # DE-BER: X = 100
-  # DE-FRA: X = 200
-  bgp_large_community.add((57555, 921, 100));
-  bgp_large_community.add((57555, 921, 200));
-
-  if net ~ [{{ bird_announce_prefix_v6 }}] then {
-{% if bird_prepend_counter_v6 > 0 %}
-{% for i in range(0,bird_prepend_counter_v6) %}
-    bgp_path.prepend({{ bird_my_asn }});
-{% endfor %}
-{% endif %}
-    accept;
-  } else reject;
-{% else %}
-  # we only want to pull routes here.
-  reject;
-{% endif %}
-}
-
-filter to_upstream4 {
-{% if bird_announce_prefix_v4 is defined %}
-  # CIX uses this community 57555:921:X = zu Region X announcen
-  # DE-BER: X = 100
-  # DE-FRA: X = 200
-  bgp_large_community.add((57555, 921, 100));
-  bgp_large_community.add((57555, 921, 200));
-
-  if net ~ [{{ bird_announce_prefix_v4 }}] then {
-{% if bird_prepend_counter_v4 > 0 %}
-{% for i in range(0,bird_prepend_counter_v4) %}
-    bgp_path.prepend({{ bird_my_asn }});
-{% endfor %}
-{% endif %}
-    accept;
-  } else reject;
-{% else %}
-  # we only want to pull routes here.
-  reject;
-{% endif %}
-}
-
-filter no_1und1 {
-  if bgp_path.first = 8560
-  then reject;
-  else accept;
-}
-
-template bgp cix_peer6 {
-  local {{ bird_local_addr_v6 }} as my_asn;
-  allow local as my_asn;
+template bgp generic_bgp {
+  allow local as {{ bird_my_asn }};
   hold time 90;
-  password "{{ bird_cix_password }}";
-  ipv6 {
-    import keep filtered;
-    import all; #filter no_1und1;
-    #export none;
-    export filter to_upstream6;
-  };
 }
 
-template bgp cix_peer4 {
-  local {{ bird_local_addr_v4 }} as my_asn;
-  allow local as my_asn;
-  hold time 90;
-  password "{{ bird_cix_password }}";
-  ipv4 {
-    import keep filtered;
-    import all; #filter no_1und1;
-    #export none;
-    export filter to_upstream4;
-  };
-}
-
-protocol bgp cix1_ip6 from cix_peer6 {
-  description "CIX Route Server 1 (IPv6)";
-  neighbor 2001:7f8:a5::5:7555:1 as 57555;
-}
-
-protocol bgp cix1_ip4 from cix_peer4 {
-  description "CIX Route Server 1 (IPv4)";
-  neighbor 185.1.74.1 as 57555;
-}
-
-protocol bgp cix2_ip6 from cix_peer6 {
-  description "CIX Route Server 2 (IPv6)";
-  neighbor 2001:7f8:a5::5:7555:2 as 57555;
-}
-
-protocol bgp cix2_ip4 from cix_peer4 {
-  description "CIX Route Server 2 (IPv4)";
-  neighbor 185.1.74.2 as 57555;
-}
+include "{{ bird_config_path }}/bird.d/*.conf";

@@ -1,9 +1,41 @@
 ---
 
-- name: "Generate config file"
+- name: "Create config directory"
+  ansible.builtin.file:
+    path: "{{ bird_config_path }}/bird.d"
+    state: "directory"
+    owner: "bird"
+    group: "bird"
+    mode: "0750"
+
+- name: "Generate main config"
   notify: "reconfigure bird"
-  template:
+  ansible.builtin.template:
     src: "bird.conf.j2"
     dest: "{{ bird_config_path }}/bird.conf"
+    owner: "bird"
+    group: "bird"
+    mode: "0640"
+
+- name: "Configure filters"
+  notify: "reconfigure bird"
+  ansible.builtin.template:
+    src: "filters.conf.j2"
+    dest: "{{ bird_config_path }}/bird.d/20_filters.conf"
+    owner: "bird"
+    group: "bird"
+    mode: "0640"
+
+- name: "Configure peers"
+  notify: "reconfigure bird"
+  ansible.builtin.template:
+    src: "peer.conf.j2"
+    dest: "{{ bird_config_path }}/bird.d/50_peer_{{ item.key }}.conf"
+    owner: "bird"
+    group: "bird"
+    mode: "0640"
+  with_dict: "{{ bird_peers }}"
+
+
 
 

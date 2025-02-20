@@ -1,0 +1,18 @@
+protocol bgp {{ item.key }} from generic_bgp {
+
+  description "{{ item.value.description }}";
+
+  local {{ item.value.local_addr }} as {{ item.value.local_asn }};
+  neighbor {{ item.value.neighbor_addr }} as {{ item.value.neighbor_asn }};
+  password "{{ item.value.password }}";
+
+  {% if item.value.local_addr is ansible.utils.ipv6 %}ipv6{% else %}ipv4{% endif %} {
+    import keep filtered;
+    import all;
+    #export none;
+{% for filter in item.value.filters | default([]) %}
+    export filter {{ filter }};
+{% endfor %}
+  };
+
+}

@@ -1,0 +1,47 @@
+filter to_cix {
+  # CIX uses this community 57555:921:X = zu Region X announcen
+  # DE-BER: X = 100
+  # DE-FRA: X = 200
+  # DE-HAM: X = 300
+  bgp_large_community.add((57555, 921, 100));
+  bgp_large_community.add((57555, 921, 200));
+  bgp_large_community.add((57555, 921, 300));
+}
+
+filter no_1und1 {
+  if bgp_path.first = 8560
+  then reject;
+  else accept;
+}
+
+filter to_upstream6 {
+{% if bird_announce_prefix_v6 is defined %}
+  if net ~ [{{ bird_announce_prefix_v6 }}] then {
+{% if bird_prepend_counter_v6 > 0 %}
+{% for i in range(0,bird_prepend_counter_v6) %}
+    bgp_path.prepend({{ bird_my_asn }});
+{% endfor %}
+{% endif %}
+    accept;
+  } else reject;
+{% else %}
+  # we only want to pull routes here.
+  reject;
+{% endif %}
+}
+
+filter to_upstream4 {
+{% if bird_announce_prefix_v4 is defined %}
+  if net ~ [{{ bird_announce_prefix_v4 }}] then {
+{% if bird_prepend_counter_v4 > 0 %}
+{% for i in range(0,bird_prepend_counter_v4) %}
+    bgp_path.prepend({{ bird_my_asn }});
+{% endfor %}
+{% endif %}
+    accept;
+  } else reject;
+{% else %}
+  # we only want to pull routes here.
+  reject;
+{% endif %}
+}
