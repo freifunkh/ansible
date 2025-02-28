@@ -18,7 +18,7 @@
 
 - name: Create path for traefik compose file
   ansible.builtin.file:
-    path: "/opt/traefik"
+    path: "{{ traefik_path }}"
     state: "directory"
     mode: "0755"
     owner: "root"
@@ -27,7 +27,7 @@
 - name: Create/Update Traefik docker compose file
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
-    dest: "/opt/traefik/docker-compose.yml"
+    dest: "{{ traefik_path }}/docker-compose.yml"
     mode: "0644"
     owner: "root"
     group: "root"
@@ -50,6 +50,6 @@
 
 - name: Deploy Traefik
   community.docker.docker_compose_v2:
-    project_src: "/opt/traefik"
+    project_src: "{{ traefik_path }}"
     files:
     - "docker-compose.yml"
