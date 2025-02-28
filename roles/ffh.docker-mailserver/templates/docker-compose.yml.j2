@@ -1,0 +1,76 @@
+---
+
+services:
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:{{ dms_version | default('latest') }}
+    container_name: {{ dms_containername | default('mailserver') }}
+    hostname: {{ dms_fqdn | default('mx.exaple.com') }}
+    env_file: mailserver.env
+    # To avoid conflicts with yaml base-60 float, DO NOT remove the quotation marks.
+    ports:
+      - "25:25"    # SMTP  (explicit TLS => STARTTLS)
+      - "143:143"  # IMAP4 (explicit TLS => STARTTLS)
+      - "465:465"  # ESMTP (implicit TLS)
+      - "587:587"  # ESMTP (explicit TLS => STARTTLS)
+      - "993:993"  # IMAP4 (implicit TLS)
+      - "127.0.0.1:11334:11334" # RSPAMD webUI
+      # - "4190:4190"  # ManageSieve
+    volumes:
+      - {{ dms_path_data }}:/var/mail/
+      - {{ dms_path_state }}:/var/mail-state/
+      - {{ dms_path_logs }}:/var/log/mail/
+      - {{ dms_path_config }}:/tmp/docker-mailserver/
+      - {{ dms_path_rspamd_override }}:/etc/rspamd/override.d/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/traefik/acme.json:/etc/letsencrypt/acme.json:ro
+    depends_on:
+      - ipv6nat
+    restart: always
+    stop_grace_period: 1m
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    healthcheck:
+      test: "ss --listening --tcp | grep -P 'LISTEN.+:smtp' || exit 1"
+      timeout: 3s
+      retries: 0
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: proxy
+      traefik.http.routers.rspamd-https.entrypoints: "websecure"
+      traefik.http.routers.rspamd-https.rule: "Host(`{{ dms_fqdn }}`)"
+      traefik.http.routers.rspamd-https.tls.certresolver: "letsencrypt"
+      traefik.http.routers.rspamd-https.service: "rspamd-https"
+      traefik.http.routers.rspamd-https.middlewares: authentik@docker
+      traefik.http.services.rspamd-https.loadbalancer.server.port: "11334"
+      traefik.http.routers.rspamd-http.entrypoints: "web"
+      traefik.http.routers.rspamd-http.rule: "Host(`{{ dms_fqdn }}`)"
+      traefik.http.routers.rspamd-http.middlewares: "rspamd"
+      traefik.http.middlewares.rspamd.redirectscheme.scheme: "https"
+    networks:
+      - default
+      - proxy
+
+  ipv6nat:
+    image: robbertkl/ipv6nat
+    restart: always
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /lib/modules:/lib/modules:ro
+
+networks:
+  proxy:
+    name: proxy
+    external: true
+  default:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00:0123:4567::/48
+          gateway: fd00:0123:4567::1

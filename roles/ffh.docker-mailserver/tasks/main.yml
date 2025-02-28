@@ -1,0 +1,51 @@
+---
+
+# - name: Install dependencies
+#   ansible.builtin.apt:
+#     pkg:
+#     - "certbot"
+
+- name: Prepare directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: "directory"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+  with_items:
+    - "{{ dms_path_base }}"
+    - "{{ dms_path_data }}"
+    - "{{ dms_path_state }}"
+    - "{{ dms_path_logs }}"
+    - "{{ dms_path_config }}"
+    - "{{ dms_path_rspamd_override }}"
+
+- name: Deploy mailserver.env
+  ansible.builtin.template:
+    src: "mailserver.env.j2"
+    dest: "{{ dms_path_base }}/mailserver.env"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ dms_path_base }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy Docker Mailserver
+  community.docker.docker_compose_v2:
+    project_src: "{{ dms_path_base }}"
+    files:
+    - "docker-compose.yml"
+
+- name: Deploy Rspamd worker-controller file
+  ansible.builtin.template:
+    src: "worker-controller.inc.j2"
+    dest: "{{ dms_path_base }}/rspamd-override/worker-controller.inc"
+    mode: "0644"
+    owner: "root"
+    group: "root"
