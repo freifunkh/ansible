@@ -21,51 +21,46 @@ dns_authoritative_external:
 - domain: "n.ffh.zone"
   zonefile: "n.ffh.zone.zone"
   xfr: true
-- domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
-  zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
-  xfr: false
+# - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
+#   zonefile: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream.zone"
+#   xfr: false
+# - domain: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa.upstream"
+#   zonefile: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa.upstream.zone"
+#   xfr: false
 dns_authoritative_SOAmail: "zonemaster.ffh.zone"
 
 dns_zonenodes_toplevel: "ffh.zone."
 dns_zonenodes_nodedomain: "n.ffh.zone"
-dns_zonenodes_rdnsdomain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa.upstream"
-dns_zonenodes_rdnsnetwork: "2001:678:978"
+# dns_zonenodes_rdnsdomain: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa.upstream"
+# dns_zonenodes_rdnsnetwork: "2001:678:978"
 dns_zonenodes_matchIP: "/^2a02:790:ff:9/"
 dns_zonenodes_nodeurl: "https://harvester.ffh.zone/api/nodes.json"
 
 dns_authoritative_toplevel:
    - domain: "203.12.45.in-addr.arpa."
      records: [
-      "10.203.12.45.in-addr.arpa. IN PTR clevertor.e.ffh.zone.",
-      "11.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone.",
-      "12.203.12.45.in-addr.arpa. IN PTR sn02.s.ffh.zone."
+      "11.203.12.45.in-addr.arpa. IN PTR sn08.s.ffh.zone.",
+      "12.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
+      "13.203.12.45.in-addr.arpa. IN PTR evergiven.ffh.zone.",
+      "14.203.12.45.in-addr.arpa. IN PTR harvester.ffh.zone.",
+      "15.203.12.45.in-addr.arpa. IN PTR tonne.ffh.zone.",
+      "65.203.12.45.in-addr.arpa. IN PTR sn07.s.ffh.zone.",
+      "66.203.12.45.in-addr.arpa. IN PTR dali.ffh.zone.",
+      "67.203.12.45.in-addr.arpa. IN PTR web.ffh.zone.",
+      "68.203.12.45.in-addr.arpa. IN PTR db.ffh.zone.",
+      "69.203.12.45.in-addr.arpa. IN PTR vds.ffh.zone.",
+      "129.203.12.45.in-addr.arpa. IN PTR sn06.s.ffh.zone.",
+      "130.203.12.45.in-addr.arpa. IN PTR thetisd.ffh.zone.",
+      "131.203.12.45.in-addr.arpa. IN PTR rena.ffh.zone.",
+      "132.203.12.45.in-addr.arpa. IN PTR mx1.ffh.zone."
      ]
-   - domain: "8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa."
-     records: [
-      "0.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "1.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "2.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "3.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "4.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "5.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "6.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "7.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "8.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "9.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "a.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "b.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "c.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "d.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "e.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "f.8.7.9.0.8.7.6.0.1.0.0.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
-     ]
-   - domain: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa."
-     records: [
-      "0.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
-      "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
-     ]
+#   - domain: "3.0.2.7.8.5.4.a.0.a.2.ip6.arpa.upstream."
+#     records: [
+#      "0.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+#      "1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+#      "2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone.",
+#      "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. 120 IN NS rdns.ffh.zone."
+#     ]
    - domain: "hannover.freifunk.net."
      records: [
       "hannover.freifunk.net. 60 IN  A 45.12.203.67",
