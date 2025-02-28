@@ -46,6 +46,7 @@ helpernodes:
   dali: { id: 10, ip4: "{{ lookup('dig', 'dali.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dali.ffh.zone./AAAA') }}" }
   thetisd: { id: 11, ip4: "{{ lookup('dig', 'thetisd.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'thetisd.ffh.zone./AAAA') }}" }
   rena: { id: 12, ip4: "{{ lookup('dig', 'rena.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'rena.ffh.zone./AAAA') }}" }
+  mx1: { id: 13, ip4: "{{ lookup('dig', 'mx1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'mx1.ffh.zone./AAAA') }}" }
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }

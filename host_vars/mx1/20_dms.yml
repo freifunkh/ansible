@@ -1,0 +1,13 @@
+---
+
+dms_fqdn: "mx1.ffh.zone"
+
+dms_path_base: "/media/dms"
+dms_path_data: "{{ dms_path_base }}/data"
+dms_path_state: "{{ dms_path_base }}/state"
+dms_path_logs: "{{ dms_path_base }}/logs"
+dms_path_config: "{{ dms_path_base }}/config"
+dms_path_rspamd_override: "{{ dms_path_base }}/rspamd-override"
+
+dms_postmaster_address: "postmaster@ffh.zone"
+dms_tz: "Europe/Berlin"

@@ -32,6 +32,8 @@ all:
       ansible_host: leintor.e.ffh.zone
     ns1:
       ansible_host: ns1.ffh.zone
+    mx1:
+      ansible_host: mx1.ffh.zone
     harvester:
       ansible_host: harvester.ffh.zone
     web:
@@ -97,6 +99,7 @@ exitnodes:
 helpernodes:
   hosts:
     ns1:
+    mx1:
     harvester:
     web:
     vds:
