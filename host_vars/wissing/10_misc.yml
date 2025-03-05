@@ -2,6 +2,8 @@
 servername: wissing
 fqdn: "wissing.ffh.zone"
 
+admin_authorized_local: [ wissing ]
+
 restic_backup_paths:
 - /etc/
 

@@ -2,6 +2,8 @@
 servername: scheuer
 fqdn: "scheuer.ffh.zone"
 
+admin_authorized_local: [ scheuer ]
+
 restic_backup_paths:
 - /etc/
 

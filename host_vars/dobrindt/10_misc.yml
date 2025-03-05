@@ -2,6 +2,8 @@
 servername: dobrindt
 fqdn: "dobrindt.ffh.zone"
 
+admin_authorized_local: [ dobrindt ]
+
 restic_backup_paths:
 - /etc/
 
