@@ -1,3 +1,4 @@
 ---
 admin_pubkeys: []
+admin_authorized_local: []
 reboot_on_kernelpanic: false

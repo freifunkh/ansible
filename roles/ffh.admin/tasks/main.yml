@@ -1,21 +1,30 @@
 ---
 
+- name: Compile admin_authorized list
+  ansible.builtin.set_fact:
+    admin_authorized_merged: "{{ admin_authorized + admin_authorized_local }}"
+
+- name: Compile admin_authorized_keys list
+  ansible.builtin.set_fact:
+    admin_authorized_keys: "{{ admin_pubkeys | selectattr('name', 'in', admin_authorized_merged) | map(attribute='key') | join('\n') }}"
+
 - name: Install ssh keys
-  authorized_key:
-    user: root
-    state: "{{ 'present' if item.name in admin_authorized else 'absent' }}"
-    key: "{{ item.key }}"
-  with_items: "{{ admin_pubkeys }}"
+  ansible.posix.authorized_key:
+    user: "root"
+    state: "present"
+    exclusive: true
+    key: "{{ admin_authorized_keys }}"
+  when: "'proxmoxes' not in group_names"
 
 - name: Install ssh known hostkeys
-  known_hosts:
+  ansible.builtin.known_hosts:
     name: "{{ item.name }}"
     key: "{{ item.name }} {{ item.key }}"
     path: "/etc/ssh/ssh_known_hosts"
   with_items: "{{ known_hostkeys }}"
 
 - name: sysctl - Reboot on kernel panic
-  sysctl:
+  ansible.posix.sysctl:
     name: kernel.panic
     value: "10"
     state: present
