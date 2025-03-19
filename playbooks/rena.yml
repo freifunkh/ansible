@@ -22,6 +22,7 @@
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
     - { name: ffh.fnorden-signup, tags: fnorden-signup }
+    - { name: ffh.wireguard-endpoint, tags: wireguard-endpoint }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:

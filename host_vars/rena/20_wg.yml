@@ -1,0 +1,13 @@
+---
+
+wg_endpoint_port: 51819
+wg_endpoint_iface: "wg-endpoint"
+wg_endpoint_addr: "fd00:dead::1"
+wg_endpoint_prefixlength: 64
+wg_endpoint_pubkey: "A36Cc3vNy6D5naQs6fOTci1X8oEjSfhX5d+KDUFGM1Q="
+
+wg_endpoint_peers:
+- name: "kwa10"
+  pubkey: "dXwpXhqLmFKa8alCepWI3VwiUh9N40tjpFkjAU5YCzU="
+  allowedips: "fd00:dead::2/128"
+
