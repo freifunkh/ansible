@@ -1,6 +1,6 @@
 ---
 
-admin_authorized: [lemoer, cawi, aiyion, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, sush, codefetch, DarkAMD, ctandi, s_2, codefetch_cockroach, manawyrm]
+admin_authorized: [lemoer, cawi, aiyion, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, codefetch, codefetch_cockroach]
 
 admin_pubkeys:
 - name: lemoer
