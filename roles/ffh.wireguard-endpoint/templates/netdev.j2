@@ -1,0 +1,9 @@
+[NetDev]
+Name={{ wg_endpoint_iface }}
+Kind=wireguard
+
+[WireGuard]
+PrivateKey={{ wg_endpoint_privatekey }}
+ListenPort={{ wg_endpoint_port }}
+
+{% include 'peers.j2' %}

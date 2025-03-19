@@ -1,0 +1,7 @@
+---
+# defaults file for ffh.wireguard-endpoint
+
+wg_endpoint_port: 51820
+wg_endpoint_iface: "wg-endpoint"
+wg_endpoint_addr: "fd00:dead::1"
+wg_endpoint_prefixlength: 64

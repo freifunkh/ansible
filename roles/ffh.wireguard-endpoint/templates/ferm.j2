@@ -1,0 +1,7 @@
+domain (ip ip6) {
+  table filter {
+    chain INPUT {
+      interface {{ wg_endpoint_iface }} proto udp dport {{ wg_endpoint_port }} ACCEPT;
+    }
+  }
+}

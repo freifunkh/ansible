@@ -1,0 +1,7 @@
+{% for peer in wg_endpoint_peers %}
+[WireGuardPeer]
+# {{ peer.name }}
+PublicKey={{ peer.pubkey }}
+AllowedIPs={{ peer.allowedips }}
+
+{% endfor %}
