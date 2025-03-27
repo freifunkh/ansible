@@ -1,2 +1,7 @@
 ---
 # handlers file for ffh.docker
+
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
