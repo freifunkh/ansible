@@ -2,6 +2,6 @@
 [WireGuardPeer]
 # {{ peer.name }}
 PublicKey={{ peer.pubkey }}
-AllowedIPs={{ peer.allowedips }}
+AllowedIPs={{ peer.allowedips | join(',') }}
 
 {% endfor %}

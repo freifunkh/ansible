@@ -4,3 +4,10 @@ Name={{ wg_endpoint_iface }}
 [Network]
 Address={{ wg_endpoint_addr }}/{{ wg_endpoint_prefixlength }}
 IPv6AcceptRA=false
+
+{% for peer in wg_endpoint_peers %}
+{% for ip in peer.allowedips %}
+[Route]
+Destination={{ ip }}
+{% endfor %}
+{% endfor %}
