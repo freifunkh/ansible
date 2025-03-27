@@ -46,6 +46,9 @@ Bond={{ bond.name }}
 {% endfor %}
 {% endfor %}
 {% endif %}
+{% if item.1.proxy_arp is defined and item.1.proxy_arp %}
+ProxyARP=true
+{% endif %}
 
 {% if item.1.dhcp is defined and item.1.dhcp %}
 [DHCPv4]
