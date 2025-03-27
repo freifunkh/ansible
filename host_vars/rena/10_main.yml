@@ -18,6 +18,8 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 
+docker_forward_no_drop: true
+
 admin_authorized_local: [ auto, github_actions_auto ]
 
 authentik_outpost_host: "https://auth.ffh.zone"
