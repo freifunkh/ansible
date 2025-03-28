@@ -72,8 +72,13 @@ dns_authoritative_toplevel:
    - domain: "ffh.zone."
      records: [
        "@           IN  MX 10 mx1.ffh.zone.",
+       "_dmarc.ffh.zone. IN TXT \"v=DMARC1; p=reject\"",
        "mail._domainkey.ffh.zone. IN TXT \"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2HTsH0Efj8M2rF33cplR8X4IoZe265Jl2a051Pc10Ex2SMxUplWrM0EnxkMv/vJg7bqaG58cD90iGrnn4YZk/YO0Rq8QK1fluM9sqQBtL33E\" \"cNNlaeeiIZ2OpkjM6sNPtq6SpDHGZE8gX3807jucN6zOCyGpQ4rgZaWGH1WHc6rRypMCN6jsTgU3ms8FFN2FAbfq1mrYMDyX+UivJiYbksQbW6JPo26lB8OxMxzfpl7kceOTsxwrXVTgy5aJni3UMAhfO55G07Hw1dgG6f1QIpdMlLOfa5sPQatNRkYXE8BnCtDH6IGi8GYQY2M1svBJOLRgKj1wrSCwFpRAt9HnJwIDAQAB\"",
        "@           IN TXT \"v=spf1 mx include:hannover.freifunk.net -all\"",
+
+       "www.ffh.zone. IN CNAME ffh.zone.",
+       "ffh.zone.     IN A 45.12.203.67",
+       "ffh.zone.     IN AAAA 2a0a:4587:2031:10c::67",
 
        "sn01.ffh.zone. IN CNAME sn01.s.ffh.zone.",
        "sn02.ffh.zone. IN CNAME sn02.s.ffh.zone.",

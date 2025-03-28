@@ -27,6 +27,20 @@ nginx_sites:
   root: /var/www/domains/fnorden.net
   tls: true
   tls_redirect_to_https: true
+- domain: ffh.zone
+  root: /var/www/domains/ffh.zone/
+  tls: true
+  tls_redirect_to_https: true
+  locations:
+    - location: = /
+      rewrite_params: '^ https://hannover.freifunk.net/wiki/Freifunk/Impressum'
+- domain: www.ffh.zone
+  root: /var/www/domains/ffh.zone/
+  tls: true
+  tls_redirect_to_https: true
+  locations:
+    - location: = /
+      rewrite_params: '^ https://hannover.freifunk.net/wiki/Freifunk/Impressum'
 - domain: hannover.freifunk.net
   root: /var/www/domains/hannover.freifunk.net/
   tls: true
