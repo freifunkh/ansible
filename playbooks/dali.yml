@@ -27,7 +27,6 @@
     - { name: ffh.steckdosen, tags: steckdosen }
     - { name: ffh.vaultwarden, tags: vaultwarden }
     - { name: ffh.homeassistant, tags: homeassistant }
-    - { name: ffh.fnorden-signup, tags: fnorden-signup }
     # Backups
     - { name: ffh.restic, tags: restic }
   post_tasks:
