@@ -4,11 +4,11 @@ ansible_port: 1337
 
 show_secret_diffs: yes
 
-simple_mail:
-  root_email: "monitoring@hannover.freifunk.net"
-  mail_server: "mail.ffh.zone"
-
 git_addr: "ssh://git@git.ffh.zone:1337"
+
+postfix_relayhost: "mx1.ffh.zone"
+postfix_relayhost_port: 587
+postfix_alias_root: "monitoring@ffh.zone"
 
 network_lower_ifaces:
   default: eth0
