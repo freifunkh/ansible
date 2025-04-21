@@ -1,0 +1,12 @@
+---
+
+postfix_debconf_selections:
+ - name: postfix
+   question: postfix/main_mailer_type
+   value: No configuration
+   vtype: select
+
+postfix_mailname_file: /etc/mailname
+postfix_main_cf: /etc/postfix/main.cf
+postfix_sasl_passwd_file: /etc/postfix/sasl_passwd
+postfix_aliases_file: /etc/aliases

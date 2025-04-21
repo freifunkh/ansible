@@ -1,36 +1,75 @@
 ---
 
-- name: "Install ssmtp (pre Debian Buster)"
-  apt:
-    name: ssmtp
-    update_cache: yes
-  when: ansible_distribution_version|int < 10
+- name: "Configure debconf"
+  ansible.builtin.debconf:
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  with_items: "{{ postfix_debconf_selections }}"
 
-- name: "Check if ssmtp is installed"
-  command: "dpkg-query -s ssmtp"
-  register: ssmtp_check_deb
-  failed_when: ssmtp_check_deb.rc > 1
-  changed_when: ssmtp_check_deb.rc == 1
-  check_mode: no
-
-- name: "Sideload ssmtp if necessary"
-  when: ssmtp_check_deb.rc == 1
-  block:
-  - name: "Purge MTAs other than ssmtp"
-    apt:
-      state: "absent"
-      pkg:
+- name: "Install postfix and other dependencies"
+  ansible.builtin.apt:
+    pkg: 
       - "postfix"
-      - "exim4"
-  - name: "Download ssmtp"
-    get_url: 
-      url: "http://ftp.de.debian.org/debian/pool/main/s/ssmtp/ssmtp_2.64-10_amd64.deb"
-      dest: "/tmp/ssmtp_2.64-10_amd64.deb"
-  - name: "Install ssmtp"
-    apt:
-      deb: "/tmp/ssmtp_2.64-10_amd64.deb"
+      - "libsasl2-modules"
+    update_cache: yes
 
-- name: "Generate ssmtp config"
-  template:
-    src: "ssmtp.conf.j2"
-    dest: "/etc/ssmtp/ssmtp.conf"
+- name: "Configure mailname"
+  ansible.builtin.template:
+    src: "mailname.j2"
+    dest: "{{ postfix_mailname_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart postfix
+
+- name: "Generate postfix main.cf"
+  ansible.builtin.template:
+    src: "main.cf.j2"
+    dest: "/etc/postfix/main.cf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: restart postfix
+
+- name: "Generate sasl_passwd"
+  ansible.builtin.template:
+    src: "sasl_passwd.j2"
+    dest: "{{ postfix_sasl_passwd_file }}"
+    mode: "0600"
+    owner: "root"
+    group: "root"
+  notify: 
+    - postmap sasl_passwd
+    - restart postfix
+
+- name: "Add entry for root in /etc/aliases"
+  ansible.builtin.lineinfile:
+    path: "{{ postfix_aliases_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+    regexp: '^root:'
+    line: "root: {{ postfix_alias_root }}"
+  notify:
+    - new aliases
+    - restart postfix
+
+- name: "Add entry for postmaster in /etc/aliases"
+  ansible.builtin.lineinfile:
+    path: "{{ postfix_aliases_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+    regexp: '^postmaster:'
+    line: "postmaster: root"
+  notify:
+    - new aliases
+    - restart postfix
+
+- name: "Enable postfix service"
+  ansible.builtin.systemd_service:
+    name: "postfix"
+    state: "started"
+    enabled: "true"

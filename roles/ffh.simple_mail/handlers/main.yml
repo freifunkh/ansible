@@ -1,0 +1,16 @@
+---
+
+- name: postmap sasl_passwd
+  ansible.builtin.command: >
+    postmap {{ postfix_sasl_passwd_file }}
+  changed_when: true
+
+- name: restart postfix
+  ansible.builtin.systemd_service:
+    name: postfix
+    state: restarted
+
+- name: new aliases
+  ansible.builtin.command: >
+    /usr/bin/newaliases
+  changed_when: true

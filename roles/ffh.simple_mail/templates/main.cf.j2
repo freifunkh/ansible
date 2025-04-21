@@ -1,0 +1,36 @@
+# {{ ansible_managed }}
+
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+append_dot_mydomain = no
+#delay_warning_time = 4h
+readme_directory = no
+compatibility_level = 3.6
+
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_security_level=may
+
+smtp_tls_CApath=/etc/ssl/certs
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtp_tls_security_level = encrypt
+smtp_tls_protocols = !SSLv2, !SSLv3
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:{{ postfix_sasl_passwd_file }}
+smtp_sasl_security_options = noanonymous
+
+smtp_use_tls = yes
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+
+myhostname = {{ postfix_hostname }}
+alias_maps = hash:{{ postfix_aliases_file }}
+alias_database = hash:{{ postfix_aliases_file }}
+myorigin = {{ postfix_mailname_file }}
+mydestination = {{ postfix_mydestination | join(', ') }}
+relayhost = [{{ postfix_relayhost }}]:{{ postfix_relayhost_port }}
+mynetworks = {{ postfix_mynetworks | join(' ') }}
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = {{ postfix_inet_interfaces }}
+inet_protocols = all
