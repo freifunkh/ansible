@@ -1,6 +1,6 @@
 ---
 
-admin_authorized: [lemoer, cawi, aiyion, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, codefetch, codefetch_cockroach]
+admin_authorized: [lemoer, cawi, aiyion, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, codefetch, codefetch_cockroach, auto_tonne]
 
 admin_pubkeys:
 - name: lemoer
@@ -45,6 +45,8 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRRj94xMyWfI+aXOva9EVSR7WocKz7YncR8HNQWe3119WSWg9Kzvi97+2LkAchxRA1dBE6e6mEtiMaG5qKDKcKQHgec2seQ4Nq81CfcbLAqkLar25woWZC7s2UjSrZV2hEYujSCYuKcr29lkPfQqTdtWJpmjQnxUCEXU2QM6TmqCEhachuV6wnfo2U2vFCzhnukdG5rq4a/naERtuSDttrUTHJhPhhz802m2GaSWTTdmS3mVDNnc3axqSWFKj8g/T9syID0j25w4czayFzS24cQVjji6IZTMX87UzHGn2Dk5TZA4kzWEQBkCu560ObwqPg7Qt1U5LYFxPfXLN4ZiEuT4j9ZKI2JSWeGrUNKoW1vrQ4lG2S53Wt18YiLQwByTpS3w/2YfFxTkXloXuoq1jhyYq0WgAcU2PDk9LKojvK1Qe2Vk8vzQ+AkkuquY38jluClNhdVlI8jq5MTNw1inKdsMk+dMlBgVsCpExVG8S45Ve4QFGwOcWE8QxpnOS7nT0= auto
 - name: github_actions_auto
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKuHuCmeDV5qdN9hLDCw0RcwuK6nuhThiFxNUTqlsrKN github_actions_deploy
+- name: auto_tonne # used for daily ansible roleoouts
+  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjhQvgixKcKnP348tZoczHrkIrBnFkHPMIdKEdMTY1+ auto_tonne
 - name: janau
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZEN1KwnoQ0L+CWRGJe23hecKV9fCPCZHZZEnjPBuxN JanAu
 - name: kyberio
