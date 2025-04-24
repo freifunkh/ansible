@@ -124,6 +124,14 @@ fermnodes:
     superexitnodes:
     helpernodes:
 
+dockernodes:
+  hosts:
+    evergiven:
+    dali:
+    thetisd:
+    rena:
+    mx1:
+
 batmannodes:
   hosts:
     harvester:
