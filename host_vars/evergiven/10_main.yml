@@ -27,3 +27,12 @@ restic_backup_paths:
 - "/media/docker/" # generic docker stuff
 restic_backup_excludes:
 - "/media/docker/overlay2" # due to jenkins containers
+
+docker_additional_config: |2
+
+      "data-root": "/media/docker/",
+      "userland-proxy": false,
+      "ipv6": true,
+      "fixed-cidr-v6": "fd00:111::/64",
+      "experimental": true,
+      "ip6tables": true
