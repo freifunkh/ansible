@@ -1,2 +1,9 @@
 ---
-# handlers file for ffh.docker-mailserver
+
+- name: restart dms
+  community.docker.docker_compose_v2:
+    project_src: "{{ dms_path_base }}"
+    files:
+    - "docker-compose.yml"
+    state: "restarted"
+  changed_when: true

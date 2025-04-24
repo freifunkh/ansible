@@ -35,6 +35,7 @@
     mode: "0644"
     owner: "root"
     group: "root"
+  notify: restart dms
 
 - name: Deploy Docker Mailserver
   community.docker.docker_compose_v2:
@@ -49,3 +50,24 @@
     mode: "0644"
     owner: "root"
     group: "root"
+  notify: restart dms
+
+- name: Deploy sender_canonical file
+  ansible.builtin.template:
+    src: "sender_canonical.pcre.j2"
+    dest: "{{ dms_path_config }}/sender_canonical.pcre"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: restart dms
+
+- name: Configure sender_canonical_maps
+  ansible.builtin.lineinfile:
+    path: "{{ dms_path_config }}/postfix-main.cf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+    regexp: '^sender_canonical_maps'
+    line: "sender_canonical_maps = pcre:/tmp/docker-mailserver/sender_canonical.pcre"
+    create: true
+  notify: restart dms
