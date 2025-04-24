@@ -7,18 +7,18 @@
 
 - name: Prepare directories
   ansible.builtin.file:
-    path: "{{ item }}"
     state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  with_items:
-    - "{{ dms_path_base }}"
-    - "{{ dms_path_data }}"
-    - "{{ dms_path_state }}"
-    - "{{ dms_path_logs }}"
-    - "{{ dms_path_config }}"
-    - "{{ dms_path_rspamd_override }}"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ dms_path_base }}", owner: "0", group: "0", mode: "0755" }
+    - { name: "{{ dms_path_data }}", owner: "5000", group: "5000", mode: "0755" }
+    - { name: "{{ dms_path_state }}", owner: "0", group: "0", mode: "0755" }
+    - { name: "{{ dms_path_logs }}", owner: "113", group: "0", mode: "0755" }
+    - { name: "{{ dms_path_config }}", owner: "0", group: "0", mode: "0755" }
+    - { name: "{{ dms_path_rspamd_override }}", owner: "0", group: "0", mode: "0755" }
 
 - name: Deploy mailserver.env
   ansible.builtin.template:
