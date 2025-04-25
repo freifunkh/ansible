@@ -20,7 +20,7 @@
     - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.dns_authoritative, tags: dns_authoritative }
-    - { name: ffh.dns_zonenodes, tags: dns_zonenodes }
+    # - { name: ffh.dns_zonenodes, tags: dns_zonenodes }
     - { name: ffh.postfix, tags: postfix }
     - { name: ffh.ntp, tags: ntp }
     # backup
