@@ -1,0 +1,115 @@
+---
+
+- name: Check if cargo is installed
+  shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: yes
+
+- name: Update apt cache if older than 3600 seconds
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - build-essential
+      - gcc
+      - make
+      - pkg-config
+    state: present
+
+- name: Download Installer
+  when: cargo_exists is failed
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: '0755'
+    force: 'yes'
+  tags:
+    - rust
+
+- name: install rust/cargo
+  when: cargo_exists is failed
+  shell: /tmp/sh.rustup.rs -y
+  tags:
+    - rust
+- name: Add cargo bin path to profile
+  become: false
+  lineinfile:
+    path: ~/.profile
+    line: 'source $HOME/.cargo/env'
+    create: yes
+
+- name: Generate firewall config stanza (ferm)
+  register: ferm_changed
+  template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-gluon-node-sense.conf
+  notify: reload ferm
+
+- name: Create working directory
+  ansible.builtin.file:
+    path: /opt/gluon-node-sense/
+    state: directory
+    group: www-data
+
+- name: Create bin directory
+  ansible.builtin.file:
+    path: /opt/gluon-node-sense/bin/
+    state: directory
+    group: www-data
+
+- name: Install and update gluon-node-sense
+  community.general.cargo:
+    locked: true
+    name: gluon-node-sense
+    path: /opt/gluon-node-sense
+    state: latest
+
+- name: Place servicefile
+  notify: Daemon reload
+  template:
+    src: gluon-node-sense.service.j2
+    dest: /etc/systemd/system/gluon-node-sense.service
+
+- name: Enable gluon-node-sense
+  systemd:
+    name: gluon-node-sense
+    state: started
+    enabled: yes
+
+- name: Create GitHub deployment
+  uri:
+    url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ github_token }}"
+      Accept: "application/vnd.github+json"
+    body_format: json
+    body:
+      ref: "main"
+      environment: production
+      auto_merge: false
+      required_contexts: []
+      description: "Deployment via Ansible"
+      environment_url: "https://gluon-node-sense.ffh.zone"
+    status_code: 201
+  register: deployment_response
+
+- name: Mark GitHub deployment as successful
+  uri:
+    url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments/{{ deployment_response.json.id }}/statuses"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ github_token }}"
+      Accept: "application/vnd.github+json"
+    body_format: json
+    body:
+      state: success
+      environment: production
+      log_url: "https://gluon-node-sense.ffh.zone"
+      description: "Ansible deployment complete"
+    status_code: 201
+

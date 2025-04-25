@@ -1,0 +1,21 @@
+[Unit]
+Description=GluonNodeSense
+
+[Service]
+Environment=BIND_PORT=8085
+
+User=www-data
+Group=www-data
+
+PIDFile=/opt/gluon-node-sense/gluon-node-sense.pid
+
+WorkingDirectory=/opt/gluon-node-sense/
+
+ExecStart=/opt/gluon-node-sense/bin/gluon-node-sense server
+
+Type=simple
+Restart=always
+SyslogIdentifier=gluonnodesense
+
+[Install]
+WantedBy=multi-user.target

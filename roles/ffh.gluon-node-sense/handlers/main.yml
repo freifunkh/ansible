@@ -1,0 +1,6 @@
+---
+# handlers file for ffh.gluon-node-sense
+
+- name: "Daemon reload"
+  systemd:
+    daemon_reload: "yes"

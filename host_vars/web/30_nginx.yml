@@ -9,6 +9,14 @@ nginx_sites:
       proxy_forward_url: http://127.0.0.1:8084/
       proxy_buffering: false
       proxy_pass_host: true
+- domain: gluon-node-sense.ffh.zone
+  tls: true
+  locations:
+    - location: /
+      type: proxy
+      proxy_forward_url: http://127.0.0.1:8085/
+      proxy_buffering: false
+      proxy_pass_host: true
 - domain: raw-firmware.ffh.zone
   root: /var/www/domains/raw-firmware.ffh.zone
   tls: true
