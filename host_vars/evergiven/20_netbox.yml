@@ -2,10 +2,9 @@
 
 netbox_netbox_image: "netboxcommunity/netbox:v4.0"
 netbox_postgres_image: "postgres:14-alpine"
-netbox_redis_image: "redis:7-alpine"
 
 netbox_port: null
-netbox_proxy_network_name: "proxy"
+netbox_additional_network_names: [ "proxy" ]
 netbox_admin_email: "noc@hannover.freifunk.net"
 netbox_login_required: "true"
 
