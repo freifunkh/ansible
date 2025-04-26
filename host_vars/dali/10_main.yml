@@ -22,7 +22,6 @@ authentik_outpost_host: "https://auth.ffh.zone"
 
 esphome_path: "/opt/esphome"
 esphome_path_config: "/media/docker/esphome/config"
-esphome_user: "admin"
 esphome_fqdn: "steckdosen.ffh.zone"
 
 homeassistant_path: "/opt/homeassistant"
