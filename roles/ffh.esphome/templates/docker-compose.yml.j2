@@ -8,9 +8,11 @@ services:
     restart: always
     privileged: true
     environment:
-      - USERNAME={{ esphome_user }}
-      - PASSWORD={{ esphome_pass }}
       - ESPHOME_DASHBOARD_USE_PING=true
+{% if esphome_pass is defined %}
+      - USERNAME={{ esphome_user | default("") }}
+      - PASSWORD={{ esphome_pass | default("") }}
+{% endif %}
     networks:
       - proxy
     labels:
