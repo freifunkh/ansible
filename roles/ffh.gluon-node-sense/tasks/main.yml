@@ -81,6 +81,7 @@
     enabled: yes
 
 - name: Create GitHub deployment
+  when: not ansible_check_mode
   uri:
     url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments"
     method: POST
@@ -99,6 +100,7 @@
   register: deployment_response
 
 - name: Mark GitHub deployment as successful
+  when: not ansible_check_mode
   uri:
     url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments/{{ deployment_response.json.id }}/statuses"
     method: POST
