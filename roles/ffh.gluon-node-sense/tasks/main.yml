@@ -36,6 +36,7 @@
   shell: /tmp/sh.rustup.rs -y
   tags:
     - rust
+
 - name: Add cargo bin path to profile
   become: false
   lineinfile:
@@ -68,6 +69,7 @@
     name: gluon-node-sense
     path: /opt/gluon-node-sense
     state: latest
+  notify: "Restart gluon-node-sense"
 
 - name: Place servicefile
   notify: Daemon reload
@@ -80,6 +82,7 @@
     name: gluon-node-sense
     state: started
     enabled: yes
+  notify: "Restart gluon-node-sense"
 
 - name: Create GitHub deployment
   when: not ansible_check_mode

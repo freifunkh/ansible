@@ -4,3 +4,9 @@
 - name: "Daemon reload"
   systemd:
     daemon_reload: "yes"
+  notify: "Restart gluon-node-sense"
+
+- name: "Restart gluon-node-sense"
+  service:
+    name: "gluon-node-sense"
+    state: "restarted"
