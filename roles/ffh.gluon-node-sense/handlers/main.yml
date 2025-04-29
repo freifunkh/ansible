@@ -1,12 +1,12 @@
 ---
 # handlers file for ffh.gluon-node-sense
 
-- name: "Daemon reload"
-  systemd:
+- name: "reload systemd daemon"
+  ansible.builtin.systemd_service:
     daemon_reload: "yes"
-  notify: "Restart gluon-node-sense"
+  notify: "restart gluon-node-sense"
 
-- name: "Restart gluon-node-sense"
-  service:
+- name: "restart gluon-node-sense"
+  ansible.builtin.systemd_service:
     name: "gluon-node-sense"
     state: "restarted"

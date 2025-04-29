@@ -1,15 +1,10 @@
 ---
 
 - name: Check if cargo is installed
-  shell: command -v cargo
+  ansible.builtin.shell: command -v cargo
   register: cargo_exists
   ignore_errors: yes
   changed_when: false
-
-- name: Update apt cache if older than 3600 seconds
-  ansible.builtin.apt:
-    update_cache: yes
-    cache_valid_time: 3600
 
 - name: Install required packages
   ansible.builtin.apt:
@@ -20,10 +15,11 @@
       - make
       - pkg-config
     state: present
+    update_cache: yes
 
 - name: Download Installer
   when: cargo_exists is failed
-  get_url:
+  ansible.builtin.get_url:
     url: https://sh.rustup.rs
     dest: /tmp/sh.rustup.rs
     mode: '0755'
@@ -33,20 +29,19 @@
 
 - name: install rust/cargo
   when: cargo_exists is failed
-  shell: /tmp/sh.rustup.rs -y
+  ansible.builtin.shell: /tmp/sh.rustup.rs -y
   tags:
     - rust
 
 - name: Add cargo bin path to profile
   become: false
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: ~/.profile
     line: 'source $HOME/.cargo/env'
     create: yes
 
 - name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
+  ansible.builtin.template:
     src: ferm.conf.j2
     dest: /etc/ferm/conf.d/50-gluon-node-sense.conf
   notify: reload ferm
@@ -69,24 +64,24 @@
     name: gluon-node-sense
     path: /opt/gluon-node-sense
     state: latest
-  notify: "Restart gluon-node-sense"
+  notify: restart gluon-node-sense
 
 - name: Place servicefile
-  notify: Daemon reload
-  template:
+  ansible.builtin.template:
     src: gluon-node-sense.service.j2
     dest: /etc/systemd/system/gluon-node-sense.service
+  notify: reload systemd daemon
 
 - name: Enable gluon-node-sense
   systemd:
     name: gluon-node-sense
     state: started
     enabled: yes
-  notify: "Restart gluon-node-sense"
+  notify: restart gluon-node-sense
 
 - name: Create GitHub deployment
   when: not ansible_check_mode
-  uri:
+  ansible.builtin.uri:
     url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments"
     method: POST
     headers:
@@ -105,7 +100,7 @@
 
 - name: Mark GitHub deployment as successful
   when: not ansible_check_mode
-  uri:
+  ansible.builtin.uri:
     url: "https://api.github.com/repos/freifunkh/gluon-node-sense/deployments/{{ deployment_response.json.id }}/statuses"
     method: POST
     headers:
@@ -118,4 +113,3 @@
       log_url: "https://gluon-node-sense.ffh.zone"
       description: "Ansible deployment complete"
     status_code: 201
-
