@@ -22,6 +22,7 @@
     - { name: ffh.apt, tags: apt }
     - { name: ffh.babeld, tags: babeld }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     - { name: ffh.apinger, tags: apinger }
     - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.iperf3, tags: iperf3 }

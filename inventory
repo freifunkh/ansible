@@ -151,13 +151,6 @@ proxmoxes:
     wissing:
     scheuer:
 
-zabbixproxies:
-  hosts:
-    rdns:
-    leintor:
-    db:
-    thetisd:
-
 buildclouds:
   hosts:
     gatrobe:

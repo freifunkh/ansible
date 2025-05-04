@@ -38,6 +38,7 @@
     - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.zabbix-sql, tags: zabbix-sql }
+    - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     # backup
     - { name: ffh.restic, tags: restic }
     # attention
