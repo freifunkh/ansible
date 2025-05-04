@@ -25,7 +25,7 @@
 
 - name: "Add Zabbix Repo"
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('6.0') }}/debian {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version }}/debian {{ ansible_distribution_release }} main"
     state: "present"
     filename: "zabbix"
 

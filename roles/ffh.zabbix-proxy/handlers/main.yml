@@ -2,12 +2,12 @@
 # handlers file for ffh.zabbix-proxy
 
 - name: "restart zabbix-proxy"
-  systemd:
+  ansible.builtin.systemd_service:
     name: "zabbix-proxy"
     state: "restarted"
 
 - name: "reload ferm"
-  systemd:
+  ansible.builtin.systemd_service:
     name: "ferm"
     state: "reloaded"
-  when: "inventory_hostname in groups['fermnodes']"
+  when: ferm_enabled
