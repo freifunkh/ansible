@@ -161,6 +161,7 @@ dns_authoritative_toplevel:
        "db.ffh.zone. IN A 45.12.203.68",
        "db.ffh.zone. IN AAAA 2a0a:4587:2031:10c::db",
        "zbx-fra.ffh.zone. IN CNAME db.ffh.zone.",
+       "zbx-plugs.ffh.zone. IN CNAME dali.ffh.zone.",
 
        "vds.ffh.zone. IN A 45.12.203.69",
        "vds.ffh.zone. IN AAAA 2a0a:4587:2031:10c::309",

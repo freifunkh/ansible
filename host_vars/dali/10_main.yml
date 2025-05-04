@@ -34,6 +34,7 @@ vaultwarden_fqdn: "vault.ffh.zone"
 
 zabbix_agent_server: "zbx-fra.ffh.zone"
 zabbix_agent_server_active: "zbx-fra.ffh.zone"
+zabbix_proxy_hostname: "zbx-plugs.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"
