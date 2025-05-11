@@ -1,5 +1,25 @@
 ---
-- name: Ensure all_knowing_dns is installed
-  import_tasks:
-    file: all_knowing_dns.yml
-  tags: all_knowing_dns
+
+- name: Ensure all-knowing-dns is installed
+  ansible.builtin.apt:
+    name: all-knowing-dns
+    state: present
+
+- name: Ensure all-knowing-dns is configured
+  ansible.builtin.template:
+    src: all-knowing-dns.conf.j2
+    dest: /etc/all-knowing-dns.conf
+    mode: 0644
+  notify: Restart all-knowing-dns
+
+- name: Ensure all-knowing-dns service is enabled and started
+  ansible.builtin.systemd_service:
+    name: all-knowing-dns
+    enabled: yes
+    state: started
+
+- name: Generate firewall config stanza (ferm)
+  ansible.builtin.template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-all-knowing-dns.conf
+  notify: reload ferm

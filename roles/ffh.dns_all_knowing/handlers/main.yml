@@ -1,5 +1,5 @@
 ---
 - name: Restart all-knowing-dns
-  service:
+  ansible.builtin.systemd_service:
     name: all-knowing-dns
     state: restarted

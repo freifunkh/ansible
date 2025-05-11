@@ -1,0 +1,24 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "true"
+# Configuration file for AllKnowingDNS v1.7
+
+{% for akd_ip in all_knowing_dns.listen %}
+listen {{ akd_ip }}
+{% endfor %}
+
+{%- for ip6, host in all_knowing_dns.static_hosts.items() | default( [] ) %}
+
+network {{ ip6 }}/128
+        resolves to {{ host }}
+{%- endfor %}
+{%- for mesh_prefix, sn in all_knowing_dns.mesh_prefixes.items() | default( [] ) %}
+	{% for domain in domains | default( [] ) %}
+
+network {{ mesh_prefix }}:{{ sn }}{{ domain.id }}::/64
+	resolves to client-%DIGITS%.sn{{ sn }}.d{{ domain.id }}.c.ffh.zone
+	{%- endfor %}
+{%- endfor %}
+
+{% for mesh_prefix, sn in all_knowing_dns.mesh_prefixes.items() | default( [] ) %}
+network {{ mesh_prefix }}::/48
+	resolves to unknown-%DIGITS%.sn{{ sn }}.d00.c.ffh.zone
+{% endfor %}
