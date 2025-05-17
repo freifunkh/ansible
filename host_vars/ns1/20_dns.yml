@@ -147,6 +147,9 @@ dns_authoritative_toplevel:
        "wissing.ffh.zone. IN A 194.50.19.34",
        "wissing.ffh.zone. IN AAAA 2a0f:5707:ab80:669::1",
 
+       "dns2.ffh.zone. IN A 45.12.203.70",
+       "dns2.ffh.zone. IN AAAA 2a0a:4587:2031:10c::53",
+
        "dali.ffh.zone. IN A 45.12.203.66",
        "dali.ffh.zone. IN AAAA 2a0a:4587:2031:10c::66",
        "steckdosen.ffh.zone. IN CNAME dali.ffh.zone.",
@@ -174,6 +177,8 @@ dns_authoritative_toplevel:
        # Hamburg
        "scheuer.ffh.zone. IN A 213.128.152.209",
        "scheuer.ffh.zone. IN AAAA 2001:868:100:9600::4",
+
+       "dns3.ffh.zone. IN AAAA 2a0a:4587:2032:10c::53",
 
        "thetisd.ffh.zone. IN A 45.12.203.130",
        "thetisd.ffh.zone. IN AAAA 2a0a:4587:2032:10c::130",
