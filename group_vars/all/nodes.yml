@@ -29,11 +29,11 @@ exitnodes:
     - 2a0a:4587:2030::/48
     - 45.12.203.11/32
 supernodes:
-  sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn06.s.ffh.zone./AAAA') }}" }
-  sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}" }
-  sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}" }
-  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}" }
-  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}" }
+  sn06: { id: 6, ip4: "{{ lookup('dig', 'sn06.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn06.s.ffh.zone./AAAA') }}", dns_client_prefix: "2a0a:4587:2032:6" }
+  sn07: { id: 7, ip4: "{{ lookup('dig', 'sn07.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn07.s.ffh.zone./AAAA') }}", dns_client_prefix: "2a0a:4587:2031:7" }
+  sn08: { id: 8, ip4: "{{ lookup('dig', 'sn08.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn08.s.ffh.zone./AAAA') }}", dns_client_prefix: "2a0a:4587:2030:8" }
+  sn09: { id: 9, ip4: "{{ lookup('dig', 'sn09.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn09.s.ffh.zone./AAAA') }}", dns_client_prefix: "2a02:790:ff:9" }
+  sn10: { id: 10, ip4: "{{ lookup('dig', 'sn10.s.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'sn10.s.ffh.zone./AAAA') }}", dns_client_prefix: "2a02:790:ff:10" }
 helpernodes:
   harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}" }
   db: { id: 2, ip4: "{{ lookup('dig', 'db.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'db.ffh.zone./AAAA') }}" }

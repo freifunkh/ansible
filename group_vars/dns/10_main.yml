@@ -1,0 +1,36 @@
+---
+
+knot_remotes: |
+  remote:
+    - id: dns1_remote
+      address: [2a0a:4587:2030:10c::16]
+      key: ffh_core_key
+    - id: dns2_remote
+      address: [2a0a:4587:2031:10c::53]
+      key: ffh_core_key
+    - id: dns3_remote
+      address: [2a0a:4587:2032:10c::53]
+      key: ffh_core_key
+
+knot_acls: |
+  acl:
+    - id: ffh_core_acl
+      action: [ update, transfer, notify ]
+      key: ffh_core_key
+    - id: ffh_nodes_acl
+      address: [2a0a:4587:2030:10c::51a1, 45.12.203.14]
+      action: [ transfer, update ]
+      key: ffh_nodes_key
+    - id: ffh_update_acl
+      action: update
+      key: ffh_update_key
+
+knot_zone_serial: 1747399999
+knot_synthrecord_prefix: "freifunk-"
+
+dns_authoritative_mname: "dns1.ffh.zone."
+dns_authoritative_rname: "noc.ffh.zone."
+dns_authoritative_nameserver:
+- nameserver: "dns1.ffh.zone."
+- nameserver: "dns2.ffh.zone."
+- nameserver: "dns3.ffh.zone."
