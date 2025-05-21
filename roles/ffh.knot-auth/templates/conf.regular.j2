@@ -1,0 +1,13 @@
+zone:
+{% for dom in dns_authoritative_toplevel %}
+  - domain: "{{ dom.domain }}"
+    acl: ffh_core_acl
+{% if knot_secondary_dns %}
+    master: dns1_remote
+{% else %}
+    zonefile-sync: 0
+    zonefile-load: whole
+    journal-content: changes
+    notify: [dns2_remote, dns3_remote]
+{% endif %}
+{% endfor %}

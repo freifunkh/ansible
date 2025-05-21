@@ -1,0 +1,10 @@
+---
+# handlers file for knot-auth
+
+- name: "Restart knot"
+  ansible.builtin.systemd_service:
+    name: "knot"
+    state: "restarted"
+
+- name: "Reload knot zones"
+  ansible.builtin.shell: "/usr/sbin/knotc reload"

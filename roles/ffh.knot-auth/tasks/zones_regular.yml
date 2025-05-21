@@ -1,0 +1,33 @@
+---
+
+- name: "Check for existing zonefile"
+  ansible.builtin.stat:
+    path: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+  register: zonefile_stat
+
+- name: "{{ item.domain }}: slurp zonefile"
+  ansible.builtin.slurp:
+    src: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+  register: zonefile
+  when: zonefile_stat.stat.exists
+
+- name: "{{ item.domain }}: generate zone (dry-run)"
+  ansible.builtin.template:
+    src: zone.regular.j2
+    dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+  vars:
+    knot_zone_serial: "{{ zonefile.content | b64decode | regex_search('(\\d+)\\s+;\\s+serial.*', '\\1') | first }}"
+    knot_zone_ttl: 600
+  check_mode: yes
+  register: generated_zone_dry
+  when: zonefile_stat.stat.exists
+
+- name: "{{ item.domain }}: generate zone"
+  notify: "Reload knot zones"
+  ansible.builtin.template:
+    src: zone.regular.j2
+    dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+  vars:
+    knot_zone_serial: "{{ hostvars[ansible_play_hosts_all.0].ansible_facts.date_time.epoch }}"
+    knot_zone_ttl: 600
+  when: generated_zone_dry is changed or not zonefile_stat.stat.exists

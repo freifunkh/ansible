@@ -1,0 +1,11 @@
+---
+# tasks file for knot-auth
+
+- name: Install Knot
+  include_tasks: install.yml
+
+- name: Create Zonefiles
+  include_tasks: zones.yml
+
+- name: Configure Knot
+  include_tasks: configure.yml

@@ -1,0 +1,10 @@
+---
+
+- name: "{{ item.domain }}: generate dynamic zone"
+  notify: "Reload knot zones"
+  ansible.builtin.template:
+    src: zone.dynamic.j2
+    dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+    force: false
+  vars:
+    knot_zone_ttl: 180

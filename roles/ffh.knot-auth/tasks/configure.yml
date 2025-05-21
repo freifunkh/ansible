@@ -1,0 +1,37 @@
+---
+
+- name: Configure regular zones
+  notify: "Restart knot"
+  ansible.builtin.template:
+    src: "conf.regular.j2"
+    dest: "/etc/knot/zones-regular.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Configure dynamic zones
+  notify: "Restart knot"
+  ansible.builtin.template:
+    src: "conf.dynamic.j2"
+    dest: "/etc/knot/zones-dynamic.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Configure synthed zones
+  notify: "Restart knot"
+  ansible.builtin.template:
+    src: "conf.synthed.j2"
+    dest: "/etc/knot/zones-synthed.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Configure Knot main config file
+  notify: "Restart knot"
+  ansible.builtin.template:
+    src: "knot.conf.j2"
+    dest: "/etc/knot/knot.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"

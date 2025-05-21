@@ -1,0 +1,23 @@
+---
+# defaults file for knot-auth
+
+knot_secondary_dns: false
+knot_loglevel_any: "info"
+knot_storage_path: "/var/lib/knot"
+
+knot_interfaces:
+  - 127.0.0.1@53
+  - ::1@53
+
+knot_synthrecord_prefix: "client-"
+
+knot_zone_ttl: 600
+knot_zone_serial: 4711
+
+knot_modules: ""
+knot_remotes: ""
+knot_acls: ""
+
+dns_authoritative_toplevel: []
+dns_authoritative_toplevel_dyn: []
+dns_authoritative_nameserver: []

@@ -1,0 +1,13 @@
+$TTL {{ knot_zone_ttl }}
+$ORIGIN {{ item.domain }}.
+@           IN  SOA     {{ dns_authoritative_mname }} {{ dns_authoritative_rname }} 0 3600 900 604800 180
+
+; {{ ansible_managed }}
+
+{% for ns in dns_authoritative_nameserver %}
+@           IN  NS      {{ ns.nameserver }}
+{% endfor %}
+
+{% for entry in item.records | default([]) %}
+{{ entry }}
+{% endfor %}

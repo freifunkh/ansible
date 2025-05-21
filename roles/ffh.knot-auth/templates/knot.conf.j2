@@ -1,0 +1,54 @@
+# This is a configuration file for Knot DNS.
+# See knot.conf(5) or refer to the server documentation.
+
+# {{ ansible_managed }}
+
+server:
+    rundir: "/run/knot"
+    user: knot:knot
+    automatic-acl: on
+{% for addr in knot_interfaces %}
+    listen: {{ addr }}
+{% endfor %}
+
+log:
+  - target: syslog
+    any: {{ knot_loglevel_any }}
+
+database:
+    storage: "{{ knot_storage_path }}"
+
+template:
+  - id: default
+    storage: "{{ knot_storage_path }}"
+    file: "%s.zone"
+    semantic-checks: on
+{% if knot_secondary_dns %}
+    zonefile-sync: 0
+    zonefile-load: whole
+    journal-content: changes
+{% endif %}
+  - id: template_synth
+    storage: "{{ knot_storage_path }}"
+    file: "%s.zone"
+    semantic-checks: on
+    zonefile-load: difference-no-serial
+    journal-content: all
+
+key:
+{% for key in knot_keys %}
+  - id: {{ key.id }}
+{% if 'algorithm' in key %}
+    algorithm: {{ key.algorithm }}
+{% endif %}
+{% if 'secret' in key %}
+    secret: {{ key.secret }}
+{% endif %}
+{% endfor %}
+
+{{ knot_remotes }}
+{{ knot_acls }}
+
+include: "zones-regular.conf"
+include: "zones-dynamic.conf"
+include: "zones-synthed.conf"

@@ -1,0 +1,21 @@
+mod-synthrecord:
+{% for supernode in supernodes | dict2items %}
+{% for domain in domains %}
+  - id: {{ supernode.key }}-d{{ domain.id }}
+    type: reverse
+    prefix: {{ knot_synthrecord_prefix }}
+    origin: d{{ domain.id }}.c.ffh.zone
+    ttl: {{ knot_zone_ttl }}
+    network: {{ supernode.value.dns_client_prefix }}{{ domain.id }}::/64
+{% endfor %}
+{% endfor %}
+
+zone:
+{% for supernode in supernodes | dict2items %}
+{% for domain in domains %}
+  - domain: "{{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}"
+    file: {{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}zone
+    module: mod-synthrecord/{{ supernode.key }}-d{{ domain.id }}
+    template: template_synth
+{% endfor %}
+{% endfor %}

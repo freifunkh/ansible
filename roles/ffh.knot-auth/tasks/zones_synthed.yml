@@ -1,0 +1,15 @@
+---
+
+- name: Template reverse dns zone file for {{ supernode.key }}
+  notify: "Reload knot zones"
+  ansible.builtin.template:
+    src: "zone.synthed.j2" 
+    dest: "{{ knot_storage_path }}/{{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}zone"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  vars:
+    origin: "{{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}"
+  loop: "{{ domains | default([]) }}"
+  loop_control:
+    loop_var: "domain"

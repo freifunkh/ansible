@@ -1,0 +1,32 @@
+---
+
+- name: Add Knot repo key
+  ansible.builtin.get_url:
+    url: "https://deb.knot-dns.cz/apt.gpg"
+    dest: "/etc/apt/keyrings/knot.gpg"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  when: "not ansible_check_mode"
+
+- name: Add Knot repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot/ {{ ansible_lsb.codename }} main"
+    state: "present"
+
+- name: Install Knot
+  ansible.builtin.apt:
+    name: knot
+    update_cache: "yes"
+  notify: "Restart knot"
+
+- name: Generate firewall config stanza (ferm)
+  ansible.builtin.template:
+    src: ferm.conf.j2
+    dest: /etc/ferm/conf.d/50-knot.conf
+  notify: reload ferm
+
+- name: Enable Knot service
+  ansible.builtin.systemd_service:
+    name: knot
+    enabled: true

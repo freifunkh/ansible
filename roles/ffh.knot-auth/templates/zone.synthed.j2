@@ -1,0 +1,15 @@
+$TTL {{ knot_zone_ttl }}
+$ORIGIN {{ origin }}
+@           IN  SOA     {{ dns_authoritative_mname }} {{ dns_authoritative_rname }} (
+                {{ knot_zone_serial }} ; serial
+                4h      ; slave refresh interval
+                1h      ; slave retry interval
+                2w      ; slave copy expire time
+                1h      ; NXDOMAIN cache time
+                )
+
+; {{ ansible_managed }}
+
+{% for ns in dns_authoritative_nameserver %}
+@           IN  NS      {{ ns.nameserver }}
+{% endfor %}

@@ -1,0 +1,17 @@
+---
+
+- name: Create regular zonefiles
+  include_tasks: zones_regular.yml
+  with_items: "{{ dns_authoritative_toplevel }}"
+  when: not knot_secondary_dns
+
+- name: Create dynamic zonefiles
+  include_tasks: zones_dynamic.yml
+  with_items: "{{ dns_authoritative_toplevel_dyn }}"
+  when: not knot_secondary_dns
+
+- name: Create synthed zonefiles
+  include_tasks: zones_synthed.yml
+  loop: "{{ supernodes | dict2items }}"
+  loop_control:
+    loop_var: "supernode"
