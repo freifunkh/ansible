@@ -1,0 +1,29 @@
+---
+
+- hosts: dns
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
+    - name: "Import pre_task etckeeper"
+      import_tasks: "include/etckeeper_pre.yml"
+      tags: [always]
+  roles:
+    # general
+    - { name: ffh.networkd, tags: networkd }
+    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.simple_mail, tags: simple_mail }
+    - { name: ffh.apt, tags: apt }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.crowdsec, tags: crowdsec }
+    # special
+    - { name: ffh.knot-auth, tags: knot-auth }
+    # backup
+    - { name: ffh.restic, tags: restic }
+  post_tasks:
+    - name: "Import post_task etckeeper"
+      import_tasks: "include/etckeeper_post.yml"
+      tags: [always]

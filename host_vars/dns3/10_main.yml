@@ -1,0 +1,28 @@
+---
+
+servername: dns3
+fqdn: "dns3.ffh.zone"
+
+networkd_configures:
+- iface: lo
+  addresses:
+    - 127.0.0.1/24
+    - ::1/128
+  no_radv_accept: true
+- iface: ens18
+  addresses:
+    - 2a0a:4587:2032:10c::53/64
+  gateway6: 2a0a:4587:2032:10c::1
+  dns_server:
+    - '2001:678:ed0:f000::'
+  no_radv_accept: true
+
+knot_interfaces:
+  - 2a0a:4587:2032:10c::53@53
+knot_secondary_dns: true
+
+restic_backup_paths:
+- /etc/
+
+zabbix_agent_server: "zbx-ham.ffh.zone"
+zabbix_agent_server_active: "zbx-ham.ffh.zone"
