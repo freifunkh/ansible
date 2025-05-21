@@ -1,0 +1,7 @@
+[Unit]
+Description=Export nodes.json hosts to DNS service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/nodes-to-dns/updatens.py
+EnvironmentFile=/opt/nodes-to-dns/.env

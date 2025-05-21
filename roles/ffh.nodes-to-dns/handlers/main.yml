@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file
+
+- name: Restart nodes-to-dns
+  ansible.builtin.systemd_service:
+    name: nodes-to-dns.timer
+    state: restarted
+    daemon-reload: true

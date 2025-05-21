@@ -1,0 +1,49 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file
+
+- name: "Install dependencies"
+  ansible.builtin.apt:
+    pkg:
+    - "git"
+    - "python3-dnspython"
+    - "python3-dns"
+
+- name: Clone update-utils
+  ansible.builtin.git:
+    repo: "https://github.com/1977er/update-utils.git"
+    dest: /opt/nodes-to-dns
+    accept_hostkey: true
+    single_branch: true
+
+- name: Configure update-utils via .env
+  notify: Restart nodes-to-dns
+  ansible.builtin.template:
+    src: env.j2
+    dest: /opt/nodes-to-dns/.env
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Generate systemd service file
+  notify: Restart nodes-to-dns
+  ansible.builtin.template:
+    src: nodes-to-dns.service.j2
+    dest: /etc/systemd/system/nodes-to-dns.service
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Generate systemd timer file
+  notify: Restart nodes-to-dns
+  ansible.builtin.template:
+    src: nodes-to-dns.timer.j2
+    dest: /etc/systemd/system/nodes-to-dns.timer
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable systemd timer
+  ansible.builtin.systemd_service:
+    name: "nodes-to-dns.timer"
+    enabled: true

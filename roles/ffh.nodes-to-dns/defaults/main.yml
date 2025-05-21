@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file
+
+updatens_zone: "n.example.com."
+updatens_nodes_url: "https://harvester.example.com/api/nodes.json"
+updatens_target: "dns1.example.com"
+updatens_key_name: "my_key_name"
+updatens_key_algo: "hmac-sha256"
+updatens_key_secret: "secret"
+updatens_filter_addr: "f"
+updatens_filter_invert: "0"
