@@ -27,6 +27,7 @@
     - { name: ffh.grafana, tags: grafana }
     - { name: ffh.yanic, tags: yanic }
     - { name: ffh.nginx, tags: nginx }
+    - { name: ffh.nodes-to-dns, tags: nodes-to-dns }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # Backups
     - { name: ffh.restic, tags: restic }

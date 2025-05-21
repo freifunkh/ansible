@@ -1,0 +1,10 @@
+---
+
+updatens_zone: "n.ffh.zone."
+updatens_nodes_url: "https://harvester.ffh.zone/api/nodes.json"
+updatens_target: "dns1.ffh.zone"
+updatens_key_name: "ffh_nodes_key"
+updatens_key_algo: "hmac-sha256"
+updatens_filter_addr: "2a0a:4587:2030:"
+updatens_filter_invert: "0"
+# updatens_key_secret in group_vars/all/10_vault.misc.yml
