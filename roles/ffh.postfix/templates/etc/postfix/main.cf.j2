@@ -35,16 +35,16 @@ mydestination = mail.ffh.zone
 relayhost = 
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 {% for hostname,item in supernodes.items() %}
- {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+ {{ (item.ip4+'/32 ') if item.ip4 is defined }}{{ ('['+item.ip6+']/128') if item.ip6 is defined }}
 {% endfor %}
 {% for hostname,item in exitnodes.items() %}
- {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+ {{ (item.ip4+'/32 ') if item.ip4 is defined }}{{ ('['+item.ip6+']/128') if item.ip6 is defined }}
 {% endfor %}
 {% for hostname,item in helpernodes.items() %}
- {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+ {{ (item.ip4+'/32 ') if item.ip4 is defined }}{{ ('['+item.ip6+']/128') if item.ip6 is defined }}
 {% endfor %}
 {% for hostname,item in proxmoxnodes.items() %}
- {{ item.ip4 | default("127.0.0.1") }}/32 [{{ item.ip6 | default("::1") }}]/128
+ {{ (item.ip4+'/32 ') if item.ip4 is defined }}{{ ('['+item.ip6+']/128') if item.ip6 is defined }}
 {% endfor %}
 
 mailbox_size_limit = 0
