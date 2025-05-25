@@ -156,7 +156,6 @@ dns_authoritative_toplevel:
        "rdns.ffh.zone. IN A 45.12.203.12",
        "rdns.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
        "cs.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac", # CrowdSec API
-       "c.ffh.zone. IN NS rdns.ffh.zone.",
        "zbx-ber.ffh.zone. IN CNAME tonne.ffh.zone.",
 
        "harvester.ffh.zone. IN A 45.12.203.14",
