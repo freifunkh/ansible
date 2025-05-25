@@ -19,7 +19,7 @@
     - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    - { name: ffh.crowdsec, tags: crowdsec }
+    # - { name: ffh.crowdsec, tags: crowdsec }
     - { name: ffh.ansible, tags: ansible }
 
   tasks:
