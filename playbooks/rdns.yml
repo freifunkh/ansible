@@ -21,7 +21,6 @@
     - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.dns_all_knowing, tags: dns_all_knowing }
-    - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

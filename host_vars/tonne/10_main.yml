@@ -20,3 +20,4 @@ restic_backup_paths:
 
 zabbix_agent_server: "zbx-ber.ffh.zone"
 zabbix_agent_server_active: "zbx-ber.ffh.zone"
+zabbix_proxy_hostname: "zbx-ber.ffh.zone"
