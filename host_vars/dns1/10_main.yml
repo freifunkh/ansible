@@ -12,7 +12,7 @@ networkd_configures:
 - iface: ens18
   addresses:
     - 45.12.203.16/26
-    - 2a0a:4587:2030:10c::16/64
+    - 2a0a:4587:2030:10c::53/64
   gateway6: 2a0a:4587:2030:10c::1
   gateway4: 45.12.203.1
   dns_server:
@@ -23,7 +23,7 @@ networkd_configures:
 
 knot_interfaces:
   - 45.12.203.16@53
-  - 2a0a:4587:2030:10c::16@53
+  - 2a0a:4587:2030:10c::53@53
 
 restic_backup_paths:
 - /etc/

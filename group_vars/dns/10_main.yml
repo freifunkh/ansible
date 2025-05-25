@@ -3,7 +3,7 @@
 knot_remotes: |
   remote:
     - id: dns1_remote
-      address: [2a0a:4587:2030:10c::16]
+      address: [2a0a:4587:2030:10c::53]
       key: ffh_core_key
     - id: dns2_remote
       address: [2a0a:4587:2031:10c::53]
