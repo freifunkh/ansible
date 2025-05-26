@@ -37,7 +37,7 @@ mesh_prefix_len: "48"
 crowdsec_listen_port: "1380"
 crowdsec_listen_addr: "[2a0a:4587:2030:10c::bac]"
 crowdsec_lapi_url: "http://cs.ffh.zone:{{ crowdsec_listen_port }}"
-crowdsec_lapi_host: "rdns"
+crowdsec_lapi_host: "tonne"
 
 authentik_version: "2025.2.1"
 

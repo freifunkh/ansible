@@ -46,8 +46,6 @@ all:
       ansible_host: web.ffh.zone
     vds:
       ansible_host: vds.ffh.zone
-    rdns:
-      ansible_host: rdns.ffh.zone
     db:
       ansible_host: db.ffh.zone
     tonne:
@@ -112,7 +110,6 @@ helpernodes:
     harvester:
     web:
     vds:
-    rdns:
     db:
     tonne:
     evergiven:

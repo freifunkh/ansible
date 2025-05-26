@@ -35,7 +35,6 @@ dns_authoritative_toplevel:
    - domain: "203.12.45.in-addr.arpa"
      records: [
       "11.203.12.45.in-addr.arpa. IN PTR sn08.s.ffh.zone.",
-      "12.203.12.45.in-addr.arpa. IN PTR rdns.ffh.zone.",
       "13.203.12.45.in-addr.arpa. IN PTR evergiven.ffh.zone.",
       "14.203.12.45.in-addr.arpa. IN PTR harvester.ffh.zone.",
       "15.203.12.45.in-addr.arpa. IN PTR tonne.ffh.zone.",
@@ -143,6 +142,7 @@ dns_authoritative_toplevel:
 
        "tonne.ffh.zone. IN A 45.12.203.15",
        "tonne.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac",
+       "cs.ffh.zone.    IN AAAA 2a0a:4587:2030:10c::bac", # CrowdSec API
 
        "evergiven.ffh.zone. IN A 45.12.203.13",
        "evergiven.ffh.zone. IN AAAA 2a0a:4587:2030:10c::d0c1",
@@ -153,9 +153,6 @@ dns_authoritative_toplevel:
        "dns1.ffh.zone. IN A 45.12.203.16",
        "dns1.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
        "rdns.ffh.zone. IN CNAME dns1.ffh.zone.",
-       # "rdns.ffh.zone. IN A 45.12.203.12",
-       # "rdns.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
-       "cs.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac", # CrowdSec API
        "zbx-ber.ffh.zone. IN CNAME tonne.ffh.zone.",
 
        "harvester.ffh.zone. IN A 45.12.203.14",
