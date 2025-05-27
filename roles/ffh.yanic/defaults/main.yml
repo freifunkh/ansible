@@ -1,6 +1,6 @@
 ---
 
-go_version: "1.13.1"
+go_version: "1.24.3"
 go_bin_path: "/usr/local/go/bin/"
 go_path: "/opt/go/"
 yanic_user: "yanic"
@@ -14,5 +14,5 @@ yanic_graveyard_dir: "/opt/graveyard"
 yanic_influx2_enabled: false
 yanic_repo_path: "github.com/FreifunkBremen/yanic"
 yanic_source_path: "{{ go_path }}/src/{{ yanic_repo_path }}"
-yanic_commit: "0ef8d79a125b521a71a0d74f6a84e620f40edf26"
+yanic_commit: "903d833b1cdbcd780992fa7c1e883157411d4ff4"
 legacy_dom0: true
