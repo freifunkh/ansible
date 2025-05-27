@@ -13,17 +13,17 @@ all:
     sn05:
       ansible_host: sn05.s.ffh.zone
     sn06:
-      # ansible_host: sn06.s.ffh.zone
-      ansible_host: 192.168.151.2
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@scheuer.ffh.zone"'
+      ansible_host: sn06.s.ffh.zone
+      # ansible_host: 192.168.151.2
+      # ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@scheuer.ffh.zone"'
     sn07:
-      # ansible_host: sn07.s.ffh.zone
-      ansible_host: 192.168.150.7
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@wissing.ffh.zone"'
+      ansible_host: sn07.s.ffh.zone
+      # ansible_host: 192.168.150.7
+      # ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@wissing.ffh.zone"'
     sn08:
-      # ansible_host: sn08.s.ffh.zone
-      ansible_host: 192.168.149.2
-      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@dobrindt.ffh.zone"'
+      ansible_host: sn08.s.ffh.zone
+      # ansible_host: 192.168.149.2
+      # ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q root@dobrindt.ffh.zone"'
     sn09:
       ansible_host: sn09.s.ffh.zone
     sn10:
