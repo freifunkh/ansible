@@ -1,0 +1,25 @@
+From 4105b359015d8e77469406fb4e686ca07a2b57d4 Mon Sep 17 00:00:00 2001
+From: aiyion.prime <git@aiyionpri.me>
+Date: Tue, 27 May 2025 11:42:25 +0200
+Subject: [PATCH] feat(nodeinfo): Implement owner.authorized
+
+a collection of ssh fingerprints to recognize ones routers
+---
+ data/nodeinfo.go | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/data/nodeinfo.go b/data/nodeinfo.go
+index 4c40f00..2d246b8 100644
+--- a/data/nodeinfo.go
++++ b/data/nodeinfo.go
+@@ -40,6 +40,7 @@ type Network struct {
+ // Owner struct
+ type Owner struct {
+ 	Contact string `json:"contact"`
++	Authorized []string `json:"authorized,omitempty"`
+ }
+ 
+ // System struct
+-- 
+2.39.5
+
