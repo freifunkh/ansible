@@ -1,6 +1,6 @@
 ---
 
-admin_authorized: [lemoer, cawi, aiyion, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, codefetch, codefetch_cockroach, auto_tonne]
+admin_authorized: [lemoer, cawi, aiyion, aiyion-aura, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, codefetch, codefetch_cockroach, auto_tonne]
 
 admin_pubkeys:
 - name: lemoer
@@ -11,6 +11,8 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMEtunV3AKNmKM3NeK5ZERUiQRKtpqFcmbH8ubNPy+zp7MfKiWwypltc5CStA95av76WeFHOQhRC75mjE98HOsyAgx9dgq4KvqSnqPu5j3hQI/BA0kp9a1oC+8DvoqWqrSop5+BPIQp23a0ILjlRsJ/JWfGTOp+4WAk9QEbQ4IBTDa/htMnI6/BYJHpvYB5QxT3BhjPCe00mCAvLIuO5xYwMDi1zl+VHsLjheSRjNku46Ivfgec8FFQVG9f5OTCT86TNWxO63Nvyk275JvyVRZdk8GfBS/tB9t2/JXCIPuEiE4p1VYHLcoGtNz6WLo8LNxQ8upmsMgXI6oX12Zysxnqsyt/L1YpD72rR3MLTdhLFrZO6EVFnzU9rqfx5Nr4krw+vuDx4LQ6sFc/IaCEmPwclgILFZi/zKNyypjRkuT1F3ejjoSkq3CA/WrEwWNVR/vOGbqQjkJ9eZJ6v3771bAbfY6yJOYjhRgDpaF4AUtYBDunOAaw0aEbopOqISzIZ0KydHQ/KAlNxPzWpIVVjvz8eqGTTy/xDggCddOTaj9mt6BeLK/xUyqu0gh/OD8ZqgNmyeNYfkAtV4mfrSV3MiwpJG2ItgMsPUZt8L87e0//s6K2XOZ0Dx3OeZyXdMLzwG+YR6Bj+qKG5TMPw5YKFfmVBxcwDNovthapOKkPT3fhw== manawyrm
 - name: aiyion
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgEfnFJstK12AIskz/oSciCfNstxRWl6Nucz/8gnUo9dIYOrznJsac01KNY7VpYJbrnc9VwbMl0j0y9aFVM8uoHNgyGZmO7bwazyT4ukobVEV7EHImizdlzf8YQF0eqlybAHH3JxhnljLGOmpJTLQAgC8NM5PLMZaOrcUHSDmy5Kavfu7fQEdmVst9xD0LS8D9CXR0ZqyvfFq0f7HfDnWJI7NLtknSr4ensaOBUHsZRkU2bvQZY5hyz0OM+w06AlXJ/6hQe4V6EiEpQOxqyev+1gyr2KBX9JMNyzrNXCxYysiebniMFBcWzkT8F+S0V2B8axkE1ZQ24Mp6KGfnB/qU1wVFFrOEw6OiAPBRv6+KzTsGgXrgCAQZRg6Du7JQNbxrW0sPvRiqYQRQRH/GHFFr/DOs/PBUzcJgnV80PmJGTLWnAg+kd+FBODJWZ+ow9be1248IsEElacolpCGBZRdvicVsNelKMZ6385ZvkhOZZxNwYCQq7O2sAQ6pWrBF4x431x4jDqVDHkcN/5EYi0nkQ5zPt5J9Ola5zCjWgQD0sjUi+aZc0WyVYU4jcy6y4V/VET3fvop1ptr6Q8VAEqkmw1UDOCxTqN+48N90XL3mHXJDTgPfkf20jBOv3+RjEhks+Jrf/LCrHV2MXViuFA0r2gDlP4gfC9Sh9xEWRqA0fQ== aiyion
+- name: aiyion-aura
+  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGZ8/UGAlpRvGjeUnbzoy9jX+Gl7r6KEM85jFfoTmEHq aiyion@aura
 - name: aiyion-iPhone
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII1159KozrKoVLrlpa8fafB4wkRO4GNQVRvNrzovGwgj aiyion-iPhone
 - name: jue
