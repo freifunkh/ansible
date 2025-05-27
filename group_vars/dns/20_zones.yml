@@ -48,7 +48,8 @@ dns_authoritative_toplevel:
       "129.203.12.45.in-addr.arpa. IN PTR sn06.s.ffh.zone.",
       "130.203.12.45.in-addr.arpa. IN PTR thetisd.ffh.zone.",
       "131.203.12.45.in-addr.arpa. IN PTR rena.ffh.zone.",
-      "132.203.12.45.in-addr.arpa. IN PTR mx1.ffh.zone."
+      "132.203.12.45.in-addr.arpa. IN PTR mx1.ffh.zone.",
+      "134.203.12.45.in-addr.arpa. IN PTR dns3.ffh.zone."
      ]
    - domain: "hannover.freifunk.net"
      records: [
@@ -198,6 +199,7 @@ dns_authoritative_toplevel:
        "scheuer.ffh.zone. IN A 213.128.152.209",
        "scheuer.ffh.zone. IN AAAA 2001:868:100:9600::4",
 
+       "dns3.ffh.zone. IN A 45.12.203.134",
        "dns3.ffh.zone. IN AAAA 2a0a:4587:2032:10c::53",
 
        "thetisd.ffh.zone. IN A 45.12.203.130",

@@ -11,14 +11,19 @@ networkd_configures:
   no_radv_accept: true
 - iface: ens18
   addresses:
+    - 45.12.203.134/26
     - 2a0a:4587:2032:10c::53/64
+  gateway4: 45.12.203.129
   gateway6: 2a0a:4587:2032:10c::1
   dns_server:
     - '2001:678:ed0:f000::'
+    - 5.1.66.255
+    - 9.9.9.9
   no_radv_accept: true
 
 knot_interfaces:
   - 2a0a:4587:2032:10c::53@53
+  - 45.12.203.134@53
 knot_secondary_dns: true
 
 restic_backup_paths:
