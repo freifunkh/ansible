@@ -1,0 +1,65 @@
+---
+
+- name: Sync NetBox devices to Zabbix
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - netbox.netbox
+    - community.zabbix
+  vars:
+    - netbox_url: "https://{{ netbox_fqdn }}"
+    - netbox_token: "{{ netbox_token }}"
+    - zabbix_url: "https://{{ zabbix_fqdn }}"
+    - zabbix_user: "{{ zabbix_admin_user }}"
+    - zabbix_password: "{{ zabbix_admin_passwd }}"
+    - zabbix_group: "Linux servers"
+    - zabbix_template: "Template OS Linux"
+
+  tasks:
+    - name: Get devices from NetBox
+      netbox.netbox.netbox_device:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        validate_certs: false
+        state: list
+      register: netbox_devices
+
+    - name: Ensure Zabbix host group exists
+      community.zabbix.zabbix_hostgroup:
+        server_url: "{{ zabbix_url }}"
+        login_user: "{{ zabbix_user }}"
+        login_password: "{{ zabbix_password }}"
+        name: "{{ zabbix_group }}"
+        state: present
+      register: zabbix_group_result
+
+    - name: Get Zabbix template ID
+      community.zabbix.zabbix_template_info:
+        server_url: "{{ zabbix_url }}"
+        login_user: "{{ zabbix_user }}"
+        login_password: "{{ zabbix_password }}"
+        name: "{{ zabbix_template }}"
+      register: zabbix_template_info
+
+    - name: Create/update Zabbix hosts from NetBox devices
+      community.zabbix.zabbix_host:
+        server_url: "{{ zabbix_url }}"
+        login_user: "{{ zabbix_user }}"
+        login_password: "{{ zabbix_password }}"
+        host_name: "{{ item.name }}"
+        visible_name: "{{ item.name }}"
+        interfaces:
+          - type: 1
+            main: 1
+            useip: 1
+            ip: "{{ item.primary_ip4.address.split('/')[0] }}"
+            dns: ""
+            port: 10050
+        groups:
+          - "{{ zabbix_group }}"
+        templates:
+          - templateid: "{{ zabbix_template_info.zabbix_templates[0].templateid }}"
+        state: present
+      loop: "{{ netbox_devices.devices }}"
+      when: item.primary_ip4 is defined
+

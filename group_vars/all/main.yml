@@ -25,6 +25,9 @@ zabbix_agent_server: "zabbix.ffh.zone"
 zabbix_agent_server_active: "zabbix.ffh.zone"
 zabbix_server_version: "7.0"
 zabbix_proxy_server: "vds.ffh.zone"
+zabbix_admin_user: "ansible"
+
+netbox_fqdn: "netbox.ffh.zone"
 
 is_superexitnode: false
 is_supernode: false
