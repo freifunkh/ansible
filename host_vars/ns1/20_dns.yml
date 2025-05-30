@@ -189,6 +189,8 @@ dns_authoritative_toplevel:
 
        "rena.ffh.zone. IN A 45.12.203.131",
        "rena.ffh.zone. IN AAAA 2a0a:4587:2032:10c::131",
+       "build.ffh.zone. IN CNAME rena.ffh.zone.",
+       "build-new.ffh.zone. IN CNAME rena.ffh.zone.",
 
        "mx1.ffh.zone. IN A 45.12.203.132",
        "mx1.ffh.zone. IN AAAA 2a0a:4587:2032:10c::132",
