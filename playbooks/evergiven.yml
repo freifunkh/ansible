@@ -22,7 +22,6 @@
     # specific
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
-    - { name: ansible-role-netbox-docker, tags: netbox }
     - { name: ffh.homer, tags: homer }
     - { name: ffh.authentik, tags: authentik }
     # Backups

@@ -8,6 +8,10 @@ netbox_additional_network_names: [ "proxy" ]
 netbox_admin_email: "noc@hannover.freifunk.net"
 netbox_login_required: "true"
 
+netbox_path_media: "/media/docker/netbox/media"
+netbox_path_postgres: "/media/docker/netbox/postgres"
+netbox_path_valkey: "/media/docker/netbox/valkey"
+
 netbox_container_labels:
   traefik.enable: "true"
   traefik.docker.network: "proxy"
@@ -23,7 +27,7 @@ netbox_container_labels:
 netbox_container_env:
   REMOTE_AUTH_ENABLED: 'true'
   REMOTE_AUTH_BACKEND: 'social_core.backends.open_id_connect.OpenIdConnectAuth'
-  SOCIAL_AUTH_OIDC_ENDPOINT: 'https://auth.ffh.zone/application/o/netbox'
+  SOCIAL_AUTH_OIDC_OIDC_ENDPOINT: 'https://auth.ffh.zone/application/o/netbox'
   SOCIAL_AUTH_OIDC_KEY: '{{ netbox_oidc_key | default("EMPTY") }}'
   SOCIAL_AUTH_OIDC_SECRET: '{{ netbox_oidc_secret | default("EMPTY") }}'
   SOCIAL_AUTH_OIDC_SCOPE: '["openid", "profile", "email", "roles"]'
@@ -31,8 +35,9 @@ netbox_container_env:
 
 netbox_extra_config: |
   from os import environ
-  SOCIAL_AUTH_OIDC_ENDPOINT = environ.get('SOCIAL_AUTH_OIDC_ENDPOINT')
+
+  SOCIAL_AUTH_OIDC_OIDC_ENDPOINT = environ.get('SOCIAL_AUTH_OIDC_OIDC_ENDPOINT')
   SOCIAL_AUTH_OIDC_KEY = environ.get('SOCIAL_AUTH_OIDC_KEY')
   SOCIAL_AUTH_OIDC_SECRET = environ.get('SOCIAL_AUTH_OIDC_SECRET')
-  SOCIAL_AUTH_OIDC_SCOPE = ["openid", "profile", "email", "roles"]
+  SOCIAL_AUTH_OIDC_SCOPE = environ.get('SOCIAL_AUTH_OIDC_SCOPE').split(' ')
   LOGOUT_REDIRECT_URL = environ.get('LOGOUT_REDIRECT_URL')

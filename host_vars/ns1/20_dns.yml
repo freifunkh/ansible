@@ -125,7 +125,6 @@ dns_authoritative_toplevel:
        "evergiven.ffh.zone. IN A 45.12.203.13",
        "evergiven.ffh.zone. IN AAAA 2a0a:4587:2030:10c::d0c1",
        "auth.ffh.zone. IN CNAME evergiven.ffh.zone.",
-       "netbox.ffh.zone. IN CNAME evergiven.ffh.zone.",
        "start.ffh.zone. IN CNAME evergiven.ffh.zone.",
 
        "dns1.ffh.zone. IN A 45.12.203.16",
@@ -185,6 +184,7 @@ dns_authoritative_toplevel:
 
        "thetisd.ffh.zone. IN A 45.12.203.130",
        "thetisd.ffh.zone. IN AAAA 2a0a:4587:2032:10c::130",
+       "netbox.ffh.zone. IN CNAME thetisd.ffh.zone.",
        "zbx-ham.ffh.zone. IN CNAME thetisd.ffh.zone.",
 
        "rena.ffh.zone. IN A 45.12.203.131",

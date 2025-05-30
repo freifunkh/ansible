@@ -21,6 +21,7 @@
     # specific
     - { name: ffh.docker, tags: docker }
     - { name: ffh.traefik, tags: traefik }
+    - { name: ansible-role-netbox-docker, tags: netbox }
     - { name: ffh.authentik-outpost, tags: authentik-outpost }
     - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     # Backups
