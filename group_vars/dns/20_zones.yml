@@ -70,6 +70,7 @@ dns_authoritative_toplevel:
    - domain: "fnorden.de"
      records: [
        "@                         IN MX    10 server.wiemann.cc.",
+       "@                         IN TXT   \"v=spf1 mx ~all\"",
        "fnorden.de.               IN A     45.12.203.67",
        "fnorden.de.               IN AAAA  2a0a:4587:2031:10c::67",
        "www.fnorden.de.           IN CNAME web.ffh.zone."
