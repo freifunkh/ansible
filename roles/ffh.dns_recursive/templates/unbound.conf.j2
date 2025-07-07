@@ -3,10 +3,6 @@ server:
   username: "unbound"
   directory: "/etc/unbound"
 
-{% if dns_recursive_listen_on is defined %}
-  INVALID LEGACY
-{% endif %}
-
   interface: 127.0.0.1
   interface: ::1
 
@@ -28,16 +24,6 @@ server:
 
   private-domain: ffh.zone.
   private-address: fdca:ffee:8::/48
-
-{% if dns_recursive_allowed_private_adresses is defined %}
-  INVALID LEGACY
-{% endif %}
-{% if dns_recursive_allowed_private_domains is defined %}
-  INVALID LEGACY
-{% endif %}
-{% if dns_recursive_allowed_nets is defined %}
-  INVALID LEGACY
-{% endif %}
 
 {% for zone in dns_recursive_allowed_private_rdns_zones %}
     local-zone: "{{ zone }}" transparent
