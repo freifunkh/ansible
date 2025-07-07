@@ -1,4 +1,5 @@
 ---
+
 ansible_user: "root"
 ansible_port: 1337
 
@@ -18,6 +19,11 @@ reboot_on_kernelpanic: true
 dns_searchdomains: "ffh.zone"
 dns_recursive_allowed_private_rdns_zones:
 - "8.0.0.0.e.e.f.f.a.c.d.f.ip6.arpa."
+dns_recursive_acl_allowed_prefix:
+- "10.0.0.0/8"
+- "fdca:ffee:8::/48"
+- "2a02:790:ff::/48"
+- "2a0a:4580:2030::/46"
 
 babeld_build_version: "babeld-1.10"
 
