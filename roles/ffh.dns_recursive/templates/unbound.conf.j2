@@ -17,16 +17,15 @@ server:
   interface: 10.{{ domain.id }}.{{ sn * 10 }}.1
 {% endfor %}
 
-  access-control: 10.0.0.0/8 allow
-  access-control: fdca:ffee:8::/48 allow
-  access-control: 2a02:790:ff::/48 allow
-  access-control: 2001:678:978::/48 allow
+{% for prefix in dns_recursive_acl_allowed_prefix %}
+  access-control: {{ prefix }} allow
+{% endfor %}
 
   private-domain: ffh.zone.
   private-address: fdca:ffee:8::/48
 
 {% for zone in dns_recursive_allowed_private_rdns_zones %}
-    local-zone: "{{ zone }}" transparent
+  local-zone: "{{ zone }}" transparent
 {% endfor %}
 
 remote-control:
