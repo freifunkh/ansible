@@ -25,7 +25,7 @@
     - { name: ffh.authentik-outpost, tags: authentik-outpost }
     - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     # Backups
-    # - { name: ffh.restic, tags: restic }
+    - { name: ffh.restic, tags: restic }
   post_tasks:
     - name: "Import post_task etckeeper"
       import_tasks: "include/etckeeper_post.yml"
