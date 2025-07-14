@@ -1,6 +1,6 @@
 ---
 
-restic_version: "0.16.5"
+restic_version: "0.18.0"
 
 # use "cat /etc/ssh/ssh_host_ecdsa_key.pub" on the backup machine to find it...
 restic_backup_server_ssh_fingerprint: "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGSZGZcmeZG8WD8cCfOO0adEPOAae2XmAw7KxZ/1EcoHQ8LPMwP8wB9MePkQNE3vzfX4JExzRTO8lmLWEoB4PpY= root@tonne"
