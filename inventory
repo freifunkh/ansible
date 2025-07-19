@@ -136,6 +136,24 @@ fermnodes:
     superexitnodes:
     helpernodes:
 
+zabbixproxy:
+  hosts:
+    dali:
+    thetisd:
+    db:
+    tonne:
+
+authentikoutpost:
+  hosts:
+    dali:
+    thetisd:
+    mx1:
+
+mta:
+  hosts:
+    ns1:
+    mx1:
+
 dockernodes:
   hosts:
     evergiven:

@@ -1,0 +1,57 @@
+---
+
+- hosts: dockernodes
+  pre_tasks:
+    - name: "Import pre_tasks: reboot-required.yml"
+      import_tasks: "include/reboot-required.yml"
+      tags: [always]
+    - name: "Import pre_task etckeeper"
+      import_tasks: "include/etckeeper_pre.yml"
+      tags: [always]
+  roles:
+    # general
+    - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.networkd, tags: networkd }
+    - { name: ffh.journald, tags: journald }
+    - { name: ffh.admin, tags: admin }
+    - { name: ffh.cli_tools, tags: cli_tools }
+    - { name: ffh.simple_mail, tags: simple_mail, when: "'mta' not in group_names" }
+    - { name: ffh.apt, tags: apt }
+    - { name: ffh.zabbix-agent, tags: zabbix-agent }
+    - { name: ffh.docker, tags: docker }
+    - { name: ffh.traefik, tags: traefik }
+    - { name: ffh.zabbix-proxy, tags: zabbix-proxy, when: "'zabbixproxy' in group_names" }
+    - { name: ffh.authentik-outpost, tags: authentik-outpost, when: "'authentikoutpost' in group_names" }
+
+- hosts: dali
+  roles:
+    - { name: ffh.esphome, tags: esphome }
+    - { name: ffh.steckdosen, tags: steckdosen }
+    - { name: ffh.vaultwarden, tags: vaultwarden }
+    - { name: ffh.homeassistant, tags: homeassistant }
+
+- hosts: evergiven
+  roles:
+    - { name: ffh.homer, tags: homer }
+    - { name: ffh.authentik, tags: authentik }
+
+- hosts: rena
+  roles:
+    - { name: ffh.fnorden-signup, tags: fnorden-signup }
+    - { name: ffh.wireguard-endpoint, tags: wireguard-endpoint }
+
+- hosts: thetisd
+  roles:
+    - { name: ansible-role-netbox-docker, tags: netbox }
+
+- hosts: mx1
+  roles:
+    - { name: ffh.docker-mailserver, tags: dms }
+
+- hosts: dockernodes
+  roles:
+    - { name: ffh.restic, tags: restic }
+  post_tasks:
+    - name: "Import post_task etckeeper"
+      import_tasks: "include/etckeeper_post.yml"
+      tags: [always]
