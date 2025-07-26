@@ -138,10 +138,11 @@ fermnodes:
 
 zabbixproxy:
   hosts:
-    dali:
+    leintor:
     thetisd:
     db:
     tonne:
+    dali:
 
 authentikoutpost:
   hosts:
