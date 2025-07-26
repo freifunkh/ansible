@@ -47,6 +47,11 @@
     src: "zabbix_proxy.psk.j2"
     dest: "/etc/zabbix/zabbix_proxy.psk"
 
+- name: "Enable zabbix-proxy service"
+  ansible.builtin.systemd_service:
+    name: "zabbix-proxy"
+    enabled: true
+
 - name: "Add firewall config"
   when: "inventory_hostname in groups['fermnodes']"
   block:
