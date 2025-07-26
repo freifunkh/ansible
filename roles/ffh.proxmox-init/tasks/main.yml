@@ -37,6 +37,9 @@
 - name: "Enable SR-IOV"
   include_tasks: "sr-iov.yml"
 
+- name: "Add zabbix monitoring things"
+  include_tasks: "zabbix.yml"
+
 - name: "Install dependencies for ansible/proxmox"
   apt:
     pkg:

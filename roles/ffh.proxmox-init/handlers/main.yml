@@ -3,3 +3,8 @@
 
 - name: efiboot
   shell: "/usr/sbin/pve-efiboot-tool refresh"
+
+- name: restart zabbix-agent
+  ansible.builtin.systemd_service:
+    name: "zabbix-agent"
+    state: "restarted"

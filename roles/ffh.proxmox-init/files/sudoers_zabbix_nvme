@@ -1,0 +1,7 @@
+Defaults:zabbix !requiretty
+Cmnd_Alias NVME = /usr/sbin/nvme
+Cmnd_Alias NVME_SCRIPT = /etc/zabbix/scripts/nvme_discover.py
+zabbix ALL= (ALL) NOPASSWD: NVME, NVME_SCRIPT
+Defaults!NVME !logfile, !syslog, !pam_session
+Defaults!NVME_SCRIPT !logfile, !syslog, !pam_session
+

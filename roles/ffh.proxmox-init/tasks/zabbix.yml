@@ -1,0 +1,39 @@
+---
+
+- name: "Install dependencies"
+  ansible.builtin.apt:
+    pkg:
+    - "nvme-cli"
+
+- name: "Create Zabbix script directory"
+  ansible.builtin.file:
+    state: "directory"
+    path: "/etc/zabbix/scripts"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: "Create sudoers.d config for zabbix-nvme"
+  ansible.builtin.copy:
+    src: "sudoers_zabbix_nvme"
+    dest: "/etc/sudoers.d/90-zabbix-nvme"
+    mode: "0440"
+    owner: "root"
+    group: "root"
+
+- name: "Copy nvme_discover.py to /etc/zabbix/scripts"
+  ansible.builtin.copy:
+    src: "nvme_discover.py"
+    dest: "/etc/zabbix/scripts/nvme_discover.py"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: "Copy zabbix_nvme.conf for zabbix-agent"
+  ansible.builtin.copy:
+    src: "zabbix_nvme.conf"
+    dest: "/etc/zabbix/zabbix_agentd.d/userparameter_nvme.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: "restart zabbix-agent"
