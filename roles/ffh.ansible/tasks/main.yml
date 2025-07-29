@@ -20,12 +20,13 @@
 
 - name: "Add Ansible Repo"
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/ansible.key] http://ppa.launchpad.net/ansible/ansible/ubuntu jammy main"
+    repo: "deb [signed-by=/etc/apt/keyrings/ansible.key] http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_repo_version }} main"
     state: "present"
     filename: "ansible"
 
 - name: "Install Ansible"
   apt:
     update_cache: "yes"
+    state: "latest"
     name:
     - "ansible"

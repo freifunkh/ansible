@@ -1,1 +1,3 @@
 ---
+
+ansible_repo_version: "noble"
