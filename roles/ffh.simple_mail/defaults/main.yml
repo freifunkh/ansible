@@ -1,10 +1,9 @@
 ---
 
-postfix_hostname: "{{ ansible_fqdn }}"
-postfix_mailname: "{{ ansible_fqdn }}"
+postfix_fqdn: "{{ fqdn if (ansible_fqdn | split('.') | length) == 1 else ansible_fqdn }}"
 
 postfix_mydestination:
-  - "{{ postfix_hostname }}"
+  - "{{ postfix_fqdn }}"
   - localdomain
   - localhost
   - localhost.localdomain

@@ -23,7 +23,7 @@ smtp_sasl_security_options = noanonymous
 smtp_use_tls = yes
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 
-myhostname = {{ postfix_hostname }}
+myhostname = {{ postfix_fqdn }}
 alias_maps = hash:{{ postfix_aliases_file }}
 alias_database = hash:{{ postfix_aliases_file }}
 myorigin = {{ postfix_mailname_file }}
