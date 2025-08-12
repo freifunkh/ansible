@@ -15,13 +15,14 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from read_play import *
 
-SMTP_HOST = 'mail.ffh.zone'
-SMTP_PORT = 25
-SMTP_USE_STARTTLS = False
-SMTP_FROM = "auto@tonne.ffh.zone"
-SMTP_REPLY_TO_EMAIL = "monitoring@hannover.freifunk.net"
-
-SMTP_TO = 'monitoring@hannover.freifunk.net'
+SMTP_HOST = os.getenv("DAILY_SMTP_HOST")
+SMTP_PORT = os.getenv("DAILY_SMTP_PORT")
+SMTP_USER = os.getenv("DAILY_SMTP_USER")
+SMTP_PASS = os.getenv("DAILY_SMTP_PASS")
+SMTP_USE_STARTTLS = os.getenv("DAILY_SMTP_USE_STARTTLS")=="1"
+SMTP_FROM = os.getenv("DAILY_SMTP_FROM")
+SMTP_REPLY_TO_EMAIL = os.getenv("DAILY_SMTP_REPLY_TO_EMAIL")
+SMTP_TO = os.getenv("DAILY_SMTP_TO")
 
 def send_mail(subject, message, message_html, to):
     msgid = make_msgid()
@@ -47,11 +48,11 @@ def send_mail(subject, message, message_html, to):
     msg.attach(message_part2)
 
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-        server.ehlo()
         if SMTP_USE_STARTTLS:
             context = ssl.create_default_context()
             server.starttls(context=context)
-
+        if SMTP_USER:
+            server.login(SMTP_USER, SMTP_PASS)
         server.sendmail(SMTP_FROM, to, msg.as_string())
 
 if __name__ == '__main__':
