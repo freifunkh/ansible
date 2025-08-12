@@ -292,6 +292,10 @@ host = {{ grafana_smtp_host }}
 from_address = {{ grafana_smtp_from }}
 skip_verify = true
 {% endif %}
+{% if grafana_smtp_user is defined %}
+user = {{ grafana_smtp_user | default("") }}
+password = {{ grafana_smtp_pass | default("") }}
+;{% endif %}
 
 [emails]
 ;welcome_email_on_sign_up = false
