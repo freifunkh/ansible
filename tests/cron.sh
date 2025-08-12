@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source /etc/daily-ansible.env
+. /etc/daily-ansible.env
 
 export ANSIBLE_STDOUT_CALLBACK=json
 time=$(date -Iseconds)
