@@ -1,0 +1,4 @@
+---
+
+- name: "grub update"
+  ansible.builtin.shell: "/usr/sbin/update-grub"

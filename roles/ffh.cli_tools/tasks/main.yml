@@ -94,3 +94,13 @@
   with_items:
     - de_DE.UTF-8
     - en_GB.UTF-8
+
+- name: Pin last booted kernel in grub
+  ansible.builtin.template:
+    src: "last-kernel.cfg.j2"
+    dest: "/etc/default/grub.d/last-kernel.cfg"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: "grub update"
+  when: "is_superexitnode or is_supernode"
