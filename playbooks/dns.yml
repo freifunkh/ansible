@@ -21,6 +21,7 @@
     # - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { name: ffh.knot-auth, tags: knot-auth }
+    - { name: ffh.ntp, tags: ntp }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

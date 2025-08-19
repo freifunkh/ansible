@@ -125,12 +125,19 @@ dns_authoritative_toplevel:
        "sn10.s.ffh.zone. IN A 81.3.6.91", # Hannover
        "sn10.s.ffh.zone. IN AAAA 2a02:790:1:ff::a001",
 
+       # NTP round-robin
+       "ntp.ffh.zone. IN A 45.12.203.134",
+       "ntp.ffh.zone. IN AAAA 2a0a:4587:2032:10c::53", # Hamburg
+       "ntp.ffh.zone. IN A 45.12.203.70",
+       "ntp.ffh.zone. IN AAAA 2a0a:4587:2031:10c::53", # Frankfurt
+       "ntp.ffh.zone. IN A 45.12.203.16",
+       "ntp.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53", # Berlin
+
        # netcup
        "mail.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of MX pointing at it
        "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
        "ns1.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of NS pointing at it
        "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       "ntp.ffh.zone. IN CNAME mail.ffh.zone.",
        "git.ffh.zone. IN CNAME mail.ffh.zone.",
 
        # Hannover
@@ -154,6 +161,7 @@ dns_authoritative_toplevel:
        "dns1.ffh.zone. IN A 45.12.203.16",
        "dns1.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53",
        "rdns.ffh.zone. IN CNAME dns1.ffh.zone.",
+       "ntp1.ffh.zone. IN CNAME dns1.ffh.zone.",
        "zbx-ber.ffh.zone. IN CNAME tonne.ffh.zone.",
 
        "harvester.ffh.zone. IN A 45.12.203.14",
@@ -170,6 +178,7 @@ dns_authoritative_toplevel:
 
        "dns2.ffh.zone. IN A 45.12.203.70",
        "dns2.ffh.zone. IN AAAA 2a0a:4587:2031:10c::53",
+       "ntp2.ffh.zone. IN CNAME dns2.ffh.zone.",
 
        "dali.ffh.zone. IN A 45.12.203.66",
        "dali.ffh.zone. IN AAAA 2a0a:4587:2031:10c::66",
@@ -201,6 +210,7 @@ dns_authoritative_toplevel:
 
        "dns3.ffh.zone. IN A 45.12.203.134",
        "dns3.ffh.zone. IN AAAA 2a0a:4587:2032:10c::53",
+       "ntp3.ffh.zone. IN CNAME dns3.ffh.zone.",
 
        "thetisd.ffh.zone. IN A 45.12.203.130",
        "thetisd.ffh.zone. IN AAAA 2a0a:4587:2032:10c::130",
