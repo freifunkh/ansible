@@ -1,6 +1,8 @@
 ---
 # defaults file for ffh.authentik
 
+authentik_version: "latest"
+authentik_fqdn: "auth.example.com"
 authentik_path: "/opt/authentik"
 authentik_postgres_db: "authentik"
 authentik_postgres_user: "authentik-admin"

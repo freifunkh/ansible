@@ -24,6 +24,14 @@
     owner: "root"
     group: "root"
 
+- name: Create .env file
+  ansible.builtin.template:
+    src: "env.j2"
+    dest: "{{ authentik_path }}/.env"
+    mode: "0600"
+    owner: "root"
+    group: "root"
+
 - name: Deploy authentik
   community.docker.docker_compose_v2:
     project_src: "{{ authentik_path }}"
