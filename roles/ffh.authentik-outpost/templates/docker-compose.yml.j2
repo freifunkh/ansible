@@ -2,7 +2,7 @@
 
 services:
     authentik-proxy:
-        image: ghcr.io/goauthentik/proxy
+        image: ghcr.io/goauthentik/proxy:{{ authentik_version }}
         environment:
             AUTHENTIK_HOST: "{{ authentik_outpost_host | default('https://your-authentik.tld') }}"
             AUTHENTIK_INSECURE: "false"
