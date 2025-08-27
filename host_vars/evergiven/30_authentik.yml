@@ -1,5 +1,6 @@
 ---
 
+authentik_fqdn: "auth.ffh.zone"
 authentik_postgres_db: "authentik-ffh-1"
 authentik_postgres_user: "authentik-ffh-1-admin"
 authentik_email_host: "mx1.ffh.zone"
