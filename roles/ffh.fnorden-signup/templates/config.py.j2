@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 class Config(object):
-    MAIL_SERVER = 'server.wiemann.cc'
-    MAIL_PORT = 25
-    MAIL_USERNAME = 'signup@fnorden.de'
+    MAIL_SERVER = '{{ fnordensignup_mail_server | default(25) }}'
+    MAIL_PORT = {{ fnordensignup_mail_port | default(25) }}
+    MAIL_USERNAME = '{{ fnordensignup_mail_username | default("mail@example.com") }}'
     MAIL_PASSWORD = '{{ fnordensignup_mail_password | default("secret") }}'
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
