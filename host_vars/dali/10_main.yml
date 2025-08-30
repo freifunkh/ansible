@@ -25,7 +25,7 @@ esphome_path_config: "/media/docker/esphome/config"
 esphome_fqdn: "steckdosen.ffh.zone"
 
 homeassistant_path: "/opt/homeassistant"
-homeassistant_fqdn: "homeassistant.ffh.zone"
+homeassistant_fqdn: "nous.ffh.zone"
 
 steckdosen_prefix: "192.168.185"
 

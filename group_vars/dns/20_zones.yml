@@ -185,6 +185,7 @@ dns_authoritative_toplevel:
        "steckdosen.ffh.zone. IN CNAME dali.ffh.zone.",
        "vault.ffh.zone. IN CNAME dali.ffh.zone.",
        "homeassistant.ffh.zone. IN CNAME dali.ffh.zone.",
+       "nous.ffh.zone. IN CNAME dali.ffh.zone.",
 
        "web.ffh.zone. IN A 45.12.203.67",
        "web.ffh.zone. IN AAAA 2a0a:4587:2031:10c::67",

@@ -19,7 +19,7 @@ services:
       traefik.http.routers.homeassistant-https.rule: Host(`{{ homeassistant_fqdn }}`)
       traefik.http.routers.homeassistant-https.tls.certresolver: letsencrypt
       traefik.http.routers.homeassistant-https.service: homeassistant-svc
-      traefik.http.routers.homeassistant-https.middlewares: authentik@docker
+      # traefik.http.routers.homeassistant-https.middlewares: authentik@docker
       traefik.http.services.homeassistant-svc.loadbalancer.server.port: '8123'
 
 networks:
