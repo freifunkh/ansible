@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <template_groups>
+        <template_group>
+            <uuid>a571c0d144b14fd4a87a9d9b2aa9fcd6</uuid>
+            <name>Templates/Applications</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>99a35e3a0b584344b551616516030e71</uuid>
+            <template>FF Bird2</template>
+            <name>FF Bird2</name>
+            <description>https://github.com/chpoqxie/zbx-bird2</description>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>9b44b0ee448241ac9acb703c2236a890</uuid>
+                    <name>Bird: get protocols</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>bird.bgp.info</key>
+                    <history>0</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                </item>
+                <item>
+                    <uuid>bb9225bbb3554aad8c6061e9838f045f</uuid>
+                    <name>Bird memory (protocols)</name>
+                    <type>DEPENDENT</type>
+                    <key>bird.memory.protocols</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Protocols:\s+(\d+.*)\n</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
+ret = 0;
+switch(x[2]) {
+  case &quot;k&quot;:
+    ret = parseInt(x[1])*1024;
+    break;
+  case &quot;M&quot;:
+    ret = parseInt(x[1])*1024*1024;
+    break;
+  case &quot;G&quot;:
+    ret = parseInt(x[1])*1024*1024*1024;
+    break;
+  default:
+    ret = 0;
+    break;
+}
+return ret;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>bird.memory_master</key>
+                    </master_item>
+                </item>
+                <item>
+                    <uuid>2d1eaf5e4104484d8177d1044f7c78b7</uuid>
+                    <name>Bird memory (route attributes)</name>
+                    <type>DEPENDENT</type>
+                    <key>bird.memory.route_attributes</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Route attributes:\s+(\d+.*)\n</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
+ret = 0;
+switch(x[2]) {
+  case &quot;k&quot;:
+    ret = parseInt(x[1])*1024;
+    break;
+  case &quot;M&quot;:
+    ret = parseInt(x[1])*1024*1024;
+    break;
+  case &quot;G&quot;:
+    ret = parseInt(x[1])*1024*1024*1024;
+    break;
+  default:
+    ret = 0;
+    break;
+}
+return ret;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>bird.memory_master</key>
+                    </master_item>
+                </item>
+                <item>
+                    <uuid>ead74b18ed0047ed8088f5f5915dea9d</uuid>
+                    <name>Bird memory (routing tables)</name>
+                    <type>DEPENDENT</type>
+                    <key>bird.memory.route_tables</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Routing tables:\s+(\d+.*)\n</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
+ret = 0;
+switch(x[2]) {
+  case &quot;k&quot;:
+    ret = parseInt(x[1])*1024;
+    break;
+  case &quot;M&quot;:
+    ret = parseInt(x[1])*1024*1024;
+    break;
+  case &quot;G&quot;:
+    ret = parseInt(x[1])*1024*1024*1024;
+    break;
+  default:
+    ret = 0;
+    break;
+}
+return ret;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>bird.memory_master</key>
+                    </master_item>
+                </item>
+                <item>
+                    <uuid>3c0566d855d8471bb04aa83154bf66ca</uuid>
+                    <name>Bird memory (total)</name>
+                    <type>DEPENDENT</type>
+                    <key>bird.memory.total</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>Total:\s+(\d+.*)</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
+ret = 0;
+switch(x[2]) {
+  case &quot;k&quot;:
+    ret = parseInt(x[1])*1024;
+    break;
+  case &quot;M&quot;:
+    ret = parseInt(x[1])*1024*1024;
+    break;
+  case &quot;G&quot;:
+    ret = parseInt(x[1])*1024*1024*1024;
+    break;
+  default:
+    ret = 0;
+    break;
+}
+return ret;</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>bird.memory_master</key>
+                    </master_item>
+                </item>
+                <item>
+                    <uuid>0146b385e2da46deb2f1113b6637dbb7</uuid>
+                    <name>Bird memory</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>bird.memory_master</key>
+                    <history>0</history>
+                    <value_type>TEXT</value_type>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                </item>
+                <item>
+                    <uuid>2791471c9f574a1e86c79a80426219d9</uuid>
+                    <name>Bird alive</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>proc.num[bird,bird]</key>
+                    <history>90d</history>
+                    <triggers>
+                        <trigger>
+                            <uuid>4919a4fe707648318c0fef30bd05d3ea</uuid>
+                            <expression>last(/FF Bird2/proc.num[bird,bird])&lt;&gt;1</expression>
+                            <name>Bird is dead</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>16bfdab180234436bc0c98b6ab731985</uuid>
+                    <name>Bird: protocols discovery</name>
+                    <type>DEPENDENT</type>
+                    <key>bird.bgp.info.discovery</key>
+                    <delay>0</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#PROTO}</macro>
+                                <value>{$PROTO.MATCH}</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#PROTO}</macro>
+                                <value>{$PROTO.NOT_MATCH}</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>3d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>847992df77754acd9534ea077c0e5b3d</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; info section</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            <delay>0</delay>
+                            <history>0</history>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$..[?(@.proto=='{#PROTO}')].first()</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.info</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>663da808ee6749f9a8293a53eadb4a6c</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes exported</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},exported]</key>
+                            <delay>0</delay>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.exported</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>24h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>385f504e637d4a06a0d49bd02926bcff</uuid>
+                                    <expression>last(/FF Bird2/bird.bgp.proto[{#PROTO},exported])&lt;{$ROUTES_EXP:&quot;{#PROTO}&quot;}</expression>
+                                    <name>Too few exported routes to {#PROTO}</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>c47e78e2621f4ce080e23f1dadb7ac16</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes filtered</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},filtered]</key>
+                            <delay>0</delay>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.filtered</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>d4d069c1cb4e419cbdecced2ddd3edcc</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes preferred</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},preferred]</key>
+                            <delay>0</delay>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.preferred</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>5cafa212b32e440e90d75476066e1729</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; reason</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},reason]</key>
+                            <delay>0</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.reason</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3eed61b2adee4fd28b6f7814636dda9a</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes imported</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},routes]</key>
+                            <delay>0</delay>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.routes</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>58a4b1a6103e464faf684bb72bf3f0d5</uuid>
+                                    <expression>last(/FF Bird2/bird.bgp.proto[{#PROTO},routes])&lt;{$ROUTES_IMP:&quot;{#PROTO}&quot;}</expression>
+                                    <name>Too few imported routes from {#PROTO}</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>98e1b7e3aace4910ba498dda15a2fec9</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; in state since</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},since]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <description>start / up / down</description>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.since</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>STR_REPLACE</type>
+                                    <parameters>
+                                        <parameter><![CDATA[ ]]></parameter>
+                                        <parameter>T</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>JAVASCRIPT</type>
+                                    <parameters>
+                                        <parameter>value += &quot;+03:00&quot;;
+const date = new Date(Date.parse(value));
+const timestamp = date.getTime();
+return (timestamp/1000|0);</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>4059cfcae0f24d059d5eb2c9e89371c3</uuid>
+                                    <expression>(now()-last(/FF Bird2/bird.bgp.proto[{#PROTO},since]))&lt;{$PROTO_STATE_TIME}*60</expression>
+                                    <name>Bird protocol {#PROTO} changed state in last {$PROTO_STATE_TIME}m</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>84aa179ef78c49659418026ba7755f4b</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; state</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},state]</key>
+                            <delay>0</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.state</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>97e68e019273484c8ccc850429f6eb39</uuid>
+                                    <expression>(last(/FF Bird2/bird.bgp.proto[{#PROTO},state],#1))&lt;&gt;(last(/FF Bird2/bird.bgp.proto[{#PROTO},state],#2))</expression>
+                                    <name>Protocol {#PROTO} state changed</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>94c139214977448c9e3bf05cdd8f86d6</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; status</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.bgp.proto[{#PROTO},status]</key>
+                            <delay>0</delay>
+                            <value_type>CHAR</value_type>
+                            <trends>0</trends>
+                            <description>Established / Passive / Idle</description>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.status</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>7cf9534c332847f78edf861a9d4f7e1a</uuid>
+                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes imported/preferred</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>FILLED_REGION</drawtype>
+                                    <color>9CCC65</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>FF Bird2</host>
+                                        <key>bird.bgp.proto[{#PROTO},routes]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>274482</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>FF Bird2</host>
+                                        <key>bird.bgp.proto[{#PROTO},preferred]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <master_item>
+                        <key>bird.bgp.info</key>
+                    </master_item>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#PROTO}</lld_macro>
+                            <path>$.proto</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <parameters>
+                                <parameter>$.data.[*]</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$PROTO.MATCH}</macro>
+                    <value>^.*$</value>
+                </macro>
+                <macro>
+                    <macro>{$PROTO.NOT_MATCH}</macro>
+                    <value>CHANGE_IF_NEEDED</value>
+                </macro>
+                <macro>
+                    <macro>{$PROTO_STATE_TIME}</macro>
+                    <value>15</value>
+                    <description>How long (in minutes) after the protocol status changes should the trigger remain enabled?</description>
+                </macro>
+                <macro>
+                    <macro>{$ROUTES_EXP}</macro>
+                    <value>1</value>
+                    <description>number of announced routes</description>
+                </macro>
+                <macro>
+                    <macro>{$ROUTES_IMP}</macro>
+                    <value>100000</value>
+                    <description>number of accepted routes</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>

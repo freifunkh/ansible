@@ -1,7 +1,10 @@
 log syslog all;
 router id {{ bird_router_id }};
 define my_asn = {{ bird_my_asn }};
-timeformat protocol iso long;
+timeformat route        iso long;
+timeformat protocol     iso long;
+timeformat base         iso long;
+timeformat log          iso long;
 
 protocol device {
 }

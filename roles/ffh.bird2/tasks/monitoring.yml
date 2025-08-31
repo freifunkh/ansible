@@ -15,4 +15,43 @@
     dest: "/etc/zabbix/zabbix_agentd.d/userparameter_bird.conf"
     owner: "root"
     group: "root"
-    mode: "0644"      
+    mode: "0644"
+
+- name: "Zabbix: Deploy helper bird-peer-info.pl"
+  ansible.builtin.copy:
+    src: "bird-peer-info.pl"
+    dest: "/usr/local/sbin/bird-peer-info.pl"
+    owner: "root"
+    group: "root"
+    mode: "0750" 
+
+- name: "Zabbix: Deploy helper bird-peer-info-routes.sh"
+  ansible.builtin.copy:
+    src: "bird-peer-info-routes.sh"
+    dest: "/usr/local/sbin/bird-peer-info-routes.sh"
+    owner: "root"
+    group: "root"
+    mode: "0750" 
+
+- name: "Zabbix: bird-peer-info.service"
+  ansible.builtin.copy:
+    src: "bird-peer-info.service"
+    dest: "/etc/systemd/system/bird-peer-info.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: bird-peer-info.timer"
+  ansible.builtin.copy:
+    src: "bird-peer-info.timer"
+    dest: "/etc/systemd/system/bird-peer-info.timer"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: "Zabbix: enable bird-peer-info.timer"
+  ansible.builtin.systemd_service:
+    name: "bird-peer-info.timer"
+    enabled: true
+    state: restarted
+    daemon_reload: true
