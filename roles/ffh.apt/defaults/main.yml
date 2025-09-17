@@ -1,2 +1,4 @@
 ---
 # defaults file for ffh.apt
+
+apt_codename: "bookworm"
