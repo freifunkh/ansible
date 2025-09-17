@@ -2,6 +2,8 @@
 servername: tonne
 fqdn: "tonne.ffh.zone"
 
+apt_codename: "trixie"
+
 networkd_configures:
 - iface: ens18
   addresses:
