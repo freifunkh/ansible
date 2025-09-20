@@ -7,4 +7,4 @@
   with_items: "{{ domains_with_dom0 }}"
   loop_control:
     loop_var: domain
-  when: domains_with_dom0
+  when: domains_with_dom0 is defined
