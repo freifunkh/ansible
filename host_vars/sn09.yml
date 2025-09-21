@@ -39,8 +39,10 @@ route_exitnode_via:
   leintor:
     interface: "eth1"
     gateway: "fe80::babf"
-  clevertor:
-    interface: "gre-clevertor"
+  sn06:
+    interface: "gre-sn06"
+  sn07:
+    interface: "gre-sn07"
   sn08:
     interface: "gre-sn08"
 
