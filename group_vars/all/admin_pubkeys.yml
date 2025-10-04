@@ -60,4 +60,4 @@ admin_pubkeys:
 - name: wissing
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCLOEVKrvy6Bva9iExyb9ELkQCztn8EFz2Ku+JOn+tc0xUydOqji0bd1HouFtUKu5WeQxGw4RbshIF2WZYdMV7Rv4+XgHh0HA2jJJXRvfTPfSD3mNlR09NdBZVgJJwtRysBLbNzaTSHC0zevbP1YD1ctWM4IizGgZ13MY6M0bK1NJ27KS2GtOB1636MVxU8JrXKGCAc3wz0IN6m7D2Cn2P03f06PKGDrdE30LFOI7BOBe80s8M/SS+hsKuTHrQvSfXW4/7mLP8BLhmx3ObcTc/9QUK+JZRc1Q58uHUmdl+Wdd7sQTHIUh7KbDz8HNCtvFvBw2WWRp1fGaAk4SApWbdl root@wissing
 - name: firmware-target
-  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdeDtUqdneIlMvlvbQrobpDjcXaijzws/gPVDN+aJ2U jenkins by aiyion
+  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUuSfK+4t9VVtBwce6eIwIlpsbrlfY4RpucvlYzN7dp jenkins-artifacts
