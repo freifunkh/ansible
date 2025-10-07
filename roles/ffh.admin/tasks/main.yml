@@ -25,6 +25,7 @@
 
 - name: sysctl - Reboot on kernel panic
   ansible.posix.sysctl:
+    sysctl_file: /etc/sysctl.d/50-panic.conf
     name: kernel.panic
     value: "10"
     state: present
