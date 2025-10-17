@@ -217,6 +217,8 @@ dns_authoritative_toplevel:
        "thetisd.ffh.zone. IN AAAA 2a0a:4587:2032:10c::130",
        "netbox.ffh.zone. IN CNAME thetisd.ffh.zone.",
        "zbx-ham.ffh.zone. IN CNAME thetisd.ffh.zone.",
+       "census.ffh.zone. IN CNAME thetisd.ffh.zone.",
+       "census-prom.ffh.zone. IN CNAME thetisd.ffh.zone.",
 
        "rena.ffh.zone. IN A 45.12.203.131",
        "rena.ffh.zone. IN AAAA 2a0a:4587:2032:10c::131",
