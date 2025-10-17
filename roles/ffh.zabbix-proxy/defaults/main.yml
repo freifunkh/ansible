@@ -5,6 +5,7 @@ zabbix_proxy_port: 10051
 zabbix_proxy_psk_value: "SECRET"
 zabbix_proxy_sourceip: "127.0.0.1"
 zabbix_proxy_hostname: "{{ inventory_hostname }}"
+zabbix_proxy_dbname: "/tmp/zabbix_proxy.db"
 zabbix_proxy_dbuser: "zabbix"
 zabbix_proxy_psk_id: "id.1"
 zabbix_server_version: "6.0"
