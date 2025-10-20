@@ -6,8 +6,8 @@
     update_cache: yes
 
 - name: Add grafana repository key
-  copy:
-    src: "grafana.key"
+  ansible.builtin.get_url:
+    url: "https://apt.grafana.com/gpg.key"
     dest: "/usr/share/keyrings/grafana.key"
     mode: 0644
     owner: root
