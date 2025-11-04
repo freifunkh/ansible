@@ -14,7 +14,6 @@
     - { name: "{{ authentik_path }}/certs", owner: "1000", group: "1000", mode: "0755" }
     - { name: "{{ authentik_path }}/custom-templates", owner: "1000", group: "1000", mode: "0755" }
     - { name: "{{ authentik_path }}/postgres", owner: "70", group: "70", mode: "0700" }
-    - { name: "{{ authentik_path }}/redis", owner: "999", group: "1000", mode: "0755" }
 
 - name: Create docker compose file
   ansible.builtin.template:
