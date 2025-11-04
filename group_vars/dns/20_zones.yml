@@ -1,5 +1,7 @@
 ---
 
+knot_synthrecord_suffix: "c.ffh.zone"
+
 dns_authoritative_toplevel_dyn:
    - domain: "n.ffh.zone"
      additional_config: [
