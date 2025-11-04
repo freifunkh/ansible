@@ -10,6 +10,7 @@ knot_interfaces:
   - ::1@53
 
 knot_synthrecord_prefix: "client-"
+knot_synthrecord_suffix: "clients.example.com"
 
 knot_zone_ttl: 600
 knot_zone_serial: 4711

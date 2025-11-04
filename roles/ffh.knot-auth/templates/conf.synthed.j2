@@ -1,21 +1,25 @@
 mod-synthrecord:
 {% for supernode in supernodes | dict2items %}
-{% for domain in domains %}
-  - id: {{ supernode.key }}-d{{ domain.id }}
+  - id: {{ supernode.key }}-forward
+    type: forward
+    prefix: {{ knot_synthrecord_prefix }}
+    ttl: {{ knot_zone_ttl }}
+    network: {{ supernode.value.dns_client_prefix }}00::/56
+  - id: {{ supernode.key }}-reverse
     type: reverse
     prefix: {{ knot_synthrecord_prefix }}
-    origin: d{{ domain.id }}.c.ffh.zone
+    origin: {{ supernode.key }}.{{ knot_synthrecord_suffix }}
     ttl: {{ knot_zone_ttl }}
-    network: {{ supernode.value.dns_client_prefix }}{{ domain.id }}::/64
-{% endfor %}
+    network: {{ supernode.value.dns_client_prefix }}00::/56
 {% endfor %}
 
 zone:
 {% for supernode in supernodes | dict2items %}
-{% for domain in domains %}
-  - domain: "{{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}"
-    file: {{ ((supernode.value.dns_client_prefix + domain.id + '::') | ansible.utils.ipaddr('revdns'))[-41:] }}zone
-    module: mod-synthrecord/{{ supernode.key }}-d{{ domain.id }}
+  - domain: {{ supernode.key }}.{{ knot_synthrecord_suffix }}.
+    file: {{ supernode.key }}.{{ knot_synthrecord_suffix }}.zone
+    module: mod-synthrecord/{{ supernode.key }}-forward
+  - domain: "{{ ((supernode.value.dns_client_prefix + '00::') | ansible.utils.ipaddr('revdns'))[-37:] }}"
+    file: {{ ((supernode.value.dns_client_prefix + '00::') | ansible.utils.ipaddr('revdns'))[-37:] }}zone
+    module: mod-synthrecord/{{ supernode.key }}-reverse
     template: template_synth
-{% endfor %}
 {% endfor %}
