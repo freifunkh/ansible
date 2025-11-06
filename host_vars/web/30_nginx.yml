@@ -64,10 +64,10 @@ nginx_sites:
       rewrite_params: '^ /gluon-firmware-selector.html'
     - location: = /download
       rewrite_params: '^ /download/ permanent'
-    - location: /download/
+    - location: /files/
       directory_index: true
       disable_symlinks: true
-      alias: /var/www/apps/download/
+      alias: /var/www/apps/files/
     - location: = /gluon-firmware-wizard
       rewrite_params: '^ /gluon-firmware-wizard/ permanent'
     - location: /gluon-firmware-wizard/
