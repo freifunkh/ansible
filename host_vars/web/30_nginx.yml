@@ -61,7 +61,7 @@ nginx_sites:
       expires: -1
       alias: /var/www/apps/api/
     - location: = /download.html
-      rewrite_params: '^ /gluon-firmware-selector.html'
+      rewrite_params: '^ /download/ redirect'
     - location: = /download
       rewrite_params: '^ /download/ permanent'
     - location: /files/
@@ -69,8 +69,8 @@ nginx_sites:
       disable_symlinks: true
       alias: /var/www/apps/files/
     - location: = /gluon-firmware-wizard
-      rewrite_params: '^ /gluon-firmware-wizard/ permanent'
-    - location: /gluon-firmware-wizard/
+      rewrite_params: '^ /download/ redirect'
+    - location: /download/
       alias: /var/www/apps/gluon-firmware-selector/
     - location: /karte/config.json
       alias: /var/www/apps/meshviewer_configs/karte.json

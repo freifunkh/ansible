@@ -4,13 +4,13 @@
   ansible.builtin.file:
     path: "{{ gfs_dir }}"
     state: "directory"
-    mode: "0755" 
+    mode: "0755"
     owner: "{{ gfs_file_owner }}"
     group: "{{ gfs_file_group }}"
 
 - name: "Install gfs from GitHub"
   ansible.builtin.git:
-    repo: "https://github.com/freifunk-darmstadt/gluon-firmware-selector.git"
+    repo: "https://github.com/freifunkh/gluon-firmware-selector.git"
     dest: "{{ gfs_dir }}"
     accept_hostkey: "true"
     single_branch: "true"
