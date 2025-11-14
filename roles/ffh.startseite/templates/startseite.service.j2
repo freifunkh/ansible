@@ -5,6 +5,8 @@ After=network.target
 
 [Service]
 ExecStart={{ startseite_dir }}/startseite
+User=www-data
+Group=www-data
 
 [Install]
 WantedBy=multi-user.target
