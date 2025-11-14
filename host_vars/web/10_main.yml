@@ -17,6 +17,7 @@ networkd_configures:
 
 ansible_python_interpreter: "/usr/bin/python3"
 
+startseite_dir: "/var/www/apps/startseite"
 foswiki_dir: "/var/www/apps/wiki"
 fnorden_webroot: "/var/www/domains/fnorden.net"
 

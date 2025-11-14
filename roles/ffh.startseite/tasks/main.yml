@@ -1,0 +1,28 @@
+---
+
+- name: Prepare Startseite directory
+  file:
+    path: "{{ startseite_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Install Startseite
+  notify: Restart Startseite
+  get_url:
+    url: https://github.com/freifunkh/startseite/releases/download/0.1.0/startseite
+    dest: "{{ startseite_dir }}/startseite"
+    owner: www-data
+    group: www-data
+
+- name: Install systemd Startseite unit file
+  notify: Restart Startseite
+  template:
+    src: startseite.service.j2
+    dest: /etc/systemd/system/startseite.service
+
+- name: Enable systemd Startseite service
+  service:
+    name: startseite
+    enabled: yes
+    state: started
+

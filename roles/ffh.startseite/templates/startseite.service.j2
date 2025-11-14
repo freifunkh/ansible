@@ -1,0 +1,10 @@
+[Unit]
+Description=Startseite von hannover.freifunk.net
+Requires=network.target
+After=network.target
+
+[Service]
+ExecStart={{ startseite_dir }}/startseite
+
+[Install]
+WantedBy=multi-user.target

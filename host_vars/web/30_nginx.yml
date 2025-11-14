@@ -55,6 +55,12 @@ nginx_sites:
   tls_redirect_to_https: true
   php: true
   locations:
+    - location: = /
+      type: proxy
+      proxy_forward_url: http://127.0.0.1:4444
+    - location: ~ (/video.html|/style.css|/img/.+)
+      type: proxy
+      proxy_forward_url: http://127.0.0.1:4444
     - location: = /api
       rewrite_params: '^ /api/ permanent'
     - location: /api/

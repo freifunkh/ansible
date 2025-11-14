@@ -24,6 +24,7 @@
     - { name: ffh.firmware-proxy, tags: firmware-proxy }
     - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
+    - { name: ffh.startseite, tags: startseite }
     - { name: ffh.gluon-node-sense, tags: gluon-node-sense }
     - { name: ffh.meshviewer, tags: meshviewer }
     - { name: ffh.gluon-firmware-selector, tags: gfs }
