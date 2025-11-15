@@ -4,7 +4,7 @@ smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
 biff = no
 append_dot_mydomain = no
 #delay_warning_time = 4h
-readme_directory = no
+#readme_directory = /usr/share/doc/postfix
 compatibility_level = 3.6
 
 smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
@@ -34,3 +34,4 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = {{ postfix_inet_interfaces }}
 inet_protocols = all
+cyrus_sasl_config_path = /etc/postfix/sasl
