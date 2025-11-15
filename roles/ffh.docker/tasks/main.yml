@@ -45,22 +45,13 @@
     - "docker-ce-cli"
     - "containerd.io"
 
-- name: Create systemd unitfile drop directory
-  ansible.builtin.file:
-    path: "/etc/systemd/system/docker.service.d/"
-    state: "directory"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-
-- name: Install min-api-version hotfix
-  notify: Daemonreload Docker
-  ansible.builtin.copy:
-    src: "min-api-version-hotfix.conf"
-    dest: "/etc/systemd/system/docker.service.d/min-api-version-hotfix.conf"
-    mode: 0644
-    owner: "root"
-    group: "root"
+#- name: Create systemd unitfile drop directory
+#   ansible.builtin.file:
+#    path: "/etc/systemd/system/docker.service.d/"
+#    state: "directory"
+#    owner: "root"
+#    group: "root"
+#    mode: "0755"
 
 - name: Install daemon.json
   template:
