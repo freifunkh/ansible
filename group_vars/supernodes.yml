@@ -1,6 +1,8 @@
 ---
 is_supernode: true
 
+apt_codename: "bookworm"
+
 network_lower_ifaces:
   default: eth0
 

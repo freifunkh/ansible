@@ -3,6 +3,8 @@
 ansible_user: "root"
 ansible_port: 1337
 
+apt_codename: "trixie"
+
 show_secret_diffs: yes
 
 git_addr: "ssh://git@git.ffh.zone:1337"

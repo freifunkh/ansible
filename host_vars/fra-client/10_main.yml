@@ -6,8 +6,6 @@ fqdn: "fra-client.ffh.zone"
 zabbix_agent_server: "zbx-fra.ffh.zone"
 zabbix_agent_server_active: "zbx-fra.ffh.zone"
 
-apt_codename: "trixie"
-
 restic_backup_paths:
 - "/etc/"
 restic_backup_excludes: []
