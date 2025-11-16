@@ -19,11 +19,11 @@
   notify: Restart Startseite
   template:
     src: startseite.service.j2
-    dest: /etc/systemd/system/startseite.service
+    dest: /etc/systemd/system/web-startseite.service
 
 - name: Enable systemd Startseite service
   service:
-    name: startseite
+    name: web-startseite
     enabled: yes
     state: started
 
