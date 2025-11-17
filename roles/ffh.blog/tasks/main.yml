@@ -1,0 +1,49 @@
+---
+
+# Zola installieren
+# Repo auschecken
+# Update-Skript installieren
+# Cron-Job für Update anlegen
+
+- name: Install Zola
+  unarchive:
+    src: https://github.com/getzola/zola/releases/download/v0.21.0/zola-v0.21.0-x86_64-unknown-linux-gnu.tar.gz
+    dest: "/opt"
+    remote_src: true
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Prepare Blog directory
+  file:
+    path: "{{ blog_dir }}"
+    state: directory
+    mode: 0755
+    owner: "www-data"
+    group: "www-data"
+
+- name: Clone Blog repository
+  become: yes
+  become_user: www-data
+  git:
+    repo: "https://github.com/freifunkh/blog.git"
+    dest: "{{ blog_dir }}"
+
+- name: Install blog update script
+  template:
+    src: blog_update.sh.j2
+    dest: /opt/blog_update.sh
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Run the update script
+  shell: /opt/blog_update.sh
+
+- name: Add cron job for update script
+  cron:
+    name: "blog update script"
+    user: "www-data"
+    minute: "*/15"
+    hour: "*"
+    job: "/opt/blog_update.sh >/dev/null 2>&1"

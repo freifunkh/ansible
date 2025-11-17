@@ -78,6 +78,10 @@ nginx_sites:
       rewrite_params: '^ /download/ redirect'
     - location: /download/
       alias: /var/www/apps/gluon-firmware-selector/
+    - location: = /blog
+      rewrite_params: '^ /blog/ permanent'
+    - location: /blog/
+      alias: /var/www/apps/blog/public/
     - location: /karte/config.json
       alias: /var/www/apps/meshviewer_configs/karte.json
     - location: /friedhof/config.json

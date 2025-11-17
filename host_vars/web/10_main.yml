@@ -19,6 +19,7 @@ ansible_python_interpreter: "/usr/bin/python3"
 
 startseite_dir: "/var/www/apps/startseite"
 foswiki_dir: "/var/www/apps/wiki"
+blog_dir: "/var/www/apps/blog"
 fnorden_webroot: "/var/www/domains/fnorden.net"
 
 gfs_dir: "/var/www/apps/gluon-firmware-selector"

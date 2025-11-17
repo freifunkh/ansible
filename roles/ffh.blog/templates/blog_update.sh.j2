@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ "$(whoami)" != "www-data" ]; then
+	sudo -u www-data "$0"
+	exit 0
+fi
+
+cd "{{ blog_dir }}" || exit 1
+git pull
+
+
+if [ "$(git log --oneline '@{1}..' | wc -l)" -gt 0 ]; then
+	# build only if there are new commits
+	/opt/zola build
+fi
