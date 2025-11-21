@@ -4,19 +4,10 @@
   apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_distribution_version|int < 12"
-
 - name: Add repo key
-  get_url:
+  ansible.builtin.get_url:
     url: "https://repos.influxdata.com/influxdata-archive.key"
-    dest: "/etc/apt/keyrings/influxdata-archive.key"
+    dest: "/usr/share/keyrings/influxdata-archive.gpg"
     mode: "0644"
     owner: "root"
     group: "root"
@@ -24,9 +15,9 @@
 
 - name: Add influx repo
   register: influxrepositoryadded
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/influxdata-archive.key] https://repos.influxdata.com/debian bullseye stable"
-    # repo: "deb https://repos.influxdata.com/debian {{ ansible_distribution_release }} stable"
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main"
+    filename: "influxdata"
 
 - name: Update apt chache to get influxdb packages
   apt: update_cache=yes
