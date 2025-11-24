@@ -1,6 +1,6 @@
 ---
 
-meshviewer_version: "v12.5.0"
+meshviewer_version: "v12.7.0"
 meshviewer_dir: "/var/www/apps/meshviewer"
 meshviewer_devicepictures_dir: "/var/www/apps/device-pictures"
 meshviewer_instances:
