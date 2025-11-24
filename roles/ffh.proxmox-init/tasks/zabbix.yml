@@ -13,6 +13,15 @@
     owner: "root"
     group: "root"
 
+- name: "Create Zabbix agent directory"
+  ansible.builtin.file:
+    state: "directory"
+    path: "/etc/zabbix/zabbix_agentd.d"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+
 - name: "Create sudoers.d config for zabbix-nvme"
   ansible.builtin.copy:
     src: "sudoers_zabbix_nvme"
