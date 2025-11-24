@@ -53,3 +53,4 @@ proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
   scheuer: { id: 3, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
+  wildberger: { id: 4, ip4: "{{ lookup('dig', 'wildberger.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wildberger.ffh.zone./AAAA') }}" }

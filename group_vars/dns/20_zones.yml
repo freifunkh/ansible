@@ -146,6 +146,7 @@ dns_authoritative_toplevel:
        "leintor.e.ffh.zone. IN AAAA 2a02:790:1:ff::2",
        "leintor.e.ffh.zone. IN A 81.3.6.94",
        "zbx-haj.ffh.zone. IN CNAME leintor.e.ffh.zone.",
+       "wildberger.ffh.zone. IN A 81.3.0.14",
 
        # Berlin
        "dobrindt.ffh.zone. IN A 217.197.91.135",

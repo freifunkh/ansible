@@ -1,6 +1,13 @@
 ---
 
 known_hostkeys:
+- name: wildberger.ffh.zone
+  key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJbFnpDwYhSY+FM/2RnGZI/qKgp7rMKmisk9D2iRXH/VE8VYAi+5PIgpwJJ1eOwP/MXR/HIP7OKtSFZrcn9uYU0= root@wildberger 
+- name: wildberger.ffh.zone
+  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiTba0e4Gy8nHv/VGUgEizl+lQXsw7upGKjuTqpKQRO root@wildberger 
+- name: wildberger.ffh.zone
+  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCkLNSJpOuoKGw9GsI3ncSXOAlHFvCDamdUy0kLrKgJEMd+FpQzkNGJSeWtKITFDWhuhE57YQZd6Hz2cjloUiBLKWybaGuUURBga6PxMWtZxfrwjIG4FtzZv6sN5MjFwerH8XIo4MQXNQG2+yNFNd0qd9oSO7d4hz/79n3a2o6SsSkjyowdT5PGFBNsTWXMCAKA2lJQ4ND5vSpSIhG17uexdWHFU5j8k3TycPrSk5KvduO97s4C94M7+Ce71jbnmN6LJUMFJh+xur27rvYnkpNiwaqff7TDtxjt/vcwKIirCY5KBcRqRCliiPkIHg8olUbut/UByD+2+1VVRO2yTA0ctv+bpv9qmB/17EB9ksJD9OjAbXaFvPgGdgkiL4/3eEvExwLa5jFqg8Yq7lfktrPSZgbfQxLivlkJRCWmfnY7wypvY9LyUfumprTzlIIR4YyCaz9pin/0sD/CXjc4ZW0LZ7Q0lmeGhaq+f1IEEzQKEGEWQlfTUOT++HTRBGqo6/s= root@wildberger
+
 - name: wissing.ffh.zone
   key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJS2alng9biQlEKMaT/v6iKwUDO57zMQoqADpH4DSwIBWvAsQpguwiJ8FNgJJ0tGgz6G81j7niyjkfU5Zm/DHvg= root@wissing
 - name: wissing.ffh.zone

@@ -58,6 +58,9 @@ all:
       ansible_host: thetisd.ffh.zone
     rena:
       ansible_host: rena.ffh.zone
+    wildberger:
+      ansible_host: wildberger.ffh.zone
+      ansible_port: 22
     wissing:
       ansible_host: wissing.ffh.zone
       ansible_port: 22
@@ -181,6 +184,7 @@ proxmoxes:
     dobrindt:
     wissing:
     scheuer:
+    wildberger:
 
 buildclouds:
   hosts:

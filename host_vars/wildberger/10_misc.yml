@@ -1,0 +1,11 @@
+---
+servername: wildberger
+fqdn: "wildberger.ffh.zone"
+
+admin_authorized_local: [ wildberger ]
+
+restic_backup_paths:
+- /etc/
+
+zabbix_agent_server: "zbx-haj.ffh.zone"
+zabbix_agent_server_active: "zbx-haj.ffh.zone"
