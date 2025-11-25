@@ -39,7 +39,7 @@ is_supernode: false
 is_exitnode: false
 iperf3_is_public_server: false
 
-babeld_iface_accept_v6_default_route: "gre-leintor"
+babeld_iface_accept_v6_default_route: "gre-sn06" # left-over
 mesh_prefix_len: "48"
 
 crowdsec_listen_port: "1380"

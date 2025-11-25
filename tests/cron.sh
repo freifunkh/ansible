@@ -10,7 +10,7 @@ git reset --quiet --hard origin/master
 
 mkdir -p /tmp/auto/dailyrun
 
-for machine in supernodes superexitnodes exitnodes proxmoxes dns ns1 db tonne harvester vds web dockernodes buildclouds
+for machine in superexitnodes proxmoxes dns ns1 db tonne harvester vds web dockernodes buildclouds
 do
   ansible-playbook playbooks/${machine}.yml -CD --extra-vars "show_secret_diffs=no" > /tmp/auto/dailyrun/${time}-${machine}.json
   python3 tests/mail.py /tmp/auto/dailyrun/${time}-${machine}.json

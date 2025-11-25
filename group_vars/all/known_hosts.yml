@@ -127,13 +127,6 @@ known_hostkeys:
 - name: fra-client.ffh.zone
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDs1JGbJCXqvDHRllmMtpsNt0x/u4wjzvj7krjeRnS0lyhVFM+LfchZRUoa9pQGAxtA03dQIZpAU7CIjBkzdypICr38I6GuSb6AywQsYtMaXZt/+qovI/zsgp1yjv3LOsPIIXxiVDErwIrZ2DY0BzzkDcXotMpuy48duEDIhX4BKWTBj9uInV1xWRJcjxYkNWu+HBY7MCb90RmzH5I2rJh+Ap1L1ULPyneZrM7+3ImjpAq8fffReaXG0npTjvJKz9IhcCD7CWNrfRAjXJIlWZiPwcg4aJT0MwYSP9tc7ylQL4Qmh0TtI66mBR4ZSrsoiCIfHnlcsnjn3SPufqDpGhAD root@fra-client
 
-- name: leintor.e.ffh.zone
-  key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCK1gVbI6fJW7pXD0McBCZhUooE29vlhjLAas7ZnGOKq6MiIznMIgNaqJy+WIveLJOUZv4zmmPlcLr36dFWztVs= root@leintor
-- name: leintor.e.ffh.zone
-  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILgtflotvM49MRFOpi/6wL5ENLKKrKl6NzMMTfGeLjSU root@leintor
-- name: leintor.e.ffh.zone
-  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCr1AulKiz5n/FVgnQXEpXrizpmedQ/MSH8F4CGqJNRqFWcXLZaeRzx9/Cag6mjbkDB56eZGkXKQQWVeetXbdmEt3oLgtgPt+GpKTC2XtIRnk59zBtEVS1xoFig47SsPF6VG/ko/jURcTLDN5gk7K87TUx4jLlW1qQuwBpAE8Sq1AhqiRlz47W1ukrmU3/murkNdf+7Zs0aiiiNeC1P/B4wZnT1f9fPq+uRgeS/3jjmgCttMbXvL3T/JfJvobPz19+WOfaaMKCz6byBK5syq+eVD1w7pcv08uxEQso9yeiOpbC+/wPt0/QpdTNjVaOTSuvc67lla+0ejH8UV62s6JjP root@leintor
-
 - name: sn06.s.ffh.zone
   key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOPt8LOHtt0CTG3fuDagTXaiZiyYfyVO+2EcAn/GxkXBmVIrK/v3RinMC34n3FyC8KdAZTWd4Ve5u47j99omhZY= root@sn06
 - name: sn06.s.ffh.zone
@@ -154,18 +147,3 @@ known_hostkeys:
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAION97hO8zMe/vt8c7KlP48AMtm7NsHGmiBTMwRkE/Rme root@sn08
 - name: sn08.s.ffh.zone
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChyff/0Ul+D4ykILlEGRtqLQG1EZsBUWvOKd01sTdkkOovs1/WUYFOrYKphHrX0BQPSwurlj+ysCoRKJ7xRoREDdgwYSWsVGpYvz7IBuuEJ77d0nZA9zekmjHOf9Ptsse+MBWgU6pntR1Kn1gqEDVJekrhxaNgyQNWKbMVNTNl69A+1ej3tY0Vgf7fBsdAzYup1oGQ+P0WYGLG2EISifMjQgFXjrjBuZi6EHSzONH1CKz14AALHn2ovvpP9DYfj/cXobSrgl0YsoGm7HO9D3MYpKah7+PYEYX2FUNR7BKyMoEcV3YJk09hTjlRtyUdELQUywrJlrc+OIYHPWv/7iIDrBojDiqCtaS59sczMYj48RROmK8VI+PTwa7o9BSjGhVcloTR3BT9CCb1QYfPl3lfkTukZkqHSDegLmefbiVSgvAbLkM6U4wP+3DhKHHwvQmp6QnxL7C88JvJBE4FpuZ/quw8+irKEjGiqLIeIr3OMb7Y+8pOI8gQv0HM/6f7KVs= root@sn08
-
-- name: sn09.s.ffh.zone
-  key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLaN79HepfwF/HN5EV7C0yINZcQFBhySRckdsjlcMQsRKUzu7/ZvYeBAwGaFP0a5M1SiG+TyKnQ+28rEU0geaFg= root@sn09
-- name: sn09.s.ffh.zone
-  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHEbv61EVAUounj25srAyml/nigBEd3J9QH+j9kJNi3V root@sn09
-- name: sn09.s.ffh.zone
-  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3CN7ujqBfmwZy/dZ+x6HWYjG8VN4+vD3yJ4fbb9sHqjzQlDrQzybl0TF7L0BPcvuem884FvSxz9KgAoMEbxpb3SEN1MrbXrrwYfkCK/DOzDx+tfQNJ+A7MvXzwnB10Bt+RJuoTn3GrHCLie7S5CrjX+LUasVaoBvxd0UIZ3Qpco6Dt3ZNEWfiKHhM5AHILY9cdWAB95mNq7SVfn+DtG3YjwM59USvPRcOqh+toMfkWmNJKLE/bRTY0tOweCAcX3PPazC/yyqfFyZ80lSSNG7pd7fCHrLhs9Com9j5WgdxcN8Tr67IQEFNJXAC5u3DFoU30vOKpUBkV/SyAxMXUdhx root@sn09
-
-- name: sn10.s.ffh.zone
-  key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNPU8w06hu6E8DT1nsbg6ntlGlK29Jw1whWdmpjjNFUoeXWf0QZZeXyK7ex6p3SdBlUqN/AmqAvAV0lsErtdmSc= root@sn10
-- name: sn10.s.ffh.zone
-  key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIB7YBzVus+VXe7fdPjiZMFNgigockbuAmid6tUafM/t root@sn10
-- name: sn10.s.ffh.zone
-  key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5zQ8brgFRf/OiekO4wzzYGpqZi1rFBHTilghTY7HZ+DTjZ2H+AguILJ8j8ruIV2cmq34ruje8HFDbqHFu25//gZJ1+j29S/pzPDMPu8MecGv+8bAThpM+U0Ma7/37ijWRBRrUq8EjySVWHxhKxKPrZm7AIpNFy47a5bmC/6/XpKr96tprNgBrRAmohO0A0srZHXIUoMAK8eaZqBMW4NlEfHQwMLNeD5B6IllOEFL264E713owzQIcprP4jOwqN36h8Gdt/MkxPjK4mXaSyOfDP7b0HlROVCvFnYbQgoGfnq3pnUi1VAHhMTu7gB1V4MC8qqiFLp6wnmkoU+5/aGZR root@sn10
-

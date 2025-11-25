@@ -11,8 +11,8 @@ network_lower_ifaces:
 # based on the exit_ip_ranges variable defined in
 # group_vars/all/nodes.yml.
 route_exitnode_via:
-  leintor:
-    interface: "gre-leintor"
+  sn06:
+    interface: "gre-sn06"
   sn07:
     interface: "gre-sn07"
   sn08:
