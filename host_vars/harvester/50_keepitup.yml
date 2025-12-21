@@ -1,0 +1,21 @@
+---
+
+keepitup_influx_pass: "ue&k~oo5Bum4aexohGh9"
+
+keepitup_smtp_host: "mx1.ffh.zone"
+keepitup_smtp_replyto: "freifunk@irrelefant.net"
+keepitup_smtp_from: "keepitup@harvester.ffh.zone"
+keepitup_smtp_user: "harvester-keepitup@ffh.zone"
+keepitup_smtp_pass: "962ba39e1f7fe27507fc8cb2b6408570024672cb6c329cac2fa7e70830a3818f"
+
+keepitup_flask_secret: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38326261666339333362346234653439356634323737343661643632643136613463303862333130
+          3039393162376633313865306261633331636638356263380a363339353439643261313033643930
+          38303237316434663830356463363437353866303962633135396638393433343435653766333735
+          6634373635343536340a363636383630396634656338383534623431363462646134633333613866
+          63323363303162396533343861373036326339376530373831383064333734613264
+keepitup_nodes_url: "https://harvester.ffh.zone/api/nodes.json"
+keepitup_fqdn: "https://keepitup.ffh.zone/"
+keepitup_map_url: "https://hannover.freifunk.net/karte/#!/de/map/{node.nodeid}"
+keepitup_stat_url: "https://stats.ffh.zone/d/EGysRPsMz/router-fur-meshviewer?orgId=1&from=now-7d&to=now-1m&var-node={node.nodeid}"
