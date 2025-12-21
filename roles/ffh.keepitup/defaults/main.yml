@@ -12,12 +12,6 @@ keepitup_stat_url: "https://stats.ffh.zone/d/EGysRPsMz/router-fur-meshviewer?org
 keepitup_flash_secret: "secret"
 keepitup_debug: false
 
-keepitup_influx_host: "[::1]"
-keepitup_influx_port: 8086
-keepitup_influx_user: "keepitup"
-keepitup_influx_pass: "secret"
-keepitup_influx_database: "keepitup"
-
 keepitup_smtp_host: "smtp.example.com"
 keepitup_smtp_port: 587
 keepitup_smtp_replyto: "service@example.com"
