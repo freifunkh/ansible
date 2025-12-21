@@ -1,2 +1,4 @@
 ---
 # defaults file for ffh.docker-mailserver
+
+dms_srs_secret: ""
