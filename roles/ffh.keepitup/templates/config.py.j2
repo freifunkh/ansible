@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import base64
+
+INFLUX_HOST = "{{ keepitup_influx_host }}"
+INFLUX_PORT = {{ keepitup_influx_port }}
+INFLUX_USER = "{{ keepitup_influx_user }}"
+INFLUX_PASS = "{{ keepitup_influx_pass }}"
+INFLUX_DATABASE = "{{ keepitup_influx_database }}"
+
+# you can use "python -m smtpd -c DebuggingServer -n localhost:1025" for
+# testing purposes here
+SMTP_HOST = '{{ keepitup_smtp_host }}'
+SMTP_PORT = {{ keepitup_smtp_port }}
+SMTP_REPLY_TO_EMAIL = '{{ keepitup_smtp_replyto }}'
+SMTP_FROM = '{{ keepitup_smtp_from }}'
+SMTP_USE_STARTTLS = {% if keepitup_smtp_starttls %}True{% else %}False{% endif %}
+
+SMTP_USER = '{{ keepitup_smtp_user }}'
+SMTP_PASS = '{{ keepitup_smtp_pass }}'
+
+NODES_JSON_URL = '{{ keepitup_nodes_url }}'
+
+# generate via 'python3 -c "import base64,secrets; print(base64.b64encode(secrets.token_bytes(16)).decode())"'
+FLASK_SECRET_KEY = base64.b64decode('{{ keepitup_flask_secret }}')
+
+# if you are behind a proxy, set the globally reachable url here
+APP_URL = "{{ keepitup_fqdn }}"
+
+NODE_LINKS = {
+    "Map": "{{ keepitup_map_url }}",
+    "Stats": "{{ keepitup_stat_url }}"
+}
+
+DEBUG = {% if keepitup_debug %}True{% else %}False{% endif %}

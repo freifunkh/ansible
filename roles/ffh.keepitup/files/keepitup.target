@@ -1,0 +1,5 @@
+[Unit]
+Description=The KeepItUp Service pings FF Nodes and notifies users if their nodes are down
+
+[Install]
+WantedBy=multi-user.target

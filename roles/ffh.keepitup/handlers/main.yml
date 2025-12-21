@@ -1,0 +1,15 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for ffh.keepitup
+
+- name: keepitup-worker restart
+  ansible.builtin.systemd_service:
+    name: "keepitup-worker.service"
+    enabled: true
+    status: "restarted"
+
+- name: keepitup-webserver restart
+  ansible.builtin.systemd_service:
+    name: "keepitup-webserver.service"
+    enabled: true
+    status: "restarted"

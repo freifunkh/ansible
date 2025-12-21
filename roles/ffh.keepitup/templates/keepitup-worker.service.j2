@@ -1,0 +1,15 @@
+[Unit]
+Description=The KeepItUp Worker pings and sends notification mails
+After=network.target
+After=nginx.service
+Wants=nginx.service
+PartOf=keepitup.target
+
+[Service]
+User=root
+WorkingDirectory={{ keepitup_path }}
+ExecStart={{ keepitup_path }}/venv/bin/python {{ keepitup_path }}/ping_worker.py
+Restart=always
+
+[Install]
+WantedBy=keepitup.target

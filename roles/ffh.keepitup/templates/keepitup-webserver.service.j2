@@ -1,0 +1,14 @@
+[Unit]
+Description=The KeepItUp Webserver
+After=network.target
+PartOf=keepitup.target
+
+[Service]
+User={{ keepitup_user }}
+WorkingDirectory={{ keepitup_path }}
+Environment=FLASK_CONFIG=production
+ExecStart={{ keepitup_path }}/venv/bin/gunicorn -b localhost:8132 -w 4 webserver:app
+Restart=always
+
+[Install]
+WantedBy=keepitup.target

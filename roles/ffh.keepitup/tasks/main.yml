@@ -1,0 +1,77 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    pkg:
+    - "python3-venv"
+
+- name: Ensure group exists
+  ansible.builtin.group:
+    name: "{{ keepitup_group }}"
+    state: present
+
+- name: Ensure user exists
+  ansible.builtin.user:
+    name: "{{ keepitup_user }}"
+    group: "{{ keepitup_group }}"
+    shell: "/sbin/nologin"
+    password: "!"
+
+- name: Ensure path exists
+  ansible.builtin.file:
+    path: "{{ keepitup_path }}"
+    state: "directory"
+    owner: "{{ keepitup_user }}"
+    group: "{{ keepitup_group }}"
+  become: "yes"
+ 
+- name: Clone KeepItUp from repo
+  ansible.builtin.git:
+    repo: "https://github.com/lemoer/keepitup.git"
+    dest: "{{ keepitup_path }}"
+    accept_hostkey: "true"
+  become: "yes"
+  become_user: "{{ keepitup_user }}"
+
+- name: Write config.py
+  ansible.builtin.template:
+    src: "config.py.j2"
+    dest: "{{ keepitup_path }}/config.py"
+    mode: "0600"
+    owner: "{{ keepitup_user }}"
+    group: "{{ keepitup_group }}"
+
+- name: Create venv
+  ansible.builtin.pip:
+    requirements: "{{ keepitup_path }}/requirements.txt"
+    virtualenv: "{{ keepitup_path }}/venv"
+    virtualenv_command: "/usr/bin/python3 -m venv"
+  become: "yes"
+  become_user: "{{ keepitup_user }}"
+
+- name: Write systemd target file
+  ansible.builtin.copy:
+    src: "keepitup.target"
+    dest: "/etc/systemd/system/keepitup.target"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Write systemd unitfile for webserver
+  ansible.builtin.template:
+    src: "keepitup-webserver.service.j2"
+    dest: "/etc/systemd/system/keepitup-webserver.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: "keepitup-webserver restart"
+
+- name: Write systemd unitfile for worker
+  ansible.builtin.template:
+    src: "keepitup-worker.service.j2"
+    dest: "/etc/systemd/system/keepitup-worker.service"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  notify: "keepitup-worker restart"
