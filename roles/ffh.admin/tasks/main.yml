@@ -30,7 +30,7 @@
     value: "10"
     state: present
     reload: yes
-  when: reboot_on_kernelpanic == true and ansible_virtualization_type != "lxc"
+  when: reboot_on_kernelpanic == true and ansible_facts['virtualization_type'] != "lxc"
 
 - name: Set timezone
   community.general.timezone:
