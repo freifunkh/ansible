@@ -49,6 +49,7 @@
     virtualenv_command: "/usr/bin/python3 -m venv"
   become: "yes"
   become_user: "{{ keepitup_user }}"
+  changed_when: false
 
 - name: Write systemd target file
   ansible.builtin.copy:
