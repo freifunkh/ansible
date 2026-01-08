@@ -85,6 +85,9 @@ GatewayOnLink={{ route.gol }}
 {% if route.scope is defined %}
 Scope={{ route.scope }}
 {% endif %}
+{% if route.type is defined %}
+Type={{ route.type }}
+{% endif %}
 {% endfor %}
 
 {% if item.1.additional_config is defined -%}
