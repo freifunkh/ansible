@@ -26,6 +26,9 @@ networkd_configures:
     - dest: "45.12.203.128/26"
       table: "blech"
       gw: "185.1.74.73"
+    - dest: "45.12.203.192/26"
+      table: "blech"
+      type: "unreachable"
 - iface: ens19 # bridge to other vms
   addresses:
     - 45.12.203.65/26
