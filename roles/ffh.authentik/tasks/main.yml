@@ -34,5 +34,5 @@
 - name: Deploy authentik
   community.docker.docker_compose_v2:
     project_src: "{{ authentik_path }}"
-    files:
-    - "docker-compose.yml"
+    build: "never"
+    state: "present"

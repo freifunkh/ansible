@@ -51,5 +51,5 @@
 - name: Deploy Traefik
   community.docker.docker_compose_v2:
     project_src: "{{ traefik_path }}"
-    files:
-    - "docker-compose.yml"
+    build: "never"
+    state: "present"

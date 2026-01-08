@@ -20,5 +20,5 @@
 - name: Deploy Vaultwarden
   community.docker.docker_compose_v2:
     project_src: "{{ vaultwarden_path }}"
-    files:
-    - "docker-compose.yml"
+    build: "never"
+    state: "present"

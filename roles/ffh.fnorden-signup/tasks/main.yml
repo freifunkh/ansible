@@ -27,5 +27,5 @@
 - name: Deploy fnordensignup 
   community.docker.docker_compose_v2:
     project_src: "{{ fnordensignup_path }}"
-    files:
-    - "docker-compose.yml"
+    build: "never"
+    state: "present"

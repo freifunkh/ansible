@@ -64,5 +64,5 @@
 - name: Deploy homer
   community.docker.docker_compose_v2:
     project_src: "/opt/homer"
-    files:
-    - "docker-compose.yml"
+    build: "never"
+    state: "present"
