@@ -21,6 +21,20 @@
     update_cache: yes
     cache_valid_time: 3600
 
+- name: Install python venv package & wireguard-tools
+  ansible.builtin.apt:
+    pkg:
+    - "python3-venv"
+    - "wireguard-tools"
+
+# install a venv in /srv/wireguard/venv and install pyroute2 there
+- name: Create venv
+  ansible.builtin.pip:
+    name: pyroute2
+    virtualenv: "/srv/wireguard/venv"
+    virtualenv_command: "/usr/bin/python3 -m venv"
+  changed_when: false
+
 - name: Fetch wireguard-vxlan-glue
   notify: Restart wg_netlink
   git:

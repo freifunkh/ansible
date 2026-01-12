@@ -7,7 +7,7 @@ After=sys-subsystem-net-devices-{{ vxlan_iface_prefix }}_{{ domain.id }}.device
 {% endfor %}
 
 [Service]
-ExecStart=/usr/bin/python3 /srv/wireguard/vxlan-glue/netlink.py -c /etc/wireguard/netlink_cfg.json
+ExecStart=/srv/wireguard/venv/bin/python3 /srv/wireguard/vxlan-glue/netlink.py -c /etc/wireguard/netlink_cfg.json
 Restart=always
 
 [Install]
