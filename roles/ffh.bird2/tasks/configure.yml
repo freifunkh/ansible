@@ -35,7 +35,3 @@
     group: "bird"
     mode: "0640"
   with_dict: "{{ bird_peers }}"
-
-
-
-

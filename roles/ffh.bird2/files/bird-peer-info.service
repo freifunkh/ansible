@@ -1,6 +1,0 @@
-[Unit]
-Description=Extracts route data from birdc for Zabbix to pick up
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/sbin/bird-peer-info-routes.sh

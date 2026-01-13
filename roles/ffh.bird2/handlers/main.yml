@@ -1,15 +1,9 @@
 ---
-# handlers file for ffh.bird2
-
-# We do not rely on telegraf being installed here, so it doesn't matter whether
-# it is installed later or already installed.
-- name: Maybe restart telegraf
-  shell: if test -f /usr/bin/telegraf; then systemctl restart telegraf; fi
 
 - name: restart bird
-  systemd:
-    name: bird
-    state: restarted
+  ansible.builtin.systemd_service:
+    name: "bird"
+    state: "restarted"
 
 - name: reconfigure bird
-  shell: /usr/sbin/birdc configure
+  ansible.builtin.shell: "/usr/sbin/birdc configure"

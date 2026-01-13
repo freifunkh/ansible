@@ -21,25 +21,21 @@
 ########### BIRD repo only serves for buster or older
 
 - name: "Install bird2 from repo"
-  apt:
+  ansible.builtin.apt:
     name: "bird2"
     state: latest
 
 - name: "Install birdstatus"
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/freifunkh/birdstatus"
-    dest: "/opt/birdstatus"
+    dest: "{{ bird_birdstatus_path }}"
     version: "main"
 
 - name: "Install birdstatus dependencies"
-  get_url:
+  ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/freifunkh/pybird/master/pybird/__init__.py"
-    dest: "/opt/birdstatus/pybird.py"
+    dest: "{{ bird_birdstatus_path }}/pybird.py"
     mode: "0644"
     owner: "root"
     group: "root"
   when: not ansible_check_mode
-
-# Depends on outdated libs. Disabled for now.
-#- name: "Install statistics export"
-#  include_tasks: bird_exporter.yml

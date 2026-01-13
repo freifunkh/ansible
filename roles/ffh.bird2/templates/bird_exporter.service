@@ -1,8 +1,0 @@
-[Unit]
-Description=Prometheus exporter for bird (used by telegraf)
-
-[Service]
-ExecStart=/usr/local/bin/bird_exporter -format.new=true -bird.socket /var/run/bird/bird.ctl -bird.v2 -web.listen-address 127.0.0.1:9324
-
-[Install]
-WantedBy=multi-user.target

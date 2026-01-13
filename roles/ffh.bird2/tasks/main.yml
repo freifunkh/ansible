@@ -1,5 +1,4 @@
 ---
-# tasks file for ffh.bird2
 
 - name: "BIRD 2"
   when: bird_enable is defined and bird_enable
