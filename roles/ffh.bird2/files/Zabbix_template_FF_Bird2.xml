@@ -20,195 +20,12 @@
             </groups>
             <items>
                 <item>
-                    <uuid>9b44b0ee448241ac9acb703c2236a890</uuid>
-                    <name>Bird: get protocols</name>
-                    <type>ZABBIX_ACTIVE</type>
-                    <key>bird.bgp.info</key>
+                    <uuid>c7f545031c8a48e68911f949c88c35a3</uuid>
+                    <name>Bird: query socket</name>
+                    <key>bird.socket</key>
                     <history>0</history>
                     <value_type>TEXT</value_type>
                     <trends>0</trends>
-                </item>
-                <item>
-                    <uuid>bb9225bbb3554aad8c6061e9838f045f</uuid>
-                    <name>Bird memory (protocols)</name>
-                    <type>DEPENDENT</type>
-                    <key>bird.memory.protocols</key>
-                    <delay>0</delay>
-                    <status>DISABLED</status>
-                    <units>B</units>
-                    <preprocessing>
-                        <step>
-                            <type>REGEX</type>
-                            <parameters>
-                                <parameter>Protocols:\s+(\d+.*)\n</parameter>
-                                <parameter>\1</parameter>
-                            </parameters>
-                        </step>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
-ret = 0;
-switch(x[2]) {
-  case &quot;k&quot;:
-    ret = parseInt(x[1])*1024;
-    break;
-  case &quot;M&quot;:
-    ret = parseInt(x[1])*1024*1024;
-    break;
-  case &quot;G&quot;:
-    ret = parseInt(x[1])*1024*1024*1024;
-    break;
-  default:
-    ret = 0;
-    break;
-}
-return ret;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-                    <master_item>
-                        <key>bird.memory_master</key>
-                    </master_item>
-                </item>
-                <item>
-                    <uuid>2d1eaf5e4104484d8177d1044f7c78b7</uuid>
-                    <name>Bird memory (route attributes)</name>
-                    <type>DEPENDENT</type>
-                    <key>bird.memory.route_attributes</key>
-                    <delay>0</delay>
-                    <status>DISABLED</status>
-                    <units>B</units>
-                    <preprocessing>
-                        <step>
-                            <type>REGEX</type>
-                            <parameters>
-                                <parameter>Route attributes:\s+(\d+.*)\n</parameter>
-                                <parameter>\1</parameter>
-                            </parameters>
-                        </step>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
-ret = 0;
-switch(x[2]) {
-  case &quot;k&quot;:
-    ret = parseInt(x[1])*1024;
-    break;
-  case &quot;M&quot;:
-    ret = parseInt(x[1])*1024*1024;
-    break;
-  case &quot;G&quot;:
-    ret = parseInt(x[1])*1024*1024*1024;
-    break;
-  default:
-    ret = 0;
-    break;
-}
-return ret;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-                    <master_item>
-                        <key>bird.memory_master</key>
-                    </master_item>
-                </item>
-                <item>
-                    <uuid>ead74b18ed0047ed8088f5f5915dea9d</uuid>
-                    <name>Bird memory (routing tables)</name>
-                    <type>DEPENDENT</type>
-                    <key>bird.memory.route_tables</key>
-                    <delay>0</delay>
-                    <status>DISABLED</status>
-                    <units>B</units>
-                    <preprocessing>
-                        <step>
-                            <type>REGEX</type>
-                            <parameters>
-                                <parameter>Routing tables:\s+(\d+.*)\n</parameter>
-                                <parameter>\1</parameter>
-                            </parameters>
-                        </step>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
-ret = 0;
-switch(x[2]) {
-  case &quot;k&quot;:
-    ret = parseInt(x[1])*1024;
-    break;
-  case &quot;M&quot;:
-    ret = parseInt(x[1])*1024*1024;
-    break;
-  case &quot;G&quot;:
-    ret = parseInt(x[1])*1024*1024*1024;
-    break;
-  default:
-    ret = 0;
-    break;
-}
-return ret;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-                    <master_item>
-                        <key>bird.memory_master</key>
-                    </master_item>
-                </item>
-                <item>
-                    <uuid>3c0566d855d8471bb04aa83154bf66ca</uuid>
-                    <name>Bird memory (total)</name>
-                    <type>DEPENDENT</type>
-                    <key>bird.memory.total</key>
-                    <delay>0</delay>
-                    <status>DISABLED</status>
-                    <units>B</units>
-                    <preprocessing>
-                        <step>
-                            <type>REGEX</type>
-                            <parameters>
-                                <parameter>Total:\s+(\d+.*)</parameter>
-                                <parameter>\1</parameter>
-                            </parameters>
-                        </step>
-                        <step>
-                            <type>JAVASCRIPT</type>
-                            <parameters>
-                                <parameter>x = value.match(/(\d+)\s+([A-Za-z])B/);
-ret = 0;
-switch(x[2]) {
-  case &quot;k&quot;:
-    ret = parseInt(x[1])*1024;
-    break;
-  case &quot;M&quot;:
-    ret = parseInt(x[1])*1024*1024;
-    break;
-  case &quot;G&quot;:
-    ret = parseInt(x[1])*1024*1024*1024;
-    break;
-  default:
-    ret = 0;
-    break;
-}
-return ret;</parameter>
-                            </parameters>
-                        </step>
-                    </preprocessing>
-                    <master_item>
-                        <key>bird.memory_master</key>
-                    </master_item>
-                </item>
-                <item>
-                    <uuid>0146b385e2da46deb2f1113b6637dbb7</uuid>
-                    <name>Bird memory</name>
-                    <type>ZABBIX_ACTIVE</type>
-                    <key>bird.memory_master</key>
-                    <history>0</history>
-                    <value_type>TEXT</value_type>
-                    <trends>0</trends>
-                    <status>DISABLED</status>
                 </item>
                 <item>
                     <uuid>2791471c9f574a1e86c79a80426219d9</uuid>
@@ -228,10 +45,10 @@ return ret;</parameter>
             </items>
             <discovery_rules>
                 <discovery_rule>
-                    <uuid>16bfdab180234436bc0c98b6ab731985</uuid>
-                    <name>Bird: protocols discovery</name>
+                    <uuid>4fceaa3a64444354a20f4b6f7aa5f182</uuid>
+                    <name>Bird Protocols Discovery</name>
                     <type>DEPENDENT</type>
-                    <key>bird.bgp.info.discovery</key>
+                    <key>bird.protocols.discovery</key>
                     <delay>0</delay>
                     <filter>
                         <conditions>
@@ -252,10 +69,10 @@ return ret;</parameter>
                     <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
                     <item_prototypes>
                         <item_prototype>
-                            <uuid>847992df77754acd9534ea077c0e5b3d</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; info section</name>
+                            <uuid>9d0e03ab85dd4d63bbb9d40ca356a668</uuid>
+                            <name>Bird: Protocol {#PROTO} info section</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto.info[{#PROTO}]</key>
+                            <key>bird.proto.info[{#PROTO}]</key>
                             <delay>0</delay>
                             <history>0</history>
                             <value_type>CHAR</value_type>
@@ -264,107 +81,61 @@ return ret;</parameter>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$..[?(@.proto=='{#PROTO}')].first()</parameter>
+                                        <parameter>$..[?(@.name=='{#PROTO}')].first()</parameter>
                                     </parameters>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.info</key>
+                                <key>bird.socket</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>663da808ee6749f9a8293a53eadb4a6c</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes exported</name>
+                            <uuid>b6e2cb3d4fbe4ec081e36167ecdba79e</uuid>
+                            <name>Bird: {#PROTO} export_updates_accepted</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},exported]</key>
+                            <key>bird.protocols[{#PROTO},export_updates_accepted]</key>
                             <delay>0</delay>
+                            <trends>0</trends>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$.exported</parameter>
+                                        <parameter>$.export_updates_accepted</parameter>
                                     </parameters>
                                 </step>
                                 <step>
                                     <type>DISCARD_UNCHANGED_HEARTBEAT</type>
                                     <parameters>
-                                        <parameter>24h</parameter>
+                                        <parameter>12h</parameter>
                                     </parameters>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <uuid>385f504e637d4a06a0d49bd02926bcff</uuid>
-                                    <expression>last(/FF Bird2/bird.bgp.proto[{#PROTO},exported])&lt;{$ROUTES_EXP:&quot;{#PROTO}&quot;}</expression>
+                                    <uuid>073ccb566cec4105a890575570f3ec07</uuid>
+                                    <expression>last(/FF Bird2/bird.protocols[{#PROTO},export_updates_accepted])&lt;{$ROUTES_EXP:&quot;{#PROTO}&quot;}</expression>
                                     <name>Too few exported routes to {#PROTO}</name>
                                     <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>c47e78e2621f4ce080e23f1dadb7ac16</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes filtered</name>
+                            <uuid>0915d6bd48f1439f96b70362a8880cd0</uuid>
+                            <name>Bird: {#PROTO} export_updates_filtered</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},filtered]</key>
+                            <key>bird.protocols[{#PROTO},export_updates_filtered]</key>
                             <delay>0</delay>
-                            <preprocessing>
-                                <step>
-                                    <type>JSONPATH</type>
-                                    <parameters>
-                                        <parameter>$.filtered</parameter>
-                                    </parameters>
-                                </step>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <parameters>
-                                        <parameter>12h</parameter>
-                                    </parameters>
-                                </step>
-                            </preprocessing>
-                            <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <uuid>d4d069c1cb4e419cbdecced2ddd3edcc</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes preferred</name>
-                            <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},preferred]</key>
-                            <delay>0</delay>
-                            <preprocessing>
-                                <step>
-                                    <type>JSONPATH</type>
-                                    <parameters>
-                                        <parameter>$.preferred</parameter>
-                                    </parameters>
-                                </step>
-                                <step>
-                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
-                                    <parameters>
-                                        <parameter>12h</parameter>
-                                    </parameters>
-                                </step>
-                            </preprocessing>
-                            <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <uuid>5cafa212b32e440e90d75476066e1729</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; reason</name>
-                            <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},reason]</key>
-                            <delay>0</delay>
-                            <value_type>CHAR</value_type>
+                            <history>7d</history>
                             <trends>0</trends>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$.reason</parameter>
+                                        <parameter>$.export_updates_filtered</parameter>
                                     </parameters>
                                 </step>
                                 <step>
@@ -375,20 +146,22 @@ return ret;</parameter>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>3eed61b2adee4fd28b6f7814636dda9a</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes imported</name>
+                            <uuid>6a5d2aaebf7341e5be2ba2d7db8d84af</uuid>
+                            <name>Bird: {#PROTO} export_updates_received</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},routes]</key>
+                            <key>bird.protocols[{#PROTO},export_updates_received]</key>
                             <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$.routes</parameter>
+                                        <parameter>$.export_updates_received</parameter>
                                     </parameters>
                                 </step>
                                 <step>
@@ -399,66 +172,334 @@ return ret;</parameter>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a263d1798fc54ad696d22b7357c8b20d</uuid>
+                            <name>Bird: {#PROTO} export_updates_rejected</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},export_updates_rejected]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.export_updates_rejected</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>678cbe489d8048859bf2ae008728a3aa</uuid>
+                            <name>Bird: {#PROTO} export_withdraws_accepted</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},export_withdraws_accepted]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.export_withdraws_accepted</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>683fffaa8d2c4f3d9fdb1420f1fddb0b</uuid>
+                            <name>Bird: {#PROTO} export_withdraws_received</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},export_withdraws_received]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.export_withdraws_received</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>06954401e42948339f3647a9decf9e3d</uuid>
+                            <name>Bird: {#PROTO} import_updates_accepted</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_updates_accepted]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_updates_accepted</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <uuid>58a4b1a6103e464faf684bb72bf3f0d5</uuid>
-                                    <expression>last(/FF Bird2/bird.bgp.proto[{#PROTO},routes])&lt;{$ROUTES_IMP:&quot;{#PROTO}&quot;}</expression>
+                                    <uuid>09834780749d46d6abe0af304f8a6a0e</uuid>
+                                    <expression>last(/FF Bird2/bird.protocols[{#PROTO},import_updates_accepted])&lt;{$ROUTES_IMP:&quot;{#PROTO}&quot;}</expression>
                                     <name>Too few imported routes from {#PROTO}</name>
                                     <priority>WARNING</priority>
+                                    <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>98e1b7e3aace4910ba498dda15a2fec9</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; in state since</name>
+                            <uuid>a68ea9f7eedd4868aeb65e426aeeca5f</uuid>
+                            <name>Bird: {#PROTO} import_updates_filtered</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},since]</key>
+                            <key>bird.protocols[{#PROTO},import_updates_filtered]</key>
                             <delay>0</delay>
+                            <history>7d</history>
                             <trends>0</trends>
-                            <description>start / up / down</description>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$.since</parameter>
+                                        <parameter>$.import_updates_filtered</parameter>
                                     </parameters>
                                 </step>
                                 <step>
-                                    <type>STR_REPLACE</type>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
                                     <parameters>
-                                        <parameter><![CDATA[ ]]></parameter>
-                                        <parameter>T</parameter>
-                                    </parameters>
-                                </step>
-                                <step>
-                                    <type>JAVASCRIPT</type>
-                                    <parameters>
-                                        <parameter>value += &quot;+03:00&quot;;
-const date = new Date(Date.parse(value));
-const timestamp = date.getTime();
-return (timestamp/1000|0);</parameter>
+                                        <parameter>12h</parameter>
                                     </parameters>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
-                            <trigger_prototypes>
-                                <trigger_prototype>
-                                    <uuid>4059cfcae0f24d059d5eb2c9e89371c3</uuid>
-                                    <expression>(now()-last(/FF Bird2/bird.bgp.proto[{#PROTO},since]))&lt;{$PROTO_STATE_TIME}*60</expression>
-                                    <name>Bird protocol {#PROTO} changed state in last {$PROTO_STATE_TIME}m</name>
-                                    <priority>AVERAGE</priority>
-                                </trigger_prototype>
-                            </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>84aa179ef78c49659418026ba7755f4b</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; state</name>
+                            <uuid>1627305100e84ecca87c4f993da50fc7</uuid>
+                            <name>Bird: {#PROTO} import_updates_ignored</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},state]</key>
+                            <key>bird.protocols[{#PROTO},import_updates_ignored]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_updates_ignored</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1f4cad06a19447429e366be70c3b44db</uuid>
+                            <name>Bird: {#PROTO} import_updates_received</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_updates_received]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_updates_received</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>bbc27304bc0746e3b784b3c0483100ec</uuid>
+                            <name>Bird: {#PROTO} import_updates_rejected</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_updates_rejected]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_updates_rejected</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>29ad48f291fc4422afec57b0f5a74bf5</uuid>
+                            <name>Bird: {#PROTO} import_withdraws_accepted</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_withdraws_accepted]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_withdraws_accepted</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a03b8372a85940d28fe14235aecc1920</uuid>
+                            <name>Bird: {#PROTO} import_withdraws_ignored</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_withdraws_ignored]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_withdraws_ignored</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>af9a855eb0f9484eb5ab3dea6f532b14</uuid>
+                            <name>Bird: {#PROTO} import_withdraws_received</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_withdraws_received]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_withdraws_received</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>0c66827070604df1b8eb455e8e8c319a</uuid>
+                            <name>Bird: {#PROTO} import_withdraws_rejected</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},import_withdraws_rejected]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>0</trends>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.import_withdraws_rejected</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                                    <parameters>
+                                        <parameter>12h</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>bird.proto.info[{#PROTO}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>18f9527df47f4323898077ef0a137e81</uuid>
+                            <name>Bird: {#PROTO} state</name>
+                            <type>DEPENDENT</type>
+                            <key>bird.protocols[{#PROTO},state]</key>
                             <delay>0</delay>
                             <value_type>CHAR</value_type>
                             <trends>0</trends>
@@ -477,31 +518,31 @@ return (timestamp/1000|0);</parameter>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
                             <trigger_prototypes>
                                 <trigger_prototype>
-                                    <uuid>97e68e019273484c8ccc850429f6eb39</uuid>
-                                    <expression>(last(/FF Bird2/bird.bgp.proto[{#PROTO},state],#1))&lt;&gt;(last(/FF Bird2/bird.bgp.proto[{#PROTO},state],#2))</expression>
-                                    <name>Protocol {#PROTO} state changed</name>
-                                    <priority>AVERAGE</priority>
+                                    <uuid>f2e17f1885e642229059e2a104747be5</uuid>
+                                    <expression>last(/FF Bird2/bird.protocols[{#PROTO},state])&lt;&gt;&quot;Established&quot;</expression>
+                                    <name>Protocol {#PROTO} no longer Established</name>
+                                    <priority>HIGH</priority>
+                                    <manual_close>YES</manual_close>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
                         <item_prototype>
-                            <uuid>94c139214977448c9e3bf05cdd8f86d6</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; status</name>
+                            <uuid>3c4ade4063314e5cb81c2d7aff2af6f7</uuid>
+                            <name>Bird: {#PROTO} up</name>
                             <type>DEPENDENT</type>
-                            <key>bird.bgp.proto[{#PROTO},status]</key>
+                            <key>bird.protocols[{#PROTO},up]</key>
                             <delay>0</delay>
-                            <value_type>CHAR</value_type>
+                            <value_type>BINARY</value_type>
                             <trends>0</trends>
-                            <description>Established / Passive / Idle</description>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
                                     <parameters>
-                                        <parameter>$.status</parameter>
+                                        <parameter>$.up</parameter>
                                     </parameters>
                                 </step>
                                 <step>
@@ -512,50 +553,24 @@ return (timestamp/1000|0);</parameter>
                                 </step>
                             </preprocessing>
                             <master_item>
-                                <key>bird.bgp.proto.info[{#PROTO}]</key>
+                                <key>bird.proto.info[{#PROTO}]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
-                    <graph_prototypes>
-                        <graph_prototype>
-                            <uuid>7cf9534c332847f78edf861a9d4f7e1a</uuid>
-                            <name>Bird: Protocol &quot;{#PROTO}&quot; routes imported/preferred</name>
-                            <graph_items>
-                                <graph_item>
-                                    <drawtype>FILLED_REGION</drawtype>
-                                    <color>9CCC65</color>
-                                    <calc_fnc>ALL</calc_fnc>
-                                    <item>
-                                        <host>FF Bird2</host>
-                                        <key>bird.bgp.proto[{#PROTO},routes]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <color>274482</color>
-                                    <calc_fnc>ALL</calc_fnc>
-                                    <item>
-                                        <host>FF Bird2</host>
-                                        <key>bird.bgp.proto[{#PROTO},preferred]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                    </graph_prototypes>
                     <master_item>
-                        <key>bird.bgp.info</key>
+                        <key>bird.socket</key>
                     </master_item>
                     <lld_macro_paths>
                         <lld_macro_path>
                             <lld_macro>{#PROTO}</lld_macro>
-                            <path>$.proto</path>
+                            <path>$.name</path>
                         </lld_macro_path>
                     </lld_macro_paths>
                     <preprocessing>
                         <step>
                             <type>JSONPATH</type>
                             <parameters>
-                                <parameter>$.data.[*]</parameter>
+                                <parameter>$.[*]</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
