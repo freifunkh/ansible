@@ -1,39 +1,46 @@
 ---
 # This file should regularly be cleaned up, so we can remove outdated stuff.
 
-- name: "Install temporary firewall filter for former sn05 node"
+- name: "Remove temporary firewall filter for former sn05 node"
   when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
   notify: reload ferm
-  template:
-    src: "sn05-ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/05-sn05.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
+  ansible.builtin.file:
+    path: "/etc/ferm/conf.d/05-sn05.conf"
+    state: absent
 
-- name: "Remove apinger-http"
-  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
-  block:
-    - name: "Remove apinger-http firewall rule"
-      notify: reload ferm
-      ansible.builtin.file:
-        path: /etc/ferm/conf.d/50-apinger-http.conf
-        state: absent
-    - name: "Remove apinger-http files"
-      ansible.builtin.file:
-        path: /srv/apinger-http/
-        state: absent
-    - name: "Remove config update script ffh_apinger_conf_changed"
-      ansible.builtin.file:
-        path: /usr/bin/ffh_apinger_conf_changed
-        state: absent
-    - name: "Check for apinger-http service"
-      ansible.builtin.stat: path=/etc/systemd/system/apinger-http.service
-      register: apingerhttpservice
-    - name: "Remove systemd service"
-      when: apingerhttpservice.stat.exists
-      ansible.builtin.systemd_service:
-        name: apinger-http.service
-        state: stopped
-        enabled: false
-        daemon_reload: true
+#- name: "Install temporary firewall filter for former sn05 node"
+#  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
+#  notify: reload ferm
+#  template:
+#    src: "sn05-ferm.conf.j2"
+#    dest: "/etc/ferm/conf.d/05-sn05.conf"
+#    owner: "root"
+#    group: "root"
+#    mode: "0644"
+
+#- name: "Remove apinger-http"
+#  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
+#  block:
+#    - name: "Remove apinger-http firewall rule"
+#      notify: reload ferm
+#      ansible.builtin.file:
+#        path: /etc/ferm/conf.d/50-apinger-http.conf
+#        state: absent
+#    - name: "Remove apinger-http files"
+#      ansible.builtin.file:
+#        path: /srv/apinger-http/
+#        state: absent
+#    - name: "Remove config update script ffh_apinger_conf_changed"
+#      ansible.builtin.file:
+#        path: /usr/bin/ffh_apinger_conf_changed
+#        state: absent
+#    - name: "Check for apinger-http service"
+#      ansible.builtin.stat: path=/etc/systemd/system/apinger-http.service
+#      register: apingerhttpservice
+#    - name: "Remove systemd service"
+#      when: apingerhttpservice.stat.exists
+#      ansible.builtin.systemd_service:
+#        name: apinger-http.service
+#        state: stopped
+#        enabled: false
+#        daemon_reload: true
