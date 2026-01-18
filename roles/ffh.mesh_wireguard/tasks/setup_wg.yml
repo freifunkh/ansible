@@ -1,11 +1,10 @@
 ---
 
-- name: Add backports repository
-  apt_repository:
-    repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main
-    state: present
-    update_cache: yes
-    filename: backports
+- name: Allow lots of lots of threads for the bazzillions of NAPI kernel threads
+  ansible.posix.sysctl:
+    name: kernel.threads-max
+    value: 1000000
+    sysctl_file: /etc/sysctl.d/15-threads-max.conf
 
 - name: Install wireguard
   apt:
