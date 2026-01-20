@@ -1,7 +1,7 @@
 ---
 
 - hosts: db
-  become: yes
+  # become: yes
   pre_tasks:
     - name: "Import pre_tasks: reboot-required.yml"
       import_tasks: "include/reboot-required.yml"
