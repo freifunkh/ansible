@@ -9,6 +9,7 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 - iface: ens16 # Mellanox #1 (second slot unused)
+  no_radv_accept: true
 - iface: vlan2000
   addresses:
     - 185.1.74.56/25

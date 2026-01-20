@@ -9,8 +9,11 @@ networkd_configures:
     - 8.8.8.8
   no_radv_accept: true
 - iface: bond1 # vlan2000 (see below)
+  no_radv_accept: true
 - iface: ens16 # bond1 (see below)
+  no_radv_accept: true
 - iface: ens17 # bond1 (see below)
+  no_radv_accept: true
 - iface: vlan2000
   addresses:
     - 185.1.74.68/25
