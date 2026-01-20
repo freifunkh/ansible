@@ -28,7 +28,7 @@ Tunnel={{ tunnel.name }}
 DHCP=ipv4
 {% endif %}
 {% if item.1.no_radv_accept is defined and item.1.no_radv_accept %}
-IPv6AcceptRouterAdvertisements=false
+IPv6AcceptRA=false
 {% endif %}
 {% if networkd_vlans is defined %}
 {% for vlan in networkd_vlans %}
