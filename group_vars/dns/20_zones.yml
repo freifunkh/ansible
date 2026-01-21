@@ -141,7 +141,7 @@ dns_authoritative_toplevel:
        # Hannover
        #"zbx-haj.ffh.zone. IN CNAME leintor.e.ffh.zone.",
        "wildberger.ffh.zone. IN A 81.3.0.14",
-       "wildberger.ffh.zone. IN AAAA 2a02:790:1:3b::2",
+       "wildberger.ffh.zone. IN AAAA 2a02:790:1:3f::2",
 
        # Berlin
        "dobrindt.ffh.zone. IN A 217.197.91.135",
