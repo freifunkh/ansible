@@ -1,0 +1,43 @@
+---
+
+- name: Ensure /usr/lib/openssh/sftp-server is in shells file
+  lineinfile:
+    path: /etc/shells
+    line: /usr/lib/openssh/sftp-server
+    state: present
+
+- name: Create user jenkins
+  user:
+    name: jenkins
+    shell: /usr/lib/openssh/sftp-server
+    system: yes
+    create_home: yes
+
+- name: Ensure firmware staging directory exists
+  file:
+    path: /var/www/tmp-firmware-before-merge/
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: '0755'
+
+- name: Restrict SSH access for jenkins user
+  copy:
+    dest: /etc/ssh/sshd_config.d/restrict_jenkins_user.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      Match User jenkins
+          ForceCommand internal-sftp
+          ChrootDirectory /var/www/tmp-firmware-before-merge/
+          PermitTunnel no
+          AllowTcpForwarding no
+          X11Forwarding no
+  notify: restart ssh
+
+- name: Deploy key for jenkins user
+  authorized_key:
+    user: jenkins
+    state: present
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUuSfK+4t9VVtBwce6eIwIlpsbrlfY4RpucvlYzN7dp jenkins-artifacts"

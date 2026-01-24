@@ -29,6 +29,7 @@
     - { name: ffh.gluon-node-sense, tags: gluon-node-sense }
     - { name: ffh.meshviewer, tags: meshviewer }
     - { name: ffh.gluon-firmware-selector, tags: gfs }
+    - { name: ffh.firmware-destination, tags: firmware-destination }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

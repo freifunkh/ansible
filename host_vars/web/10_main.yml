@@ -30,5 +30,3 @@ restic_backup_paths:
 
 zabbix_agent_server: "zbx-fra.ffh.zone"
 zabbix_agent_server_active: "zbx-fra.ffh.zone"
-
-admin_authorized_local: ['firmware-target']
