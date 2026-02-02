@@ -47,6 +47,6 @@ crowdsec_listen_addr: "[2a0a:4587:2030:10c::bac]"
 crowdsec_lapi_url: "http://cs.ffh.zone:{{ crowdsec_listen_port }}"
 crowdsec_lapi_host: "tonne"
 
-authentik_version: "2025.12.2"
+authentik_version: "2025.12.3"
 
 traefik_acme_email: "noc@hannover.freifunk.net"
