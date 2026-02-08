@@ -52,6 +52,7 @@
     mode: '0644'
     regexp: '^root:'
     line: "root: {{ postfix_alias_root }}"
+    create: true
   notify:
     - new aliases
     - restart postfix
