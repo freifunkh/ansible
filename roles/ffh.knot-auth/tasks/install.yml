@@ -1,5 +1,10 @@
 ---
 
+- name: Install dpeendencies
+  ansible.builtin.apt:
+    pkg:
+    - "gpg"
+
 - name: Add Knot repo key
   ansible.builtin.get_url:
     url: "https://deb.knot-dns.cz/apt.gpg"
@@ -11,7 +16,7 @@
 
 - name: Add Knot repository
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot/ {{ ansible_lsb.codename }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot/ {{ ansible_facts['lsb']['codename'] }} main"
     state: "present"
 
 - name: Install Knot
@@ -20,10 +25,17 @@
     update_cache: "yes"
   notify: "Restart knot"
 
+- name: Create ferm path
+  ansible.builtin.file:
+    path: "/etc/ferm/conf.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+
 - name: Generate firewall config stanza (ferm)
   ansible.builtin.template:
     src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-knot.conf
+    dest: "/etc/ferm/conf.d/50-knot.conf"
   notify: reload ferm
 
 - name: Enable Knot service
