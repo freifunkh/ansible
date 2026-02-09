@@ -1,5 +1,12 @@
 ---
 
+- name: "Ensure /etc/iproute2/rt_tables.d exists"
+  ansible.builtin.file:
+    path: "/etc/iproute2/rt_tables.d"
+    state: "directory"
+    owner: "root"
+    group: "root"
+
 - name: "Add named routing table"
   ansible.builtin.copy:
     dest: "/etc/iproute2/rt_tables.d/cix.conf"
