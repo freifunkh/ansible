@@ -2,38 +2,38 @@
 
 - name: Generate firewall config stanza for MARK 42 (ferm)
   notify: reload ferm
-  template:
-    src: ferm.mark.conf.j2
-    dest: /etc/ferm/conf.d/02-mark.conf
+  ansible.builtin.template:
+    src: "ferm.mark.conf.j2"
+    dest: "/etc/ferm/conf.d/02-mark.conf"
   when: not is_superexitnode
 
 - name: Generate firewall config stanza for FORWARD (ferm)
   notify: reload ferm
-  template:
-    src: ferm.forward.conf.j2
-    dest: /etc/ferm/conf.d/50-forward.conf
+  ansible.builtin.template:
+    src: "ferm.forward.conf.j2"
+    dest: "/etc/ferm/conf.d/50-forward.conf"
 
 # systemd-network handles named RouteTables on its own.
 # According configuration is done in the networkd role.
 - name: Add named routing table to iproute2's rt_tables.d
-  copy:
+  ansible.builtin.copy:
     dest: "/etc/iproute2/rt_tables.d/{{ item.key }}.conf"
     content: "{{ item.value }} {{ item.key }}\n"
   loop: "{{ networkd_rt_tables | dict2items }}"
 
 - name: Using lo.network for RoutingPolicyRule and unreachable routes
   notify: Restart networkd
-  template:
-    src: lo.network.j2
-    dest: /etc/systemd/network/00-lo.network
+  ansible.builtin.template:
+    src: "lo.network.j2"
+    dest: "/etc/systemd/network/00-lo.network"
     mode: "0644"
     owner: "root"
     group: "systemd-network"
 
 - name: Create network droplet directories (systemd-networkd)
-  file:
+  ansible.builtin.file:
     state: "directory"
-    dest: /etc/systemd/network/10-{{ item.value.interface }}.network.d
+    dest: "/etc/systemd/network/10-{{ item.value.interface }}.network.d"
     owner: "root"
     group: "root"
     mode: "0755"
@@ -41,7 +41,7 @@
 
 - name: Drop IPv6 [Route] section in droplet directories (systemd-networkd)
   notify: Restart networkd
-  template:
+  ansible.builtin.template:
     src: "route-freifunk.conf.j2"
     dest: "/etc/systemd/network/10-{{ item.value.interface }}.network.d/route.freifunk.conf"
   with_dict: "{{ route_exitnode_via | default({}) }}"

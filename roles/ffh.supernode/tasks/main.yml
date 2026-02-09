@@ -1,19 +1,19 @@
 ---
 
 # - name: GRE stuff
-#   include_tasks: gre.yml
+#   include_tasks: "gre.yml"
 
 # - name: GRETAP stuff
-#   import_tasks: gt.yml
+#   import_tasks: "gt.yml"
 
 - name: vxlan-cross stuff
-  import_tasks: vx-cross.yml
+  import_tasks: "vx-cross.yml"
 
 - name: Routing stuff
-  include_tasks: routing.yml
+  include_tasks: "routing.yml"
 
 - name: Ignore peer directories in etckeeper
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: "/etc/.gitignore"
     block: |
       fastd/peers

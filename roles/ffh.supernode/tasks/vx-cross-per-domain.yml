@@ -2,12 +2,12 @@
 
 - name: "Generate networkd vxlan netdev (dom {{ domain.id }})"
   notify: Restart networkd
-  template:
-    src: vxlan.netdev.j2
+  ansible.builtin.template:
+    src: "vxlan.netdev.j2"
     dest: "/etc/systemd/network/30-vx-cross-{{ domain.id }}.netdev"
 
 - name: "Generate networkd vxlan network (dom {{ domain.id }})"
   notify: Restart networkd
-  template:
-    src: vxlan.network.j2
+  ansible.builtin.template:
+    src: "vxlan.network.j2"
     dest: "/etc/systemd/network/30-vx-cross-{{ domain.id }}.network"
