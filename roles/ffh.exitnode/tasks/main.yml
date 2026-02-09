@@ -1,7 +1,8 @@
 ---
 
 - name: GRE stuff
-  include_tasks: gre.yml
+  include_tasks: "gre.yml"
+  when: not is_superexitnode
 
 - name: Firewall stuff
-  include_tasks: ferm.yml
+  include_tasks: "ferm.yml"

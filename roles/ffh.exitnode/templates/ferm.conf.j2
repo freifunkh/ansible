@@ -23,6 +23,7 @@ domain (ip) {
     }
   }
   table filter {
+{% if not is_superexitnode %}
     chain INPUT {
       proto gre {
 {% for item in exitnodes | dict2items %}
@@ -33,6 +34,7 @@ domain (ip) {
 {% endfor %}
       }
     }
+{% endif %}
 
     chain FORWARD {
 
@@ -92,6 +94,7 @@ domain (ip6) {
   }
 }
 
+{% if not is_superexitnode %}
 domain (ip ip6) {
   table filter {
     chain FORWARD {
@@ -102,3 +105,4 @@ domain (ip ip6) {
     }
   }
 }
+{% endif %}
