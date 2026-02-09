@@ -4,7 +4,7 @@ protocol bgp {{ item.key }} from generic_bgp {
 
   local {{ item.value.local_addr }} as {{ item.value.local_asn }};
   neighbor {{ item.value.neighbor_addr }} as {{ item.value.neighbor_asn }};
-  password "{{ item.value.password }}";
+  {% if ansible_facts['distribution_version']|int > 12 %}authentication md5; {% endif %}password "{{ item.value.password }}";
 
   {% if item.value.local_addr is ansible.utils.ipv6 %}ipv6{% else %}ipv4{% endif %} {
     import keep filtered;
