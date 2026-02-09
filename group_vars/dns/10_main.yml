@@ -1,5 +1,7 @@
 ---
 
+knot_secondaries: ['dns2_remote', 'dns3_remote']
+
 knot_remotes: |
   remote:
     - id: dns1_remote
@@ -10,6 +12,9 @@ knot_remotes: |
       key: ffh_core_key
     - id: dns3_remote
       address: [2a0a:4587:2032:10c::53]
+      key: ffh_core_key
+    - id: dns4_remote
+      address: [2a0a:4587:2033:10ca::53]
       key: ffh_core_key
 
 knot_acls: |
@@ -34,3 +39,4 @@ dns_authoritative_nameserver:
 - nameserver: "dns1.ffh.zone."
 - nameserver: "dns2.ffh.zone."
 - nameserver: "dns3.ffh.zone."
+# - nameserver: "dns4.ffh.zone."

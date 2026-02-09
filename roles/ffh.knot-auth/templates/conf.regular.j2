@@ -8,6 +8,6 @@ zone:
     zonefile-sync: 0
     zonefile-load: whole
     journal-content: changes
-    notify: [dns2_remote, dns3_remote]
+    notify: [{{ knot_secondaries | join(', ') }}]
 {% endif %}
 {% endfor %}
