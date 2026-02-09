@@ -7,12 +7,6 @@
     dest: /etc/ferm/conf.d/02-mark.conf
   when: not is_superexitnode
 
-- name: (Maybe) Remove deprecated firewall config stanza for Freifunk-Blocker (ferm)
-  notify: reload ferm
-  file:
-    state: absent
-    path: /etc/ferm/conf.d/09-ff-blocker.conf
-
 - name: Generate firewall config stanza for FORWARD (ferm)
   notify: reload ferm
   template:
@@ -26,14 +20,6 @@
     dest: "/etc/iproute2/rt_tables.d/{{ item.key }}.conf"
     content: "{{ item.value }} {{ item.key }}\n"
   loop: "{{ networkd_rt_tables | dict2items }}"
-
-
-- name: Deploy /etc/rc.local
-  register: rclocal
-  template:
-    src: rc.local.j2
-    dest: /etc/rc.local
-    mode: u=rwx,g=rx,o=rx
 
 - name: Using lo.network for RoutingPolicyRule and unreachable routes
   notify: Restart networkd
