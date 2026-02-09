@@ -7,20 +7,19 @@
     - "systemd-resolved"
 
 - name: "sysctl: net.ipv6.conf.all.disable_ipv6 to 0"
-  sysctl:
+  ansible.posix.sysctl:
     name: net.ipv6.conf.all.disable_ipv6
     value: "0"
     sysctl_file: /etc/sysctl.d/10-ipv6.conf
     reload: yes
 
 - name: "sysctl: net.ipv6.conf.default.disable_ipv6 to 0"
-  sysctl:
+  ansible.posix.sysctl:
     name: net.ipv6.conf.default.disable_ipv6
     value: "0"
     sysctl_file: /etc/sysctl.d/10-ipv6.conf
     reload: yes
 
-# ManageForeignTables defaults to yes
 - name: Set ManageForeignTables in networkd.conf
   notify: Restart networkd
   community.general.ini_file:
@@ -30,6 +29,7 @@
     value: "{{ networkd_manage_foreign_routes }}"
     no_extra_spaces: true
   when: "not networkd_manage_foreign_routes"
+  # ManageForeignTables defaults to yes
 
 - name: Set named routing tables in networkd.conf
   notify: Restart networkd
@@ -42,10 +42,16 @@
   when: networkd_rt_tables is defined
 
 - name: Enable systemd-resolved
-  service: name=systemd-resolved enabled=yes state=started
+  ansible.builtin.systemd_service:
+    name: "systemd-resolved"
+    enabled: true
+    state: "started"
 
 - name: Enable systemd-networkd
-  service: name=systemd-networkd enabled=yes state=started
+  ansible.builtin.systemd_service:
+    name: "systemd-networkd"
+    enabled: true
+    state: "started"
   # networkd does not remove any existing network configuration,
   # so this should be safe.
 
@@ -58,34 +64,50 @@
 
 - name: Install VLAN devices
   notify: Restart networkd
-  template: src=vlan.netdev.j2 dest=/etc/systemd/network/vlan{{ item.1.id }}.netdev
+  ansible.builtin.template:
+    src: "vlan.netdev.j2"
+    dest: "/etc/systemd/network/vlan{{ item.1.id }}.netdev"
   with_indexed_items: "{{ networkd_vlans | default( [] ) }}"
 
 - name: Install gre devices
   notify: Restart networkd
-  template: src=2x-gre.netdev.j2 dest=/etc/systemd/network/2{{ item.0 }}-gre-{{ item.1.name }}.netdev
+  ansible.builtin.template:
+    src: "2x-gre.netdev.j2"
+    dest: "/etc/systemd/network/2{{ item.0 }}-gre-{{ item.1.name }}.netdev"
   with_indexed_items: "{{ networkd_gre_tunnels }}"
 
 - name: Install tap devices
   notify: Restart networkd
-  template: src=2x-tap.netdev.j2 dest=/etc/systemd/network/2{{ item.0 }}-tap-{{ item.1 }}.netdev
+  ansible.builtin.template:
+    src: "2x-tap.netdev.j2"
+    dest: "/etc/systemd/network/2{{ item.0 }}-tap-{{ item.1 }}.netdev"
   with_indexed_items: "{{ networkd_tap_devices }}"
 
 - name: Install bond devices
   notify: Restart networkd
-  template: src=3x-bond.netdev.j2 dest=/etc/systemd/network/3{{ item.0 }}-{{ item.1.name }}.netdev
+  ansible.builtin.template:
+    src: "3x-bond.netdev.j2"
+    dest: "/etc/systemd/network/3{{ item.0 }}-{{ item.1.name }}.netdev"
   with_indexed_items: "{{ networkd_bonds | default( [] ) }}"
 
 - name: Enable dns resolving with systemd-resolved
   register: enableresolved
-  file: src=/run/systemd/resolve/resolv.conf dest=/etc/resolv.conf state=link force=yes
+  ansible.builtin.file:
+    src: "/run/systemd/resolve/resolv.conf"
+    dest: "/etc/resolv.conf"
+    state: "link"
+    force: true
 
 - name: Directly restart networkd
-  service: name=systemd-networkd state=restarted
+  ansible.builtin.systemd_service:
+    name: "systemd-networkd"
+    state: "restarted"
   when: enableresolved is changed
 
 - name: Disable debian networking
-  service: name=networking enabled=no
+  ansible.builtin.systemd_service:
+    name: "networking"
+    enabled: false
   # Do not stop the debian networking scripts immediately, since the scripts
   # would remove their already applied configuration. networkd does not perceive
   # the removed configuration and would not apply it's own. This would cause connection
