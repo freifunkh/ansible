@@ -41,6 +41,7 @@ helpernodes:
   dns1: { id: 14, ip4: "{{ lookup('dig', 'dns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns1.ffh.zone./AAAA') }}" }
   dns2: { id: 15, ip4: "{{ lookup('dig', 'dns2.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns2.ffh.zone./AAAA') }}" }
   dns3: { id: 16, ip4: "{{ lookup('dig', 'dns3.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns3.ffh.zone./AAAA') }}" }
+  dns4: { id: 17, ip4: "{{ lookup('dig', 'dns4.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns4.ffh.zone./AAAA') }}" }
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }

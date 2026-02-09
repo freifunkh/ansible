@@ -26,6 +26,8 @@ all:
       ansible_host: dns2.ffh.zone
     dns3:
       ansible_host: dns3.ffh.zone
+    dns4:
+      ansible_host: dns4.ffh.zone
     mx1:
       ansible_host: mx1.ffh.zone
     harvester:
@@ -86,6 +88,7 @@ helpernodes:
     dns1:
     dns2:
     dns3:
+    dns4:
     mx1:
     harvester:
     web:
@@ -102,6 +105,7 @@ dns:
     dns1:
     dns2:
     dns3:
+    dns4:
 
 testnodes:
   hosts:

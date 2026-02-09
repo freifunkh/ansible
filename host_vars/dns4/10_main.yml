@@ -1,0 +1,36 @@
+---
+
+servername: dns4
+fqdn: "dns4.ffh.zone"
+
+networkd_configures:
+- iface: lo
+  addresses:
+    - 127.0.0.1/24
+    - ::1/128
+  no_radv_accept: true
+- iface: ens16 # mellanox
+  addresses:
+    - 81.3.6.93/29
+  gateway4: 81.3.6.89
+  dns_server:
+    - '2001:678:ed0:f000::'
+    - 5.1.66.255
+    - 9.9.9.9
+  no_radv_accept: true
+- iface: ens19
+  addresses:
+    - 2a0a:4587:2033:10ca::53/64
+  gateway6: 2a0a:4587:2033:10ca::1
+  no_radv_accept: true
+
+knot_interfaces:
+  - 2a0a:4587:2033:10ca::53@53
+  - 81.3.6.93@53
+knot_secondary_dns: true
+
+restic_backup_paths:
+- /etc/
+
+zabbix_agent_server: "zbx-haj.ffh.zone"
+zabbix_agent_server_active: "zbx-haj.ffh.zone"
