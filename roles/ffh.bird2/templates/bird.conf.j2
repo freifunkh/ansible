@@ -16,10 +16,10 @@ protocol direct {
   interface "dummy0";
 }
 
-protocol kernel {
+{% if bird_use_ipv6 %}protocol kernel {
   ipv6 {
     export filter {
-      krt_prefsrc = {{ bird_krt_prefsrc_v6 }};
+      krt_prefsrc = {{ bird_krt_prefsrc_v6 | default('FIXME: UNDEFINED') }};
       if source ~ [RTS_BGP] then accept; else reject;
         # we do not want to export the static unreachable route, so
         # we do it like this as of now
@@ -28,17 +28,19 @@ protocol kernel {
   };
   kernel table 2000;  # Kernel table to synchronize with (cix)
 }
+{% endif %}
 
-protocol kernel {
+{% if bird_use_ipv4 %}protocol kernel {
   ipv4 {
     export filter {
-      krt_prefsrc = {{ bird_krt_prefsrc_v4 }};
+      krt_prefsrc = {{ bird_krt_prefsrc_v4 | default('FIXME: UNDEFINED') }};
       if source ~ [RTS_BGP] then accept; else reject;
     };
     import none;
   };
   kernel table 2000;  # Kernel table to synchronize with (default: main)
 }
+{% endif %}
 
 protocol static {
   ipv6;

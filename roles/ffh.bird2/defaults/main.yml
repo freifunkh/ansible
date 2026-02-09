@@ -5,4 +5,7 @@ bird_config_path: "/etc/bird"
 bird_prepend_counter_v6: 0
 bird_prepend_counter_v4: 0
 
+bird_use_ipv4: true
+bird_use_ipv6: true
+
 bird_birdstatus_path: "/opt/birdstatus"
