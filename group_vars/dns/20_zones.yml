@@ -34,6 +34,11 @@ dns_authoritative_toplevel:
        "1.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR rena.ffh.zone.",
        "2.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR mx1.ffh.zone."
      ]
+   - domain: "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa"
+     records: [
+       "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR sn05.s.ffh.zone.",
+       "3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.a.c.0.1.3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR dns4.ffh.zone."
+     ]
    - domain: "203.12.45.in-addr.arpa"
      records: [
       "11.203.12.45.in-addr.arpa. IN PTR sn08.s.ffh.zone.",
@@ -132,6 +137,7 @@ dns_authoritative_toplevel:
        "ntp.ffh.zone. IN AAAA 2a0a:4587:2031:10c::53", # Frankfurt
        "ntp.ffh.zone. IN A 45.12.203.16",
        "ntp.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53", # Berlin
+
 
        # netcup
        "mail.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of MX pointing at it
