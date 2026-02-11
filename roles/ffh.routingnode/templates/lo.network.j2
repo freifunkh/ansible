@@ -2,12 +2,11 @@
 [Match]
 Name=lo
 
-{% if is_superexitnode %}[RoutingPolicyRule]
+[RoutingPolicyRule]
 Table=blech
 Priority=221
 Family=both
 
-{% endif %}
 [RoutingPolicyRule]
 {% if not is_superexitnode %}FirewallMark=42
 {% endif %}

@@ -5,3 +5,6 @@
 
 - name: sysctl stuff
   import_tasks: "sysctl.yml"
+
+- name: routing stuff
+  import_tasks: "routing.yml"
