@@ -1,22 +1,23 @@
 ---
 
 - name: Install ip_gre kmod on boot
-  lineinfile:
-    dest: /etc/modules
-    line: ip_gre
-
-- name: Install nf_conntrack kmod on boot
-  lineinfile:
-    dest: /etc/modules
-    line: nf_conntrack
+  ansible.builtin.lineinfile:
+    dest: "/etc/modules"
+    line: "ip_gre"
+  when: "not is_superexitnode"
 
 - name: Load ip_gre kmod
-  modprobe:
-    name: ip_gre
-    state: present
+  community.general.modprobe:
+    name: "ip_gre"
+    state: "present"
+  when: "not is_superexitnode"
+
+- name: Install nf_conntrack kmod on boot
+  ansible.builtin.lineinfile:
+    dest: "/etc/modules"
+    line: "nf_conntrack"
 
 - name: Load nf_conntrack kmod
-  modprobe:
-    name: nf_conntrack
-    state: present
-  when: "is_exitnode or is_superexitnode"
+  community.general.modprobe:
+    name: "nf_conntrack"
+    state: "present"

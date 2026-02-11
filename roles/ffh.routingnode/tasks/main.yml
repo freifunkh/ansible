@@ -1,7 +1,7 @@
 ---
 
 - name: kmod stuff
-  include_tasks: kmod.yml
+  include_tasks: "kmod.yml"
 
 - name: sysctl stuff
-  import_tasks: sysctl.yml
+  import_tasks: "sysctl.yml"

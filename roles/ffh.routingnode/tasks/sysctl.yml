@@ -1,91 +1,58 @@
 ---
 
-# This is not used for superexitnodes
-
-- name: Adjust netfilter conntrack table size
-  sysctl:
-    name: net.netfilter.nf_conntrack_max
+- name: sysctl parameter for conntrack table size
+  ansible.posix.sysctl:
+    name: "net.netfilter.nf_conntrack_max"
     value: "{{ firewall_conntrack_table_size|int }}"
     state: "{% if firewall_conntrack_table_size != -1 %}present{% else %}absent{% endif %}"
-    sysctl_file: /etc/sysctl.d/20-conntrack.conf
-    reload: yes
+    sysctl_file: "/etc/sysctl.d/20-conntrack.conf"
+    reload: true
 
-- name: Maybe activate forwarding 4 as kernel parameter
-  sysctl:
-    name: net.ipv4.conf.all.forwarding
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-forwarding.conf
-    reload: yes
-
-- name: Maybe activate forwarding 6 as kernel parameter
-  sysctl:
-    name: net.ipv6.conf.all.forwarding
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-forwarding.conf
-    reload: yes
-
-# icmp unreachable/... are correctly marked by this
-- name: fwmark reflect IPv4
-  sysctl:
-    name: net.ipv4.fwmark_reflect
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
-    reload: yes
+- name: sysctl parameters for ip forwarding
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: "/etc/sysctl.d/50-forwarding.conf"
+    reload: true
+  loop: [
+    { name: "net.ipv4.conf.all.forwarding", value: "1" },
+    { name: "net.ipv6.conf.all.forwarding", value: "1" },
+    { name: "net.ipv4.conf.default.forwarding", value: "1" },
+    { name: "net.ipv6.conf.default.forwarding", value: "1" },
+    { name: "net.ipv4.ip_forward", value: "1" }
+  ]
 
 # icmp unreachable/... are correctly marked by this
-- name: fwmark reflect IPv6
-  sysctl:
-    name: net.ipv6.fwmark_reflect
-    value: "1"
-    sysctl_file: /etc/sysctl.d/50-fwmark-reflect.conf
-    reload: yes
+- name: sysctl parameters for fwmarks
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: "/etc/sysctl.d/50-fwmark-reflect.conf"
+    reload: true
+  loop: [
+    { name: "net.ipv4.fwmark_reflect", value: "1" }, 
+    { name: "net.ipv6.fwmark_reflect", value: "1" }
+  ]
 
-- name: neigh gc_thresh1 IPv4
-  sysctl:
-    name: net.ipv4.neigh.default.gc_thresh1
-    value: "32768"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
+- name: sysctl parameters for neigh gc_thresh
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: "/etc/sysctl.d/50-gc_thresh.conf"
+    reload: true
+  loop: [
+    { name: 'net.ipv4.neigh.default.gc_thresh1', value: '32768' },
+    { name: 'net.ipv4.neigh.default.gc_thresh2', value: '65536' },
+    { name: 'net.ipv4.neigh.default.gc_thresh3', value: '131072' },
+    { name: 'net.ipv6.neigh.default.gc_thresh1', value: '32768' },
+    { name: 'net.ipv6.neigh.default.gc_thresh2', value: '65536' },
+    { name: 'net.ipv6.neigh.default.gc_thresh3', value: '131072' }
+  ]
 
-- name: neigh gc_thresh2 IPv4
-  sysctl:
-    name: net.ipv4.neigh.default.gc_thresh2
-    value: "65536"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: neigh gc_thresh3 IPv4
-  sysctl:
-    name: net.ipv4.neigh.default.gc_thresh3
-    value: "131072"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: neigh gc_thresh1 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh1
-    value: "32768"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: neigh gc_thresh2 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh2
-    value: "65536"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: neigh gc_thresh3 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh3
-    value: "131072"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: Setting the maximum number of IPv6 routes
-  sysctl:
-    name: net.ipv6.route.max_size
+- name: sysctl parameter for the maximum number of IPv6 routes
+  ansible.posix.sysctl:
+    name: "net.ipv6.route.max_size"
     value: "1073741824"
-    sysctl_file: /etc/sysctl.d/11-ipv6-routing.conf
-    reload: yes
+    sysctl_file: "/etc/sysctl.d/11-ipv6-routing.conf"
+    reload: true
 
