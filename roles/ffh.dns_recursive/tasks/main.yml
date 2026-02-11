@@ -1,42 +1,30 @@
 ---
 
 - name: Install unbound
-  apt:
+  ansible.builtin.apt:
     name: "unbound"
-    update_cache: yes
-    state: "latest"
-    default_release: "{{ ansible_distribution_release }}-backports"
 
 - name: Configure unbound
   notify: Restart unbound
-  template:
-    src: unbound.conf.j2
-    dest: /etc/unbound/unbound.conf
-
-- name: Install unbound service file
-  template:
-    src: unbound.service.j2
-    dest: /etc/systemd/system/unbound.service
-
-- name: Remove legacy init.d file
-  file:
-    path: /etc/init.d/unbound
-    state: absent
+  ansible.builtin.template:
+    src: "unbound.conf.j2"
+    dest: "/etc/unbound/unbound.conf.d/server.conf"
 
 - name: Create self-signed certs
-  command:
-    cmd: /usr/sbin/unbound-control-setup
-    creates: /etc/unbound/unbound_server.key
+  ansible.builtin.command:
+    cmd: "/usr/sbin/unbound-control-setup"
+    creates: "/etc/unbound/unbound_server.key"
 
 - name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-unbound.conf
   notify: reload ferm
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-unbound.conf"
 
 - name: Enable unbound
-  command: systemctl enable unbound
+  ansible.builtin.systemd_service:
+    name: "unbound"
+    enabled: true
 
-- name: "Add Zabbix components"
+- name: Add Zabbix components
   include_tasks: "zabbix.yml"

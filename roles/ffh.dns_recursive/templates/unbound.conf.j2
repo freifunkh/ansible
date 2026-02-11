@@ -28,10 +28,6 @@ server:
   local-zone: "{{ zone }}" transparent
 {% endfor %}
 
-remote-control:
-  control-enable: yes
-  control-interface: ::1
-
 {% for zone in dns_recursive_forwards %}
 forward-zone:
   name: "{{ zone.zone }}"
