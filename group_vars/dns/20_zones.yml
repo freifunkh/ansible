@@ -151,7 +151,7 @@ dns_authoritative_toplevel:
        "wildberger.ffh.zone. IN A 81.3.0.14",
        "wildberger.ffh.zone. IN AAAA 2a02:790:1:3f::2",
        "dns4.ffh.zone. IN A 81.3.6.93",
-       # "dns4.ffh.zone. IN AAAA 2a0a:4587:2033:10ca::53",
+       "dns4.ffh.zone. IN AAAA 2a0a:4587:2033:10ca::53",
 
        # Berlin
        "dobrindt.ffh.zone. IN A 217.197.91.135",
