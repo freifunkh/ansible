@@ -1,39 +1,39 @@
 ---
 
-- name: "Add server to known_hosts"
-  known_hosts:
+- name: Add server to known_hosts
+  ansible.builtin.known_hosts:
     path: "/etc/ssh/ssh_known_hosts"
     name: "{{ item }}"
     key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
   loop: "{{ restic_backup_server_ips + [ restic_backup_server_hostname ] }}"
 
-- name: "Check if passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} exists (DIFF REDACTED)"
-  local_action: stat path=../passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
+- name: Check if passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} exists (DIFF REDACTED)
+  local_action: "stat path=../passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
   register: "passwordfile"
   diff: "{{ show_secret_diffs }}"
 
-- name: "Generate random"
-  set_fact:
+- name: Generate random
+  ansible.builtin.set_fact:
     restic_tmp_secret: "{{ lookup('password', '/dev/null length=20') }}"
 
-- name: "Generate and store password"
-  local_action: shell cd ..; echo {{ restic_tmp_secret }} | ansible-vault encrypt - > passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
+- name: Generate and store password
+  local_action: "shell cd ..; echo {{ restic_tmp_secret }} | ansible-vault encrypt - > passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
   when: "not passwordfile.stat.exists"
 
-- name: "Get password"
-  local_action: shell cd ..; ansible-vault view passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} | base64
-  changed_when: False
+- name: Get password
+  local_action: "shell cd ..; ansible-vault view passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} | base64"
+  changed_when: false
   register: "password"
 
-- name: "Create group sftponly on backup host"
-  group:
+- name: Create group sftponly on backup host
+  ansible.builtin.group:
     name: "sftponly"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   run_once: true
 
-- name: "Insert/Update 'Match Group sftponly' configuration block in /etc/ssh/sshd_config"
+- name: Insert/Update 'Match Group sftponly' configuration block in /etc/ssh/sshd_config
   register: "sftp"
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: "/etc/ssh/sshd_config"
     block: |
       Match Group sftponly
@@ -47,35 +47,35 @@
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   run_once: true
 
-- name: "Restart sshd on backup server"
-  systemd:
+- name: Restart sshd on backup server
+  ansible.builtin.systemd_service:
     name: "sshd"
     state: "restarted"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "sftp is changed"
 
-- name: "Create user on {{ restic_backup_server_ansible_host }}"
-  user:
+- name: Create user on {{ restic_backup_server_ansible_host }}
+  ansible.builtin.user:
     name: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     groups: ["sftponly"]
     force: "no"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
-- name: "Create ssh-key"
-  user:
+- name: Create ssh-key
+  ansible.builtin.user:
     name: "{{ ansible_user }}"
     generate_ssh_key: "yes"
     ssh_key_type: "rsa"
     ssh_key_bits: 4096
     force: "no"
 
-- name: "Obtain ssh-key"
-  command: "cat ~/.ssh/id_rsa.pub"
-  changed_when: False
+- name: Obtain ssh-key
+  ansible.builtin.command: "cat ~/.ssh/id_rsa.pub"
+  changed_when: false
   register: "ssh_key"
 
-- name: "Create ssh folder on backups for user"
-  file:
+- name: Create ssh folder on backups for user
+  ansible.builtin.file:
     path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/.ssh"
     state: "directory"
     owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
@@ -83,8 +83,8 @@
     mode: "0755"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
-- name: "Add ssh-key"
-  copy:
+- name: Add ssh-key
+  ansible.builtin.copy:
     content: "{{ ssh_key.stdout }}"
     dest: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/.ssh/authorized_keys"
     owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
@@ -93,14 +93,14 @@
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "not ansible_check_mode"
 
-- name: "Check if restic data path exists"
-  stat:
+- name: Check if restic data path exists
+  ansible.builtin.stat:
     path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/restic"
   register: "restic_datapath"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
-- name: "Create folders and set permissions"
-  file:
+- name: Create folders and set permissions
+  ansible.builtin.file:
     path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/restic"
     owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     group: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
@@ -109,38 +109,39 @@
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "not restic_datapath.stat.exists"
 
-- name: "Assure root ownership on /home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} for chroot to work"
-  file:
+- name: Assure root ownership on /home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} for chroot to work
+  ansible.builtin.file:
     path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     state: "directory"
     owner: "root"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
-- name: "Check if restic is installed"
-  stat:
+- name: Check if restic is installed
+  ansible.builtin.stat:
     path: "/usr/local/bin/restic"
   register: "resticpath"
 
-- name: "Ensure restic is installed"
+- name: Ensure restic is installed
   block:
-  - get_url:
+  - ansible.builtin.get_url:
       url: "https://github.com/restic/restic/releases/download/v{{restic_version}}/restic_{{restic_version}}_linux_amd64.bz2"
       dest: "/usr/local/bin/restic.bz2"
-  - shell: "bzip2 -f -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
+    changed_when: false
+  - ansible.builtin.shell: "bzip2 -f -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
   when: "not resticpath.stat.exists or ansible_facts['local']['restic_installed_version']|default('0') != restic_version"
 
-- name: "Create custom fact directory"
-  file:
+- name: Create custom fact directory
+  ansible.builtin.file:
     path: "/etc/ansible/facts.d"
     state: "directory"
 
-- name: "Save restic installed version"
-  copy:
+- name: Save restic installed version
+  ansible.builtin.copy:
     content: '"{{ restic_version }}"'
     dest: "/etc/ansible/facts.d/restic_installed_version.fact"
 
-- name: "Install backups ssh host host"
-  blockinfile:
+- name: Install backups ssh host host
+  ansible.builtin.blockinfile:
     path: "/etc/ssh/ssh_config"
     block: |
       Host backups
@@ -148,25 +149,25 @@
           User {{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
           Port {{ restic_backup_server_port }}
 
-- name: "Install restic shell script"
-  template:
+- name: Install restic shell script
+  ansible.builtin.template:
     dest: "/etc/restic.sh"
     src: "backup.sh.j2"
     mode: "0755"
   when: "not ansible_check_mode"
 
-- name: "Install restic config"
-  template:
+- name: Install restic config
+  ansible.builtin.template:
     dest: "/etc/restic-backup.conf"
     src: "restic-backup.conf.j2"
   when: "not ansible_check_mode"
 
-- name: "Init restic repository"
-  command: "/etc/restic.sh init"
+- name: Init restic repository
+  ansible.builtin.command: "/etc/restic.sh init"
   when: "not restic_datapath.stat.exists"
 
-- name: "Install restic systemd units"
-  template:
+- name: Install restic systemd units
+  ansible.builtin.template:
     dest: "/etc/systemd/system/{{ item }}"
     src: "{{ item }}"
   with_items:
@@ -176,8 +177,8 @@
     - "restic-prune.timer"
   register: "systemdunits"
 
-- name: "Enable systemd units"
-  systemd:
+- name: Enable systemd units
+  ansible.builtin.systemd_service:
     name: "{{ item }}"
     daemon_reload: "yes"
     enabled: "yes"
@@ -187,7 +188,7 @@
     - "restic-prune.timer"
   when: "systemdunits.changed"
 
-- name: "Install fuse (for mounting)"
-  apt:
+- name: Install fuse (for mounting)
+  ansible.builtin.apt:
     name: "fuse"
     state: "present"
