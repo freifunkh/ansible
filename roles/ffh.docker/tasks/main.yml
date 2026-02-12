@@ -16,7 +16,7 @@
     mode: "0755"
     owner: "root"
     group: "root"
-  when: "ansible_distribution_version|int < 12"
+  when: "ansible_facts['distribution_version']|int < 12"
 
 - name: Add Docker repo key
   get_url:
@@ -30,7 +30,7 @@
 - name: Add Docker repo
   register: dockerrepositoryadded
   apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.key] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.key] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
     filename: "docker"
 
 - name: Update apt chache to get Docker packages

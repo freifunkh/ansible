@@ -22,7 +22,7 @@ target default {
 
 {% for target in apinger_targets + (apinger_targets2 | default([])) %}
 {% for ip in target.ips %}
-{% if not ip in (ansible_all_ipv4_addresses + ansible_all_ipv6_addresses) %}
+{% if not ip in (ansible_facts['all_ipv4_addresses'] + ansible_facts['all_ipv6_addresses']) %}
 target "{{ ip }}" {
         description "{{ target.description }}";
 }

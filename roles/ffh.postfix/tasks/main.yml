@@ -22,7 +22,7 @@
       debconf:
         name: postfix
         question: "postfix/mailname"
-        value: "{{ansible_fqdn}}"
+        value: "{{ansible_facts['fqdn']}}"
         vtype: "string"
         
     - name: install postfix

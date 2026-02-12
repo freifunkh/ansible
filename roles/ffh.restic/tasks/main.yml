@@ -7,8 +7,8 @@
     key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
   loop: "{{ restic_backup_server_ips + [ restic_backup_server_hostname ] }}"
 
-- name: "Check if passwords/{{ restic_backup_hostname_override | default(ansible_hostname) }} exists (DIFF REDACTED)"
-  local_action: stat path=../passwords/{{ restic_backup_hostname_override | default(ansible_hostname) }}
+- name: "Check if passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} exists (DIFF REDACTED)"
+  local_action: stat path=../passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
   register: "passwordfile"
   diff: "{{ show_secret_diffs }}"
 
@@ -17,11 +17,11 @@
     restic_tmp_secret: "{{ lookup('password', '/dev/null length=20') }}"
 
 - name: "Generate and store password"
-  local_action: shell cd ..; echo {{ restic_tmp_secret }} | ansible-vault encrypt - > passwords/{{ restic_backup_hostname_override | default(ansible_hostname) }}
+  local_action: shell cd ..; echo {{ restic_tmp_secret }} | ansible-vault encrypt - > passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
   when: "not passwordfile.stat.exists"
 
 - name: "Get password"
-  local_action: shell cd ..; ansible-vault view passwords/{{ restic_backup_hostname_override | default(ansible_hostname) }} | base64
+  local_action: shell cd ..; ansible-vault view passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} | base64
   changed_when: False
   register: "password"
 
@@ -56,7 +56,7 @@
 
 - name: "Create user on {{ restic_backup_server_ansible_host }}"
   user:
-    name: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
+    name: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     groups: ["sftponly"]
     force: "no"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
@@ -76,42 +76,42 @@
 
 - name: "Create ssh folder on backups for user"
   file:
-    path: "/home/{{ restic_backup_hostname_override | default(ansible_hostname) }}/.ssh"
+    path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/.ssh"
     state: "directory"
-    owner: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
-    group: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
+    owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
+    group: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     mode: "0755"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Add ssh-key"
   copy:
     content: "{{ ssh_key.stdout }}"
-    dest: "/home/{{ restic_backup_hostname_override | default(ansible_hostname) }}/.ssh/authorized_keys"
-    owner: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
-    group: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
+    dest: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/.ssh/authorized_keys"
+    owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
+    group: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     mode: "0644"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "not ansible_check_mode"
 
 - name: "Check if restic data path exists"
   stat:
-    path: "/home/{{ restic_backup_hostname_override | default(ansible_hostname) }}/restic"
+    path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/restic"
   register: "restic_datapath"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
 
 - name: "Create folders and set permissions"
   file:
-    path: "/home/{{ restic_backup_hostname_override | default(ansible_hostname) }}/restic"
-    owner: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
-    group: "{{ restic_backup_hostname_override | default(ansible_hostname) }}"
+    path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}/restic"
+    owner: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
+    group: "{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     mode: "0775"
     state: "directory"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
   when: "not restic_datapath.stat.exists"
 
-- name: "Assure root ownership on /home/{{ restic_backup_hostname_override | default(ansible_hostname) }} for chroot to work"
+- name: "Assure root ownership on /home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} for chroot to work"
   file:
-    path: "/home/{{ restic_backup_hostname_override | default(ansible_hostname) }}"
+    path: "/home/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
     state: "directory"
     owner: "root"
   delegate_to: "{{ restic_backup_server_ansible_host }}"
@@ -127,7 +127,7 @@
       url: "https://github.com/restic/restic/releases/download/v{{restic_version}}/restic_{{restic_version}}_linux_amd64.bz2"
       dest: "/usr/local/bin/restic.bz2"
   - shell: "bzip2 -f -d /usr/local/bin/restic.bz2 && chmod +x /usr/local/bin/restic"
-  when: "not resticpath.stat.exists or ansible_local.restic_installed_version|default('0') != restic_version"
+  when: "not resticpath.stat.exists or ansible_facts['local']['restic_installed_version']|default('0') != restic_version"
 
 - name: "Create custom fact directory"
   file:
@@ -145,7 +145,7 @@
     block: |
       Host backups
           HostName {{ restic_backup_server_hostname }}
-          User {{ restic_backup_hostname_override | default(ansible_hostname) }}
+          User {{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}
           Port {{ restic_backup_server_port }}
 
 - name: "Install restic shell script"

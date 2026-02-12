@@ -28,7 +28,7 @@ while getopts ":ht:" opt; do
 done
 
 boot_id=$(journalctl --list-boots | sed 's_^[ ]*__' | egrep "^[ ]*0 " | cut -d " " -f 2)
-hostname="{{ fqdn | default(ansible_fqdn) }}"
+hostname="{{ fqdn | default(ansible_facts['fqdn']) }}"
 
 # generate an id that looks like uuid
 mid=$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')

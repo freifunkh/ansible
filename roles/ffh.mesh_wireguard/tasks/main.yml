@@ -4,11 +4,11 @@
 
 - name: Do not setup wireguard on incompatible debian releases
   include_tasks: setup_wg.yml
-  when: "ansible_distribution_version|int > 9"
+  when: "ansible_facts['distribution_version']|int > 9"
   register: setup
 
 - name: Warn about incompatible Debian release
   fail:
-    msg: "The distribution release {{ ansible_distribution_release }} is not a supported release for wireguard."
+    msg: "The distribution release {{ ansible_facts['distribution_release'] }} is not a supported release for wireguard."
   ignore_errors: True
   when: setup.skipped | default(false)

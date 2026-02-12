@@ -11,7 +11,7 @@
     mode: "0755"
     owner: "root"
     group: "root"
-  when: "ansible_distribution_version|int < 12"
+  when: "ansible_facts['distribution_version']|int < 12"
 
 - name: "Add Zabbix Repo Key"
   get_url:
@@ -24,7 +24,7 @@
 
 - name: "Add Zabbix Repo"
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
     state: "present"
     filename: "zabbix"
 

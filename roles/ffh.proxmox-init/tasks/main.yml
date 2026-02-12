@@ -8,7 +8,7 @@
     line: '# \1'
     backrefs: yes
     state: present
-  when: 'ansible_distribution_release in ["bookworm"]'
+  when: 'ansible_facts["distribution_release"] in ["bookworm"]'
 
 - name: "apt-sources: disable pve enterprise repo"
   lineinfile:
@@ -17,7 +17,7 @@
     line: '# \1'
     backrefs: yes
     state: present
-  when: 'ansible_distribution_release in ["bookworm"]'
+  when: 'ansible_facts["distribution_release"] in ["bookworm"]'
 
 - name: "apt-sources: deploy pve-no-subscription.list"
   copy:

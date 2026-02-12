@@ -8,7 +8,7 @@
     packages:
     - dkms
     - git
-    - linux-headers-{{ ansible_kernel | regex_replace('^.*\d-(.*)$', '\1')  }}
+    - linux-headers-{{ ansible_facts['kernel'] | regex_replace('^.*\d-(.*)$', '\1')  }}
     - pkg-config
 
 - name: Clone batman sources

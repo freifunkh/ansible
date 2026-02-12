@@ -6,18 +6,18 @@
 #    id: "B188E2B695BD4743"
 #    keyserver: "keyserver.ubuntu.com"
 #    state: present
-#  when: ansible_distribution_major_version|int < 11 
+#  when: ansible_facts['distribution_major_version']|int < 11 
 #
 #- name: "Add repo"
 #  register: birdrepositoryadded
 #  apt_repository:
-#    repo: "deb http://bird.network.cz/debian/ {{ ansible_distribution_release }} main"
+#    repo: "deb http://bird.network.cz/debian/ {{ ansible_facts['distribution_release'] }} main"
 #    filename: "bird"
-#  when: ansible_distribution_major_version|int < 11
+#  when: ansible_facts['distribution_major_version']|int < 11
 
 #- name: "Update apt chache to get bird packages"
 #  apt: update_cache=yes
-#  when: birdrepositoryadded is changed and ansible_distribution_major_version|int < 11
+#  when: birdrepositoryadded is changed and ansible_facts['distribution_major_version']|int < 11
 ########### BIRD repo only serves for buster or older
 
 - name: "Install bird2 from repo"

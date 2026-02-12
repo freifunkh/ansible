@@ -11,7 +11,7 @@
     mode: "0755"
     owner: "root"
     group: "root"
-  when: "ansible_distribution_version|int < 12"
+  when: "ansible_facts['distribution_version']|int < 12"
 
 - name: "Add ISC Kea repository key"
   get_url:
@@ -25,7 +25,7 @@
 - name: "Add ISC Kea repository"
   register: "iscrepositoryadded"
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kea.key] https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian {{ ansible_distribution_release }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/kea.key] https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian {{ ansible_facts['distribution_release'] }} main"
     filename: "kea"
     update_cache: "yes"
     state: "present"

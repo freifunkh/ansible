@@ -53,7 +53,7 @@
     mode: "0755"
     owner: "root"
     group: "root"
-  when: "ansible_distribution_version|int < 12"
+  when: "ansible_facts['distribution_version']|int < 12"
 
 - name: Add aiyions gpg-key to verify packages
   get_url:

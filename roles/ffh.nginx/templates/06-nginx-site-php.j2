@@ -4,6 +4,6 @@
         include         fastcgi_params;
         fastcgi_index   index.php;
         fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass    unix:/run/php/php{% if ansible_distribution_major_version|int < 11 %}7.3{% endif %}-fpm.sock;
+        fastcgi_pass    unix:/run/php/php{% if ansible_facts['distribution_major_version']|int < 11 %}7.3{% endif %}-fpm.sock;
     }
 {% endif %}

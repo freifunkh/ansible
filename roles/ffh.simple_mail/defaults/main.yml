@@ -1,6 +1,6 @@
 ---
 
-postfix_fqdn: "{{ fqdn if (ansible_fqdn | split('.') | length) == 1 else ansible_fqdn }}"
+postfix_fqdn: "{{ fqdn if (ansible_facts['fqdn'] | split('.') | length) == 1 else ansible_facts['fqdn'] }}"
 
 postfix_mydestination:
   - "{{ postfix_fqdn }}"
