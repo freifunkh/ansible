@@ -1,21 +1,11 @@
 ---
-# tasks file for ffh.zabbix-proxy
 
-- name: "Add gpg dependency for key handling"
-  apt:
+- name: Add gpg dependency for key handling
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: "Prepare key directory for older Debian versions"
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
-- name: "Add Zabbix Repo Key"
-  get_url:
+- name: Add Zabbix Repo Key
+  ansible.builtin.get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
     dest: "/etc/apt/keyrings/zabbix-official-repo.key"
     mode: "0644"
@@ -23,47 +13,47 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: "Add Zabbix Repo"
-  apt_repository:
+- name: Add Zabbix Repo
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version }}/debian {{ ansible_facts['distribution_release'] }} main"
     state: "present"
     filename: "zabbix"
 
-- name: "Install Zabbix Proxy package"
-  apt:
+- name: Install Zabbix Proxy package
+  ansible.builtin.apt:
     update_cache: "yes"
     name:
     - "zabbix-proxy-sqlite3"
 
-- name: "Generate zabbix-proxy config"
+- name: Generate zabbix-proxy config
   notify: "restart zabbix-proxy"
-  template:
+  ansible.builtin.template:
     src: "zabbix_proxy.conf.j2"
     dest: "/etc/zabbix/zabbix_proxy.conf"
 
-- name: "Generate zabbix-proxy psk file"
+- name: Generate zabbix-proxy psk file
   notify: "restart zabbix-proxy"
-  template:
+  ansible.builtin.template:
     src: "zabbix_proxy.psk.j2"
     dest: "/etc/zabbix/zabbix_proxy.psk"
 
-- name: "Enable zabbix-proxy service"
+- name: Enable zabbix-proxy service
   ansible.builtin.systemd_service:
     name: "zabbix-proxy"
     enabled: true
 
-- name: "Add firewall config"
+- name: Add firewall config
   when: "inventory_hostname in groups['fermnodes']"
   block:
-  - name: "Create Ferm config directory"
-    file:
+  - name: Create Ferm config directory
+    ansible.builtin.file:
       path: "/etc/ferm/conf.d"
       state: "directory"
       owner: "root"
       group: "root"
       mode: "0755"
-  - name: "Generate firewall config stanza (ferm)"
+  - name: Generate firewall config stanza (ferm)
     notify: "reload ferm"
-    template:
+    ansible.builtin.template:
       src: "ferm.conf.j2"
       dest: "/etc/ferm/conf.d/50-zabbix-proxy.conf"

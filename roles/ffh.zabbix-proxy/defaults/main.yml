@@ -1,5 +1,5 @@
 ---
-# defaults file for ffh.zabbix-proxy
+
 zabbix_proxy_server: "localhost"
 zabbix_proxy_port: 10051
 zabbix_proxy_psk_value: "SECRET"

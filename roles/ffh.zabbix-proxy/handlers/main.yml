@@ -1,5 +1,4 @@
 ---
-# handlers file for ffh.zabbix-proxy
 
 - name: "restart zabbix-proxy"
   ansible.builtin.systemd_service:
