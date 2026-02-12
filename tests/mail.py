@@ -57,7 +57,7 @@ def send_mail(subject, message, message_html, to):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
-    machine = re.findall('^.*-(.*?)\.json$', filename)[0]
+    machine = re.findall('^.*-(.*?)\\.json$', filename)[0]
 
     msg_txt = read_play(filename)
     msg_html = read_play(filename, 'html')
