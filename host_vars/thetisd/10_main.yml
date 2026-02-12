@@ -22,7 +22,6 @@ authentik_outpost_host: "https://auth.ffh.zone"
 
 zabbix_agent_server: "zbx-ham.ffh.zone"
 zabbix_agent_server_active: "zbx-ham.ffh.zone"
-zabbix_proxy_hostname: "zbx-ham.ffh.zone"
 
 restic_backup_paths:
 - "/etc/"

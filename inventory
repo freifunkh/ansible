@@ -120,10 +120,11 @@ fermnodes:
 
 zabbixproxy:
   hosts:
-    thetisd:
-    db:
-    tonne:
     dali:
+    dns1:
+    dns2:
+    dns3:
+    dns4:
 
 authentikoutpost:
   hosts:

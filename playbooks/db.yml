@@ -37,7 +37,6 @@
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
     # special
     - { name: ffh.zabbix-sql, tags: zabbix-sql }
-    - { name: ffh.zabbix-proxy, tags: zabbix-proxy }
     # backup
     - { name: ffh.restic, tags: restic }
     # attention

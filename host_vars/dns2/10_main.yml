@@ -28,6 +28,9 @@ knot_secondary_dns: true
 
 restic_backup_paths:
 - /etc/
+- /var/tmp/zabbix_proxy.db
 
 zabbix_agent_server: "zbx-fra.ffh.zone"
 zabbix_agent_server_active: "zbx-fra.ffh.zone"
+zabbix_proxy_hostname: "zbx-fra.ffh.zone"
+zabbix_proxy_dbname: "/var/tmp/zabbix_proxy.db"

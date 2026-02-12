@@ -21,6 +21,7 @@
     # special
     - { name: ffh.knot-auth, tags: knot-auth }
     - { name: ffh.ntp, tags: ntp }
+    - { name: ffh.zabbix-proxy, tags: zabbix-proxy, when: "'zabbixproxy' in group_names" }
     # backup
     - { name: ffh.restic, tags: restic }
   post_tasks:

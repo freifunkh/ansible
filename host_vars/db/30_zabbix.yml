@@ -1,5 +1,3 @@
 ---
 
-zabbix_agent_server: "zbx-fra.ffh.zone"
-zabbix_agent_server_active: "zbx-fra.ffh.zone"
 zabbix_proxy_hostname: "zbx-fra.ffh.zone"
