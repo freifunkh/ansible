@@ -1,0 +1,22 @@
+---
+
+servername: sn05
+sn: 5
+en: 5
+fqdn: "sn05.s.ffh.zone"
+
+exit_ip: "81.3.6.92" # With this, we do SNAT in favor of MASQUERADE
+mesh_prefix: "2a0a:4587:2033"
+
+mesh_fastd_firewall_open: false
+
+apt_codename: "trixie"
+
+legacy_dom0: true
+radv_announce_default: true
+fix_netifnames: false
+no_babel: true
+iperf3_is_public_server: true
+
+zabbix_agent_server: "zabbix.ffh.zone"
+zabbix_agent_server_active: "zabbix.ffh.zone"

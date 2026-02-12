@@ -17,7 +17,6 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    # - { name: ffh.crowdsec, tags: crowdsec }
     # special
     # - { name: ffh.dns_authoritative, tags: dns_authoritative }
     # - { name: ffh.dns_zonenodes, tags: dns_zonenodes }

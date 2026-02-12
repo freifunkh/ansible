@@ -1,0 +1,46 @@
+---
+
+networkd_configures:
+- iface: ens16 # 1st fiber port (Mellanox)
+  addresses:
+    - 81.3.6.92/29
+    - 2a0a:4587:2033::1/128
+    - 2a02:790:2:31c3::3/125
+  gateway4: 81.3.6.89
+  dns_server:
+    - "2001:678:e68:f000::"
+    - 185.150.99.255
+    - 9.9.9.9
+  no_radv_accept: true
+  static_routes:
+    - dest: 2a02:790:2:31c3::/125
+      table: "blech"
+      scope: "link"
+  additional_config: |
+    [RoutingPolicyRule]
+    Table=cix
+    Priority=32765
+    Family=ipv6
+- iface: ens17 # 2nd fiber port (unused)
+  no_radv_accept: true
+- iface: ens18
+  addresses:
+    - 192.168.152.5/24
+  no_radv_accept: true
+- iface: ens19
+  addresses:
+    - 2a0a:4587:2033:10ca::1/64
+  static_routes:
+    - dest: 2a0a:4587:2033:10ca::/64
+      table: "blech"
+      scope: "link"
+  no_radv_accept: true
+
+network_lower_ifaces:
+  default: ens16
+
+networkd_manage_foreign_routes: false
+
+rt_preferred:
+  name: "freifunk"
+  number: "42"

@@ -18,7 +18,6 @@
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    # - { name: ffh.crowdsec, tags: crowdsec }
     # special
     - { role: ffh.nginx, tags: nginx }
     - { name: ffh.zabbix-server, tags: zabbix-server }

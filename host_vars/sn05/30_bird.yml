@@ -1,0 +1,31 @@
+---
+
+bird_enable: true
+bird_router_id: "81.3.6.92"
+bird_my_asn: "209347"
+bird_local_addr_v6: "2a02:790:2:31c3::3"
+bird_local_addr_v4: "81.3.6.92"
+bird_use_ipv4: false
+
+bird_krt_prefsrc_v6: "2a0a:4587:2033::1"
+bird_announce_prefix_v6: "2a0a:4587:2033::/48"
+
+bird_peers:
+  kyb1_v6:
+    description: "Kyberio 1 (IPv6)"
+    password: "{{ bird_kyberio_password }}"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2a02:790:2:31c3::1"
+    neighbor_asn: "24679"
+    filters:
+      - "to_upstream6"
+  kyb2_v6:
+    description: "Kyberio 2 (IPv6)"
+    password: "{{ bird_kyberio_password }}"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2a02:790:2:31c3::2"
+    neighbor_asn: "24679"
+    filters:
+      - "to_upstream6"

@@ -23,8 +23,6 @@ zabbix_agent_server_active: "zbx-ber.ffh.zone"
 zabbix_proxy_hostname: "zbx-ber.ffh.zone"
 zabbix_proxy_dbname: "/var/tmp/zabbix_proxy.db"
 
-crowdsec_server_enable: true
-
 daily_smtp_host: "mx1.ffh.zone"
 daily_smtp_port: 587
 daily_smtp_user: "tonne@ffh.zone"

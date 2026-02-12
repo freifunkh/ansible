@@ -159,7 +159,6 @@ dns_authoritative_toplevel:
 
        "tonne.ffh.zone. IN A 45.12.203.15",
        "tonne.ffh.zone. IN AAAA 2a0a:4587:2030:10c::bac",
-       "cs.ffh.zone.    IN AAAA 2a0a:4587:2030:10c::bac", # CrowdSec API
 
        "evergiven.ffh.zone. IN A 45.12.203.13",
        "evergiven.ffh.zone. IN AAAA 2a0a:4587:2030:10c::d0c1",
