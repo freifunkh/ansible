@@ -64,7 +64,7 @@
 - name: Create ssh-key
   ansible.builtin.user:
     name: "{{ ansible_user }}"
-    generate_ssh_key: "yes"
+    generate_ssh_key: true
     ssh_key_type: "rsa"
     ssh_key_bits: 4096
     force: "no"
@@ -160,7 +160,7 @@
   ansible.builtin.template:
     dest: "/etc/restic-backup.conf"
     src: "restic-backup.conf.j2"
-  when: "not ansible_check_mode"
+  # when: "not ansible_check_mode"
 
 - name: Init restic repository
   ansible.builtin.command: "/etc/restic.sh init"
@@ -180,8 +180,8 @@
 - name: Enable systemd units
   ansible.builtin.systemd_service:
     name: "{{ item }}"
-    daemon_reload: "yes"
-    enabled: "yes"
+    daemon_reload: true
+    enabled: true
     state: "started"
   with_items:
     - "restic-backup.timer"
