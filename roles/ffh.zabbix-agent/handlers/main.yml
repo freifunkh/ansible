@@ -1,6 +1,7 @@
 ---
+
 - name: reload zabbix-agent
-  systemd: 
-    name: zabbix-agent
+  ansible.builtin.systemd_service: 
+    name: "zabbix-agent"
     state: "restarted"
   ignore_errors: true

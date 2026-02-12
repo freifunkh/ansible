@@ -1,20 +1,11 @@
 ---
 
 - name: Add gpg dependency for key handling
-  apt:
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
 - name: Add Zabbix Repo Key
-  get_url:
+  ansible.builtin.get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
     dest: "/etc/apt/keyrings/zabbix-official-repo.key"
     mode: "0644"
@@ -23,42 +14,41 @@
   when: "not ansible_check_mode"
 
 - name: Add Zabbix Repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
-    state: present
-    filename: zabbix
+    state: "present"
+    filename: "zabbix"
 
 - name: Install zabbix-agent and its dependencies via apt
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
     pkg:
-    - zabbix-agent
-    - zabbix-sender
-    - fping
-    - git
-    - sudo
-    - jo
-    - jq
-    - dbus-user-session # not sure, if its really a dep
+    - "zabbix-agent"
+    - "zabbix-sender"
+    - "fping"
+    - "git"
+    - "sudo"
+    - "jo"
+    - "jq"
+    - "dbus-user-session" # not sure, if its really a dep
 
 - name: Create ferm directory if necessary
-  file:
-    path: /etc/ferm/conf.d
-    state: directory
+  ansible.builtin.file:
+    path: "/etc/ferm/conf.d"
+    state: "directory"
 
 - name: Open zabbix-agent port in firewall (ferm)
-  notify: reload ferm
-  template:
-    src: ferm.conf.j2
+  notify: "reload ferm"
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
     dest: "/etc/ferm/conf.d/50-zabbix-agent.conf"
     owner: "root"
     group: "root"
     mode: "0644"
 
 - name: Deploy zabbix-agent config file (DIFF REDACTED)
-  notify: reload zabbix-agent
-  template:
-    src: agent.conf.j2
+  notify: "reload zabbix-agent"
+  ansible.builtin.template:
+    src: "agent.conf.j2"
     dest: "/etc/zabbix/zabbix_agentd.d/ansible.conf"
     owner: "zabbix"
     group: "zabbix"
@@ -66,37 +56,37 @@
   diff: "{{ show_secret_diffs }}"
 
 - name: Deploy generic sudoers file for user zabbix
-  template:
-    src: sudoers.j2
+  ansible.builtin.template:
+    src: "sudoers.j2"
     dest: "/etc/sudoers.d/90-zabbix"
     owner: "root"
     group: "root"
     mode: "0440"
 
 - name: Disable session login for zabbix in pam
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "/etc/pam.d/sudo"
     line: "session [success=1 default=ignore] pam_succeed_if.so quiet uid = 0 ruser = zabbix"
     regexp: "^session.*quiet uid = 0 ruser = zabbix"
     insertbefore: "^@include common-session-noninteractive"
 
 - name: Deploy additional configuration files in /etc
-  notify: reload zabbix-agent
-  copy:
+  notify: "reload zabbix-agent"
+  ansible.builtin.copy:
     src: "etc/"
     dest: "/etc/"
 
 - name: Deploy additional configuration files in /usr/bin
-  notify: reload zabbix-agent
-  copy:
+  notify: "reload zabbix-agent"
+  ansible.builtin.copy:
     src: "usr/bin/"
     dest: "/usr/bin"
-    mode: 0755
+    mode: "0755"
 
 - name: Deploy zabbix-agent PSK file (DIFF REDACTED)
-  notify: reload zabbix-agent
-  template:
-    src: zabbix_agentd.psk.j2
+  notify: "reload zabbix-agent"
+  ansible.builtin.template:
+    src: "zabbix_agentd.psk.j2"
     dest: "/etc/zabbix/zabbix_agentd.d/secret.psk"
     owner: "zabbix"
     group: "zabbix"
@@ -104,7 +94,7 @@
   diff: "{{ show_secret_diffs }}"
 
 - name: Enable and start zabbix-agent
-  systemd:
+  ansible.builtin.systemd_service:
     name: "zabbix-agent"
-    enabled: yes
+    enabled: true
     state: "started"
