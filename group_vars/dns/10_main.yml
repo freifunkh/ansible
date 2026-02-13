@@ -39,4 +39,4 @@ dns_authoritative_nameserver:
 - nameserver: "dns1.ffh.zone."
 - nameserver: "dns2.ffh.zone."
 - nameserver: "dns3.ffh.zone."
-# - nameserver: "dns4.ffh.zone."
+- nameserver: "dns4.ffh.zone."
