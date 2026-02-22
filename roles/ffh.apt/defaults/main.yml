@@ -1,4 +1,4 @@
 ---
 # defaults file for ffh.apt
 
-apt_codename: "bookworm"
+apt_codename: "trixie"
