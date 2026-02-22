@@ -10,8 +10,6 @@ mesh_prefix: "2a0a:4587:2033"
 
 mesh_fastd_firewall_open: false
 
-apt_codename: "trixie"
-
 legacy_dom0: true
 radv_announce_default: true
 fix_netifnames: false
