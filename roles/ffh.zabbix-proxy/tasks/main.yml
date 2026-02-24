@@ -42,18 +42,5 @@
     name: "zabbix-proxy"
     enabled: true
 
-- name: Add firewall config
-  when: "inventory_hostname in groups['fermnodes']"
-  block:
-  - name: Create Ferm config directory
-    ansible.builtin.file:
-      path: "/etc/ferm/conf.d"
-      state: "directory"
-      owner: "root"
-      group: "root"
-      mode: "0755"
-  - name: Generate firewall config stanza (ferm)
-    notify: "reload ferm"
-    ansible.builtin.template:
-      src: "ferm.conf.j2"
-      dest: "/etc/ferm/conf.d/50-zabbix-proxy.conf"
+- name: Handle firewalling
+  include_tasks: "firewall.yml"
