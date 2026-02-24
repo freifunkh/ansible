@@ -18,6 +18,10 @@ networkd_configures:
     - 5.1.66.255
     - 9.9.9.9
   no_radv_accept: true
+- iface: ens18
+  addresses:
+    - 192.168.152.2/24
+  no_radv_accept: true
 - iface: ens19
   addresses:
     - 2a0a:4587:2033:10ca::53/64
