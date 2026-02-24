@@ -12,6 +12,7 @@
     # general
     - { name: ffh.networkd, tags: networkd }
     - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.nftables, tags: nftables }
     - { name: ffh.journald, tags: journald }
     - { name: ffh.admin, tags: admin }
     - { name: ffh.cli_tools, tags: cli_tools }

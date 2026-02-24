@@ -28,6 +28,9 @@ networkd_configures:
   gateway6: 2a0a:4587:2033:10ca::1
   no_radv_accept: true
 
+nftables_enabled: true
+ferm_enabled: false
+
 knot_interfaces:
   - 2a0a:4587:2033:10ca::53@53
   - 81.3.6.93@53
