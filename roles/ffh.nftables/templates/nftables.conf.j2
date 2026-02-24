@@ -1,0 +1,33 @@
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority filter;  policy drop;
+
+    # Allow loopback
+    iif lo accept
+        
+    # Allow established connections
+    ct state vmap { established : accept, related : accept, invalid : drop }
+        
+    # Allow SSH
+    tcp dport { 22, 1337 } accept
+
+    # Allow ping
+    meta l4proto icmp accept
+    meta l4proto ipv6-icmp accept
+  }
+
+  chain forward {
+    type filter hook forward priority filter;  policy drop;
+  }
+
+  chain output {
+    type filter hook output priority filter;  policy accept;
+  }
+
+}
+
+include "/etc/nftables/*.conf"

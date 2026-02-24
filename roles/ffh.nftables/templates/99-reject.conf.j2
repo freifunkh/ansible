@@ -1,0 +1,9 @@
+table inet filter {
+  chain input {
+    type filter hook input priority filter;  policy drop;
+
+    meta l4proto udp reject
+    meta l4proto tcp reject with tcp reset
+    reject
+  }
+}

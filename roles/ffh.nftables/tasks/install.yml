@@ -1,0 +1,40 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Install nftables packages
+  ansible.builtin.apt:
+    pkg:
+      - "nftables"
+      - "vim-nftables"
+
+- name: Write global /etc/nftables.conf
+  notify: reload nftables
+  ansible.builtin.template:
+    src: "nftables.conf.j2"
+    dest: "/etc/nftables.conf"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Create nftables directory
+  notify: reload nftables
+  ansible.builtin.file:
+    path: "/etc/nftables"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Write global /etc/nftables/99-reject.conf
+  notify: reload nftables
+  ansible.builtin.template:
+    src: "99-reject.conf.j2"
+    dest: "/etc/nftables/99-reject.conf"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Enable nftables on startup
+  ansible.builtin.systemd_service:
+    name: "nftables"
+    enabled: true
