@@ -31,19 +31,8 @@
     - "jq"
     - "dbus-user-session" # not sure, if its really a dep
 
-- name: Create ferm directory if necessary
-  ansible.builtin.file:
-    path: "/etc/ferm/conf.d"
-    state: "directory"
-
-- name: Open zabbix-agent port in firewall (ferm)
-  notify: "reload ferm"
-  ansible.builtin.template:
-    src: "ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/50-zabbix-agent.conf"
-    owner: "root"
-    group: "root"
-    mode: "0644"
+- name: Handle firewalling
+  include_tasks: "firewall.yml"
 
 - name: Deploy zabbix-agent config file (DIFF REDACTED)
   notify: "reload zabbix-agent"
