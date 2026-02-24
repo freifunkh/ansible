@@ -3,8 +3,6 @@
 servername: thetisd
 fqdn: "thetisd.ffh.zone"
 
-ferm_enabled: false
-
 networkd_configures:
 - iface: ens18
   addresses:

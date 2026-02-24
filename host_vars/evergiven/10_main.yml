@@ -16,8 +16,6 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 
-ferm_enabled: false
-
 zabbix_agent_server: "zbx-ber.ffh.zone"
 zabbix_agent_server_active: "zbx-ber.ffh.zone"
 zabbix_agent_psk_id: "evergiven.ffh.zone"

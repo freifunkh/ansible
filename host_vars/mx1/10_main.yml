@@ -15,8 +15,6 @@ networkd_configures:
     - '2001:678:ed0:f000::'
     - 9.9.9.9
 
-ferm_enabled: false
-
 zabbix_agent_server: "zbx-ham.ffh.zone"
 zabbix_agent_server_active: "zbx-ham.ffh.zone"
 zabbix_agent_psk_id: "mx1.ffh.zone"

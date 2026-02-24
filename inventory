@@ -113,11 +113,6 @@ testnodes:
     ham-client:
     fra-client:
 
-fermnodes:
-  children:
-    superexitnodes:
-    helpernodes:
-
 zabbixproxy:
   hosts:
     dali:
