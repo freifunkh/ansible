@@ -42,6 +42,6 @@ iperf3_is_public_server: false
 babeld_iface_accept_v6_default_route: "gre-sn06" # left-over
 mesh_prefix_len: "48"
 
-authentik_version: "2025.12.4"
+authentik_version: "2026.2.0"
 
 traefik_acme_email: "noc@hannover.freifunk.net"
