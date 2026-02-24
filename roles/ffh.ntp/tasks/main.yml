@@ -23,8 +23,5 @@
     group: "root"
   notify: "restart ntp"
 
-- name: Generate firewall config stanza (ferm)
-  ansible.builtin.template:
-    src: "ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/50-ntp.conf"
-  notify: "reload ferm"
+- name: Handle firewalling
+  include_tasks: "firewall.yml"

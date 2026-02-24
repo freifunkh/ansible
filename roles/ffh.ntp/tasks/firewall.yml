@@ -1,0 +1,36 @@
+---
+
+- name: Handle nftables firewalling
+  block:
+  - name: Create nftables directory if necessary
+    ansible.builtin.file:
+      path: "/etc/nftables"
+      state: "directory"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+  - name: Open port(s) in firewall (nftables)
+    notify: "reload nftables"
+    ansible.builtin.template:
+      src: "nftables.conf.j2"
+      dest: "/etc/nftables/50-ntp.conf"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+  when: nftables_enabled is defined and nftables_enabled is true
+
+- name: Handle ferm firewalling
+  block:
+  - name: Create ferm directory if necessary
+    ansible.builtin.file:
+      path: "/etc/ferm/conf.d"
+      state: "directory"
+  - name: Open port(s) in firewall (ferm)
+    notify: "reload ferm"
+    ansible.builtin.template:
+      src: "ferm.conf.j2"
+      dest: "/etc/ferm/conf.d/50-ntp.conf"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+  when: ferm_enabled is defined and ferm_enabled is true
