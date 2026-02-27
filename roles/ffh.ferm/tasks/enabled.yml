@@ -22,12 +22,6 @@
     src: ferm.conf.j2
     dest: /etc/ferm/ferm.conf
 
-- name: ferm config for Mosh
-  notify: reload ferm
-  template:
-    src: 50-mosh.conf
-    dest: /etc/ferm/conf.d/50-mosh.conf
-
 - name: ferm config for final REJECTs
   notify: reload ferm
   template:

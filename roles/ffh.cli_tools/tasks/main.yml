@@ -35,6 +35,9 @@
     - "python3-setuptools"
     - "python3-dateutil" # needed by ffh_resolve.py
 
+- name: Handle firewalling
+  include_tasks: "firewall.yml"
+
 - name: Set prompt (PS1)
   ansible.builtin.lineinfile:
     path: "/root/.bashrc"
