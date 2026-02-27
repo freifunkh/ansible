@@ -1,6 +1,7 @@
 ---
+
 - name: reload ferm
-  service: 
-    name: ferm
-    state: reloaded
+  ansible.builtin.systemd_service: 
+    name: "ferm"
+    state: "reloaded"
   when: ferm_enabled

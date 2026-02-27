@@ -4,9 +4,3 @@
   ansible.builtin.systemd_service:
     name: "zabbix-proxy"
     state: "restarted"
-
-- name: "reload ferm"
-  ansible.builtin.systemd_service:
-    name: "ferm"
-    state: "reloaded"
-  when: ferm_enabled

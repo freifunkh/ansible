@@ -5,9 +5,3 @@
     name: "ntp"
     state: "restarted"
     enabled: "true"
-
-- name: "reload ferm"
-  ansible.builtin.systemd_service:
-    name: "ferm"
-    state: "reloaded"
-  when: ferm_enabled
