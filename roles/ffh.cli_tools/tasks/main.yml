@@ -1,69 +1,52 @@
 ---
 
 - name: Install cli tools
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: "{{ packages }}"
   vars:
     packages:
-    - netcat-openbsd
-    - tcpdump
-    - nmap
-    - mtr-tiny
-    - iftop
-    - htop
-    - dstat
-    - iotop
-    - vim
-    - screen
-    - tmux
-    - byobu
-    - conntrack
-    - bash-completion
-    - psmisc
-    - curl
-    - mosh
-    - iputils-tracepath
-    - jq
-    - net-tools
-    - dnsutils
-    - ndisc6
-    - less
-    - iptstate
-    - aptitude
-    - etckeeper
-    - python3-pip
-    - python3-setuptools
-    - python3-dateutil # needed by ffh_resolve.py
-
-- name: Install python dependencies
-  pip:
-    name:
-      - pytz # needed by ffh_resolve.py
-  when: ansible_facts['distribution_version'] == '11' # TODO: handling of pytz in bullseye only, ignoring older distros
+    - "netcat-openbsd"
+    - "tcpdump"
+    - "nmap"
+    - "mtr-tiny"
+    - "iftop"
+    - "htop"
+    - "iotop"
+    - "vim"
+    - "screen"
+    - "tmux"
+    - "byobu"
+    - "conntrack"
+    - "bash-completion"
+    - "psmisc"
+    - "curl"
+    - "mosh"
+    - "iputils-tracepath"
+    - "jq"
+    - "net-tools"
+    - "dnsutils"
+    - "ndisc6"
+    - "less"
+    - "iptstate"
+    - "aptitude"
+    - "etckeeper"
+    - "python3-pip"
+    - "python3-setuptools"
+    - "python3-dateutil" # needed by ffh_resolve.py
 
 - name: Set prompt (PS1)
-  lineinfile:
-    path: /root/.bashrc
+  ansible.builtin.lineinfile:
+    path: "/root/.bashrc"
     line: 'export PS1="\[\e[37m\][\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[31m\]{{ servername | default("\h") }}\[\e[m\]\[\e[37m\]]\[\e[m\]\[\e[37m\]:\[\e[m\]\[\e[34m\]\w\[\e[m\] \[\e[37m\]\\$\[\e[m\] "'
 
-- name: Set dr alias
-  lineinfile:
-    path: /root/.bashrc
-    line: 'alias dr="ip r s t 0 | grep \"default via\" && ip -6 r s t 0 | grep \"default via\""'
-
 - name: Set ll alias
-  lineinfile:
-    path: /root/.bashrc
+  ansible.builtin.lineinfile:
+    path: "/root/.bashrc"
     line: 'alias ll="ls -al --color"'
 
-- name: Set traceraute alias
-  lineinfile:
-    path: /root/.bashrc
-    line: 'alias traceraute="traceroute"'
-
 - name: Install bin files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/usr/bin/"
     owner: "root"
@@ -72,7 +55,7 @@
     - "files/bin/*"
 
 - name: Install bin files by templates
-  template:
+  ansible.builtin.template:
     src: "{{ item }}"
     dest: "/usr/bin/{{ item[:-3] | basename }}"
     owner: "root"
@@ -81,19 +64,20 @@
     - "templates/bin/*"
 
 - name: Install .vimrc
-  copy:
-    src: "root/.vimrc"
-    dest: "/root"
+  ansible.builtin.copy:
+    src: "files/vimrc"
+    dest: "/root/.vimrc"
     owner: "root"
+    group: "root"
     mode: 0755
 
 - name: ensure some basic locales
-  locale_gen:
+  community.general.locale_gen:
     name: "{{ item }}"
-    state: present
+    state: "present"
   with_items:
-    - de_DE.UTF-8
-    - en_GB.UTF-8
+    - "de_DE.UTF-8"
+    - "en_GB.UTF-8"
 
 - name: Pin last booted kernel in grub
   ansible.builtin.template:
