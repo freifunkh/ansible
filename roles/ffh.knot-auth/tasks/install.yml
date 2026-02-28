@@ -25,13 +25,6 @@
     update_cache: "yes"
   notify: "Restart knot"
 
-- name: Create ferm path
-  ansible.builtin.file:
-    path: "/etc/ferm/conf.d"
-    state: "directory"
-    owner: "root"
-    group: "root"
-
 - name: Handle firewalling
   include_tasks: "firewall.yml"
 
