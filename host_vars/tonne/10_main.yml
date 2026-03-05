@@ -15,6 +15,9 @@ networkd_configures:
     - 9.9.9.9
   no_radv_accept: true
 
+nftables_enabled: true
+ferm_enabled: false
+
 restic_backup_paths:
 - /etc/
 
