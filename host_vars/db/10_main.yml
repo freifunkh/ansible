@@ -16,6 +16,9 @@ networkd_configures:
     - '2001:678:ed0:f000::'
   no_radv_accept: true
 
+nftables_enabled: true
+ferm_enabled: false
+
 restic_backup_paths:
 - "/etc/"
 - "/media/mysql/dump/"
