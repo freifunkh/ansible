@@ -11,6 +11,7 @@
   roles:
     # - { name: ffh.cleanup, tags: cleanup }
     - { name: ffh.ferm, tags: ferm }
+    - { name: ffh.nftables, tags: nftables }
     - { name: ffh.cli_tools, tags: cli_tools }
     - { name: ffh.simple_mail, tags: simple_mail }
     - { name: ffh.journald, tags: journald }

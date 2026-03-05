@@ -1,0 +1,4 @@
+---
+
+nftables_enabled: true
+ferm_enabled: false
