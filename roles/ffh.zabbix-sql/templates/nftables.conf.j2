@@ -1,0 +1,5 @@
+table inet filter {
+  chain input {
+    tcp dport {{ zabbix_db_port | default(3306) }} accept
+  }
+}
