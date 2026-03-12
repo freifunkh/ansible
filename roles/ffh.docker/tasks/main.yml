@@ -45,35 +45,12 @@
     - "docker-ce-cli"
     - "containerd.io"
 
-- name: Override nftables.service ExecStop behaviour, create directory
-  ansible.builtin.file:
-    path: "/etc/systemd/system/nftables.service.d/"
-    state: "directory"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-  when: nftables_enabled is defined and nftables_enabled
-
-- name: Override nftables.service ExecStop behaviour, drop config
-  ansible.builtin.template:
-    src: "nftables.service.conf.j2"
-    dest: "/etc/systemd/system/nftables.service.d/50-no-execstop.conf"
-  when: nftables_enabled is defined and nftables_enabled
-
 - name: Install daemon.json
   ansible.builtin.template:
     src: "daemon.json.j2"
     dest: "/etc/docker/daemon.json"
   notify: Restart Docker
 
-- name: sysctl parameters for ip forwarding
-  ansible.posix.sysctl:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    sysctl_file: "/etc/sysctl.d/99-docker.conf"
-    reload: true
+- name: nftables stuff
+  include_tasks: "nftables.yml"
   when: nftables_enabled is defined and nftables_enabled
-  loop: [
-    { name: "net.ipv4.ip_forward", value: "1" },
-    { name: "net.ipv6.conf.all.forwarding", value: "1" }
-  ]
