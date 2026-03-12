@@ -1,7 +1,7 @@
 services:
   esphome:
     container_name: esphome
-    image: ghcr.io/esphome/esphome
+    image: ghcr.io/esphome/esphome:{{ esphome_version | default('latest') }}
     volumes:
       - {{ esphome_path_config }}:/config
       - /etc/localtime:/etc/localtime:ro
