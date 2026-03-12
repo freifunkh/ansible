@@ -1,0 +1,5 @@
+table inet filter {
+  chain input {
+    tcp dport { 80, 443 } accept
+  }
+}

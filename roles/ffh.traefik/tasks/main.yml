@@ -1,5 +1,24 @@
 ---
 
+- name: Handle nftables firewalling
+  block:
+  - name: Create nftables directory if necessary
+    ansible.builtin.file:
+      path: "/etc/nftables"
+      state: "directory"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+  - name: Open port(s) in firewall (nftables)
+    notify: "reload nftables"
+    ansible.builtin.template:
+      src: "nftables.conf.j2"
+      dest: "/etc/nftables/50-traefik.conf"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+  when: nftables_enabled is defined and nftables_enabled is true
+
 - name: Create path for traefik config
   ansible.builtin.file:
     path: "/etc/traefik"
