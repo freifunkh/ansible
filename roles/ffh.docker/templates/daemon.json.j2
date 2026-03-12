@@ -1,6 +1,7 @@
 {
 
     "dns": ["9.9.9.9", "1.1.1.1"],
+{% if nftables_enabled is defined and nftables_enabled %}    "firewall-backend": "nftables",{%- endif %} 
     "ip-forward-no-drop": {{ "true" if docker_forward_no_drop else "false" }}{% if docker_additional_config is defined %},
     {{ docker_additional_config }}
     {%- endif %}

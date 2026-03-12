@@ -2,7 +2,7 @@
 # tasks file for ffh.docker
 
 - name: Install dependencies
-  apt:
+  ansible.builtin.apt:
     pkg:
     - "apt-transport-https"
     - "ca-certificates"
@@ -10,7 +10,7 @@
     - "gnupg"
 
 - name: Prepare key directory for older Debian versions
-  file:
+  ansible.builtin.file:
     path: "/etc/apt/keyrings"
     state: "directory"
     mode: "0755"
@@ -19,7 +19,7 @@
   when: "ansible_facts['distribution_version']|int < 12"
 
 - name: Add Docker repo key
-  get_url:
+  ansible.builtin.get_url:
     url: "https://download.docker.com/linux/debian/gpg"
     dest: "/etc/apt/keyrings/docker.key"
     mode: "0644"
@@ -29,32 +29,51 @@
 
 - name: Add Docker repo
   register: dockerrepositoryadded
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.key] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
     filename: "docker"
 
 - name: Update apt chache to get Docker packages
-  apt: update_cache=yes
+  ansible.builtin.apt: update_cache=yes
   when: dockerrepositoryadded is changed
 
 - name: Install Docker from repo
   register: dockerinstall
-  apt:
+  ansible.builtin.apt:
     pkg:
     - "docker-ce"
     - "docker-ce-cli"
     - "containerd.io"
 
-#- name: Create systemd unitfile drop directory
-#   ansible.builtin.file:
-#    path: "/etc/systemd/system/docker.service.d/"
-#    state: "directory"
-#    owner: "root"
-#    group: "root"
-#    mode: "0755"
+- name: Override nftables.service ExecStop behaviour, create directory
+  ansible.builtin.file:
+    path: "/etc/systemd/system/nftables.service.d/"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  when: nftables_enabled is defined and nftables_enabled
+
+- name: Override nftables.service ExecStop behaviour, drop config
+  ansible.builtin.template:
+    src: "nftables.service.conf.j2"
+    dest: "/etc/systemd/system/nftables.service.d/50-no-execstop.conf"
+  when: nftables_enabled is defined and nftables_enabled
 
 - name: Install daemon.json
-  template:
-    src: daemon.json.j2
-    dest: /etc/docker/daemon.json
+  ansible.builtin.template:
+    src: "daemon.json.j2"
+    dest: "/etc/docker/daemon.json"
   notify: Restart Docker
+
+- name: sysctl parameters for ip forwarding
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: "/etc/sysctl.d/99-docker.conf"
+    reload: true
+  when: nftables_enabled is defined and nftables_enabled
+  loop: [
+    { name: "net.ipv4.ip_forward", value: "1" },
+    { name: "net.ipv6.conf.all.forwarding", value: "1" }
+  ]
