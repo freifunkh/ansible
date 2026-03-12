@@ -46,6 +46,10 @@ all:
       ansible_host: dali.ffh.zone
     thetisd:
       ansible_host: thetisd.ffh.zone
+    excelsior:
+      ansible_host: excelsior.ffh.zone
+      # ansible_host: 192.168.152.3
+      # ansible_ssh_common_args: '-J wildberger'
     rena:
       ansible_host: rena.ffh.zone
     wildberger:
@@ -139,6 +143,7 @@ dockernodes:
     thetisd:
     rena:
     mx1:
+    excelsior:
 
 batmannodes:
   hosts:

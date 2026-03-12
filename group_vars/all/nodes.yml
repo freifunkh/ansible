@@ -33,6 +33,7 @@ helpernodes:
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
   vds: { id: 5, ip4: "{{ lookup('dig', 'vds.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'vds.ffh.zone./AAAA') }}" }
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
+  excelsior: { id: 8, ip4: "{{ lookup('dig', 'excelsior.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'excelsior.ffh.zone./AAAA') }}" }
   evergiven: { id: 9, ip4: "{{ lookup('dig', 'evergiven.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'evergiven.ffh.zone./AAAA') }}" }
   dali: { id: 10, ip4: "{{ lookup('dig', 'dali.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dali.ffh.zone./AAAA') }}" }
   thetisd: { id: 11, ip4: "{{ lookup('dig', 'thetisd.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'thetisd.ffh.zone./AAAA') }}" }

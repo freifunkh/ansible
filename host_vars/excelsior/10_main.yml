@@ -1,0 +1,54 @@
+---
+
+servername: excelsior
+fqdn: "excelsior.ffh.zone"
+
+networkd_configures:
+- iface: lo
+  addresses:
+    - 127.0.0.1/24
+    - ::1/128
+  no_radv_accept: true
+- iface: ens16 # mellanox
+  addresses:
+    - 81.3.6.94/29
+  gateway4: 81.3.6.89
+  dns_server:
+    - '2001:678:ed0:f000::'
+    - 5.1.66.255
+    - 9.9.9.9
+  no_radv_accept: true
+- iface: ens18
+  addresses:
+    - 192.168.152.3/24
+  no_radv_accept: true
+- iface: ens19
+  addresses:
+    - 2a0a:4587:2033:10ca::c0de/64
+  gateway6: 2a0a:4587:2033:10ca::1
+  no_radv_accept: true
+
+nftables_enabled: true
+ferm_enabled: false
+
+restic_backup_paths:
+- /etc/
+
+docker_additional_config: |2
+
+      "data-root": "/media/docker/",
+      "firewall-backend": "nftables"
+
+zabbix_agent_server: "zbx-haj.ffh.zone"
+zabbix_agent_server_active: "zbx-haj.ffh.zone"
+zabbix_agent_psk_id: "excelsior.ffh.zone"
+zabbix_agent_psk_value: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35363763633261653666633639653236346361656635306566303237323566653562643138383932
+          3233623635373038613733373836663530626632666137370a336232383263636532626439303736
+          37383235346438636563363265623537633833396239303435393139393864396333343637323633
+          3336373638666433620a373666626630306639333666343162353939303865343838326136656434
+          61626632643434643938336265663331663463383133343362306635326361346233653837363566
+          34386635333036656631323364333535373331313462363932326633333931366365666333346635
+          65633461646361633338313930346439653532666532336135666562363263316234623761306332
+          34656339343838623361

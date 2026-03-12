@@ -1,0 +1,8 @@
+---
+
+forgejo_version: 14
+forgejo_path: "/opt/forgejo"
+forgejo_path_conf: "/media/forgejo/conf"
+forgejo_path_data: "/media/forgejo/data"
+forgejo_fqdn: "code.ffh.zone"
+

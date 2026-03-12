@@ -45,6 +45,10 @@
   roles:
     - { name: ansible-role-netbox-docker, tags: netbox }
 
+- hosts: excelsior
+  roles:
+    - { name: ffh.forgejo, tags: forgejo }
+
 - hosts: mx1
   roles:
     - { name: ffh.docker-mailserver, tags: dms }

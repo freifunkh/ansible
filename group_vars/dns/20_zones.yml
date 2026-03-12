@@ -37,6 +37,7 @@ dns_authoritative_toplevel:
    - domain: "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa"
      records: [
        "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR sn05.s.ffh.zone.",
+       "e.d.0.c.0.0.0.0.0.0.0.0.0.0.0.0.a.c.0.1.3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR excelsior.ffh.zone.",
        "3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.a.c.0.1.3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR dns4.ffh.zone."
      ]
    - domain: "203.12.45.in-addr.arpa"
@@ -149,6 +150,9 @@ dns_authoritative_toplevel:
        # Hannover
        "wildberger.ffh.zone. IN A 81.3.0.14",
        "wildberger.ffh.zone. IN AAAA 2a02:790:1:3f::2",
+       "excelsior.ffh.zone. IN A 81.3.6.94",
+       "excelsior.ffh.zone. IN AAAA 2a0a:4587:2033:10ca::c0de",
+       "code.ffh.zone. IN CNAME excelsior.ffh.zone.",
        "dns4.ffh.zone. IN A 81.3.6.93",
        "dns4.ffh.zone. IN AAAA 2a0a:4587:2033:10ca::53",
        "zbx-haj.ffh.zone. IN CNAME dns4.ffh.zone.",
