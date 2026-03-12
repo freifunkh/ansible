@@ -21,6 +21,7 @@ authentik_outpost_host: "https://auth.ffh.zone"
 esphome_path: "/opt/esphome"
 esphome_path_config: "/media/docker/esphome/config"
 esphome_fqdn: "steckdosen.ffh.zone"
+esphome_version: "2026.2.4"
 
 homeassistant_path: "/opt/homeassistant"
 homeassistant_fqdn: "nous.ffh.zone"
