@@ -13,6 +13,19 @@
     src: "nftables.service.conf.j2"
     dest: "/etc/systemd/system/nftables.service.d/50-no-execstop.conf"
 
+- name: Make docker.service part of nftables.service, create directory
+  ansible.builtin.file:
+    path: "/etc/systemd/system/docker.service.d/"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Make docker.service part of nftables.service, drop config
+  ansible.builtin.template:
+    src: "docker.service.conf.j2"
+    dest: "/etc/systemd/system/docker.service.d/50-nftables.conf"
+
 - name: sysctl parameters for ip forwarding
   ansible.posix.sysctl:
     name: "{{ item.name }}"
