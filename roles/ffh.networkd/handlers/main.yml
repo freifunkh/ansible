@@ -2,3 +2,8 @@
 
 - name: Restart networkd
   service: name=systemd-networkd state=restarted
+
+- name: Restart resolved
+  ansible.builtin.systemd_service:
+    name: "systemd-resolved"
+    state: "restarted"

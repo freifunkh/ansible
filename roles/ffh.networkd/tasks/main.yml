@@ -41,6 +41,15 @@
     no_extra_spaces: true
   when: networkd_rt_tables is defined
 
+- name: Disable LLMNR in resolved
+  notify: Restart resolved
+  community.general.ini_file:
+    path: "/etc/systemd/resolved.conf"
+    section: "Resolve"
+    option: "LLMNR"
+    value: "no"
+    no_extra_spaces: true
+
 - name: Enable systemd-resolved
   ansible.builtin.systemd_service:
     name: "systemd-resolved"
