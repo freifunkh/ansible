@@ -1,11 +1,11 @@
 ---
 
-- name: "Add gpg dependency for key handling"
-  apt:
+- name: Add gpg dependency for key handling
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: "Prepare key directory for older Debian versions"
-  file:
+- name: Prepare key directory for older Debian versions
+  ansible.builtin.file:
     path: "/etc/apt/keyrings"
     state: "directory"
     mode: "0755"
@@ -13,8 +13,8 @@
     group: "root"
   when: "ansible_facts['distribution_version']|int < 12"
 
-- name: "Add Zabbix Repo Key"
-  get_url:
+- name: Add Zabbix Repo Key
+  ansible.builtin.get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
     dest: "/etc/apt/keyrings/zabbix-official-repo.key"
     mode: "0644"
@@ -22,42 +22,28 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: "Add Zabbix Repo"
-  apt_repository:
+- name: Add Zabbix Repo
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
     state: "present"
     filename: "zabbix"
 
-- name: "Install Zabbix Server"
-  apt:
+- name: Install Zabbix Server
+  ansible.builtin.apt:
     update_cache: "yes"
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - "zabbix-server-mysql"
+    name: "zabbix-server-mysql"
 
-- name: "Deploy zabbix-server config"
+- name: Deploy zabbix-server config
   notify: "restart zabbix-server"
-  template:
+  ansible.builtin.template:
     src: "zabbix_server.conf.j2"
     dest: "/etc/zabbix/zabbix_server.conf"
 
-- name: "Create Ferm config directory"
-  file:
-    path: "/etc/ferm/conf.d"
-    state: "directory"
-    owner: "root"
-    group: "root"
-    mode: "0755"
-
-- name: "Generate firewall config stanza (ferm)"
-  notify: "reload ferm"
-  template:
-    src: "ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/50-zabbix-server.conf"
-
-- name: "Enable Zabbix Server on bootup"
-  systemd:
+- name: Enable Zabbix Server on bootup
+  ansible.builtin.systemd_service:
     name: "zabbix-server"
     enabled: "yes"
     state: "started"
+
+- name: Firewalling
+  include_tasks: "firewall.yml"
