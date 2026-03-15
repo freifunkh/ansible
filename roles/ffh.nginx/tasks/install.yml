@@ -1,0 +1,59 @@
+---
+
+- name: Install https for apt
+  ansible.builtin.apt:
+    pkg:
+    - "apt-transport-https"
+    - "curl"
+    update_cache: true
+
+- name: Install nginx from nginx repo
+  when: "nginx_repo is true"
+  block:
+  - name: Add nginx repository key
+    ansible.builtin.apt_key:
+      url: "https://nginx.org/keys/nginx_signing.key"
+  - name: Add nginx repository
+    register: "nginxrepositoryadded"
+    ansible.builtin.apt_repository:
+      repo: "deb https://nginx.org/packages/debian/ {{ansible_facts['distribution_release']}} nginx"
+  - name: Update apt cache to get nginx packages
+    ansible.builtin.apt:
+      update_cache: true
+    when: "nginxrepositoryadded is changed"
+  - name: Remove old nginx
+    ansible.builtin.apt:
+      state: "absent"
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - "nginx=1.6.*"
+      - "nginx-common=1.6.*"
+  - name: Unmask service nginx
+    ansible.builtin.systemd_service:
+      name: "nginx"
+      masked: false
+
+- name: Install nginx and PHP
+  ansible.builtin.apt:
+    pkg:
+    - "nginx"
+    - "php-fpm"
+
+- name: Create directory for getssl
+  ansible.builtin.file:
+    path: "{{ nginx_getssl_dir }}"
+    state: "directory"
+
+- name: Download getssl
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/srvrco/getssl/release2.46/getssl"
+    dest: "{{ nginx_getssl_dir }}/getssl"
+    mode: "0700"
+    checksum: "sha256:1d05824bed32b5b1d5bdc546b338abf1ed2a48d0c8c6f903cc15883b2412614d"
+
+- name: Add cron job for getssl
+  ansible.builtin.template:
+    src: "08-getssl.cron.j2"
+    dest: "/etc/cron.daily/getssl"
+    mode: "0755"
