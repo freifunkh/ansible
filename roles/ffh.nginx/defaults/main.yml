@@ -1,11 +1,11 @@
 ---
 
 nginx_repo: false
-nginx_user: www-data
-nginx_worker_processes: auto
-nginx_webroot: /var/www
-nginx_sites_available_dir: /etc/nginx/sites-available
-nginx_sites_enabled_dir: /etc/nginx/sites-enabled
-nginx_keys_dir: /etc/nginx/keys
-nginx_getssl_dir: /opt/getssl
+nginx_user: "www-data"
+nginx_worker_processes: "auto"
+nginx_webroot: "/var/www"
+nginx_sites_available_dir: "/etc/nginx/sites-available"
+nginx_sites_enabled_dir: "/etc/nginx/sites-enabled"
+nginx_keys_dir: "/etc/nginx/keys"
+nginx_getssl_dir: "/opt/getssl"
 nginx_resolver: "[2001:470:20::2] 208.67.220.220 74.82.42.42"
