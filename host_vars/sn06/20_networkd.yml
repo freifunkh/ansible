@@ -6,7 +6,11 @@ networkd_configures:
     - 192.168.151.2/24
   gateway4: 192.168.151.1
   dns_server:
+    - "2001:678:e68:f000::"
+    - 185.150.99.255
     - 9.9.9.9
+    - "2001:678:ed0:f000::"
+    - 5.1.66.255
   no_radv_accept: true
 - iface: ens16 # Mellanox
   no_radv_accept: true
