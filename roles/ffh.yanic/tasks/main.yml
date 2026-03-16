@@ -1,179 +1,166 @@
 ---
 
-- name: Ensure git
-  apt:
-    name: git
-    update_cache: yes
-
-- name: Ensure rsync
-  apt:
-    name: rsync
-    update_cache: yes
+- name: Install dependencies
+  ansible.builtin.apt:
+    pkg:
+    - "git"
+    - "rsync"
 
 - name: Ensure ansible dir
-  file:
-      dest: /var/lib/ansible
-      state: directory
+  ansible.builtin.file:
+      dest: "/var/lib/ansible"
+      state: "directory"
 
 - name: Check installed go version
-  register: goversion
-  copy:
+  register: "goversion"
+  ansible.builtin.copy:
     content: "{{ go_version }}"
-    dest: /var/lib/ansible/go_version
+    dest: "/var/lib/ansible/go_version"
 
 - name: Download and install go
-  unarchive:
-    src: https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
-    dest: /usr/local
-    remote_src: True
-  when: goversion is changed
+  ansible.builtin.unarchive:
+    src: "https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    remote_src: true
+  when: "goversion is changed"
 
 - name: Install path to go stuff
-  template:
-    src: go.sh.j2
-    dest: /etc/profile.d/go.sh
-    mode: 755
+  ansible.builtin.template:
+    src: "go.sh.j2"
+    dest: "/etc/profile.d/go.sh"
+    mode: "0755"
 
 - name: Check if yanic is already installed
-  stat:
+  register: "yanic_source_dir"
+  ansible.builtin.stat:
     path: "{{ yanic_source_path }}"
-  register: yanic_source_dir
 
 - name: Install yanic if not yet installed
-  command: "{{ go_bin_path }}/go install yanic"
-  when: not yanic_source_dir.stat.exists
-  register: fresh_install
+  register: "fresh_install"
+  ansible.builtin.command: "{{ go_bin_path }}/go install yanic"
+  when: "not yanic_source_dir.stat.exists"
 
 - name: Create patch directory
-  file:
+  ansible.builtin.file:
     path: "{{ yanic_source_path }}/patches"
-    state: directory
+    state: "directory"
 
 - name: Transfer local patches
-  synchronize:
-    archive: no
-    checksum: yes
-    src: files/patches/
+  register: "patch_sync"
+  ansible.posix.synchronize:
+    src: "files/patches/"
     dest: "{{ yanic_source_path }}/patches"
-    recursive: yes
-    delete: yes
-  register: patch_sync
+    archive: false
+    checksum: true
+    recursive: true
+    delete: true
 
 - name: Check if target commit exists in git tree
-  command:
+  register: "commit_search"
+  ansible.builtin.command:
     chdir: "{{ yanic_source_path }}"
     cmd: "git cat-file -e {{ yanic_commit }}^{commit}"
-  register: commit_search
-  changed_when: commit_search.rc!=0
-  check_mode: no
-  failed_when: commit_search.rc != 0 and commit_search.rc != 128
+  changed_when: "commit_search.rc!=0"
+  check_mode: false
+  failed_when: "commit_search.rc != 0 and commit_search.rc != 128"
 
 - name: Update yanic to "{{ yanic_commit }}"
-  git:
+  register: "yanic_repo"
+  ansible.builtin.git:
     repo: "https://{{ yanic_repo_path }}.git"
     dest: "{{ yanic_source_path }}"
-    update: yes
-    force: yes
+    update: true
+    force: true
     version: "{{ yanic_commit }}"
-  register: yanic_repo
-  when: fresh_install.changed or commit_search.rc==128 or patch_sync.changed
+  when: "fresh_install.changed or commit_search.rc==128 or patch_sync.changed"
 
 - name: Apply patches
-  script:
-    cmd: files/apply_patches.sh
+  register: "patches"
+  ansible.builtin.script:
+    cmd: "files/apply_patches.sh"
     chdir: "{{ yanic_source_path }}"
-  register: patches
-  when: patch_sync.changed or yanic_repo.changed
+  when: "patch_sync.changed or yanic_repo.changed"
 
 - name: Get all project dependencies
-  command:
+  ansible.builtin.command:
     chdir: "{{ yanic_source_path }}"
     cmd: "{{ go_bin_path }}/go get ."
-  when: patch_sync.changed or yanic_repo.changed
+  when: "patch_sync.changed or yanic_repo.changed"
 
 - name: Build yanic with applied patches
-  command:
+  ansible.builtin.command:
     chdir: "{{ yanic_source_path }}"
     cmd: "{{ go_bin_path }}/go build ."
   environment:
     GOPATH: "{{ go_path }}"
-  when: patches.changed
+  when: "patches.changed"
 
 - name: Install built yanic
-  notify: Restart yanic
-  command:
+  notify: "Restart yanic"
+  ansible.builtin.command:
     chdir: "{{ yanic_source_path }}"
     cmd: "{{ go_bin_path }}/go install ."
   environment:
     GOPATH: "{{ go_path }}"
-  when: patches.changed
+  when: "patches.changed"
 
 - name: Create yanic user
-  user:
+  ansible.builtin.user:
     name: "{{ yanic_user }}"
     group: "{{ yanic_group }}"
-    system: yes
+    system: true
 
 - name: Ensure persist directory, if needed
-  file:
+  ansible.builtin.file:
     path: "/var/lib/yanic/"
-    state: directory
-    owner: yanic
-  when: yanic_nodes_enabled
+    state: "directory"
+    owner: "yanic"
+  when: "yanic_nodes_enabled"
 
 - name: Ensure nodes path, if needed
-  file:
+  ansible.builtin.file:
     path: "{{ yanic_nodes_path }}"
-    state: directory
-    owner: www-data
-  when: yanic_nodes_enabled
+    state: "directory"
+    owner: "www-data"
+  when: "yanic_nodes_enabled"
 
 - name: Configure yanic (DIFF REDACTED)
-  notify: Restart yanic
-  template:
-    src: config.yml.j2
-    dest: /etc/yanic.conf
+  notify: "Restart yanic"
+  ansible.builtin.template:
+    src: "config.yml.j2"
+    dest: "/etc/yanic.conf"
   diff: "{{ show_secret_diffs }}"
 
 - name: Copy systemd service
-  notify: Daemon reload
-  template:
-    src: yanic.service.j2
-    dest: /lib/systemd/system/yanic.service
+  notify: "Daemon reload"
+  ansible.builtin.template:
+    src: "yanic.service.j2"
+    dest: "/lib/systemd/system/yanic.service"
 
 - name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-yanic.conf
-  notify: reload ferm
+  register: "ferm_changed"
+  notify: "reload ferm"
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-yanic.conf"
 
 - name: Enable yanic
-  systemd:
-    name: yanic
-    state: started
-    enabled: yes
+  ansible.builtin.systemd_service:
+    name: "yanic"
+    state: "started"
+    enabled: true
 
-- name: Set neigh gc_thresh1 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh1
-    value: "32768"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: Set neigh gc_thresh2 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh2
-    value: "65536"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
-
-- name: Set neigh gc_thresh3 IPv6
-  sysctl:
-    name: net.ipv6.neigh.default.gc_thresh3
-    value: "131072"
-    sysctl_file: /etc/sysctl.d/50-gc_thresh.conf
-    reload: yes
+- name: sysctl parameters for neigh gc_thresh
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: "/etc/sysctl.d/50-gc_thresh.conf"
+    reload: true
+  loop: [
+    { name: 'net.ipv6.neigh.default.gc_thresh1', value: '32768' },
+    { name: 'net.ipv6.neigh.default.gc_thresh2', value: '65536' },
+    { name: 'net.ipv6.neigh.default.gc_thresh3', value: '131072' }
+  ]
 
 - name: Run Graveyard tasks
-  include_tasks: graveyard.yml
+  include_tasks: "graveyard.yml"
