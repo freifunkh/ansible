@@ -1,7 +1,7 @@
 ---
 
 - name: Add gpg dependency for key handling
-  apt:
+  ansible.builtin.apt:
     name: "gpg"
 
 - name: Add repo key
@@ -14,50 +14,51 @@
   when: "not ansible_check_mode"
 
 - name: Add influx repo
-  register: influxrepositoryadded
+  register: "influxrepositoryadded"
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main"
     filename: "influxdata"
 
 - name: Update apt chache to get influxdb packages
-  apt: update_cache=yes
-  when: influxrepositoryadded is changed
+  ansible.builtin.apt:
+    update_cache: true
+  when: "influxrepositoryadded is changed"
 
 - name: Install influxdb2 from repo
-  register: influxinstall
-  apt:
+  register: "influxinstall"
+  ansible.builtin.apt:
     name: influxdb2
 
 - name: Generate config file
-  register: influx2_configfile
-  template:
-    src: influx2.config.toml.j2
-    dest: /etc/influxdb/config.toml
+  register: "influx2_configfile"
+  ansible.builtin.template:
+    src: "influx2.config.toml.j2"
+    dest: "/etc/influxdb/config.toml"
 
 - name: Ensure engine directory exists and has correct ownership
-  file:
-    state: directory
+  ansible.builtin.file:
+    state: "directory"
     path: "{{ influx2_engine_path }}"
     owner: "influxdb"
     group: "influxdb"
-    recurse: yes
+    recurse: true
 
 - name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-influxdb.conf
-  notify: reload ferm
+  register: "ferm_changed"
+  notify: "reload ferm"
+  ansible.builtin.template:
+    src: "ferm.conf.j2"
+    dest: "/etc/ferm/conf.d/50-influxdb.conf"
 
 - name: Reload influxdb2 service
-  systemd:
-    name: influxdb
-    state: restarted
-    daemon_reload: yes
-  when: influx2_configfile is changed
+  ansible.builtin.systemd_service:
+    name: "influxdb"
+    state: "restarted"
+    daemon_reload: true
+  when: "influx2_configfile is changed"
 
 - name: Enable service
-  service:
-    name: influxdb
-    enabled: yes
-    state: started
+  ansible.builtin.systemd_service:
+    name: "influxdb"
+    enabled: true
+    state: "started"
