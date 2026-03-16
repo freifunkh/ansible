@@ -1,40 +1,41 @@
-domain (ip ip6) {
-  table filter {
-    chain INPUT {
-      proto tcp dport ({{ influx2_bind_port }}) ACCEPT {
+define INFLUX_ALLOWHOSTS = {
 {% for item in supernodes | dict2items %}
 {% if item.value.ip4 is defined %}
-        saddr {{ item.value.ip4 }};   # {{ item.key }}
+  {{ item.value.ip4 }},   # {{ item.key }}
 {% endif %}
 {% if item.value.ip6 is defined %}
-        saddr {{ item.value.ip6 }};   # {{ item.key }}
+  {{ item.value.ip6 }},   # {{ item.key }}
 {% endif %}
 {% endfor %}
 {% for item in exitnodes | dict2items %}
 {% if item.value.ip4 is defined %}
-        saddr {{ item.value.ip4 }};   # {{ item.key }}
+  {{ item.value.ip4 }},   # {{ item.key }}
 {% endif %}
 {% if item.value.ip6 is defined %}
-        saddr {{ item.value.ip6 }};   # {{ item.key }}
+  {{ item.value.ip6 }},   # {{ item.key }}
 {% endif %}
 {% endfor %}
 {% for item in helpernodes | dict2items %}
 {% if item.value.ip4 is defined %}
-        saddr {{ item.value.ip4 }};   # {{ item.key }}
+  {{ item.value.ip4 }},   # {{ item.key }}
 {% endif %}
 {% if item.value.ip6 is defined %}
-        saddr {{ item.value.ip6 }};   # {{ item.key }}
+  {{ item.value.ip6 }},   # {{ item.key }}
 {% endif %}
 {% endfor %}
 {% for item in proxmoxnodes | dict2items %}
 {% if item.value.ip4 is defined %}
-        saddr {{ item.value.ip4 }};   # {{ item.key }}
+  {{ item.value.ip4 }},   # {{ item.key }}
 {% endif %}
 {% if item.value.ip6 is defined %}
-        saddr {{ item.value.ip6 }};   # {{ item.key }}
+  {{ item.value.ip6 }},   # {{ item.key }}
 {% endif %}
 {% endfor %}
-      }
-    }
+  127.0.0.1
+}
+
+table inet filter {
+  chain input {
+    tcp dport {{ influx2_bind_port }} $INFLUX_ALLOWHOSTS accept
   }
 }
