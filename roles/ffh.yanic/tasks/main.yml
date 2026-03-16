@@ -137,13 +137,6 @@
     src: "yanic.service.j2"
     dest: "/lib/systemd/system/yanic.service"
 
-- name: Generate firewall config stanza (ferm)
-  register: "ferm_changed"
-  notify: "reload ferm"
-  ansible.builtin.template:
-    src: "ferm.conf.j2"
-    dest: "/etc/ferm/conf.d/50-yanic.conf"
-
 - name: Enable yanic
   ansible.builtin.systemd_service:
     name: "yanic"
@@ -164,3 +157,6 @@
 
 - name: Run Graveyard tasks
   include_tasks: "graveyard.yml"
+
+- name: Firewall
+  include_tasks: "firewall.yml"

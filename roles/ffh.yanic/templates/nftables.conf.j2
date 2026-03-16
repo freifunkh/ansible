@@ -1,0 +1,5 @@
+table inet filter {
+  chain input {
+    udp dport {{ yanic_port | default(10002) }} accept
+  }
+}
