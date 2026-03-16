@@ -1,0 +1,29 @@
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:{{ forgejo_version | default('14') }}-rootless
+    container_name: forgejo
+    user: "1024:100"
+
+    restart: always
+    networks:
+      - proxy
+    volumes:
+      - {{ forgejo_path_data }}:/var/lib/gitea
+      - {{ forgejo_path_conf }}:/etc/gitea
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 222:2222
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: proxy
+      traefik.http.middlewares.forgejo.redirectscheme.scheme: https
+      traefik.http.routers.forgejo-https.entrypoints: websecure
+      traefik.http.routers.forgejo-https.rule: Host(`{{ forgejo_fqdn | default('localhost') }}`)
+      traefik.http.routers.forgejo-https.tls.certresolver: letsencrypt
+      traefik.http.routers.forgejo-https.service: forgejo-svc
+      traefik.http.services.forgejo-svc.loadbalancer.server.port: '3000'
+
+networks:
+  proxy:
+    external: true

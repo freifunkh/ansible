@@ -1,0 +1,6 @@
+---
+
+forgejo_path: "/opt/forgejo"
+forgejo_path_conf: "/opt/forgejo/conf"
+forgejo_path_data: "/media/twenties/forgejo"
+

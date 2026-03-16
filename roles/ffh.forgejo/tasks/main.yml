@@ -1,0 +1,35 @@
+---
+
+- name: Create forgejo user
+  ansible.builtin.user:
+    name: "forgejo"
+    create_home: false
+    uid: 1024
+    group: "users"
+    shell: "/bin/nologin"
+
+- name: Create path for forgejo
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ forgejo_path      }}", owner: "forgejo", group: "100", mode: "0755" }
+    - { name: "{{ forgejo_path_conf }}", owner: "forgejo", group: "100", mode: "0755" }
+    - { name: "{{ forgejo_path_data }}", owner: "forgejo", group: "100", mode: "0775" }
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ forgejo_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "forgejo"
+    group: "users"
+
+- name: Deploy forgejo
+  community.docker.docker_compose_v2:
+    project_src: "{{ forgejo_path }}"
+    files:
+    - "docker-compose.yml"
