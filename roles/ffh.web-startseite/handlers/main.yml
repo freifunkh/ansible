@@ -1,0 +1,7 @@
+---
+
+- name: Restart web-startseite
+  ansible.builtin.systemd_service:
+    name: "web-startseite"
+    state: "restarted"
+    daemon-reload: true

@@ -1,7 +1,0 @@
----
-
-- name: Restart Startseite
-  systemd:
-    name: web-startseite
-    state: restarted
-    daemon-reload: true

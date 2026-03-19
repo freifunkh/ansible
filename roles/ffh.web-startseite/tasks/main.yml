@@ -1,0 +1,28 @@
+---
+
+- name: Prepare web-startseite directory
+  ansible.builtin.file:
+    path: "{{ web_startseite_dir }}"
+    state: "directory"
+    mode: "0755"
+
+- name: Install web-startseite
+  notify: "Restart web-startseite"
+  ansible.builtin.get_url:
+    url: "https://github.com/freifunkh/startseite/releases/download/0.1.0/startseite"
+    dest: "{{ web_startseite_dir }}/web-startseite"
+    owner: "www-data"
+    group: "www-data"
+    mode: "0700"
+
+- name: Install systemd web-startseite unit file
+  notify: "Restart web-startseite"
+  ansible.builtin.template:
+    src: "web-startseite.service.j2"
+    dest: "/etc/systemd/system/web-startseite.service"
+
+- name: Enable systemd web-startseite service
+  ansible.builtin.systemd_service:
+    name: "web-startseite"
+    enabled: true
+    state: "started"
