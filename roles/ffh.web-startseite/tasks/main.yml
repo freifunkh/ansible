@@ -4,6 +4,8 @@
   ansible.builtin.file:
     path: "{{ web_startseite_dir }}"
     state: "directory"
+    owner: "www-data"
+    group: "www-data"
     mode: "0755"
 
 - name: Install web-startseite
