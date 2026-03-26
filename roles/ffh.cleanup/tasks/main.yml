@@ -8,6 +8,14 @@
     path: "/etc/ferm/conf.d/05-sn05.conf"
     state: absent
 
+- name: Uninstall ssh known hostkeys
+  ansible.builtin.known_hosts:
+    name: "{{ item.name }}"
+    key: "{{ item.name }} {{ item.key }}"
+    path: "/etc/ssh/ssh_known_hosts"
+    state: "absent"
+  with_items: "{{ known_hostkeys }}"
+
 #- name: "Install temporary firewall filter for former sn05 node"
 #  when: "'supernodes' in group_names or 'superexitnodes' in group_names or 'exitnodes' in group_names"
 #  notify: reload ferm
