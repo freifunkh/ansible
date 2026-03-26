@@ -1,0 +1,51 @@
+---
+
+- ansible.builtin.pause:
+    prompt: "Enter host-ca passphrase "
+    echo: false
+  no_log: true
+  run_once: true
+  register: "ssh_ca_passphrase"
+
+- name: Ensure local work directory exists
+  delegate_to: localhost
+  ansible.builtin.file:
+    path: "{{ ssh_ca_workdir }}"
+    state: "directory"
+    mode: "0700"
+
+- name: Fetch remote host public key
+  ansible.builtin.fetch:
+    src: "{{ remote_host_pubkey }}"
+    dest: "{{ ssh_ca_workdir }}/{{ inventory_hostname }}.pub"
+    flat: true
+
+- name: Sign host key locally
+  delegate_to: "localhost"
+  ansible.builtin.command: >
+    ssh-keygen
+    -s {{ ssh_host_ca_key }}
+    -P {{ ssh_ca_passphrase.user_input }}
+    -I {{ inventory_hostname }}
+    -h
+    -n {{ admin_sshhostkey_principals | join(',') }}
+    -V {{ cert_validity }}
+    {{ ssh_ca_workdir }}/{{ inventory_hostname }}.pub
+
+- name: Copy signed host certificate back to remote host
+  ansible.builtin.copy:
+    src: "{{ ssh_ca_workdir }}/{{ inventory_hostname }}-cert.pub"
+    dest: "{{ remote_host_cert }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Restart sshd"
+
+- name: Use HostCertificate in sshd_config
+  ansible.builtin.lineinfile:
+    path: "/etc/ssh/sshd_config"
+    regexp: "^HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub"
+    line: "HostCertificate /etc/ssh/ssh_host_ed25519_key-cert.pub"
+    insertafter: "EOF"
+    validate: "/usr/sbin/sshd -t -f %s"
+  notify: "Restart sshd"

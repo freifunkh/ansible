@@ -16,12 +16,21 @@
     key: "{{ admin_authorized_keys }}"
   when: "'proxmoxes' not in group_names"
 
-- name: Install ssh known hostkeys
-  ansible.builtin.known_hosts:
-    name: "{{ item.name }}"
-    key: "{{ item.name }} {{ item.key }}"
+- name: Install host ca key in /etc/ssh/ssh_known_hosts
+  notify: "Restart sshd"
+  ansible.builtin.lineinfile:
     path: "/etc/ssh/ssh_known_hosts"
-  with_items: "{{ known_hostkeys }}"
+    regexp: "^@cert-authority \\*\\.ffh\\.zone ssh-"
+    line: "@cert-authority *.ffh.zone {{ admin_host_ca_sshkey }}"
+
+- name: Check if signed host certificate exists
+  ansible.builtin.stat:
+    path: "{{ remote_host_cert }}"
+  register: "certfile"
+
+- name: Create and sign ssh hostkey
+  include_tasks: "hostkey.yml"
+  when: "(certfile.stat.exists is defined and not certfile.stat.exists and not ansible_check_mode) or 'cert_renew' in ansible_run_tags"
 
 - name: sysctl - Reboot on kernel panic
   ansible.posix.sysctl:

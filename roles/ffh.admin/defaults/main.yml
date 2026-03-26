@@ -2,3 +2,13 @@
 admin_pubkeys: []
 admin_authorized_local: []
 reboot_on_kernelpanic: false
+
+ssh_host_ca_key: "{{ playbook_dir }}/../secrets/ffh-host-ca"
+ssh_ca_workdir: "/tmp/ssh-ca-work"
+remote_host_pubkey: "/etc/ssh/ssh_host_ed25519_key.pub"
+remote_host_cert: "/etc/ssh/ssh_host_ed25519_key-cert.pub"
+cert_validity: "+52w"
+
+admin_sshhostkey_principals:
+  - "{{ inventory_hostname }}"
+  - "{{ ansible_host | default(inventory_hostname) }}"
