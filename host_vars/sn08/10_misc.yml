@@ -4,6 +4,11 @@ sn: 8
 en: 8
 fqdn: "sn08.s.ffh.zone"
 
+admin_sshhostkey_principals:
+  - "sn08"
+  - "sn08.ffh.zone"
+  - "sn08.s.ffh.zone"
+
 mesh_prefix: "2a0a:4587:2030"
 
 # With this, we do SNAT in favor of MASQUERADE

@@ -18,6 +18,13 @@ networkd_configures:
 postfix_myhostname: "mail.ffh.zone"
 postfix_virtual_alias_domains: "hannover.freifunk.net, freifunk-hannover.de"
 
+admin_sshhostkey_principals:
+  - "ns1"
+  - "ns1.ffh.zone"
+  - "mail.ffh.zone"
+  - "git.ffh.zone"
+  - "git.fnorden.net"
+
 zabbix_agent_psk_id: "ns1.ffh.zone"
 zabbix_agent_psk_value: !vault |
           $ANSIBLE_VAULT;1.1;AES256

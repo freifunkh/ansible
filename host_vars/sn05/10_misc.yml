@@ -5,6 +5,11 @@ sn: 5
 en: 5
 fqdn: "sn05.s.ffh.zone"
 
+admin_sshhostkey_principals:
+  - "sn05"
+  - "sn05.ffh.zone"
+  - "sn05.s.ffh.zone"
+
 exit_ip: "81.3.6.92" # With this, we do SNAT in favor of MASQUERADE
 mesh_prefix: "2a0a:4587:2033"
 
