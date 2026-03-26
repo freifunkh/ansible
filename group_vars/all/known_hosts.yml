@@ -1,5 +1,7 @@
 ---
 
+admin_host_ca_sshkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDOomz2DNXhw2qPzGGAvWPqPsEvFYYoWac9XippDNCze"
+
 known_hostkeys:
 - name: wildberger.ffh.zone
   key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJbFnpDwYhSY+FM/2RnGZI/qKgp7rMKmisk9D2iRXH/VE8VYAi+5PIgpwJJ1eOwP/MXR/HIP7OKtSFZrcn9uYU0= root@wildberger 
