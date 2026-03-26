@@ -9,8 +9,6 @@
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
   roles:
-    # Cleanup
-    - { name: ffh.cleanup, tags: cleanup }
     # General
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.networkd, tags: networkd }

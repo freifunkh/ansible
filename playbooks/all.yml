@@ -9,6 +9,8 @@
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
   roles:
+    # Cleanup
+    - { name: ffh.cleanup, tags: cleanup }
     # general
     - { name: ffh.ferm, tags: ferm, when: "'proxmoxes' not in group_names" }
     - { name: ffh.admin, tags: admin }

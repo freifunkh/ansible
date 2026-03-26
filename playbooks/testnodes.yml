@@ -9,7 +9,6 @@
       import_tasks: "include/etckeeper_pre.yml"
       tags: [always]
   roles:
-    # - { name: ffh.cleanup, tags: cleanup }
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.nftables, tags: nftables }
     - { name: ffh.cli_tools, tags: cli_tools }
@@ -18,8 +17,6 @@
     - { name: ffh.admin, tags: admin }
     - { name: ffh.apt, tags: apt }
     - { name: ffh.zabbix-agent, tags: zabbix-agent }
-    # - { name: ffh.apinger, tags: apinger }
-    # - { name: ffh.telegraf, tags: telegraf }
     - { name: ffh.restic, tags: restic }
   post_tasks:
     - name: "Import post_task etckeeper"

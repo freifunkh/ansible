@@ -7,8 +7,6 @@
       tags: [always]
 
   roles:
-    # Cleanup
-    - { name: ffh.cleanup, tags: cleanup }
     # General
     - { name: ffh.ferm, tags: ferm }
     - { name: ffh.cli_tools, tags: cli_tools }
