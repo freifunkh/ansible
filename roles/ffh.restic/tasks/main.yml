@@ -1,12 +1,5 @@
 ---
 
-- name: Add server to known_hosts
-  ansible.builtin.known_hosts:
-    path: "/etc/ssh/ssh_known_hosts"
-    name: "{{ item }}"
-    key: "{{ item }} {{ restic_backup_server_ssh_fingerprint }}"
-  loop: "{{ restic_backup_server_ips + [ restic_backup_server_hostname ] }}"
-
 - name: Check if passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }} exists (DIFF REDACTED)
   local_action: "stat path=../passwords/{{ restic_backup_hostname_override | default(ansible_facts['hostname']) }}"
   register: "passwordfile"
