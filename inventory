@@ -79,6 +79,7 @@ debiannodes:
     superexitnodes:
     helpernodes:
     testnodes:
+    dockernodes:
 
 superexitnodes:
   hosts:
