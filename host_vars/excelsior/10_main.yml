@@ -33,6 +33,8 @@ ferm_enabled: false
 
 restic_backup_paths:
 - /etc/
+- /opt/forgejo/
+- /media/forgejo/data/
 
 docker_additional_config: |2
 
