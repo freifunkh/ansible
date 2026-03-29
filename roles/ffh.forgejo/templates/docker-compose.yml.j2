@@ -13,7 +13,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - 222:2222
+      - {{ forgejo_ssh_port | default('22') }}:2222
     labels:
       traefik.enable: 'true'
       traefik.docker.network: proxy
