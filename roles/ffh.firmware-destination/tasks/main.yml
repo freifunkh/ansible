@@ -6,9 +6,9 @@
     line: /usr/lib/openssh/sftp-server
     state: present
 
-- name: Create user jenkins
+- name: Create user firmwareupload
   user:
-    name: jenkins
+    name: firmwareupload
     shell: /usr/lib/openssh/sftp-server
     system: yes
     create_home: yes
@@ -17,18 +17,18 @@
   file:
     path: /var/www/tmp-firmware-before-merge/
     state: directory
-    owner: jenkins
-    group: jenkins
+    owner: firmwareupload
+    group: firmwareupload
     mode: '0755'
 
-- name: Restrict SSH access for jenkins user
+- name: Restrict SSH access for firmwareupload user
   copy:
-    dest: /etc/ssh/sshd_config.d/restrict_jenkins_user.conf
+    dest: /etc/ssh/sshd_config.d/restrict_firmwareupload_user.conf
     owner: root
     group: root
     mode: '0644'
     content: |
-      Match User jenkins
+      Match User firmwareupload
           ForceCommand internal-sftp
           ChrootDirectory /var/www/tmp-firmware-before-merge/
           PermitTunnel no
@@ -36,8 +36,8 @@
           X11Forwarding no
   notify: restart ssh
 
-- name: Deploy key for jenkins user
+- name: Deploy key for firmwareupload user
   authorized_key:
-    user: jenkins
+    user: firmwareupload
     state: present
-    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUuSfK+4t9VVtBwce6eIwIlpsbrlfY4RpucvlYzN7dp jenkins-artifacts"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB6dpIK3Rr4QrQ6PDxbWJHGohhp9gH/apw4nXtUkaNXd forgejo-firmware-publish"
