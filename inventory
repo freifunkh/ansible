@@ -67,6 +67,9 @@ all:
     gatrobe:
       ansible_host: gatrobe.clouds.build.ffh.zone
       ansible_port: 22
+    heisenberg:
+      ansible_host: machdasordentlichjetzt.clouds.build.ffh.zone
+      ansible_port: 22
     ber-client:
       ansible_host: ber-client.ffh.zone
     ham-client:

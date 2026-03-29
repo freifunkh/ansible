@@ -34,6 +34,14 @@ domain (ip ip6) {
         saddr {{ item.value.ip6 }};   # {{ item.key }}
 {% endif %}
 {% endfor %}
+{% for item in buildnodes | dict2items %}
+{% if item.value.ip4 is defined and item.value.ip4 != "" %}
+        saddr {{ item.value.ip4 }};   # {{ item.key }}
+{% endif %}
+{% if item.value.ip6 is defined and item.value.ip6 != "" %}
+        saddr {{ item.value.ip6 }};   # {{ item.key }}
+{% endif %}
+{% endfor %}
       }
     }
   }
