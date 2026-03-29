@@ -1,0 +1,5 @@
+---
+
+- hosts: heisenberg
+  roles:
+    - { name: ffh.telegraf, tags: telegraf }
