@@ -1,5 +1,5 @@
 ---
 
-- hosts: heisenberg
+- hosts: buildnodes
   roles:
     - { name: ffh.telegraf, tags: telegraf }

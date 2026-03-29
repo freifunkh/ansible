@@ -64,9 +64,6 @@ all:
     scheuer:
       ansible_host: scheuer.ffh.zone
       ansible_port: 22
-    gatrobe:
-      ansible_host: gatrobe.clouds.build.ffh.zone
-      ansible_port: 22
     heisenberg:
       ansible_host: machdasordentlichjetzt.clouds.build.ffh.zone
       ansible_port: 22
@@ -166,6 +163,6 @@ proxmoxes:
     scheuer:
     wildberger:
 
-buildclouds:
+buildnodes:
   hosts:
-    gatrobe:
+    heisenberg:
