@@ -24,6 +24,7 @@
     - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
     - { name: ffh.web-startseite, tags: web-startseite }
+    - { name: ffh.web-osm-tiles-proxy, tags: web-osm-tiles-proxy }
     - { name: ffh.blog, tags: blog }
     - { name: ffh.gluon-node-sense, tags: gluon-node-sense }
     - { name: ffh.meshviewer, tags: meshviewer }

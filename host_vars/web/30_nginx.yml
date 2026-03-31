@@ -1,5 +1,7 @@
 ---
 
+web_osm_fqdn: "tiles.ffh.zone"
+
 nginx_sites:
 - domain: firmware.ffh.zone
   tls: true
