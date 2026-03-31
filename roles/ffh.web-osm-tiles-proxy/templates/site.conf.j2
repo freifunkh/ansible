@@ -1,0 +1,88 @@
+proxy_cache_path /var/www/domains/{{ web_osm_fqdn }}/cache
+    levels=1:2 inactive=7d
+    keys_zone=tilecache:64m
+    max_size=10g;
+
+upstream osm_tiles {
+    server a.tile.openstreetmap.org;
+    server b.tile.openstreetmap.org;
+    server c.tile.openstreetmap.org;
+    keepalive 16;
+}
+
+server {
+    listen                      80;
+    listen                      [::]:80;
+    server_name                 {{ web_osm_fqdn }};
+
+    access_log                  off;
+    error_log                   /var/log/nginx/error-{{ web_osm_fqdn }}.log;
+
+    return                      301 https://{{ web_osm_fqdn }}$request_uri;
+}
+
+server {
+    listen                      443 ssl http2;
+    listen                      [::]:443 ssl http2;
+    server_name                 {{ web_osm_fqdn }};
+
+    ssl_certificate             /etc/nginx/keys/{{ web_osm_fqdn }}.crt;
+    ssl_certificate_key         /etc/nginx/keys/{{ web_osm_fqdn }}.key;
+    ssl_session_timeout         1d;
+    ssl_session_cache           shared:SSL:50m;
+    ssl_session_tickets         off;
+
+    ssl_dhparam                 /etc/nginx/keys/dhparams-4096.pem;
+
+    # https://ssl-config.mozilla.org/#server=nginx&version=1.16.1&config=intermediate&openssl=1.1.1d&hsts=false&ocsp=false&guideline=5.4
+    ssl_protocols               TLSv1.2 TLSv1.3;
+    ssl_ciphers                 ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers   off;
+
+    ssl_stapling                on;
+    ssl_stapling_verify         on;
+    ssl_trusted_certificate     /etc/nginx/keys/hannover.freifunk.net.crt;
+    resolver                    [2001:470:100::2] [2620:0:ccc::2] 208.67.220.220;
+
+    root                        /var/www/domains/{{ web_osm_fqdn }}/www;
+    index                       index.html index.htm;
+
+    charset                     utf-8;
+
+    access_log                  off;
+    error_log                   /var/log/nginx/error-{{ web_osm_fqdn }}.log;
+
+    location / {
+        try_files $uri @osm;
+    }
+
+    location @osm {
+    proxy_pass http://osm_tiles;
+    proxy_http_version    1.1;
+    proxy_set_header    Connection "";
+    proxy_set_header    Accept-Encoding "";
+    proxy_set_header    User-Agent "Mozilla/5.0 (compatible; OSMTileCache/1.0; +mailto:info@hannover.freifunk.net; +https://hannover.freifunk.net/karte/)";
+    proxy_set_header    Host tile.openstreetmap.org;
+
+    proxy_temp_path     /var/www/domains/{{ web_osm_fqdn }}/temp;
+    proxy_cache         tilecache;
+    proxy_store         off;
+    proxy_cache_key     $uri$is_args$args;
+    proxy_ignore_headers Expires Cache-Control;
+    proxy_cache_valid   200 301 302 7d;
+    proxy_cache_valid   404 1m;
+    proxy_cache_valid   any 1m;
+    proxy_next_upstream   error timeout invalid_header http_500 http_502 http_503 http_504 http_403 http_404;
+    proxy_cache_use_stale error timeout updating invalid_header http_500 http_502 http_503 http_504 http_403 http_404;
+
+    proxy_hide_header   Via;
+    proxy_hide_header   X-Cache;
+    proxy_hide_header   X-Cache-Lookup;
+
+    expires 7d;
+    }
+
+    location /.well-known/acme-challenge {
+        alias   /var/www/.well-known/acme-challenge;
+    }
+}

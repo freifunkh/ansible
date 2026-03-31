@@ -1,0 +1,31 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Prepare directories
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "/var/www/domains/{{ web_osm_fqdn }}", owner: "www-data", group: "www-data", mode: "0775" }
+    - { name: "/var/www/domains/{{ web_osm_fqdn }}/cache", owner: "www-data", group: "www-data", mode: "0775" }
+    - { name: "/var/www/domains/{{ web_osm_fqdn }}/temp", owner: "www-data", group: "www-data", mode: "0775" }
+    - { name: "/var/www/domains/{{ web_osm_fqdn }}/www", owner: "www-data", group: "www-data", mode: "0775" }
+
+- name: Install nginx site config
+  ansible.builtin.template:
+    src: "site.conf.j2"
+    dest: "/etc/nginx/sites-available/{{ web_osm_fqdn }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Reload nginx"
+
+- name: Enable nginx site config
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ web_osm_fqdn }}"
+    dest: "/etc/nginx/sites-enabled/{{ web_osm_fqdn }}"
+    state: "link"
+  notify: "Reload nginx"
