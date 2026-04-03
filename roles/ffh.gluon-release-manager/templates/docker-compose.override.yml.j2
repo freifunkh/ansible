@@ -1,0 +1,34 @@
+# Ansible-managed production overlay.
+# docker-compose.yml (from git) is NOT modified; Docker Compose auto-merges this file.
+services:
+  backend:
+    networks:
+      - internal
+
+  worker:
+    networks:
+      - internal
+
+  frontend:
+    networks:
+      - proxy
+      - internal
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: "proxy"
+      traefik.http.routers.grm-https.entrypoints: "websecure"
+      traefik.http.routers.grm-https.rule: "Host(`{{ grm_fqdn }}`)"
+      traefik.http.routers.grm-https.tls.certresolver: "letsencrypt"
+      traefik.http.routers.grm-https.service: "grm-svc"
+      traefik.http.services.grm-svc.loadbalancer.server.port: "4173"
+      traefik.http.routers.grm-http.entrypoints: "web"
+      traefik.http.routers.grm-http.rule: "Host(`{{ grm_fqdn }}`)"
+      traefik.http.routers.grm-http.middlewares: "grm-redirect"
+      traefik.http.middlewares.grm-redirect.redirectscheme.scheme: "https"
+
+networks:
+  proxy:
+    name: proxy
+    external: true
+  internal:
+    name: grm_internal

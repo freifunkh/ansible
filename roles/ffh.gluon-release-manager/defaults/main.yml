@@ -1,0 +1,6 @@
+---
+
+grm_path: "/opt/gluon-release-manager"
+grm_fqdn: "releases.ffh.zone"
+grm_repo_url: "https://code.ffh.zone/freifunkh/gluon-release-manager.git"
+grm_repo_version: "main"

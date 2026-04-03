@@ -1,0 +1,8 @@
+galaxy_info:
+  author: freifunkh
+  description: Deploy gluon-release-manager via Docker
+  license: MIT
+  min_ansible_version: 2.1
+  galaxy_tags: []
+
+dependencies: []

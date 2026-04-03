@@ -40,6 +40,7 @@
   roles:
     - { name: ffh.fnorden-signup, tags: fnorden-signup }
     - { name: ffh.wireguard-endpoint, tags: wireguard-endpoint }
+    - { name: ffh.gluon-release-manager, tags: gluon-release-manager }
 
 - hosts: thetisd
   roles:

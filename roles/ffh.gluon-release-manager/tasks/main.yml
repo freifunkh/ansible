@@ -1,0 +1,39 @@
+---
+# tasks file for ffh.gluon-release-manager
+
+- name: Create path for gluon-release-manager
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ grm_path }}"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+
+- name: Clone gluon-release-manager repository
+  ansible.builtin.git:
+    repo: "{{ grm_repo_url }}"
+    dest: "{{ grm_path }}"
+    version: "{{ grm_repo_version }}"
+    update: true
+
+- name: Create docker compose override file
+  ansible.builtin.template:
+    src: "docker-compose.override.yml.j2"
+    dest: "{{ grm_path }}/docker-compose.override.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Create .env file
+  ansible.builtin.template:
+    src: "env.j2"
+    dest: "{{ grm_path }}/.env"
+    mode: "0600"
+    owner: "root"
+    group: "root"
+
+- name: Deploy gluon-release-manager
+  community.docker.docker_compose_v2:
+    project_src: "{{ grm_path }}"
+    build: "always"
+    state: "present"
