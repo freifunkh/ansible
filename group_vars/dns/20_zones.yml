@@ -253,6 +253,7 @@ dns_authoritative_toplevel:
        # Verschiedenes
        "gatrobe.clouds.build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
+       "agenda21.ffh.zone. IN A 10.20.2.16",
        "storage.ffh.zone. 60 IN CNAME storage.dyn.httnstr.se.",
 
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
