@@ -3,7 +3,7 @@
 nftables_enabled: true
 ferm_enabled: false
 
-knot_secondaries: ['dns2_remote', 'dns3_remote']
+knot_secondaries: ['dns2_remote', 'dns3_remote', 'dns4_remote']
 
 knot_remotes: |
   remote:
