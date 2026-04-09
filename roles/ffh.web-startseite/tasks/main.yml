@@ -1,5 +1,29 @@
 ---
 
+- name: Create hannover.freifunk.net directory
+  ansible.builtin.file:
+    path: "{{ freifunk_webroot }}"
+    state: "directory"
+    owner: "www-data"
+    group: "www-data"
+    mode: "0555"
+
+- name: Copy README to hannover.freifunk.net directory
+  ansible.builtin.copy:
+    src: "empty.txt"
+    dest: "{{ freifunk_webroot }}/empty.txt"
+    owner: "www-data"
+    group: "www-data"
+    mode: "0444"
+
+- name: Copy Grafana JPEG to hannover.freifunk.net directory
+  ansible.builtin.copy:
+    src: "grafana.jpg"
+    dest: "{{ freifunk_webroot }}/grafana.jpg"
+    owner: "www-data"
+    group: "www-data"
+    mode: "0444"
+
 - name: Prepare web-startseite directory
   ansible.builtin.file:
     path: "{{ web_startseite_dir }}"

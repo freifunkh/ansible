@@ -20,6 +20,7 @@ ansible_python_interpreter: "/usr/bin/python3"
 web_startseite_dir: "/var/www/apps/web-startseite"
 foswiki_dir: "/var/www/apps/wiki"
 blog_dir: "/var/www/apps/blog"
+freifunk_webroot: "/var/www/domains/hannover.freifunk.net"
 fnorden_webroot: "/var/www/domains/fnorden.net"
 
 gfs_dir: "/var/www/apps/gluon-firmware-selector"

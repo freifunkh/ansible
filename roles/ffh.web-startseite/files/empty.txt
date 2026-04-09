@@ -1,0 +1,2 @@
+The homepage is done by web-startseite (see ../../apps/web-startseite).
+This directory only contains raw files for download.
