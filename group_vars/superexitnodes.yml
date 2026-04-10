@@ -1,3 +1,5 @@
 ---
 
 is_superexitnode: true
+mesh_wireguard_peers: "ssh://git@code.ffh.zone/freifunkh/peers-wg.git"
+mesh_fastd_peers: "ssh://git@code.ffh.zone/freifunkh/peers-fastd.git"
