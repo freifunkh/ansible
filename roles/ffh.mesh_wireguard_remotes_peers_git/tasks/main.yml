@@ -1,51 +1,56 @@
 ---
 
 - name: Allow other users to read /etc/wireguard
-  file:
-    dest: /etc/wireguard
-    state: directory
-    owner: root
-    group: root
-    mode: u=rwx,g=rx,o=rx
+  ansible.builtin.file:
+    path: "/etc/wireguard"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "u=rwx,g=rx,o=rx"
 
 - name: Create the peers directory
-  file:
-    state: directory
-    dest: /etc/wireguard/peers-wg
-    owner: auto
+  ansible.builtin.file:
+    path: "/etc/wireguard/peers"
+    state: "directory"
+    owner: "auto"
+    group: "root"
+    mode: "u=rwx,g=rx,o=rx"
 
 - name: Clone the peers git
-  become: yes
-  become_user: auto
-  git:
-    repo: "{{ git_addr }}/peers-wg"
-    dest: /etc/wireguard/peers-wg
+  become: true
+  become_user: "auto"
+  ansible.builtin.git:
+    repo: "{{ mesh_wireguard_peers }}"
+    dest: "/etc/wireguard/peers"
     accept_hostkey: true
 
 - name: Install autoupdate peer script
-  template:
-    src: autoupdate_wg.py.j2
-    dest: /home/auto/autoupdate_wg.py
-    mode:  u=rwx,g=r,o=r
-    owner: auto
-    group: auto
+  ansible.builtin.template:
+    src: "autoupdate_wg.py.j2"
+    dest: "/home/auto/autoupdate_wg.py"
+    owner: "auto"
+    group: "auto"
+    mode: "u=rwx,g=r,o=r"
 
 - name: Allow reloading the wireguard instance for user auto
-  template:
-    src: user-auto-reload-wireguard
-    dest: /etc/sudoers.d/user-auto-reload-wireguard
+  ansible.builtin.template:
+    src: "user-auto-reload-wireguard"
+    dest: "/etc/sudoers.d/user-auto-reload-wireguard"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 
 - name: Set git config regarding pull strategy for auto user
-  git_config:
-    name: pull.ff
-    value: only
-    scope: system
-    repo: /etc/wireguard/peers-wg
+  community.general.git_config:
+    name: "pull.ff"
+    value: "only"
+    scope: "system"
+    repo: "/etc/wireguard/peers"
 
 - name: Install crontab for autoupdate
-  cron:
+  ansible.builtin.cron:
     name: "autoupdate wireguard peers from git"
-    user: auto
+    user: "auto"
     minute: "*/1"
     job: >
       sudo /home/auto/autoupdate_wg.py

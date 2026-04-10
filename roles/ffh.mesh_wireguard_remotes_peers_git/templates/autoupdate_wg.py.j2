@@ -13,7 +13,7 @@ from pyroute2 import WireGuard
 wgintf_base="wg-"
 verbose=False
 
-REPO="/etc/wireguard/peers-wg"
+REPO="/etc/wireguard/peers"
 wg_domains=[{{ domains | map(attribute='id') | join(', '|safe) }}]
 
 regex = r"peer: ([a-zA-Z0-9+\/]{43}=)"
