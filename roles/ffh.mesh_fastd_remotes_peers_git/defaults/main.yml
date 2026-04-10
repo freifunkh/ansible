@@ -1,2 +1,4 @@
 ---
+
 legacy_dom0: true
+mesh_fastd_peers: "ssh://git@git.example.com/peers.git"
