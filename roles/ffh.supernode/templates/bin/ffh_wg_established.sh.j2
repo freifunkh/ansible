@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REPO="/etc/wireguard/peers-wg"
+REPO="/etc/wireguard/peers"
 
 wg_domains="{{ domains | map(attribute='id') | join(' ') }}"
 
@@ -41,4 +41,3 @@ for p in $REPO/*; do
                 }
         '
 done
-

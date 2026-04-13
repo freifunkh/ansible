@@ -250,6 +250,8 @@ if True:
     iftypes.sort()
 
     for i in interfaces:
+        if i == 'bonding_masters':
+            continue
         io = ifstats(i)
         ifstats_objs.append(io)
 

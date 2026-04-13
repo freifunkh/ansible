@@ -12,6 +12,9 @@
 - name: Routing stuff
   include_tasks: "routing.yml"
 
+- name: supplementary files
+  include_tasks: "files.yml"
+
 - name: Ignore peer directories in etckeeper
   ansible.builtin.blockinfile:
     path: "/etc/.gitignore"
