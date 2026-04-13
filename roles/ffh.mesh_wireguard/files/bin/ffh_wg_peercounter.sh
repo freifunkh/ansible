@@ -2,7 +2,7 @@
 wg show all dump | awk '
 BEGIN {
 	i = 1;
-	while ( "cat /etc/wireguard/peers-wg/ufu-*" | getline a > 0 ) {
+	while ( "cat /etc/wireguard/peers/ufu-*" | getline a > 0 ) {
 		i=i+1;
 		ufu[i]=a;
 	}

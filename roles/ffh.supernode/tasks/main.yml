@@ -20,4 +20,4 @@
     path: "/etc/.gitignore"
     block: |
       fastd/peers
-      wireguard/peers-wg
+      wireguard/peers
