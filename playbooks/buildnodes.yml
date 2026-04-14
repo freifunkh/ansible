@@ -3,3 +3,4 @@
 - hosts: buildnodes
   roles:
     - { name: ffh.telegraf, tags: telegraf }
+    - { name: ffh.apinger, tags: apinger }

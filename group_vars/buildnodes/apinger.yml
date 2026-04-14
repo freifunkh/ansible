@@ -1,0 +1,23 @@
+---
+apinger_targets:
+- description: sn06
+  ips:
+  - 45.12.203.129
+- description: sn07
+  ips:
+  - 45.12.203.65
+- description: sn08
+  ips:
+  - 45.12.203.11
+- description: sn09
+  ips:
+  - 81.3.6.92
+- description: sn10
+  ips:
+  - 81.3.6.91
+- description: google dns
+  ips:
+  - 8.8.8.8
+- description: heise.de
+  ips:
+  - 193.99.144.80
