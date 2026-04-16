@@ -1,11 +1,18 @@
 ---
 
-- name: "Add gpg dependency for key handling"
-  apt:
+- name: Add gpg dependency for key handling
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: "Add Ansible Repo Key"
-  get_url:
+- name: Prolong Debians SHA1 acceptance period
+  ansible.builtin.lineinfile:
+    path: "/usr/share/apt/default-sequoia.config"
+    regex: "^sha1.second_preimage_resistance ="
+    line: "sha1.second_preimage_resistance = 2027-04-01    # Extend the expiry for legacy repositories"
+    # was 2026-02-01
+
+- name: Add Ansible Repo Key
+  ansible.builtin.get_url:
     url: "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367"
     dest: "/etc/apt/keyrings/ansible.gpg"
     mode: "0644"
@@ -13,19 +20,19 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: "Convert repo key"
+- name: Convert repo key
   ansible.builtin.shell: "cat /etc/apt/keyrings/ansible.gpg | /usr/bin/gpg --dearmor > /etc/apt/keyrings/ansible.key"
   args:
     creates: "/etc/apt/keyrings/ansible.key"
 
-- name: "Add Ansible Repo"
-  apt_repository:
+- name: Add Ansible Repo
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/ansible.key] http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_repo_version }} main"
     state: "present"
     filename: "ansible"
 
-- name: "Install Ansible"
-  apt:
+- name: Install Ansible
+  ansible.builtin.apt:
     update_cache: "yes"
     state: "latest"
     name:
