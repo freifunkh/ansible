@@ -140,14 +140,6 @@ dns_authoritative_toplevel:
        "ntp.ffh.zone. IN A 45.12.203.16",
        "ntp.ffh.zone. IN AAAA 2a0a:4587:2030:10c::53", # Berlin
 
-
-       # netcup
-       "mail.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of MX pointing at it
-       "mail.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       "ns1.ffh.zone. IN A 37.120.176.252", # A instead of CNAME b/c of NS pointing at it
-       "ns1.ffh.zone. IN AAAA 2a03:4000:6:8277::1",
-       "git.ffh.zone. IN CNAME mail.ffh.zone.",
-
        # Hannover
        "wildberger.ffh.zone. IN A 81.3.0.14",
        "wildberger.ffh.zone. IN AAAA 2a02:790:1:3f::2",
