@@ -29,7 +29,6 @@ supernodes:
 helpernodes:
   harvester: { id: 1, ip4: "{{ lookup('dig', 'harvester.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'harvester.ffh.zone./AAAA') }}" }
   db: { id: 2, ip4: "{{ lookup('dig', 'db.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'db.ffh.zone./AAAA') }}" }
-  ns1: { id: 3, ip4: "{{ lookup('dig', 'ns1.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'ns1.ffh.zone./AAAA') }}" }
   web: { id: 4, ip4: "{{ lookup('dig', 'web.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'web.ffh.zone./AAAA') }}" }
   vds: { id: 5, ip4: "{{ lookup('dig', 'vds.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'vds.ffh.zone./AAAA') }}" }
   tonne: { id: 7, ip4: "{{ lookup('dig', 'tonne.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'tonne.ffh.zone./AAAA') }}" }
