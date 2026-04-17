@@ -24,8 +24,7 @@ dns_authoritative_toplevel:
        "6.6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR dali.ffh.zone.",
        "7.6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR web.ffh.zone.",
        "b.d.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR db.ffh.zone.",
-       "9.0.3.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR vds.ffh.zone.",
-       "1.1.3.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR gsh.ffh.zone."
+       "9.0.3.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.1.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR vds.ffh.zone."
      ]
    - domain: "2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa"
      records: [
@@ -54,7 +53,6 @@ dns_authoritative_toplevel:
       "68.203.12.45.in-addr.arpa. IN PTR db.ffh.zone.",
       "69.203.12.45.in-addr.arpa. IN PTR vds.ffh.zone.",
       "70.203.12.45.in-addr.arpa. IN PTR dns2.ffh.zone.",
-      "71.203.12.45.in-addr.arpa. IN PTR gsh.ffh.zone.",
       "129.203.12.45.in-addr.arpa. IN PTR sn06.s.ffh.zone.",
       "130.203.12.45.in-addr.arpa. IN PTR thetisd.ffh.zone.",
       "131.203.12.45.in-addr.arpa. IN PTR rena.ffh.zone.",
@@ -207,9 +205,6 @@ dns_authoritative_toplevel:
        "vds.ffh.zone. IN AAAA 2a0a:4587:2031:10c::309",
        "zabbix.ffh.zone. 60 IN CNAME vds.ffh.zone.",
 
-       "gsh.ffh.zone. IN A 45.12.203.71",
-       "gsh.ffh.zone. IN AAAA 2a0a:4587:2031:10c::311",
-
        "fra-client.ffh.zone. IN AAAA 2a0a:4587:2031:719:255:66ff:fe77:8889",
 
        # Hamburg
@@ -230,7 +225,6 @@ dns_authoritative_toplevel:
        "rena.ffh.zone. IN A 45.12.203.131",
        "rena.ffh.zone. IN AAAA 2a0a:4587:2032:10c::131",
        "build.ffh.zone. IN CNAME rena.ffh.zone.",
-       "build-new.ffh.zone. IN CNAME rena.ffh.zone.",
        "releases.ffh.zone. IN CNAME rena.ffh.zone.",
 
        "mx1.ffh.zone. IN A 45.12.203.132",
