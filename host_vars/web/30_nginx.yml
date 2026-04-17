@@ -25,18 +25,6 @@ nginx_sites:
   locations:
     - location: /
       directory_index: true
-- domain: fnorden.net
-  root: /var/www/domains/fnorden.net
-  tls: true
-  tls_redirect_to_https: true
-  locations:
-    - location: /vendor
-      allow_cors: true
-  # Todo: Multiple domains & certs for one web
-- domain: www.fnorden.net
-  root: /var/www/domains/fnorden.net
-  tls: true
-  tls_redirect_to_https: true
 - domain: ffh.zone
   root: /var/www/domains/ffh.zone/
   tls: true

@@ -21,7 +21,6 @@
     # special
     - { name: ffh.nginx, tags: nginx }
     - { name: ffh.firmware-proxy, tags: firmware-proxy }
-    - { name: ffh.fnorden.net, tags: fnorden.net }
     - { name: ffh.foswiki, tags: foswiki }
     - { name: ffh.web-startseite, tags: web-startseite }
     - { name: ffh.web-osm-tiles-proxy, tags: web-osm-tiles-proxy }
