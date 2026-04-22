@@ -6,7 +6,7 @@
     state: "directory"
     owner: "www-data"
     group: "www-data"
-    mode: "0555"
+    mode: "0775"
 
 - name: Copy README to hannover.freifunk.net directory
   ansible.builtin.copy:
