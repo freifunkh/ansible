@@ -12,6 +12,7 @@ pip3 install ansible dnspython
 ``` shell
 git clone git@github.com:freifunkh/ansible.git ansible
 cd ansible
+sh init.sh     # to clone galaxy stuff
 ```
 
 Obtain the **.vaultpassphrase** from someone in the core team and place it into the main directory.
