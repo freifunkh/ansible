@@ -48,7 +48,7 @@
       become: yes
       become_user: auto
       git:
-        repo: "https://github.com/freifunkh/ansible"
+        repo: "https://code.ffh.zone/freifunkh/ansible.git"
         dest: /home/auto/ansible
         accept_hostkey: true
 

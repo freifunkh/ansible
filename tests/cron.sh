@@ -6,7 +6,7 @@ export ANSIBLE_STDOUT_CALLBACK=json
 time=$(date -Iseconds)
 
 git fetch --all --quiet
-git reset --quiet --hard origin/master
+git reset --quiet --hard origin/main
 
 mkdir -p /tmp/auto/dailyrun
 
