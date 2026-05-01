@@ -1,6 +1,6 @@
 ---
 
-admin_authorized: [lemoer, cawi, aiyion, aiyion-aura, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, pauli, auto_tonne]
+admin_authorized: [lemoer, cawi, aiyion, aiyion-aura, aiyion-iPhone, jue, okrueger-nano, okrueger, raute, tobby, ctandi, pauli, darkamd, auto_tonne]
 
 admin_pubkeys:
 - name: lemoer
@@ -37,7 +37,7 @@ admin_pubkeys:
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDM8uhJ9Qin1Bnt1gVkhQEocIK+ziP4Ht0uCP1QPaTPza8hXxLrf5pizAxWpjM7Jnr3UFc/IpOMUII7B67MPlcUvlryQGESNQqGUDEoDbTww1wh79G86x4Q7xMS1q35H6E9KX0WUGMhdcHCOn4XQbIeNB6BY1NL27JgNE4I84oMhWbDdUnR36ZPCWvkm+7PKr92MacCZU/z7lBRHcW0zfCug4YuO3vOqtv1UQl3z2dsgK1VkyuDxyNXSeRufKyJJveqURzx1A5wZVQ3Qc7nIj00yx3GVsYMZH3oX6PuPiu+fu4nzvwiiWaqf/PFqa9Rfof1hQJy29Be8ggfbKZwEF4dCBGhydTF66hm729OzWry7XN49aZAmjHEe84ivDL16SjQjGWPFygMQdpQSovIT8t0vzfuNKRElhMEBAM4BxvLiWtaKFOhxXhMlK7rTmGBzouarFcR5ka1OFYD36z1rv8REEviUMv1QbFtIx1TD3HrliNt18lJE5d5AyDxadWy6Lf7WlPpVZnxydTneyE7UwtSt9vwx2zdNEOG6ygxOjY9JbiO12/kkyLeTyMq7+o0uY5oV2xo+I3aVYVS0jv3VHrTqtb/1nDWTb7Y9TTe8b0nOZOkOnnzOxWBvSms7MOh0NOA2I3ZpkIhKcWqdCvyKFfeUaita4sYKOrIwelYhyGQmQ== codefetch
 - name: codefetch_cockroach
   key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH0d6bNTktg95xUdeQpy7xw6qdfYFRG6UZKccu0eiTe7DoiGxDjShcRiktrB5CwiV74GRX/yQg6MkmF7K/uD535risam5qY9NjT2uFqfr7TI/UcCB0rDfZDHoBQUhot5/AqXxgSYp1uz12+Yeabr3ayCw3BIiZgQLPCRDxwIStbyFnh4wwmqEiVXnTbYgxt4nPIwf1M2AhqDzVSss9E1kmlEPRWVcdCG2NcQOn+n3MkKrW4KLirOzxSd991FvzRuJIUVgFF9xPNxNp2WDijN687zeFifoGqsNSOIWzugNmA48zEmKNE/i0Q6TlqBy1Z0e1meAzMGdmT3wAIrbe1KiD codefetch@cockroach
-- name: DarkAMD
+- name: darkamd
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7FHbTYYLSHX8HsINmzDMhacD8XCtDWimtdUntA6miH DarkAMD
 - name: s_2
   key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8M75KrippHPwkAJYrc+GKRAttD1x9ZgZEZSF9UZ/Tk s_2
