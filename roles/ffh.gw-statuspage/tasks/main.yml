@@ -8,13 +8,6 @@
     - git
     - gpg
 
-- name: Generate firewall config stanza (ferm)
-  register: ferm_changed
-  template:
-    src: ferm.conf.j2
-    dest: /etc/ferm/conf.d/50-gw-statuspage.conf
-  notify: reload ferm
-
 - name: Create auto user
   register: createuser
   user:
@@ -108,3 +101,6 @@
     name: gw-statuspage-restart.timer
     enabled: true
     state: started
+
+- name: Handle firewalling
+  include_tasks: "firewall.yml"
