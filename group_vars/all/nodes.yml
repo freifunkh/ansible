@@ -42,10 +42,11 @@ helpernodes:
   dns2: { id: 15, ip4: "{{ lookup('dig', 'dns2.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns2.ffh.zone./AAAA') }}" }
   dns3: { id: 16, ip4: "{{ lookup('dig', 'dns3.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns3.ffh.zone./AAAA') }}" }
   dns4: { id: 17, ip4: "{{ lookup('dig', 'dns4.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dns4.ffh.zone./AAAA') }}" }
+  storage-03: { id: 18, ip4: "{{ lookup('dig', 'storage-03.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'storage-03.ffh.zone./AAAA') }}" }
 proxmoxnodes:
   dobrindt: { id: 1, ip4: "{{ lookup('dig', 'dobrindt.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'dobrindt.ffh.zone./AAAA') }}" }
   wissing: { id: 2, ip4: "{{ lookup('dig', 'wissing.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wissing.ffh.zone./AAAA') }}" }
   scheuer: { id: 3, ip4: "{{ lookup('dig', 'scheuer.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'scheuer.ffh.zone./AAAA') }}" }
   wildberger: { id: 4, ip4: "{{ lookup('dig', 'wildberger.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'wildberger.ffh.zone./AAAA') }}" }
 buildnodes:
-  heisenberg: { id: 1, ip4: "{{ lookup('dig', 'machdasordentlichjetzt.clouds.build.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'machdasordentlichjetzt.clouds.build.ffh.zone./AAAA') }}" }
+  heisenberg: { id: 1, ip4: "{{ lookup('dig', 'heisenberg.ffh.zone./A') }}", ip6: "{{ lookup('dig', 'heisenberg.ffh.zone./AAAA') }}" }

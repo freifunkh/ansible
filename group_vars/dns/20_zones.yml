@@ -32,7 +32,9 @@ dns_authoritative_toplevel:
        "3.5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR dns3.ffh.zone.",
        "0.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR thetisd.ffh.zone.",
        "1.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR rena.ffh.zone.",
-       "2.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR mx1.ffh.zone."
+       "2.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR mx1.ffh.zone.",
+       "4.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR dns3.ffh.zone.",
+       "5.3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.1.0.2.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa. IN PTR storgae-03.ffh.zone."
      ]
    - domain: "3.3.0.2.7.8.5.4.a.0.a.2.ip6.arpa"
      records: [
@@ -57,7 +59,9 @@ dns_authoritative_toplevel:
       "130.203.12.45.in-addr.arpa. IN PTR thetisd.ffh.zone.",
       "131.203.12.45.in-addr.arpa. IN PTR rena.ffh.zone.",
       "132.203.12.45.in-addr.arpa. IN PTR mx1.ffh.zone.",
-      "134.203.12.45.in-addr.arpa. IN PTR dns3.ffh.zone."
+      "133.203.12.45.in-addr.arpa. IN PTR heisenberg.ffh.zone.",
+      "134.203.12.45.in-addr.arpa. IN PTR dns3.ffh.zone.",
+      "135.203.12.45.in-addr.arpa. IN PTR storage-03.ffh.zone."
      ]
    - domain: "hannover.freifunk.net"
      records: [
@@ -231,8 +235,11 @@ dns_authoritative_toplevel:
        "mx1.ffh.zone. IN AAAA 2a0a:4587:2032:10c::132",
        "rspamd.ffh.zone. IN CNAME mx1.ffh.zone.",
 
+       "heisenberg.ffh.zone. IN A 45.12.203.133",
        "fnorden.net.clouds.build.ffh.zone. IN A 89.58.42.121",
-       "machdasordentlichjetzt.clouds.build.ffh.zone. IN A 45.12.203.133",
+
+       "storage-03.ffh.zone. IN A 45.12.203.135",
+       "storage-03.ffh.zone. IN AAAA 2a0a:4587:2032:10c::135",
   
        "ham-client.ffh.zone. IN AAAA 2a0a:4587:2032:614:be24:11ff:fea5:f6c9",
 
@@ -240,7 +247,6 @@ dns_authoritative_toplevel:
        "gatrobe.clouds.build.ffh.zone. IN A 130.75.178.26",
        "lounge.ffh.zone. IN A 130.75.178.26",
        "agenda21.ffh.zone. IN A 10.20.2.16",
-       "storage.ffh.zone. 60 IN CNAME storage.dyn.httnstr.se.",
 
        "nrue.ffh.zone. IN NS freedns1.registrar-servers.com."
      ]
