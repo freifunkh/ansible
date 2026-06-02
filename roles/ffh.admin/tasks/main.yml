@@ -44,3 +44,12 @@
 - name: Set timezone
   community.general.timezone:
     name: "Europe/Berlin"
+
+- name: Set systemd.ssh_auto=no in /etc/default/grub 
+  ansible.builtin.lineinfile:
+    path: "/etc/default/grub"
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT="((?:(?!systemd.ssh_auto=no).)*?)"$'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="\1 systemd.ssh_auto=no"'
+    backup: true
+    backrefs: true
+  notify: Update grub
