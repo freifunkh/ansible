@@ -11,6 +11,7 @@ journald_watch_filter_regexes:
 - '/sshd.*fatal: Timeout before authentication for/'
 - '/sshd.*fatal: userauth_finish: send failure packet: Broken pipe \[preauth\]/'
 - '/sshd.*error: send_error: write: Connection reset by peer/'
+- '/sshd.*error: send_error: write: Broken pipe/'
 - '/sshd.*error: kex_exchange_identification: client sent invalid protocol identifier/'
 - '/sshd.*error: kex_exchange_identification: Connection closed by remote host/'
 - '/sshd.*error: kex_exchange_identification: read: Connection reset by peer/'
