@@ -8,6 +8,13 @@ server {
     access_log                  off;
     error_log                   /var/log/nginx/error-{{ item.domain }}.log;
 
+{% if item.domain == "hannover.freifunk.net" %}
+    # exception for gluon-segment-mover as our routers can't do TLS
+    location /api/move/ {
+        root /var/www/apps/;
+    }
+{% endif %}
+
     location / {
         return                  301 https://{{ item.domain }}$request_uri;
     }
