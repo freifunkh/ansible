@@ -1,0 +1,25 @@
+services:
+  resticserver:
+    container_name: restic-rest-server
+    image: restic/rest-server:{{ resticserver_version }}
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      DISABLE_AUTHENTICATION: 1
+    volumes:
+      - "{{ resticserver_path_data }}:/data"
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: "{{ resticserver_traefik_network }}"
+      traefik.http.routers.resticserver-https.entrypoints: "websecure"
+      traefik.http.routers.resticserver-https.rule: "Host(`{{ resticserver_fqdn }}`)"
+      traefik.http.routers.resticserver-https.tls.certresolver: "letsencrypt"
+      traefik.http.routers.resticserver-https.service: "resticserver-https"
+      traefik.http.services.resticserver-https.loadbalancer.server.port: "8000"
+    networks:
+      - {{ resticserver_traefik_network }}
+
+networks:
+  {{ resticserver_traefik_network }}:
+    external: "true"

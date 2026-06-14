@@ -1,0 +1,26 @@
+---
+
+- name: Create paths for resticserver
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ resticserver_path }}", owner: "root", group: "root", mode: "0755" }
+    - { name: "{{ resticserver_path_data }}", owner: "root", group: "root", mode: "0755" }
+
+- name: Create/Update resticserver docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ resticserver_path }}/docker-compose.yml"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+
+- name: Deploy restic server
+  community.docker.docker_compose_v2:
+    project_src: "{{ resticserver_path }}"
+    files:
+    - "docker-compose.yml"

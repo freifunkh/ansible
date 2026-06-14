@@ -1,0 +1,6 @@
+---
+
+resticserver_version: "0.14.0"
+resticserver_path: "/opt/docker/resticserver"
+resticserver_fqdn: "restic.example.com"
+resticserver_traefik_network: "traefik_proxy"
