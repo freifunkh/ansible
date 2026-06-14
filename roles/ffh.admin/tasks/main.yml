@@ -22,6 +22,10 @@
     path: "/etc/ssh/ssh_known_hosts"
     regexp: "^@cert-authority \\*\\.ffh\\.zone ssh-"
     line: "@cert-authority *.ffh.zone {{ admin_host_ca_sshkey }}"
+    create: true
+    owner: "root"
+    group: "root"
+    mode: "0644"
 
 - name: Check if signed host certificate exists
   ansible.builtin.stat:
