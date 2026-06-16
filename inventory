@@ -143,6 +143,10 @@ dockernodes:
     mx1:
     excelsior:
 
+storage:
+  hosts:
+    storage-03:
+
 batmannodes:
   hosts:
     harvester:
