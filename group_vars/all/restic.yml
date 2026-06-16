@@ -1,0 +1,8 @@
+---
+
+restic_version: "0.18.0"
+restic_host: "storage03.ffh.zone"
+
+resticserver_fqdn: "storage-03.ffh.zone"
+resticserver_path: "/media/restic"
+resticserver_path_data: "/media/restic/data"
