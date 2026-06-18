@@ -25,8 +25,6 @@ dns_recursive_acl_allowed_prefix:
 - "2a02:790:ff::/48"
 - "2a0a:4580:2030::/46"
 
-babeld_build_version: "babeld-1.10"
-
 zabbix_agent_server: "zabbix.ffh.zone"
 zabbix_agent_server_active: "zabbix.ffh.zone"
 zabbix_server_version: "7.0"
@@ -37,7 +35,6 @@ is_supernode: false
 is_exitnode: false
 iperf3_is_public_server: false
 
-babeld_iface_accept_v6_default_route: "gre-sn06" # left-over
 mesh_prefix_len: "48"
 
 authentik_version: "2026.5.3"

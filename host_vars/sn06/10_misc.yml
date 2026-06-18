@@ -18,7 +18,6 @@ mesh_fastd_firewall_open: true
 legacy_dom0: true
 radv_announce_default: true
 fix_netifnames: false
-no_babel: true
 iperf3_is_public_server: true
 
 zabbix_agent_server: "zbx-ham.ffh.zone"
