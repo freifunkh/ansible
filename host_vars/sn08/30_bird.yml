@@ -53,3 +53,22 @@ bird_peers:
     filters:
       - "to_cix"
       - "to_upstream4"
+  lwl_v6:
+    description: "LWLcom (IPv6)"
+    password: "foo"
+    local_addr: "{{ bird_local_addr_v6 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "2001:7f8:a5::5:629:4"
+    neighbor_asn: "50629"
+    filters:
+      - "to_upstream6"
+  lwl_v4:
+    description: "LWLcom (IPv4)"
+    password: "foo"
+    local_addr: "{{ bird_local_addr_v4 }}"
+    local_asn: "{{ bird_my_asn }}"
+    neighbor_addr: "185.1.74.69"
+    neighbor_asn: "50629"
+    filters:
+      - "to_upstream4"
+
