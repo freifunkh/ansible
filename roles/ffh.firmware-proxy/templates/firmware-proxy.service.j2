@@ -1,5 +1,7 @@
 [Unit]
 Description=FirmwareProxy
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Environment=HIDE_UNRESOLVED=true PORT=8084
