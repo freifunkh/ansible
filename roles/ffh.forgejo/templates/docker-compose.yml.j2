@@ -14,6 +14,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - {{ forgejo_ssh_port | default('22') }}:2222
+    environment:
+      FORGEJO__session__SESSION_LIFE_TIME: 157680000
     labels:
       traefik.enable: 'true'
       traefik.docker.network: proxy
