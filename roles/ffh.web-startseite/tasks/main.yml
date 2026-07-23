@@ -35,7 +35,7 @@
 - name: Install web-startseite
   notify: "Restart web-startseite"
   ansible.builtin.get_url:
-    url: "https://github.com/freifunkh/startseite/releases/download/0.1.0/startseite"
+    url: "https://github.com/freifunkh/startseite/releases/download/{{ web_startseite_version }}/startseite"
     dest: "{{ web_startseite_dir }}/web-startseite"
     owner: "www-data"
     group: "www-data"
