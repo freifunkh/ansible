@@ -307,7 +307,7 @@ password = {{ grafana_smtp_pass | default("") }}
 ;mode = console file
 
 # Either "trace", "debug", "info", "warn", "error", "critical", default is "info"
-;level = info
+level = warn
 
 # optional settings to set different levels for specific loggers. Ex filters = sqlstore:debug
 ;filters =
