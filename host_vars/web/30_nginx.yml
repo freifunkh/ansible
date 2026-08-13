@@ -60,6 +60,8 @@ nginx_sites:
       rewrite_params: '^ /download/ redirect'
     - location: = /download
       rewrite_params: '^ /download/ permanent'
+    - location: = /images/
+      rewrite_params: '^ /files/Router-Firmware/ redirect'
     - location: /files/
       directory_index: true
       disable_symlinks: true
