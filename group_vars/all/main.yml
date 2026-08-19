@@ -37,6 +37,6 @@ iperf3_is_public_server: false
 
 mesh_prefix_len: "48"
 
-authentik_version: "2026.5.6"
+authentik_version: "2026.8.0"
 
 traefik_acme_email: "noc@hannover.freifunk.net"
