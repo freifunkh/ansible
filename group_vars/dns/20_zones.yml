@@ -83,9 +83,9 @@ dns_authoritative_toplevel:
      records: [
        "@                         IN MX    10 server.wiemann.cc.",
        "@                         IN TXT   \"v=spf1 mx ~all\"",
-       "fnorden.de.               IN A     45.12.203.67",
-       "fnorden.de.               IN AAAA  2a0a:4587:2031:10c::67",
-       "www.fnorden.de.           IN CNAME web.ffh.zone."
+       "fnorden.de.               IN A     89.58.42.121",
+       "fnorden.de.               IN AAAA  2a03:4000:66:ddf::",
+       "www.fnorden.de.           IN CNAME fnorden.de."
      ]
    - domain: "fnorden.net"
      records: [
@@ -100,9 +100,9 @@ dns_authoritative_toplevel:
      records: [
        "@                         IN MX    10 mx1.ffh.zone.",
        "@                         IN TXT   \"v=spf1 mx ~all\"",
-       "fnorden.org.              IN A     45.12.203.67",
-       "fnorden.org.              IN AAAA  2a0a:4587:2031:10c::67",
-       "www.fnorden.org.          IN CNAME web.ffh.zone."
+       "fnorden.org.              IN A     89.58.42.121",
+       "fnorden.org.              IN AAAA  2a03:4000:66:ddf::",
+       "www.fnorden.org.          IN CNAME fnorden.org."
       ]
    - domain: "ffh.zone"
      records: [
