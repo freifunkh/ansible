@@ -39,7 +39,7 @@ meshviewer_instances:
   maxage: 7300
   deprecation_text: ""
   night: true
-  tile_url: "https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+  tile_url: "https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png?key={{ web_osm_carto_key }}"
   tile_attribution: "Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
   additional_config: |
     "nodeAttr": [
