@@ -199,6 +199,8 @@ dns_authoritative_toplevel:
        "firmware.ffh.zone. IN CNAME web.ffh.zone.",
        "raw-firmware.ffh.zone. IN CNAME web.ffh.zone.",
        "tiles.ffh.zone. IN CNAME web.ffh.zone.",
+       "tiles-light.ffh.zone. IN CNAME web.ffh.zone.",
+       "tiles-dark.ffh.zone. IN CNAME web.ffh.zone.",
        "gluon-node-sense.ffh.zone. IN CNAME web.ffh.zone.",
 
        "db.ffh.zone. IN A 45.12.203.68",
