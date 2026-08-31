@@ -129,7 +129,6 @@ zabbixproxy:
 authentikoutpost:
   hosts:
     dali:
-    thetisd:
     mx1:
 
 mta:
