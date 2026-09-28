@@ -9,7 +9,6 @@ services:
       - proxy
     volumes:
       - {{ forgejo_path_data }}:/var/lib/gitea
-      - {{ forgejo_path_conf }}:/etc/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:

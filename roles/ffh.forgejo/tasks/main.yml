@@ -17,7 +17,6 @@
     group: "{{ item.group }}"
   loop:
     - { name: "{{ forgejo_path      }}", owner: "forgejo", group: "100", mode: "0755" }
-    - { name: "{{ forgejo_path_conf }}", owner: "forgejo", group: "100", mode: "0755" }
     - { name: "{{ forgejo_path_data }}", owner: "forgejo", group: "100", mode: "0775" }
 
 - name: Create docker compose file
