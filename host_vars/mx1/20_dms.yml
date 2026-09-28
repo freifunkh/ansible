@@ -1,6 +1,6 @@
 ---
 
-dms_version: "15.1.0"
+dms_version: "16.0.1"
 dms_fqdn: "mx1.ffh.zone"
 
 dms_path_base: "/media/dms"
