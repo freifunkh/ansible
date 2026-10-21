@@ -34,11 +34,15 @@
       name: "nginx"
       masked: false
 
-- name: Install nginx and PHP
+- name: Install nginx
   ansible.builtin.apt:
     pkg:
     - "nginx"
-    - "php-fpm"
+
+- name: Install PHP-FPM when a site uses PHP
+  ansible.builtin.apt:
+    name: "php-fpm"
+  when: (nginx_sites | default([]) | selectattr('php', 'defined') | selectattr('php', 'equalto', true) | list | length) > 0
 
 - name: Create directory for getssl
   ansible.builtin.file:
