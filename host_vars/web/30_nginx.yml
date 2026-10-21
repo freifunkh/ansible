@@ -51,7 +51,6 @@ nginx_sites:
   root: /var/www/domains/hannover.freifunk.net/
   tls: true
   tls_redirect_to_https: true
-  php: true
   locations:
     - location: = /
       type: proxy
