@@ -133,7 +133,6 @@ authentikoutpost:
 
 mta:
   hosts:
-    ns1:
     mx1:
 
 dockernodes:
