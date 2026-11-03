@@ -1,6 +1,6 @@
 ---
 
-forgejo_version: 16
+forgejo_version: 17
 forgejo_path: "/opt/forgejo"
 forgejo_path_data: "/media/forgejo/data"
 forgejo_fqdn: "code.ffh.zone"
