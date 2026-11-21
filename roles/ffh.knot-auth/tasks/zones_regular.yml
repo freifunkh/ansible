@@ -15,6 +15,8 @@
   ansible.builtin.template:
     src: zone.regular.j2
     dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+    owner: "knot"
+    group: "knot"
   vars:
     knot_zone_serial: "{{ zonefile.content | b64decode | regex_search('(\\d+)\\s+;\\s+serial.*', '\\1') | first }}"
     knot_zone_ttl: 600
@@ -27,6 +29,8 @@
   ansible.builtin.template:
     src: zone.regular.j2
     dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+    owner: "knot"
+    group: "knot"
   vars:
     knot_zone_serial: "{{ hostvars[ansible_play_hosts_all.0].ansible_facts.date_time.epoch }}"
     knot_zone_ttl: 600

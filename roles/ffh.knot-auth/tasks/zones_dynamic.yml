@@ -5,6 +5,8 @@
   ansible.builtin.template:
     src: zone.dynamic.j2
     dest: "{{ knot_storage_path }}/{{ item.domain }}.zone"
+    owner: "knot"
+    group: "knot"
     force: false
   vars:
     knot_zone_ttl: 180

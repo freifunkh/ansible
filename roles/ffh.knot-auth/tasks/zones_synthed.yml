@@ -6,8 +6,8 @@
     src: "zone.synthed.j2" 
     dest: "{{ knot_storage_path }}/{{ supernode.key }}.{{ knot_synthrecord_suffix }}.zone"
     mode: "0644"
-    owner: "root"
-    group: "root"
+    owner: "knot"
+    group: "knot"
   vars:
     origin: "{{ supernode.key }}.{{ knot_synthrecord_suffix }}."
 
@@ -17,7 +17,7 @@
     src: "zone.synthed.j2" 
     dest: "{{ knot_storage_path }}/{{ ((supernode.value.dns_client_prefix + '00::') | ansible.utils.ipaddr('revdns'))[-37:] }}zone"
     mode: "0644"
-    owner: "root"
-    group: "root"
+    owner: "knot"
+    group: "knot"
   vars:
     origin: "{{ ((supernode.value.dns_client_prefix + '00::') | ansible.utils.ipaddr('revdns'))[-37:] }}"

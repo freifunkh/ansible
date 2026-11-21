@@ -7,8 +7,8 @@
 
 - name: Add Knot repo key
   ansible.builtin.get_url:
-    url: "https://deb.knot-dns.cz/apt.gpg"
-    dest: "/etc/apt/keyrings/knot.gpg"
+    url: "https://pkg.labs.nic.cz/gpg"
+    dest: "/etc/apt/keyrings/cznic-labs-pkg.gpg"
     mode: "0644"
     owner: "root"
     group: "root"
@@ -16,12 +16,13 @@
 
 - name: Add Knot repository
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/knot.gpg] https://deb.knot-dns.cz/knot/ {{ ansible_facts['lsb']['codename'] }} main"
+    repo: "deb [signed-by=/etc/apt/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.nic.cz/knot-dns {{ ansible_facts['lsb']['codename'] }} main"
     state: "present"
+    filename: "knot-dns"
 
 - name: Install Knot
   ansible.builtin.apt:
-    name: knot
+    name: "knot"
     update_cache: "yes"
   notify: "Restart knot"
 
@@ -30,5 +31,5 @@
 
 - name: Enable Knot service
   ansible.builtin.systemd_service:
-    name: knot
+    name: "knot"
     enabled: true
