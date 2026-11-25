@@ -44,7 +44,7 @@
 
 - hosts: thetisd
   roles:
-    - { name: ansible-role-netbox-docker, tags: netbox }
+    - { name: ffh.netbox, tags: netbox }
 
 - hosts: excelsior
   roles:
