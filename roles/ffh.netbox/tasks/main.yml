@@ -1,0 +1,42 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ffh.netbox
+
+- name: Install netbox-docker from Github
+  ansible.builtin.git:
+    repo: "https://github.com/netbox-community/netbox-docker.git"
+    dest: "{{ netbox_path_home }}"
+    version: "{{ netbox_docker_version }}"
+    depth: 1
+    single_branch: true
+
+- name: Create path for netbox
+  ansible.builtin.file:
+    state: "directory"
+    path: "{{ item.name }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { name: "{{ netbox_path_home }}",     owner: "root", group: "root", mode: "0755" }
+    - { name: "{{ netbox_path_media }}",    owner: "root", group: "root", mode: "0755" }
+    - { name: "{{ netbox_path_reports }}",  owner: "999",  group: "root", mode: "0775" }
+    - { name: "{{ netbox_path_scripts }}",  owner: "999",  group: "root", mode: "0775" }
+    - { name: "{{ netbox_path_postgres }}", owner: "70",   group: "root", mode: "0700" }
+    - { name: "{{ netbox_path_valkey }}",   owner: "root", group: "root", mode: "0755" }
+    # ownerships taken from docker image
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: "docker-compose.override.yml.j2"
+    dest: "{{ netbox_path_home }}/docker-compose.override.yml"
+    mode: "0640"
+    owner: "root"
+    group: "root"
+
+- name: Deploy netbox
+  community.docker.docker_compose_v2:
+    project_src: "{{ netbox_path_home }}"
+    files:
+    - "docker-compose.yml"
+    - "docker-compose.override.yml"

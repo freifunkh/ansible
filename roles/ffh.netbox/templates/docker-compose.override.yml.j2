@@ -1,0 +1,69 @@
+services:
+  netbox:
+    ports: !reset []
+    expose:
+      - "8080"
+    networks:
+      - default
+      - {{ netbox_network }}
+    environment:
+      {{ netbox_netbox_env | to_nice_yaml(default_style="'", sort_keys=false) | indent(6) }}
+    {% if netbox_labels %}labels:
+      {{ netbox_labels | to_nice_yaml | indent(6) }}{% endif %}
+  netbox-worker:
+    networks:
+      - default
+    environment:
+      {{ netbox_worker_env | to_nice_yaml(default_style="'", sort_keys=false) | indent(6) }}
+  postgres:
+    networks:
+      - default
+    environment:
+      {{ netbox_postgres_env | to_nice_yaml(default_style="'", sort_keys=false) | indent(6) }}
+  redis:
+    networks:
+      - default
+    environment:
+      {{ netbox_redis_env | to_nice_yaml(default_style="'", sort_keys=false) | indent(6) }}
+  redis-cache:
+    networks:
+      - default
+    environment:
+      {{ netbox_redis_cache_env | to_nice_yaml(default_style="'", sort_keys=false) | indent(6) }}
+
+networks:
+  {{ netbox_network }}:
+    name: "{{ netbox_network }}"
+    external: true
+
+volumes:
+  netbox-media-files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "{{ netbox_path_media }}"
+  netbox-postgres:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "{{ netbox_path_postgres }}"
+  netbox-redis-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "{{ netbox_path_valkey }}"
+  netbox-reports-files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "{{ netbox_path_reports }}"
+  netbox-scripts-files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "{{ netbox_path_scripts }}"
