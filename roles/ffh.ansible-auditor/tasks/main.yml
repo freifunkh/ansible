@@ -1,0 +1,83 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: Install git and stuff
+  ansible.builtin.apt:
+    pkg:
+    - git
+    - nfs-common
+    - pip
+    - sudo
+    - rsync
+
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ auditor_user }}"
+    system: true
+    generate_ssh_key: true
+
+- name: Create venv
+  become: true
+  become_user: "{{ auditor_user }}"
+  ansible.builtin.pip:
+    name:
+      - "ansible"
+      - "python-dateutil"
+      - "pytz"
+      - "dnspython"
+    virtualenv: "~{{ auditor_user }}/ansible-venv"
+    virtualenv_command: "/usr/bin/python3 -m venv"
+  changed_when: false
+
+#- name: Configure git
+#  become_user: "{{ auditor_user }}"
+#  ansible.builtin.shell: "git config --global pull.ff only"
+
+- name: Clone the ansible git
+  become: true
+  become_user: "{{ auditor_user }}"
+  ansible.builtin.git:
+    repo: "{{ auditor_url }}"
+    dest: "~{{ auditor_user }}/ansible"
+    accept_hostkey: true
+
+- name: Configure daily-ansible.env
+  ansible.builtin.template:
+    src: "daily-ansible.env.j2"
+    dest: "/etc/daily-ansible.env"
+    mode: "0600"
+    owner: "{{ auditor_user }}"
+    group: "root"
+
+#- name: Set PATH in crontab
+#  ansible.builtin.cron:
+#    name: PATH
+#    env: true
+#    user: "{{ auditor_user }}"
+#    job: "/usr/local/bin:/usr/bin:/bin:/home/{{ auditor_user }}/.local/bin"
+
+- name: Install daily cronjob, dryruns
+  ansible.builtin.cron:
+    name: "Daily ansible dry-run"
+    user: "{{ auditor_user }}"
+    job: "source ~{{ auditor_user }}/ansible-venv/bin/activate; cd ~{{ auditor_user }}/ansible; tests/cron.sh"
+    hour: "5"
+    minute: "30"
+
+- name: Install daily cronjob, remove old tmp file
+  ansible.builtin.cron:
+    name: "Remove old tmp files"
+    user: "{{ auditor_user }}"
+    job: "find /tmp/auto/dailyrun -type f -mtime +7 -delete >/dev/null"
+    hour: "10"
+    minute: "45"
+
+- name: Add auto to sudoers
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/90-auto"
+    mode: 0440
+    owner: "root"
+    group: "root"
+    content: |
+      auto ALL=(root) NOPASSWD:ALL
+      Defaults:auto	!requiretty, !logfile, !syslog

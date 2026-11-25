@@ -1,0 +1,14 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for ffh.ansible-auditor
+
+auditor_user: 'auto'
+auditor_url: 'https://code.ffh.zone/freifunkh/ansible.git'
+daily_smtp_host: 'localhost'
+daily_smtp_port: 587
+daily_smtp_user: ''
+daily_smtp_pass: ''
+daily_smtp_startssl: 1
+daily_smtp_from: 'daily@example.com'
+daily_smtp_replyto: 'daily@example.com'
+daily_smtp_to: 'monitoring@example.com'
