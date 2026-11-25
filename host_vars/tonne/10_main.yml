@@ -35,6 +35,9 @@ zabbix_agent_psk_value: !vault |
           63313533666561666331633031376333323365666636306138396330386437643239386533646334
           35393463373638333833
 
+auditor_url: "https://code.ffh.zone/freifunkh/ansible.git"
+auditor_user: "auto"
+
 daily_smtp_host: "mx1.ffh.zone"
 daily_smtp_port: 587
 daily_smtp_user: "tonne@ffh.zone"
