@@ -3,3 +3,4 @@ secrets
 galaxy/*
 .vaultpassphrase
 tests/tmp
+*/__pycache__/
