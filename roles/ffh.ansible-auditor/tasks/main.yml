@@ -25,6 +25,7 @@
       - "python-dateutil"
       - "pytz"
       - "dnspython"
+      - "netaddr"
     virtualenv: "~{{ auditor_user }}/ansible-venv"
     virtualenv_command: "/usr/bin/python3 -m venv"
   changed_when: false
@@ -60,7 +61,7 @@
   ansible.builtin.cron:
     name: "Daily ansible dry-run"
     user: "{{ auditor_user }}"
-    job: "source ~{{ auditor_user }}/ansible-venv/bin/activate; cd ~{{ auditor_user }}/ansible; tests/cron.sh"
+    job: "/bin/bash -c 'source ~{{ auditor_user }}/ansible-venv/bin/activate; cd ~{{ auditor_user }}/ansible; tests/cron.sh'"
     hour: "5"
     minute: "30"
 
