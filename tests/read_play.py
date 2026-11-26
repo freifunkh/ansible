@@ -34,13 +34,20 @@ def parse_result(res, highlighting=None):
         return result
 
     diffs = []
-    if isinstance(res['diff'],list):
+    if isinstance(res['diff'], list):
         for diff in res['diff']:
             before = diff.get('before', '')
             after = diff.get('after', '')
 
-            after = after.splitlines(keepends=True)
-            before = before.splitlines(keepends=True)
+            if isinstance(after, str):
+                after = after.splitlines(keepends=True)
+            else:
+                after = json.dumps(after)
+
+            if isinstance(before, str):
+                before = before.splitlines(keepends=True)
+            else:
+                before = json.dumps(before)
 
             if 'before_header' in diff:
                 fromfile = diff['before_header']
