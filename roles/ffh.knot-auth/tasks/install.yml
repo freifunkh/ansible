@@ -1,9 +1,8 @@
 ---
 
-- name: Install dpeendencies
+- name: Install dependencies
   ansible.builtin.apt:
-    pkg:
-    - "gpg"
+    name: "gpg"
 
 - name: Add Knot repo key
   ansible.builtin.get_url:
@@ -15,16 +14,20 @@
   when: "not ansible_check_mode"
 
 - name: Add Knot repository
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/cznic-labs-pkg.gpg] https://pkg.labs.nic.cz/knot-dns {{ ansible_facts['lsb']['codename'] }} main"
+  ansible.builtin.deb822_repository:
+    name: "knot-dns"
+    types: "deb"
+    uris: "https://pkg.labs.nic.cz/knot-dns"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "main"
+    signed_by: "/etc/apt/keyrings/cznic-labs-pkg.gpg"
     state: "present"
-    filename: "knot-dns"
 
 - name: Install Knot
+  notify: "Restart knot"
   ansible.builtin.apt:
     name: "knot"
-    update_cache: "yes"
-  notify: "Restart knot"
+    update_cache: true
 
 - name: Handle firewalling
   include_tasks: "firewall.yml"
