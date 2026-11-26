@@ -1,69 +1,73 @@
 ---
 
 - name: Install https for apt
-  apt:
-    name: apt-transport-https
-    update_cache: yes
+  ansible.builtin.apt:
+    name: "apt-transport-https"
+    update_cache: true
 
 - name: Add grafana repository key
   ansible.builtin.get_url:
     url: "https://apt.grafana.com/gpg.key"
     dest: "/usr/share/keyrings/grafana.key"
-    mode: 0644
-    owner: root
-    group: root
+    mode: "0644"
+    owner: "root"
+    group: "root"
 
 - name: Add grafana repositories
-  register: grafanarepo
-  apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com stable main"
+  register: "grafanarepo"
+  ansible.builtin.deb822_repository:
+    name: "grafana"
+    types: "deb"
+    uris: "https://apt.grafana.com"
+    suites: "stable"
+    components: "main"
+    signed_by: "/usr/share/keyrings/grafana.key"
 
 - name: Update apt chache to get grafana packages
-  apt: update_cache=yes
-  when: grafanarepo is changed
+  when: "grafanarepo is changed"
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Install grafana
-  apt:
-    name: grafana
+  ansible.builtin.apt:
+    name: "grafana"
 
 - name: Generate grafana config (DIFF REDACTED)
-  notify: Restart grafana
-  template:
-    src: grafana.ini.j2
-    dest: /etc/grafana/grafana.ini
+  notify: "Restart grafana"
+  ansible.builtin.template:
+    src: "grafana.ini.j2"
+    dest: "/etc/grafana/grafana.ini"
   diff: "{{ show_secret_diffs }}"
 
 - name: Install/update grafana plugins
-  notify: Restart grafana
+  notify: "Restart grafana"
   community.grafana.grafana_plugin:
     name: "{{ item }}"
     version: "latest"
     state: "present"
     grafana_plugins_dir: "{{ grafana_datadir }}/plugins"
   loop:
-    - "alexanderzobnin-zabbix-app"
     - "blackmirror1-singlestat-math-panel"
     - "grafana-piechart-panel"
     - "jdbranham-diagram-panel"
-    - "marcusolsson-dynamictext-panel"
-    - "marcusolsson-json-datasource"
     - "michaeldmoore-scatter-panel"
     - "natel-plotly-panel"
-    - "vonage-status-panel"
-
-    # not sure, if they are all needed. its the current status quo.
+    # - "alexanderzobnin-zabbix-app"
+    # - "marcusolsson-dynamictext-panel"
+    # - "marcusolsson-json-datasource"
+    # - "vonage-status-panel"
     # - "grafana-image-renderer"
 
 - name: Permissions on data directory
-  file:
-    state: directory
+  ansible.builtin.file:
+    state: "directory"
     path: "{{ grafana_datadir }}"
     owner: "grafana"
     group: "grafana"
-    recurse: yes
+    recurse: true
 
 - name: Enable grafana
-  service:
-    name: grafana-server
-    enabled: yes
-    state: started
+  ansible.builtin.systemd_service:
+    name: "grafana-server"
+    enabled: true
+    state: "started"
