@@ -38,8 +38,8 @@ all:
       ansible_host: db.ffh.zone
     tonne:
       ansible_host: tonne.ffh.zone
-    storage-03:
-      ansible_host: storage-03.ffh.zone
+    storage3:
+      ansible_host: storage3.ffh.zone
     evergiven:
       ansible_host: evergiven.ffh.zone
     dali:
@@ -99,7 +99,7 @@ helpernodes:
     vds:
     db:
     tonne:
-    storage-03:
+    storage3:
     evergiven:
     dali:
     thetisd:
@@ -146,7 +146,7 @@ dockernodes:
 
 storage:
   hosts:
-    storage-03:
+    storage3:
 
 batmannodes:
   hosts:

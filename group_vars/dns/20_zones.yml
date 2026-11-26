@@ -61,7 +61,7 @@ dns_authoritative_toplevel:
       "132.203.12.45.in-addr.arpa. IN PTR mx1.ffh.zone.",
       "133.203.12.45.in-addr.arpa. IN PTR heisenberg.ffh.zone.",
       "134.203.12.45.in-addr.arpa. IN PTR dns3.ffh.zone.",
-      "135.203.12.45.in-addr.arpa. IN PTR storage-03.ffh.zone."
+      "135.203.12.45.in-addr.arpa. IN PTR storage3.ffh.zone."
      ]
    - domain: "hannover.freifunk.net"
      records: [
@@ -240,8 +240,8 @@ dns_authoritative_toplevel:
        "heisenberg.ffh.zone. IN A 45.12.203.133",
        "fnorden.net.clouds.build.ffh.zone. IN A 89.58.42.121",
 
-       "storage-03.ffh.zone. IN A 45.12.203.135",
-       "storage-03.ffh.zone. IN AAAA 2a0a:4587:2032:10c::135",
+       "storage3.ffh.zone. IN A 45.12.203.135",
+       "storage3.ffh.zone. IN AAAA 2a0a:4587:2032:10c::135",
   
        "ham-client.ffh.zone. IN AAAA 2a0a:4587:2032:614:be24:11ff:fea5:f6c9",
 

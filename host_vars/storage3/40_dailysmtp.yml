@@ -2,7 +2,7 @@
 
 daily_smtp_host: "mx1.ffh.zone"
 daily_smtp_port: 587
-daily_smtp_user: "storage-03@ffh.zone"
+daily_smtp_user: "storage3@ffh.zone"
 daily_smtp_pass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           39303164316235316438643236303263303633393935356661323838366438653365303835353964
@@ -14,6 +14,6 @@ daily_smtp_pass: !vault |
           63376233343864343433653736633931666535386466393334633435313336346266623330653435
           32373430326366313039
 daily_smtp_startssl: 1
-daily_smtp_from: "auto@storage-03.ffh.zone"
+daily_smtp_from: "auto@storage3.ffh.zone"
 daily_smtp_replyto: "monitoring@hannover.freifunk.net"
 daily_smtp_to: "monitoring@hannover.freifunk.net"

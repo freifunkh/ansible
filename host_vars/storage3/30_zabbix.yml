@@ -2,7 +2,7 @@
 
 zabbix_agent_server: "zbx-ham.ffh.zone"
 zabbix_agent_server_active: "zbx-ham.ffh.zone"
-zabbix_agent_psk_id: "storage-03.ffh.zone"
+zabbix_agent_psk_id: "storage3.ffh.zone"
 zabbix_agent_psk_value: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           61376235343432623939396535633161636231616161343663373461303362346237646566623339

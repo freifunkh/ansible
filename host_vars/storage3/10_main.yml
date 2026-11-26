@@ -1,7 +1,7 @@
 ---
 
-servername: storage-03
-fqdn: "storage-03.ffh.zone"
+servername: storage3
+fqdn: "storage3.ffh.zone"
 
 networkd_configures:
 - iface: ens18
