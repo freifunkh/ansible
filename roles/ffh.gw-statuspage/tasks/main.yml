@@ -1,55 +1,46 @@
 ---
 
 - name: Install prerequisites
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     pkg:
-    - python3
-    - git
-    - gpg
+    - "python3"
+    - "git"
+    - "gpg"
 
 - name: Create auto user
-  register: createuser
-  user:
-    name: auto
-    system: yes
-    generate_ssh_key: yes
+  register: "createuser"
+  ansible.builtin.user:
+    name: "auto"
+    system: true
+    generate_ssh_key: true
 
 - name: Create site directory
-  file:
-    state: directory
-    dest: /var/cache/gw-statuspage/site
-    owner: auto
-    recurse: yes
+  ansible.builtin.file:
+    state: "directory"
+    dest: "/var/cache/gw-statuspage/site"
+    owner: "auto"
+    recurse: true
 
 - name: Clone site
-  become: yes
-  become_user: auto
-  git: >
-    repo=https://github.com/freifunkh/site.git
-    dest=/var/cache/gw-statuspage/site
-    accept_hostkey=true
-  register: site
+  become: true
+  become_user: "auto"
+  ansible.builtin.git:
+    repo: "https://github.com/freifunkh/site.git"
+    dest: "/var/cache/gw-statuspage/site"
+    accept_hostkey: true
+  register: "site"
 
 - name: Add cron job for git pull of site
-  cron:
+  ansible.builtin.cron:
     name: "gw-statuspage site git pull"
     user: "auto"
     minute: "4,44"
     hour: "*"
     job: "cd /var/cache/gw-statuspage/site; git pull >/dev/null 2>&1"
 
-- name: Prepare key directory for older Debian versions
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
 - name: Add aiyions gpg-key to verify packages
-  get_url:
+  ansible.builtin.get_url:
     url: "https://aiyionpri.me/repo/aiyionprime.gpg"
     dest: "/etc/apt/keyrings/aiyionprime.gpg"
     mode: "0644"
@@ -57,50 +48,49 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: Add aiyions package-repo into sources list
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/aiyionprime.gpg] https://aiyionpri.me/repo/ ./"
+- name: Configure AiyionPrime APT repository
+  ansible.builtin.deb822_repository:
+    name: "aiyionprime"
+    types: "deb"
+    uris: "https://aiyionpri.me/repo/"
+    suites: "./"
+    signed_by: "/etc/apt/keyrings/aiyionprime.gpg"
     state: "present"
-    filename: "aiyionprime"
-    update_cache: yes
 
 - name: Install or update gw-statuspage
-  apt:
-    name: gw-statuspage
-    state: latest
+  ansible.builtin.apt:
+    name: "gw-statuspage"
+    state: "latest"
+    update_cache: true
 
 - name: Enable systemd service
-  systemd:
-    name: gw-statuspage
-    enabled: yes
-
-- name: Start systemd service
-  systemd:
-    name: gw-statuspage
-    state: started
+  ansible.builtin.systemd_service:
+    name: "gw-statuspage"
+    state: "started"
+    enabled: true
 
 - name: Deploy gw-statuspage-restart.service
   ansible.builtin.template:
-    src: gw-statuspage-restart.service.j2
-    dest: /etc/systemd/system/gw-statuspage-restart.service
-    owner: root
-    group: root
-    mode: 0644
+    src: "gw-statuspage-restart.service.j2"
+    dest: "/etc/systemd/system/gw-statuspage-restart.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 
 - name: Deploy gw-statuspage-restart.timer
   ansible.builtin.template:
-    src: gw-statuspage-restart.timer.j2
-    dest: /etc/systemd/system/gw-statuspage-restart.timer
-    owner: root
-    group: root
-    mode: 0644
+    src: "gw-statuspage-restart.timer.j2"
+    dest: "/etc/systemd/system/gw-statuspage-restart.timer"
+    owner: "root"
+    group: "root"
+    mode: "0644"
 
 - name: Enable gw-statuspage-restart timer
   ansible.builtin.systemd_service:
-    daemon_reload: true
-    name: gw-statuspage-restart.timer
+    name: "gw-statuspage-restart.timer"
     enabled: true
-    state: started
+    daemon_reload: true
+    state: "started"
 
 - name: Handle firewalling
   include_tasks: "firewall.yml"
