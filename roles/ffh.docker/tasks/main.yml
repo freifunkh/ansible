@@ -9,15 +9,6 @@
     - "curl"
     - "gnupg"
 
-- name: Prepare key directory for older Debian versions
-  ansible.builtin.file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
 - name: Add Docker repo key
   ansible.builtin.get_url:
     url: "https://download.docker.com/linux/debian/gpg"
@@ -27,18 +18,29 @@
     group: "root"
   when: "not ansible_check_mode"
 
+- name: remove
+  file:
+    path: "/etc/apt/sources.list.d/docker.list"
+    state: absent
+
 - name: Add Docker repo
-  register: dockerrepositoryadded
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.key] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
-    filename: "docker"
+  register: "dockerrepositoryadded"
+  ansible.builtin.deb822_repository:
+    name: "docker"
+    types: "deb"
+    uris: "https://download.docker.com/linux/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "stable"
+    signed_by: "/etc/apt/keyrings/docker.key"
+    state: "present"
 
 - name: Update apt chache to get Docker packages
-  ansible.builtin.apt: update_cache=yes
-  when: dockerrepositoryadded is changed
+  ansible.builtin.apt:
+    update_cache: true
+  when: "dockerrepositoryadded is changed"
 
 - name: Install Docker from repo
-  register: dockerinstall
+  register: "dockerinstall"
   ansible.builtin.apt:
     pkg:
     - "docker-ce"
@@ -49,8 +51,8 @@
   ansible.builtin.template:
     src: "daemon.json.j2"
     dest: "/etc/docker/daemon.json"
-  notify: Restart Docker
+  notify: "Restart Docker"
 
 - name: nftables stuff
   include_tasks: "nftables.yml"
-  when: nftables_enabled is defined and nftables_enabled
+  when: "nftables_enabled is defined and nftables_enabled"
