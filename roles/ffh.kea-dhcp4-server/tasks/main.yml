@@ -1,20 +1,11 @@
 ---
 
 - name: Add gpg dependency for key handling
-  apt:
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
-- name: "Add ISC Kea repository key"
-  get_url:
+- name: Add ISC Kea repository key
+  ansible.builtin.get_url:
     url: "https://dl.cloudsmith.io/public/isc/kea-2-2/gpg.A8CB727C62565FF8.key"
     dest: "/etc/apt/keyrings/kea.key"
     mode: "0644"
@@ -22,79 +13,82 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: "Add ISC Kea repository"
+- name: Configure ISC Kea APT repository
   register: "iscrepositoryadded"
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kea.key] https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian {{ ansible_facts['distribution_release'] }} main"
-    filename: "kea"
-    update_cache: "yes"
+  ansible.builtin.deb822_repository:
+    name: "kea"
+    types: "deb"
+    uris: "https://dl.cloudsmith.io/public/isc/kea-2-2/deb/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "main"
+    signed_by: "/etc/apt/keyrings/kea.key"
     state: "present"
 
 - name: "Update apt chache to get isc packages"
-  apt:
+  ansible.builtin.apt:
     update_cache: "yes"
   when: "iscrepositoryadded is changed"
 
-- name: "Install isc-kea-dhcp4-server"
+- name: Install isc-kea-dhcp4-server
   register: "keainstall"
-  apt:
+  ansible.builtin.apt:
     name: "isc-kea-dhcp4-server"
   when: not ansible_check_mode
 
-- name: "Remove SYSV init script"
-  file:
+- name: Remove SYSV init script
+  ansible.builtin.file:
     path: "/etc/init.d/isc-kea-dhcp4-server"
     state: "absent"
 
-- name: "Add a ramdisk entry in fstab"
+- name: Add a ramdisk entry in fstab
   notify: "Restart isc-kea-dhcp4-server"
-  mount: 
+  ansible.posix.mount: 
     name: "/var/lib/kea"
     src: "tmpfs" 
     fstype: "tmpfs" 
     opts: "defaults,size=10M" 
     state: "mounted"
 
-- name: "Generate kea-dhcp4.conf config"
+- name: Generate kea-dhcp4.conf config
   notify: "Restart isc-kea-dhcp4-server"
-  template:
+  ansible.builtin.template:
     src: "kea-dhcp4.conf.j2"
     dest: "/etc/kea/kea-dhcp4.conf"
     mode: "0644"
     owner: "_kea"
     group: "_kea"
 
-- name: "Generate firewall config stanza (ferm)"
+- name: Generate firewall config stanza (ferm)
   notify: "reload ferm"
-  template:
+  ansible.builtin.template:
     src: "ferm.conf.j2"
     dest: "/etc/ferm/conf.d/50-dhcpd.conf"
     mode: "0644"
     owner: "root"
     group: "root"
 
-- name: "Create /etc/systemd/system/isc-kea-dhcp4-server.service.d directory if it does not exist"
-  file:
+- name: Create /etc/systemd/system/isc-kea-dhcp4-server.service.d directory if it does not exist
+  ansible.builtin.file:
     state: "directory"
     path: "/etc/systemd/system/isc-kea-dhcp4-server.service.d"
     mode: "0755"
     owner: "root"
     group: "root"
 
-- name: "Deploy unit file sniplet to wait for bat devices"
-  template:
+- name: Deploy unit file sniplet to wait for bat devices
+  ansible.builtin.template:
     src: "50-bat-device.conf.j2"
     dest: "/etc/systemd/system/isc-kea-dhcp4-server.service.d/50-bat-devices.conf"
     mode: "0644"
     owner: "root"
     group: "root"
 
-- name: "Start isc-kea-dhcp4-server service"
-  systemd:
+- name: Start isc-kea-dhcp4-server service
+  ansible.builtin.systemd_service:
     name: "isc-kea-dhcp4-server"
     state: "started"
-    enabled: "yes"
-    daemon_reload: "yes"
+    enabled: true
+    daemon_reload: true
 
-- name: "Include Zabbix-agent stuff"
+- name: Include Zabbix-agent stuff
   include_tasks: "zabbix.yml"
