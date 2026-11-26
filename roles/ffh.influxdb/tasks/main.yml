@@ -15,9 +15,13 @@
 
 - name: Add influx repo
   register: "influxrepositoryadded"
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main"
-    filename: "influxdata"
+  ansible.builtin.deb822_repository:
+    name: "influxdata"
+    types: "deb"
+    uris: "https://repos.influxdata.com/debian"
+    suites: "stable"
+    components: "main"
+    signed_by: "/usr/share/keyrings/influxdata-archive.gpg"
 
 - name: Update apt chache to get influxdb packages
   ansible.builtin.apt:
