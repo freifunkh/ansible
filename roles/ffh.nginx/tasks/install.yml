@@ -1,43 +1,12 @@
 ---
 
-- name: Install https for apt
+- name: Install nginx and https for apt
   ansible.builtin.apt:
     pkg:
     - "apt-transport-https"
     - "curl"
-    update_cache: true
-
-- name: Install nginx from nginx repo
-  when: "nginx_repo is true"
-  block:
-  - name: Add nginx repository key
-    ansible.builtin.apt_key:
-      url: "https://nginx.org/keys/nginx_signing.key"
-  - name: Add nginx repository
-    register: "nginxrepositoryadded"
-    ansible.builtin.apt_repository:
-      repo: "deb https://nginx.org/packages/debian/ {{ansible_facts['distribution_release']}} nginx"
-  - name: Update apt cache to get nginx packages
-    ansible.builtin.apt:
-      update_cache: true
-    when: "nginxrepositoryadded is changed"
-  - name: Remove old nginx
-    ansible.builtin.apt:
-      state: "absent"
-      name: "{{ packages }}"
-    vars:
-      packages:
-      - "nginx=1.6.*"
-      - "nginx-common=1.6.*"
-  - name: Unmask service nginx
-    ansible.builtin.systemd_service:
-      name: "nginx"
-      masked: false
-
-- name: Install nginx
-  ansible.builtin.apt:
-    pkg:
     - "nginx"
+    update_cache: true
 
 - name: Install PHP-FPM when a site uses PHP
   ansible.builtin.apt:
