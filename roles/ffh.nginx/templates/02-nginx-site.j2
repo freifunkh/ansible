@@ -29,8 +29,8 @@ server {
 {% if item.tls is defined and item.tls == true %}
 server {
 {% set http_mode = 'https' %}
-    listen                      443 ssl;
-    listen                      [::]:443 ssl;
+    listen                      443 ssl http2;
+    listen                      [::]:443 ssl http2;
     server_name                 {{ item.servername_override | default(item.domain) }};
 
 {% include '03-nginx-site-ssl.j2' %}
