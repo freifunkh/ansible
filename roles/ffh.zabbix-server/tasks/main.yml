@@ -4,15 +4,6 @@
   ansible.builtin.apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
-  ansible.builtin.file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
 - name: Add Zabbix Repo Key
   ansible.builtin.get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
@@ -22,15 +13,19 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: Add Zabbix Repo
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
+- name: Configure Zabbix APT repository
+  ansible.builtin.deb822_repository:
+    name: "zabbix"
+    types: "deb"
+    uris: "https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('7.0') }}/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "main"
+    signed_by: "/etc/apt/keyrings/zabbix-official-repo.key"
     state: "present"
-    filename: "zabbix"
 
 - name: Install Zabbix Server
   ansible.builtin.apt:
-    update_cache: "yes"
+    update_cache: true
     name: "zabbix-server-mysql"
 
 - name: Deploy zabbix-server config
@@ -42,7 +37,7 @@
 - name: Enable Zabbix Server on bootup
   ansible.builtin.systemd_service:
     name: "zabbix-server"
-    enabled: "yes"
+    enabled: true
     state: "started"
 
 - name: Firewalling

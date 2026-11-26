@@ -13,11 +13,15 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: Add Zabbix Repo
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
+- name: Configure Zabbix APT repository
+  ansible.builtin.deb822_repository:
+    name: "zabbix"
+    types: "deb"
+    uris: "https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('7.0') }}/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "main"
+    signed_by: "/etc/apt/keyrings/zabbix-official-repo.key"
     state: "present"
-    filename: "zabbix"
 
 - name: Install zabbix-agent and its dependencies via apt
   ansible.builtin.apt:

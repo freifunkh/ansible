@@ -1,20 +1,11 @@
 ---
 
 - name: Add gpg dependency for key handling
-  apt:
+  ansible.builtin.apt:
     name: "gpg"
 
-- name: Prepare key directory for older Debian versions
-  file:
-    path: "/etc/apt/keyrings"
-    state: "directory"
-    mode: "0755"
-    owner: "root"
-    group: "root"
-  when: "ansible_facts['distribution_version']|int < 12"
-
 - name: Add Zabbix Repo Key
-  get_url:
+  ansible.builtin.get_url:
     url: "https://repo.zabbix.com/zabbix-official-repo.key"
     dest: "/etc/apt/keyrings/zabbix-official-repo.key"
     mode: "0644"
@@ -22,50 +13,51 @@
     group: "root"
   when: "not ansible_check_mode"
 
-- name: Add Zabbix Repo
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('5.0') }}/debian {{ ansible_facts['distribution_release'] }} main"
-    state: present
-    filename: zabbix
+- name: Configure Zabbix APT repository
+  ansible.builtin.deb822_repository:
+    name: "zabbix"
+    types: "deb"
+    uris: "https://repo.zabbix.com/zabbix/{{ zabbix_server_version | default('7.0') }}/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: "main"
+    signed_by: "/etc/apt/keyrings/zabbix-official-repo.key"
+    state: "present"
 
 - name: Install Zabbix Webfrontend (via apt)
-  apt:
-    update_cache: yes
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - zabbix-frontend-php
+  ansible.builtin.apt:
+    update_cache: true
+    name: "zabbix-frontend-php"
 
 - name: Determine current php version
-  shell: "find /etc/php/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort -nr | head -1"
-  register: php_location
+  ansible.builtin.shell: "find /etc/php/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort -nr | head -1"
+  register: "php_location"
   check_mode: false
-  changed_when: False
+  changed_when: false
 
-- name: "PHP Timezone setting"
-  notify: Reload nginx
-  lineinfile:
+- name: PHP Timezone setting
+  notify: "Reload nginx"
+  ansible.builtin.lineinfile:
     dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
     regexp: "date.timezone ="
     line: "date.timezone = Europe/Berlin"
 
-- name: "PHP post_max_size setting"
-  notify: Reload nginx
-  lineinfile:
+- name: PHP post_max_size setting
+  notify: "Reload nginx"
+  ansible.builtin.lineinfile:
     dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
     regexp: "post_max_size ="
     line: "post_max_size = 16M"
 
-- name: "PHP max_execution_time setting"
-  notify: Reload nginx
-  lineinfile:
+- name: PHP max_execution_time setting
+  notify: "Reload nginx"
+  ansible.builtin.lineinfile:
     dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
     regexp: "max_execution_time ="
     line: "max_execution_time = 300"
 
-- name: "PHP max_input_time setting"
-  notify: Reload nginx
-  lineinfile:
+- name: PHP max_input_time setting
+  notify: "Reload nginx"
+  ansible.builtin.lineinfile:
     dest: "/etc/php/{{ php_location.stdout | default('undef') }}/fpm/php.ini"
     regexp: "max_input_time ="
     line: "max_input_time = 300"
