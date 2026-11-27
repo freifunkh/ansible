@@ -25,7 +25,7 @@
     create: true
     owner: "root"
     group: "root"
-    mode: "0644"
+    mode: "0600"
 
 - name: Check if signed host certificate exists
   ansible.builtin.stat:
